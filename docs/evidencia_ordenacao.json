@@ -1,0 +1,67 @@
+{
+  "metodo": "hibrido",
+  "consulta": "quero ensinar ordenação",
+  "ranking": [
+    {
+      "codigo": "EF08CO03",
+      "score_semantico": 0.38976630568504333,
+      "bonus": 0.35,
+      "score_final": 0.7397663056850433
+    },
+    {
+      "codigo": "EF08CO11",
+      "score_semantico": 0.27655360102653503,
+      "bonus": 0.3,
+      "score_final": 0.5765536010265351
+    },
+    {
+      "codigo": "EF08CO01",
+      "score_semantico": 0.42063164710998535,
+      "bonus": 0,
+      "score_final": 0.42063164710998535
+    },
+    {
+      "codigo": "EF08CO04",
+      "score_semantico": 0.4199826121330261,
+      "bonus": 0,
+      "score_final": 0.4199826121330261
+    },
+    {
+      "codigo": "EF08CO02",
+      "score_semantico": 0.3881211280822754,
+      "bonus": 0,
+      "score_final": 0.3881211280822754
+    }
+  ],
+  "entrada_geracao": {
+    "versao": "1.0",
+    "consulta_id": "5c3a525249f14ae892c8ffb15177f22d",
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "quero ensinar ordenação",
+      "duracao_min": 50,
+      "recursos": "papel e cartões",
+      "tipo": "Computação desplugada"
+    },
+    "habilidade": {
+      "codigo": "EF08CO03",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+      "exemplos": [
+        "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+        "Algoritmos de inserção.",
+        "Algoritmos de remoção.",
+        "Algoritmos de busca linear.",
+        "Algoritmos de busca binária."
+      ],
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53
+      }
+    }
+  }
+}

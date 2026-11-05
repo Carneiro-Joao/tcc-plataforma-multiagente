@@ -1,0 +1,153 @@
+{
+  "documento": "BNCC Computação",
+  "etapa": "Ensino Fundamental",
+  "ano": "8º ano",
+  "observacao": "Base estruturada a partir das páginas 52 a 55 do PDF BNCCComputaoCompletodiagramado.pdf. Os campos preservam a organização do documento: eixo, objeto de conhecimento, habilidade, explicação e exemplos.",
+  "habilidades": [
+    {
+      "codigo": "EF08CO01",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Programação com listas e recursão",
+      "habilidade": "Construir soluções de problemas usando a técnica de recursão e automatizar tais soluções usando uma linguagem de programação.",
+      "explicacao": "O conceito de recursão permite exercitar o pensamento indutivo na resolução de problemas, devendo ser entendido como uma forma de resolver problemas e não apenas como uma questão sintática. A abordagem recursiva pode elevar o nível de abstração e facilitar a compreensão de determinados algoritmos.",
+      "exemplos": [
+        "Solução recursiva para definir o tamanho de uma lista.",
+        "Solução recursiva para encontrar o número de ascendentes de olhos azuis em uma árvore genealógica."
+      ],
+      "pagina_habilidade": 52,
+      "pagina_pdf": 53
+    },
+    {
+      "codigo": "EF08CO02",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Programação com listas e recursão",
+      "habilidade": "Criar soluções de problemas para os quais seja adequado o uso de listas para descrever suas informações e automatizá-las usando uma linguagem de programação, empregando ou não a recursão como uma técnica de resolver o problema.",
+      "explicacao": "Fazer projetos e construir soluções usando listas e recursão. É importante realizar análise crítica de programas recursivos, identificando a existência de um caso base e de chamadas recursivas que façam o programa convergir para o fim.",
+      "exemplos": [
+        "Fazer um programa que junte duas pilhas de cartas ordenadas de forma que o baralho todo continue ordenado."
+      ],
+      "pagina_habilidade": 52,
+      "pagina_pdf": 53
+    },
+    {
+      "codigo": "EF08CO03",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+      "exemplos": [
+        "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+        "Algoritmos de inserção.",
+        "Algoritmos de remoção.",
+        "Algoritmos de busca linear.",
+        "Algoritmos de busca binária."
+      ],
+      "pagina_habilidade": 52,
+      "pagina_pdf": 53
+    },
+    {
+      "codigo": "EF08CO04",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Projetos com programação",
+      "habilidade": "Construir soluções computacionais de problemas de diferentes áreas do conhecimento, de forma individual e colaborativa, selecionando as estruturas de dados e técnicas adequadas, aperfeiçoando e articulando saberes escolares.",
+      "explicacao": "Uma estrutura de dados é uma coleção de valores, seus relacionamentos e operações. A habilidade envolve analisar a proposição e os requisitos de um programa e identificar a estrutura de dados adequada.",
+      "exemplos": [
+        "Um programa que manipula imagens pode trabalhar pixels a partir de vetor ou matriz.",
+        "Um jogo no Scratch pode armazenar a pontuação dos usuários em uma lista e salvar esses dados na nuvem."
+      ],
+      "pagina_habilidade": 52,
+      "pagina_pdf": 53
+    },
+    {
+      "codigo": "EF08CO05",
+      "eixo": "Mundo Digital",
+      "objeto_conhecimento": "Fundamentos de sistemas distribuídos",
+      "habilidade": "Compreender os conceitos de paralelismo, concorrência e armazenamento/processamento distribuídos.",
+      "explicacao": "O paralelismo permite utilizar diferentes recursos para executar partes de uma tarefa simultaneamente. Para construir uma solução com paralelismo, deve-se identificar quais partes são independentes e podem ser executadas ao mesmo tempo.",
+      "exemplos": [
+        "A partir da especificação de um sistema web, analisar funcionalidades que dependem de concorrência ou armazenamento distribuído.",
+        "Relacionar a Internet e serviços de Computação em Nuvem a sistemas distribuídos."
+      ],
+      "pagina_habilidade": 52,
+      "pagina_pdf": 53
+    },
+    {
+      "codigo": "EF08CO06",
+      "eixo": "Mundo Digital",
+      "objeto_conhecimento": "Internet",
+      "habilidade": "Entender como é a estrutura e funcionamento da internet.",
+      "explicacao": "A internet é uma rede composta por muitas redes que compartilham o protocolo Internet. Essas redes são agrupadas em sistemas autônomos, conjuntos de redes que possuem uma política de operação comum.",
+      "exemplos": [
+        "Usar a lógica de um modelo em camadas.",
+        "Mostrar como uma língua comum pode ser usada para traduzir comunicações entre duas línguas que não possuem tradutores diretos."
+      ],
+      "pagina_habilidade": 52,
+      "pagina_pdf": 53
+    },
+    {
+      "codigo": "EF08CO07",
+      "eixo": "Cultura Digital",
+      "objeto_conhecimento": "Redes sociais e segurança da informação",
+      "habilidade": "Compartilhar informações por meio de redes sociais, compreendendo a sua dinâmica de funcionamento, de forma responsável e avaliando sua confiabilidade, considerando o respeito e a ética.",
+      "explicacao": "A habilidade envolve vivenciar o funcionamento das redes sociais, identificando regras, cadastro e outros aspectos operacionais, além de refletir sobre uso responsável, ética e respeito nas interações em meio digital.",
+      "exemplos": [
+        "Utilizar redes sociais para compartilhar informações, como um evento ou acontecimento, com outros colegas."
+      ],
+      "pagina_habilidade": 54,
+      "pagina_pdf": 55
+    },
+    {
+      "codigo": "EF08CO08",
+      "eixo": "Cultura Digital",
+      "objeto_conhecimento": "Redes sociais e segurança da informação",
+      "habilidade": "Distinguir os tipos de dados pessoais que são solicitados em espaços digitais e os riscos associados.",
+      "explicacao": "Identificar tipos de dados pessoais, como nome, endereço e documento de identidade, solicitados em jogos online, redes sociais e outros espaços digitais, refletindo sobre os riscos de compartilhar esses dados.",
+      "exemplos": [
+        "Criar uma lista de sites e identificar os tipos de dados pessoais solicitados.",
+        "Avaliar riscos envolvidos em sites de compras, jogos online e redes sociais."
+      ],
+      "pagina_habilidade": 54,
+      "pagina_pdf": 55
+    },
+    {
+      "codigo": "EF08CO09",
+      "eixo": "Cultura Digital",
+      "objeto_conhecimento": "Redes sociais e segurança da informação",
+      "habilidade": "Analisar criticamente as políticas de termos de uso das redes sociais e demais plataformas.",
+      "explicacao": "Discutir e analisar termos e políticas de uso das redes sociais e demais plataformas, refletindo sobre suas implicações, inclusive em relação ao armazenamento de dados pessoais.",
+      "exemplos": [
+        "Identificar elementos polêmicos dessas políticas.",
+        "Apontar aspectos que podem ser melhorados para garantir a proteção dos indivíduos."
+      ],
+      "pagina_habilidade": 54,
+      "pagina_pdf": 55
+    },
+    {
+      "codigo": "EF08CO10",
+      "eixo": "Cultura Digital",
+      "objeto_conhecimento": "Segurança em ambientes virtuais",
+      "habilidade": "Discutir questões sobre segurança e privacidade relacionadas ao uso dos ambientes virtuais.",
+      "explicacao": "Refletir sobre aspectos de segurança e privacidade em ambientes virtuais, como jogos online, compras online, salas de conversa e redes sociais, considerando compartilhamento de informações e acesso a sites desconhecidos ou inseguros.",
+      "exemplos": [
+        "Analisar configurações-padrão de privacidade.",
+        "Verificar medidas de proteção e filtros utilizados na escola e em casa."
+      ],
+      "pagina_habilidade": 54,
+      "pagina_pdf": 55
+    },
+    {
+      "codigo": "EF08CO11",
+      "eixo": "Cultura Digital",
+      "objeto_conhecimento": "Uso crítico das mídias digitais",
+      "habilidade": "Avaliar a precisão, relevância, adequação, abrangência e vieses que ocorrem em fontes de informação eletrônica.",
+      "explicacao": "Vivenciar e realizar análise crítica de fontes de informação, como jornais, blogs e canais de comunicação, observando suas características e a forma como a informação é veiculada.",
+      "exemplos": [
+        "Realizar pesquisa na internet utilizando palavras-chave.",
+        "Identificar a relação entre palavras pesquisadas e resultados listados pelo buscador.",
+        "Comparar resultados e discutir critérios de ordenação e relevância."
+      ],
+      "pagina_habilidade": 54,
+      "pagina_pdf": 55
+    }
+  ]
+}

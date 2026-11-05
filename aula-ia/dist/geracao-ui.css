@@ -1,0 +1,37 @@
+.geracao-painel{margin:26px 0 0;padding:27px;border:1px solid #d4dacf;border-radius:12px;background:#fff;color:#263a31}
+.geracao-painel h2{margin:6px 0 12px}
+.geracao-intro{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+.geracao-intro p{max-width:730px;color:#53675a;line-height:1.5}
+.geracao-rotulo{text-transform:uppercase;font:650 11px/1.45 ui-monospace,Consolas,monospace;letter-spacing:.075em;color:#427154}
+.geracao-identidade{padding:7px 11px;border:1px solid #afc1b1;background:#f0f5ef;color:#28543b;border-radius:100px;white-space:nowrap;font-size:12px;font-weight:700}
+.geracao-alerta{border-left:3px solid #be8b52;background:#fffaf0;padding:11px 14px;margin:17px 0;color:#654930;font-size:13px;line-height:1.6}
+.geracao-vazio{padding:35px 20px;border:1px dashed #b8c8ba;text-align:center;border-radius:9px;color:#496554}
+.geracao-documento{border:1px solid #d8e1d6;border-radius:10px;padding:24px;margin:21px 0;background:#fefefd;line-height:1.6}
+.geracao-documento h3{font-size:29px;margin:6px 0 15px}
+.geracao-documento h4{font-size:17px;margin:20px 0 8px}
+.geracao-documento p{margin:4px 0 12px}
+.geracao-documento li{margin:6px 0}
+.geracao-cabecalho{display:flex;justify-content:space-between;gap:15px;align-items:start}
+.geracao-status{font-size:12px;font-weight:700;color:#855a2d;background:#fff5e5;padding:7px 9px;border-radius:7px;white-space:nowrap}
+.geracao-status.aprovado{color:#25533c;background:#eaf6ee}
+.geracao-resumo{display:flex;flex-wrap:wrap;gap:10px 22px;padding:12px 0;border-top:1px solid #e5e9e0;border-bottom:1px solid #e5e9e0;font-size:13px}
+.geracao-resumo b{color:#647468;margin-right:5px}
+.geracao-habilidade{background:#f1f6f0;border-radius:8px;padding:13px;margin-top:16px;font-size:14px}
+.geracao-habilidade p{margin:4px 0 0}
+.geracao-etapas{padding:0;list-style:none}
+.geracao-etapas li{display:flex;gap:13px;align-items:start;padding:12px 0;border-bottom:1px solid #e1e8dd}
+.geracao-numero{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#dceadd;color:#25523a;font-weight:700;flex-shrink:0}
+.geracao-etapas li div{flex:1}
+.geracao-etapas li b{margin-right:10px}
+.geracao-etapas li small{color:#536f5b}
+.geracao-etapas li p{margin:4px 0}
+.geracao-documento pre{font-size:12px;background:#f1f3ee;padding:12px;max-height:320px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+.geracao-rastreio{border-top:1px solid #e0e8de;padding-top:14px;margin-top:20px}
+.geracao-rastreio details{padding:8px 0 8px 10px;border-left:2px solid #d8e5d9;margin:9px 0}
+.geracao-botoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.geracao-botoes button{cursor:pointer}
+.geracao-botoes button:disabled{opacity:.55;cursor:wait}
+.geracao-aprovar{background:#336e49}
+.geracao-nota{color:#617169;font-size:12px;margin:13px 0 0}
+@media(max-width:760px){.geracao-painel{padding:20px 17px}.geracao-intro,.geracao-cabecalho{flex-direction:column}.geracao-documento{padding:16px}.geracao-status{white-space:normal}}
+@media print{.barra,.progresso,.intro,.colunas,.geracao-intro,.geracao-alerta,.geracao-botoes,.geracao-nota,.geracao-rastreio,.geracao-documento details{display:none!important}main{max-width:none;padding:0}.geracao-painel,.geracao-documento{border:none;margin:0;padding:0}.geracao-documento{display:block!important}.geracao-habilidade{background:#f2f2f2}body{background:#fff}}
