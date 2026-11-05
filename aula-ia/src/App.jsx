@@ -17,6 +17,24 @@ async function api(caminho, body, signal) {
   return dados;
 }
 
+function Icon({ nome, tamanho = 21, className = "" }) {
+  const props = { width: tamanho, height: tamanho, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.85, strokeLinecap: "round", strokeLinejoin: "round", className, "aria-hidden": true };
+  switch (nome) {
+    case "layers": return <svg {...props}><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 17l9 5 9-5"/></svg>;
+    case "home": return <svg {...props}><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10Z"/></svg>;
+    case "book": return <svg {...props}><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1Zm0 0v14"/></svg>;
+    case "document": return <svg {...props}><path d="M7 3h7l5 5v13H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5M9 12h6M9 16h6"/></svg>;
+    case "clock": return <svg {...props}><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>;
+    case "settings": return <svg {...props}><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="11" cy="18" r="2" fill="currentColor" stroke="none"/></svg>;
+    case "check": return <svg {...props}><path d="m5 12 4 4L19 6"/></svg>;
+    case "arrow": return <svg {...props}><path d="M4 12h16m-6-6 6 6-6 6"/></svg>;
+    case "search": return <svg {...props}><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>;
+    case "clipboard": return <svg {...props}><rect x="5" y="4" width="14" height="18" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M9 11h6M9 15h6"/></svg>;
+    case "code": return <svg {...props}><path d="m8 8-4 4 4 4m8-8 4 4-4 4m-2-12-4 16"/></svg>;
+    default: return null;
+  }
+}
+
 function Referencia({ valor }) {
   return <div className="ref">
     <span>{valor.documento}</span>
@@ -66,7 +84,7 @@ function Resultados({ consulta, codigo, escolher, confirmar, ocupado }) {
         )}
       </fieldset>}
     {consulta.resultados.length > 0 && <button type="button" className="primario confirmar" disabled={!codigo || ocupado} onClick={confirmar}>
-      {ocupado ? "Confirmando…" : "Confirmar habilidade"}
+      {ocupado ? "Confirmando…" : "Confirmar habilidade"} <Icon nome="check" tamanho={18}/>
     </button>}
   </>;
 }
@@ -74,21 +92,36 @@ function Resultados({ consulta, codigo, escolher, confirmar, ocupado }) {
 function Confirmacao({ entrada }) {
   const { contexto: c, habilidade: h } = entrada;
   return <div className="confirmacao">
-    <div className="selo"><span aria-hidden="true">✓</span> Habilidade confirmada</div>
+    <div className="selo"><Icon nome="check" tamanho={18}/> Habilidade confirmada</div>
     <h3>{h.codigo}</h3><p className="destaque">{h.habilidade}</p>
     <Referencia valor={h.referencia}/>
-    <h4>Contexto para a geração</h4>
+    <h4><Icon nome="layers" tamanho={20}/> Contexto para a geração</h4>
     <dl>{[["Tema", c.tema], ["Turma", c.ano], ["Duração", c.duracao_min + " minutos"], ["Tipo de aula", c.tipo], ["Recursos", c.recursos]].map(([k,v]) =>
       <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
     )}</dl>
-    <details><summary>Ver entrada da geração (JSON)</summary><pre>{JSON.stringify(entrada, null, 2)}</pre></details>
+    <details className="json-entrada"><summary>Ver entrada da geração (JSON)</summary><pre>{JSON.stringify(entrada, null, 2)}</pre></details>
   </div>;
+}
+
+const ETAPAS = ["Configurar aula", "Escolher habilidade", "Gerar e aprovar"];
+function IndicadorDeProgresso({ etapa, aprovado }) {
+  return <ol className="etapas" aria-label="Etapas do planejamento">
+    {ETAPAS.map((nome, i) => {
+      const concluida = i < etapa || (i === 2 && aprovado);
+      const atual = i === etapa && !concluida;
+      return <li key={nome} className={["etapa", concluida ? "concluida" : "", atual ? "atual" : ""].join(" ")} aria-current={atual ? "step" : undefined}>
+        <span className="etapa-indice">{concluida ? <Icon nome="check" tamanho={18}/> : i + 1}</span>
+        <span>{nome}</span>
+      </li>;
+    })}
+  </ol>;
 }
 
 export default function App() {
   const [form, setForm] = useState(INICIAL);
   const [consulta, setConsulta] = useState(null);
   const [codigo, setCodigo] = useState("");
+  const [aprovado, setAprovado] = useState(false);
   const [ocupacao, setOcupacao] = useState(() => sessionStorage.getItem(CHAVE) ? "restaurar" : "");
   const [erro, setErro] = useState("");
   const painel = useRef(null);
@@ -103,6 +136,7 @@ export default function App() {
       setConsulta(dados);
       setForm(dados.contexto);
       setCodigo(dados.entrada_geracao?.habilidade.codigo || "");
+      setAprovado(dados.geracao_atual?.estado === "aprovado");
     }).catch(e => {
       if (controller.signal.aborted) return;
       setErro(e.message);
@@ -112,10 +146,23 @@ export default function App() {
     return () => controller.abort();
   }, []);
 
+  // A tela de geração é uma extensão progressiva; sincronizamos seu estado
+  // para atualizar o indicador sem alterar os contratos da API existente.
+  useEffect(() => {
+    function aoAtualizar(e) {
+      if (e.detail?.consultaId === sessionStorage.getItem(CHAVE)) {
+        setAprovado(e.detail.estado === "aprovado");
+      }
+    }
+    window.addEventListener("aulaia:geracao-atualizada", aoAtualizar);
+    return () => window.removeEventListener("aulaia:geracao-atualizada", aoAtualizar);
+  }, []);
+
   function limparConsulta() {
     sessionStorage.removeItem(CHAVE);
     setConsulta(null);
     setCodigo("");
+    setAprovado(false);
     setErro("");
   }
 
@@ -159,42 +206,54 @@ export default function App() {
 
   const etapa = entrada ? 2 : consulta ? 1 : 0;
   return <div className="app">
-    <header className="barra"><div className="barra-interior">
-      <div className="marca"><svg width="29" height="30" viewBox="0 0 29 30" fill="none" aria-hidden="true"><path d="M2 5c4-1 8 0 12 3v18c-4-3-8-4-12-3V5ZM27 5c-4-1-8 0-12 3v18c4-3 8-4 12-3V5Z" stroke="currentColor" strokeWidth="2.3" strokeLinejoin="round"/></svg>AulaIA</div>
-      <span>Planejamento docente</span>
-    </div></header>
-    <main>
-      <ol className="progresso" aria-label="Etapas do planejamento">
-        {["Contexto", "Habilidade", "Confirmação"].map((s, i) => <li key={s} aria-current={i === etapa ? "step" : undefined} className={i <= etapa ? "ativa" : ""}>{s}</li>)}
-      </ol>
-      <h1>Planejar aula de Computação</h1>
-      <p className="intro">Defina o contexto da turma e confirme a habilidade que vai orientar o plano.</p>
-      {erro && <p role="alert" className="erro">{erro}</p>}
-      <div className="colunas">
-        <section className="painel"><h2>Contexto da aula</h2>
-          <form onSubmit={consultar}><fieldset disabled={ocupado}>
-            <div className="dupla">
-              <label>Ano escolar<select name="ano" value={form.ano} onChange={alterar}><option>8º ano</option></select></label>
-              <label>Duração (min)<input name="duracao_min" type="number" min="1" max="1440" step="1" required value={form.duracao_min} onChange={alterar}/></label>
-            </div>
-            <label>Tema da aula<textarea name="tema" required maxLength={800} rows="2" placeholder="Ex.: quero ensinar ordenação" value={form.tema} onChange={alterar}/></label>
-            <label>Tipo de aula<select name="tipo" value={form.tipo} onChange={alterar}>
-              {["Computação desplugada", "Aula prática", "Aula teórica", "Projeto"].map(t => <option key={t}>{t}</option>)}
-            </select></label>
-            <label>Recursos disponíveis<input name="recursos" required maxLength={800} placeholder="Ex.: papel e cartões" value={form.recursos} onChange={alterar}/></label>
-            <div className="acoes">
-              <button className="primario" type="submit" value="tema">{ocupacao === "consulta" ? "Consultando…" : "Consultar habilidades"} <span aria-hidden="true">→</span></button>
-              <button className="secundario" type="submit" value="catalogo">Escolher no catálogo</button>
-            </div>
-          </fieldset></form>
-        </section>
-        <section className="painel curricular" aria-busy={ocupado}>
-          <h2 ref={painel} tabIndex="-1">{entrada ? "Resumo da confirmação" : consulta ? "Habilidades encontradas" : "Base curricular"}</h2>
-          {entrada ? <Confirmacao entrada={entrada}/> : consulta
-            ? <Resultados consulta={consulta} codigo={codigo} escolher={setCodigo} confirmar={confirmar} ocupado={ocupado}/>
-            : <Fonte/>}
-        </section>
-      </div>
-    </main>
+    <aside className="lateral" aria-label="Menu lateral">
+      <div className="marca"><span className="marca-icone"><Icon nome="layers" tamanho={30}/></span><div className="marca-texto"><b>AulaIA</b><span>Planejamento inteligente</span></div></div>
+      <nav className="menu" aria-label="Navegação principal">
+        <a className="menu-item selecionado" href="#planejamento" aria-current="page"><Icon nome="home"/>Planejar aula</a>
+        <a className="menu-item" href="#curriculo"><Icon nome="book"/>Base curricular</a>
+        {entrada ? <a className="menu-item" href="#geracao-painel"><Icon nome="document"/>Plano atual</a> : <span className="menu-item indisponivel" aria-disabled="true" title="Disponível após a confirmação da habilidade"><Icon nome="document"/>Plano atual</span>}
+        <span className="menu-item indisponivel" aria-disabled="true" title="Funcionalidade prevista para um próximo incremento"><Icon nome="clock"/>Histórico <small>Em breve</small></span>
+      </nav>
+      <div className="lateral-rodape"><span className="rodape-ponto"/>Prova de conceito <small>BNCC de Computação · 8º ano</small></div>
+    </aside>
+    <div className="area-principal">
+      <header className="topo">
+        <div className="trilha"><Icon nome="home" tamanho={18}/><span aria-hidden="true">›</span><span>Planejamento</span><span aria-hidden="true">›</span><strong>Computação</strong></div>
+        <span className="topo-etiqueta">Versão de demonstração</span>
+      </header>
+      <main id="planejamento">
+        <div className="cabecalho"><span className="cabecalho-icone"><Icon nome="code" tamanho={35}/></span><div>
+          <h1>Planejar aula de Computação</h1>
+          <p className="intro">Defina o contexto da turma e confirme a habilidade que vai orientar o plano.</p>
+        </div></div>
+        <IndicadorDeProgresso etapa={etapa} aprovado={aprovado}/>
+        {erro && <p role="alert" className="erro">{erro}</p>}
+        <div className="colunas">
+          <section className="painel" aria-labelledby="titulo-contexto"><h2 id="titulo-contexto"><span className="titulo-icone"><Icon nome="settings" tamanho={23}/></span>Contexto da aula</h2>
+            <form onSubmit={consultar}><fieldset disabled={ocupado}>
+              <div className="dupla">
+                <label>Ano escolar<select name="ano" value={form.ano} onChange={alterar}><option>8º ano</option></select></label>
+                <label>Duração (min)<input name="duracao_min" type="number" min="1" max="1440" step="1" required value={form.duracao_min} onChange={alterar}/></label>
+              </div>
+              <label>Tema da aula<textarea name="tema" required maxLength={800} rows="2" placeholder="Ex.: quero ensinar ordenação" value={form.tema} onChange={alterar}/></label>
+              <label>Tipo de aula<select name="tipo" value={form.tipo} onChange={alterar}>
+                {["Computação desplugada", "Aula prática", "Aula teórica", "Projeto"].map(t => <option key={t}>{t}</option>)}
+              </select></label>
+              <label>Recursos disponíveis<input name="recursos" required maxLength={800} placeholder="Ex.: papel e cartões" value={form.recursos} onChange={alterar}/></label>
+              <div className="acoes">
+                <button className="primario" type="submit" value="tema"><Icon nome="search" tamanho={18}/>{ocupacao === "consulta" ? "Consultando…" : "Consultar habilidades"}<Icon nome="arrow" tamanho={18}/></button>
+                <button className="secundario" type="submit" value="catalogo"><Icon nome="book" tamanho={17}/> Escolher no catálogo</button>
+              </div>
+            </fieldset></form>
+          </section>
+          <section className="painel curricular" id="curriculo" aria-busy={ocupado}>
+            <h2 ref={painel} tabIndex="-1"><span className="titulo-icone"><Icon nome="clipboard" tamanho={23}/></span>{entrada ? "Resumo da confirmação" : consulta ? "Habilidades encontradas" : "Base curricular"}</h2>
+            {entrada ? <Confirmacao entrada={entrada}/> : consulta
+              ? <Resultados consulta={consulta} codigo={codigo} escolher={setCodigo} confirmar={confirmar} ocupado={ocupado}/>
+              : <Fonte/>}
+          </section>
+        </div>
+      </main>
+    </div>
   </div>;
 }

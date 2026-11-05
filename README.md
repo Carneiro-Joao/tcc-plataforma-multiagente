@@ -107,14 +107,15 @@ São **15 testes locais executados com sucesso e 1 teste opcional de ranking hí
 
 Integrar e testar o modo de IA com credenciais reais, melhorar contratos por agente, incorporar a **IA Juiz** com política de validação e correção dirigida e manter histórico de execuções. A autenticação, a exportação de PDF gerada no servidor e a avaliação com usuários pertencem a incrementos posteriores. A impressão em PDF pelo navegador é apenas um atalho demonstrativo.
 
+## Incremento 03 — Interface azul e progresso visual
 
-## Repositório GitHub
+A interface foi atualizada para **azul-marinho, azul-claro e cinza quase branco**, com títulos em Nunito, textos em Inter (com fontes de reserva), menu lateral e indicador de **Configurar aula → Escolher habilidade → Gerar e aprovar**. A estrutura funcional da PoC 02 permanece a mesma.
+
+O comando de execução **não mudou**:
 
 ```powershell
-git clone https://github.com/Carneiro-Joao/tcc-plataforma-multiagente.git
-cd tcc-plataforma-multiagente\aula-ia-backend
+cd aula-ia-backend
 py app.py --modo lexical --gerador demonstracao
 ```
 
-Para atualizar o código, execute `git pull origin main` na pasta do repositório.
-Nunca faça commit da sua chave de API nem de arquivos `.env`.
+A distribuição em `aula-ia/dist/` já inclui `tema-compat.js` e `tema-compat.css`: essa camada aplica a nova interface à versão compilada da PoC 02 sem exigir Node.js no computador do professor. Os arquivos `src/App.jsx` e `src/App.css` também contêm a versão React nativa; para recompilá-la, dentro de `aula-ia/`, execute `npm ci` e `npm run build`. Consulte `docs/Capitulo_4_Incremento_03.md` para detalhes, testes e limites da distribuição.

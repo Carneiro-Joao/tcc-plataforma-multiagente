@@ -95,6 +95,9 @@
     const geracao = dadosAtuais.geracao_atual;
     const resultado = geracao?.resultado;
     const aprovado = geracao?.estado === "aprovado";
+    window.dispatchEvent(new CustomEvent("aulaia:geracao-atualizada", {
+      detail: { consultaId: idAtual, estado: geracao?.estado || "nao_gerado" }
+    }));
     const demo = !resultado || resultado.modo === "demonstracao";
     host.innerHTML = `<div class="geracao-intro">
       <div><span class="geracao-rotulo">Novo incremento da prova de conceito</span><h2>Geração do plano de aula</h2>

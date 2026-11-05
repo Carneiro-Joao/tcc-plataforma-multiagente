@@ -1,37 +1,39 @@
-.geracao-painel{margin:26px 0 0;padding:27px;border:1px solid #d4dacf;border-radius:12px;background:#fff;color:#263a31}
-.geracao-painel h2{margin:6px 0 12px}
-.geracao-intro{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
-.geracao-intro p{max-width:730px;color:#53675a;line-height:1.5}
-.geracao-rotulo{text-transform:uppercase;font:650 11px/1.45 ui-monospace,Consolas,monospace;letter-spacing:.075em;color:#427154}
-.geracao-identidade{padding:7px 11px;border:1px solid #afc1b1;background:#f0f5ef;color:#28543b;border-radius:100px;white-space:nowrap;font-size:12px;font-weight:700}
-.geracao-alerta{border-left:3px solid #be8b52;background:#fffaf0;padding:11px 14px;margin:17px 0;color:#654930;font-size:13px;line-height:1.6}
-.geracao-vazio{padding:35px 20px;border:1px dashed #b8c8ba;text-align:center;border-radius:9px;color:#496554}
-.geracao-documento{border:1px solid #d8e1d6;border-radius:10px;padding:24px;margin:21px 0;background:#fefefd;line-height:1.6}
-.geracao-documento h3{font-size:29px;margin:6px 0 15px}
-.geracao-documento h4{font-size:17px;margin:20px 0 8px}
-.geracao-documento p{margin:4px 0 12px}
-.geracao-documento li{margin:6px 0}
+/* Camada visual da geração; mantém a implementação progressiva da PoC 02. */
+.geracao-painel{margin:27px 0 0;padding:28px 30px 30px;border:1px solid #d5e4f6;border-radius:23px;background:#ffffffed;color:#17365f;box-shadow:0 12px 28px #163c7510}
+.geracao-painel h2{font:900 27px/1.2 var(--rounded-font,'Nunito',sans-serif);letter-spacing:-.02em;margin:7px 0 12px}
+.geracao-intro{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.geracao-intro p{max-width:750px;color:#587397;line-height:1.65;font-size:14px}
+.geracao-rotulo{text-transform:uppercase;font:850 11px/1.45 var(--rounded-font,sans-serif);letter-spacing:.07em;color:#2e78c5}
+.geracao-identidade{padding:9px 13px;border:1px solid #cde3fb;background:#eaf4ff;color:#115ca7;border-radius:100px;white-space:nowrap;font-size:12px;font-weight:750}
+.geracao-alerta{border-left:3px solid #e0a545;border-radius:8px;background:#fff9ed;padding:12px 15px;margin:17px 0;color:#75552c;font-size:13px;line-height:1.65}
+.geracao-vazio{padding:35px 20px;border:1.5px dashed #a5c6e9;text-align:center;border-radius:12px;color:#577495;background:#f6faff}
+.geracao-documento{border:1px solid #d8e6f8;border-radius:17px;padding:24px;margin:21px 0;background:#fff;line-height:1.65}
+.geracao-documento h3{font:900 28px/1.2 var(--rounded-font,'Nunito',sans-serif);color:#102f61;margin:7px 0 15px}
+.geracao-documento h4{font:850 18px/1.3 var(--rounded-font,'Nunito',sans-serif);color:#153b72;margin:22px 0 8px}
+.geracao-documento p{margin:4px 0 12px;font-size:14px}
+.geracao-documento li{margin:6px 0;font-size:14px}
 .geracao-cabecalho{display:flex;justify-content:space-between;gap:15px;align-items:start}
-.geracao-status{font-size:12px;font-weight:700;color:#855a2d;background:#fff5e5;padding:7px 9px;border-radius:7px;white-space:nowrap}
-.geracao-status.aprovado{color:#25533c;background:#eaf6ee}
-.geracao-resumo{display:flex;flex-wrap:wrap;gap:10px 22px;padding:12px 0;border-top:1px solid #e5e9e0;border-bottom:1px solid #e5e9e0;font-size:13px}
-.geracao-resumo b{color:#647468;margin-right:5px}
-.geracao-habilidade{background:#f1f6f0;border-radius:8px;padding:13px;margin-top:16px;font-size:14px}
-.geracao-habilidade p{margin:4px 0 0}
+.geracao-status{font-size:12px;font-weight:800;color:#94622c;background:#fff4e1;padding:7px 11px;border-radius:9px;white-space:nowrap}
+.geracao-status.aprovado{color:#117442;background:#dcf8e9}
+.geracao-resumo{display:flex;flex-wrap:wrap;gap:10px 22px;padding:12px 0;border-top:1px solid #e3eaf4;border-bottom:1px solid #e3eaf4;font-size:13px}
+.geracao-resumo b{color:#56799d;margin-right:5px}
+.geracao-habilidade{background:linear-gradient(95deg,#e7f3ff,#f0f7ff);border-radius:11px;padding:14px;margin-top:17px;font-size:14px;color:#174579}
+.geracao-habilidade p{margin:5px 0 0;color:#16365c}
 .geracao-etapas{padding:0;list-style:none}
-.geracao-etapas li{display:flex;gap:13px;align-items:start;padding:12px 0;border-bottom:1px solid #e1e8dd}
-.geracao-numero{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#dceadd;color:#25523a;font-weight:700;flex-shrink:0}
-.geracao-etapas li div{flex:1}
-.geracao-etapas li b{margin-right:10px}
-.geracao-etapas li small{color:#536f5b}
+.geracao-etapas li{display:flex;gap:13px;align-items:start;padding:13px 0;border-bottom:1px solid #e0eaf6}
+.geracao-numero{display:inline-grid;place-items:center;width:33px;height:33px;border-radius:50%;background:#dceeff;color:#115aab;font:900 14px var(--rounded-font,'Nunito',sans-serif);flex-shrink:0}
+.geracao-etapas li div{flex:1;min-width:0}
+.geracao-etapas li b{margin-right:10px;color:#133967}
+.geracao-etapas li small{color:#577698}
 .geracao-etapas li p{margin:4px 0}
-.geracao-documento pre{font-size:12px;background:#f1f3ee;padding:12px;max-height:320px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
-.geracao-rastreio{border-top:1px solid #e0e8de;padding-top:14px;margin-top:20px}
-.geracao-rastreio details{padding:8px 0 8px 10px;border-left:2px solid #d8e5d9;margin:9px 0}
+.geracao-documento pre{font-size:12px;background:#edf4ff;padding:12px;max-height:320px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+.geracao-rastreio{border-top:1px solid #e0eaf6;padding-top:14px;margin-top:20px}
+.geracao-rastreio details{padding:8px 0 8px 10px;border-left:2px solid #c8def7;margin:9px 0}
 .geracao-botoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 .geracao-botoes button{cursor:pointer}
 .geracao-botoes button:disabled{opacity:.55;cursor:wait}
-.geracao-aprovar{background:#336e49}
-.geracao-nota{color:#617169;font-size:12px;margin:13px 0 0}
-@media(max-width:760px){.geracao-painel{padding:20px 17px}.geracao-intro,.geracao-cabecalho{flex-direction:column}.geracao-documento{padding:16px}.geracao-status{white-space:normal}}
-@media print{.barra,.progresso,.intro,.colunas,.geracao-intro,.geracao-alerta,.geracao-botoes,.geracao-nota,.geracao-rastreio,.geracao-documento details{display:none!important}main{max-width:none;padding:0}.geracao-painel,.geracao-documento{border:none;margin:0;padding:0}.geracao-documento{display:block!important}.geracao-habilidade{background:#f2f2f2}body{background:#fff}}
+.geracao-aprovar{background:linear-gradient(125deg,#168754,#09633d)}
+.geracao-aprovar:hover:enabled{background:linear-gradient(125deg,#18a16a,#08613b)}
+.geracao-nota{color:#67809e;font-size:12px;margin:13px 0 0}
+@media(max-width:760px){.geracao-painel{padding:21px 18px;border-radius:17px}.geracao-intro,.geracao-cabecalho{flex-direction:column}.geracao-documento{padding:16px}.geracao-status{white-space:normal}}
+@media print{.geracao-intro,.geracao-alerta,.geracao-botoes,.geracao-nota,.geracao-rastreio,.geracao-documento details{display:none!important}.geracao-painel,.geracao-documento{border:none;margin:0;padding:0;box-shadow:none}.geracao-documento{display:block!important}.geracao-habilidade{background:#f2f2f2}body{background:#fff}}
