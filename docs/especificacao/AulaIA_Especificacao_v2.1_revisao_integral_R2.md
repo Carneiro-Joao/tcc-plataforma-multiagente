@@ -1,9 +1,11 @@
 # AulaIA — Especificação Técnica v2.1 (revisão integral R2)
 
 **Data:** 10/11/2026  
-**Situação:** proposta revisada para aceite do autor e orientação; **não mesclada à main**.  
+**Situação:** baseline v2.1-R2 **aprovada pelo autor em 10/11/2026**, quanto ao escopo, RF25/UC10 e integração determinística; em revisão acadêmica pelo orientador; **não mesclada à `main`**.  
 **Origem:** Documento de Visão v2.0 (05/11), PoCs 01–03, revisão v2.1 inicial, decisão de **não realizar validação em campo com professores**.  
 **Regra:** documentação de arquitetura-alvo não implica que esteja implementada. Não houve mudança de código nesta revisão.
+
+**Registro de decisão 10/11/2026:** (a) aprovado o MVP de núcleo científico/técnico sem estudo de campo com professores; (b) aprovados RF25 e UC10 para aceite/rejeição explícitos, sem confundir com a IA Juiz; (c) aprovada a integração determinística em Python com cinco especialistas gerativos e um sexto componente lógico integrador. **Aprovação de escopo não é afirmação de implementação.**
 
 ## 1. Objeto, problema e delimitação
 
@@ -222,4 +224,12 @@ O TCC atinge seu objetivo técnico quando apresenta **fluxo integrado funcional*
 
 **Fundamentação técnica ainda a redigir e referenciar no TCC:** recuperação aumentada por geração e busca híbrida, arquitetura multiagente baseada em LLM, saídas estruturadas, IA Juiz e limites/vieses, verificação de software e rastreabilidade. Não tomar exemplos de ferramentas como comprovação científica.
 
-**Status final:** revisão documental aprovada em princípio pelas escolhas de escopo relatadas, ainda sujeita à validação final com João e orientador. Nenhum componente do software foi alterado por este documento.
+**Status final:** decisões de escopo e arquitetura-base aprovadas por João em 10/11/2026. Detalhes de contratos, tratamento de revisões e políticas de estados são refinamentos técnicos ainda pendentes. Revisão acadêmica pelo orientador ainda necessária. Nenhum componente do software foi alterado por este documento.
+
+## 16. Pontos de projeto a detalhar na PoC 04A (sem reabrir decisões aprovadas)
+
+1. Definir esquema JSON exato e versionado do plano e de cada agente, incluindo tipos, IDs de objetivos/evidências e regras de validação.
+2. Decidir a política de exibição e eventual aceite explícito de um plano com estado `revisao_necessaria`, sem rótulo de aprovação técnica; documentar transições válidas.
+3. Definir como registrar artefatos de correção, erros, custos, tempos e prompts de maneira compatível com privacidade e reprodutibilidade.
+4. Precisar a política de reparo determinístico dos minutos e seu limite; sem alterar silenciosamente o sentido pedagógico.
+5. Separar testagem do modo demonstração e execução real LLM; definir os cenários mínimos de aceite da PoC 04A.
