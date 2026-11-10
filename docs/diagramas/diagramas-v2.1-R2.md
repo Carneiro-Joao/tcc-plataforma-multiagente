@@ -1,6 +1,13 @@
 # AulaIA — Diagramas de referência v2.1-R2 (sem validação em campo)
 
-**Estado:** proposta para revisão, alinhada à especificação v2.1-R2 de 10/11/2026. Diagramas lógicos em Mermaid; o mapa de casos de uso **não é UML formal**, e a notação formal pode ser exportada em PlantUML posteriormente.
+**Estado:** escopo arquitetural **aprovado pelo autor em 10/11/2026** (MVP, RF25/UC10 e integração Python); diagramas conceituais em revisão de precisão e UML formal, alinhados à especificação v2.1-R2. Diagramas lógicos em Mermaid; o mapa de casos de uso **não é UML formal**, e a notação formal pode ser exportada em PlantUML posteriormente.
+
+## Aprovações de arquitetura
+
+- Cinco especializações gerativas com LLM: Objetivos, Avaliação (duas fases), Metodologia e Recursos, Sequência e Adaptação.
+- Integrador é componente lógico **determinístico em Python**; não executa uma sexta chamada gerativa.
+- RF25/UC10 exigem aceite ou rejeição explícitos do usuário, com estados distintos e sem aprovação automática pela IA Juiz.
+- Não fazem parte do TCC: cadastro/login, histórico privado ou avaliação de planos por professores participantes.
 
 ## Legenda
 
