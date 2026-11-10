@@ -1,3 +1,5 @@
+> **HISTÓRICO — não usar como diagrama vigente.** Este rascunho v0.1 foi superado pelos [Diagramas v2.1-R2](diagramas-v2.1-R2.md). Os diagramas atuais refletem o escopo sem estudo de campo, RF25/UC10 e integrador determinístico. Preservado apenas para rastreabilidade.
+
 # Diagramas do TCC — rascunho arquitetural v0.1
 
 **Estado:** proposta para revisão com João e orientador. **Referência:** implementação na branch `main` em 05/11/2026, especificação v2.0 e incrementos 01–03. Não representa implementação completa da IA Juiz.
