@@ -1,3 +1,5 @@
+> **HISTÓRICO — não usar como versão vigente.** Este rascunho de 05/11 foi superado pela [Especificação v2.1-R2 aprovada](../especificacao/AulaIA_Especificacao_v2.1_revisao_integral_R2.md). A versão atual elimina avaliação em campo, inclui RF25/UC10 e adota integrador determinístico. Preservado apenas para rastreabilidade.
+
 # Levantamento e revisão de requisitos — AulaIA
 
 **Versão proposta:** 2.1-draft · 05/11/2026  
