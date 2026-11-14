@@ -1,4 +1,4 @@
-"""Consultas curriculares e entrega do contexto para o futuro gerador."""
+"""Consultas, confirmação curricular, revisões e aprovação docente."""
 from contextlib import contextmanager
 import json
 from pathlib import Path
@@ -163,14 +163,15 @@ class ServicoCurricular:
                        (id_geracao, id_consulta, revisao))
         try:
             resultado = self.gerador.gerar(entrada, revisao)
-        except ErroGeracao as erro:
+        except Exception as erro:
+            conhecido = isinstance(erro, ErroGeracao)
+            mensagem = str(erro) if conhecido else "Falha interna na geração."
+            falha = {"erro": mensagem, "tipo_erro": erro.tipo if conhecido else "interno",
+                     "rastreio": erro.rastreio if conhecido else [], "revisao": revisao}
             with abrir_banco(self.banco) as db:
-                db.execute("DELETE FROM geracoes WHERE id = ? AND estado = 'processando'", (id_geracao,))
-            raise ErroConsulta(502, str(erro)) from erro
-        except Exception:
-            with abrir_banco(self.banco) as db:
-                db.execute("DELETE FROM geracoes WHERE id = ? AND estado = 'processando'", (id_geracao,))
-            raise
+                db.execute("UPDATE geracoes SET estado = 'falha', resultado = ? WHERE id = ? AND estado = 'processando'",
+                           (json.dumps(falha, ensure_ascii=False), id_geracao))
+            raise ErroConsulta(502, mensagem) from None
         with abrir_banco(self.banco) as db:
             db.execute("UPDATE geracoes SET estado = 'rascunho', resultado = ? WHERE id = ? AND estado = 'processando'",
                        (json.dumps(resultado, ensure_ascii=False), id_geracao))
