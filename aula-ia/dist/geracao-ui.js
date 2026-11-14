@@ -82,7 +82,7 @@
       <h4>Avaliação da aprendizagem</h4><p>${texto(plano.avaliacao)}</p>
       <h4>Possíveis adaptações</h4><ul>${(plano.adaptacoes || []).map(a => `<li>${texto(a)}</li>`).join("")}</ul>
       <details class="geracao-rastreio"><summary>Inspecionar agentes, entradas e saídas (${(resultado.rastreio || []).length})</summary>
-      <p>Estas etapas registram o encadeamento do protótipo. No modo demonstrativo são funções baseadas em regras, não chamadas de LLM.</p>
+      <p>Os cinco especialistas são validados separadamente. O integrador monta o plano em Python. No modo demonstrativo, todas as etapas usam regras locais.</p>
       ${(resultado.rastreio || []).map(a => `<details><summary>${texto(a.agente)}</summary><b>Entrada</b><pre>${json(a.entrada)}</pre><b>Saída</b><pre>${json(a.saida)}</pre></details>`).join("")}
       </details>
       <details><summary>Ver plano completo (JSON)</summary><pre>${json(resultado)}</pre></details>
@@ -93,27 +93,29 @@
     const host = painel();
     if (!host || !dadosAtuais) return;
     const geracao = dadosAtuais.geracao_atual;
-    const resultado = geracao?.resultado;
+    const resultado = geracao?.resultado?.plano ? geracao.resultado : null;
+    const falha = geracao?.estado === "falha" ? geracao.resultado : null;
     const aprovado = geracao?.estado === "aprovado";
     window.dispatchEvent(new CustomEvent("aulaia:geracao-atualizada", {
       detail: { consultaId: idAtual, estado: geracao?.estado || "nao_gerado" }
     }));
-    const demo = !resultado || resultado.modo === "demonstracao";
+    const demo = resultado?.modo === "demonstracao";
     host.innerHTML = `<div class="geracao-intro">
       <div><span class="geracao-rotulo">Novo incremento da prova de conceito</span><h2>Geração do plano de aula</h2>
       <p>Com a habilidade curricular confirmada, o sistema prepara um plano, mostra as etapas de construção e permite a sua aprovação pedagógica.</p></div>
-      <span class="geracao-identidade">${resultado?.modo === "ia" ? "Agentes de IA" : "Modo demonstrativo"}</span></div>
-      ${erroAtual ? `<p role="alert" class="erro">${texto(erroAtual)}</p>` : ""}
+      <span class="geracao-identidade">${resultado?.modo === "ia" ? "Gemini" : demo ? "Modo demonstrativo" : "Planejamento"}</span></div>
+      ${erroAtual || falha ? `<p role="alert" class="erro">${texto(erroAtual || falha.erro)}</p>` : ""}
       <div class="geracao-alerta">${demo
-        ? "<b>Demonstração por regras:</b> o plano é gerado automaticamente, mas não por um modelo de linguagem. Para executar agentes com IA, configure OPENAI_API_KEY e inicie o servidor com --gerador ia."
-        : `<b>Geração com IA:</b> especialistas executados sequencialmente com o modelo ${texto(resultado.modelo)}. A aprovação do professor não substitui a futura revisão pela IA Juiz.`}</div>
+        ? "<b>Demonstração por regras:</b> o plano é gerado automaticamente, mas não por um modelo de linguagem. Revise a adequação pedagógica antes de aprovar."
+        : resultado ? `<b>Geração com IA:</b> cinco especialistas usam ${texto(resultado.modelo)}. O plano passou pela verificação de estrutura e duração e aguarda sua revisão pedagógica.` : "O plano será apresentado para sua revisão. A geração pode levar alguns minutos."}</div>
+      ${falha ? `<details><summary>Detalhes da tentativa que falhou</summary><pre>${json(falha)}</pre></details>` : ""}
       ${resultado ? planoHtml(resultado.plano, resultado, geracao) : `<p class="geracao-vazio">Nenhum plano gerado ainda. A habilidade ${texto(dadosAtuais.entrada_geracao.habilidade.codigo)} está confirmada e pronta para iniciar o processo.</p>`}
       <div class="geracao-botoes">
         ${!aprovado ? `<button type="button" class="primario" data-geracao-acao="gerar" ${ocupado ? "disabled" : ""}>${ocupado ? "Processando agentes…" : resultado ? "Gerar outra versão" : "Gerar plano de aula"}</button>` : ""}
         ${resultado && !aprovado ? `<button type="button" class="primario geracao-aprovar" data-geracao-acao="aprovar" ${ocupado ? "disabled" : ""}>Aprovar este plano</button>` : ""}
         ${resultado ? `<button type="button" class="secundario" data-geracao-acao="imprimir">Imprimir plano</button>` : ""}
       </div>
-      <p class="geracao-nota">${aprovado ? "A aprovação foi registrada no banco de dados. Para iniciar outro planejamento, altere o contexto e consulte novamente." : "A decisão final é sua. A verificação automática da IA Juiz será acrescentada no próximo incremento."}</p>`;
+      <p class="geracao-nota">${aprovado ? "A aprovação foi registrada. Para iniciar outro planejamento, altere o contexto e consulte novamente." : "A decisão final é sua. A verificação automática da IA Juiz será acrescentada no próximo incremento."}</p>`;
   }
 
   async function clicar(evento) {
@@ -135,7 +137,13 @@
         dados = await api(`/api/geracoes/${idGeracao}/aprovar`, {});
       } else return;
       if (idAtual === consultaId) dadosAtuais = dados;
-    } catch (erro) { erroAtual = erro.message; }
+    } catch (erro) {
+      erroAtual = erro.message;
+      try {
+        const consulta = await api(`/api/consultas/${consultaId}`);
+        if (idAtual === consultaId) dadosAtuais = consulta;
+      } catch (_) { /* preserva a mensagem da ação original */ }
+    }
     finally { ocupado = false; renderizar(); }
   }
 

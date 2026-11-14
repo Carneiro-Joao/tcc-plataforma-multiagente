@@ -6,9 +6,11 @@ import json
 import mimetypes
 from pathlib import Path
 import re
+from tempfile import TemporaryDirectory
 from urllib.parse import urlsplit
 from rag.search import BASE, BuscaCurricular
 from geracao import GeradorDePlano, ErroGeracao
+from gemini import MODELO_PADRAO
 from servico import ErroConsulta, ServicoCurricular
 
 DIST = BASE.parent / "aula-ia" / "dist"
@@ -99,8 +101,9 @@ def main():
     parser.add_argument("--modo", choices=("lexical", "hibrido"), default="lexical")
     parser.add_argument("--porta", type=int, default=8000)
     parser.add_argument("--gerador", choices=("demonstracao", "ia"), default="demonstracao")
-    parser.add_argument("--modelo", default="gpt-4o-mini", help="Modelo usado com --gerador ia")
-    parser.add_argument("--banco", type=Path, default=BASE / "local" / "consultas.sqlite3")
+    parser.add_argument("--modelo", default=MODELO_PADRAO, help="Modelo usado com --gerador ia")
+    parser.add_argument("--banco", type=Path, help="Opcional: manter dados entre sessões; por padrão usa armazenamento temporário.")
+    parser.add_argument("--reparos", type=int, choices=(0, 1), default=1, help="Reparos de contrato por especialista (não repete erros HTTP).")
     args = parser.parse_args()
     try:
         busca = BuscaCurricular(args.modo)
@@ -108,11 +111,16 @@ def main():
         parser.exit(1, f"Não foi possível iniciar a busca ({args.modo}): {erro}\n"
                        "Consulte a instalação do modo híbrido no README.md. Para testar sem modelo, use --modo lexical.\n")
     try:
-        gerador = GeradorDePlano(args.gerador, args.modelo)
+        gerador = GeradorDePlano(args.gerador, args.modelo, reparos=args.reparos)
     except ErroGeracao as erro:
         parser.exit(1, f"Não foi possível iniciar a geração: {erro}\n")
     servidor = ThreadingHTTPServer(("127.0.0.1", args.porta), Rotas)
-    servidor.servico = ServicoCurricular(busca, args.banco, gerador)
+    temporario = TemporaryDirectory(prefix="aulaia-") if args.banco is None else None
+    banco = args.banco or Path(temporario.name) / "sessao.sqlite3"
+    servidor.servico = ServicoCurricular(busca, banco, gerador)
+    print("Dados: " + ("somente nesta sessão; ao reiniciar, consulte novamente." if temporario else str(banco)), flush=True)
+    if args.gerador == "ia":
+        print(f"Gemini: {args.modelo}; 5 chamadas normais, até {5 * (1 + args.reparos)} com reparos. Use projeto Free Tier no AI Studio.", flush=True)
     print(f"AulaIA | http://127.0.0.1:{servidor.server_port} | busca {args.modo} | geração {args.gerador}", flush=True)
     try:
         servidor.serve_forever()
@@ -120,6 +128,8 @@ def main():
         pass
     finally:
         servidor.server_close()
+        if temporario:
+            temporario.cleanup()
 
 
 if __name__ == "__main__":

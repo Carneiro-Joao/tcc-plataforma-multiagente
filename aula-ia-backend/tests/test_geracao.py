@@ -71,7 +71,7 @@ class TestGeracao(TestCase):
                 self.assertEqual(sum(distribuicao_tempo(total)), total)
                 self.assertTrue(all(n >= 1 for n in distribuicao_tempo(total)))
 
-    def test_falha_sem_persistir_geracao_invalida(self):
+    def test_falha_registrada_sem_aprovar_geracao_invalida(self):
         class Invalido:
             def gerar(self, entrada, revisao):
                 raise ErroGeracao("Falha de validação de saída")
@@ -80,8 +80,12 @@ class TestGeracao(TestCase):
         with self.assertRaises(ErroConsulta) as ctx:
             servico.gerar(self.id)
         self.assertEqual(ctx.exception.status, 502)
-        self.assertIsNone(servico.obter(self.id)["geracao_atual"])
-        self.assertEqual(self.servico.gerar(self.id)["geracao_atual"]["revisao"], 1)
+        falha = servico.obter(self.id)["geracao_atual"]
+        self.assertEqual(falha["estado"], "falha")
+        self.assertNotIn("plano", falha["resultado"])
+        with self.assertRaises(ErroConsulta):
+            servico.aprovar(falha["id"])
+        self.assertEqual(self.servico.gerar(self.id)["geracao_atual"]["revisao"], 2)
 
     def test_aprovacao_de_id_inexistente(self):
         with self.assertRaises(ErroConsulta) as ctx:

@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tcc-joao:poc04a:0.1",
+  "title": "Contratos candidatos PoC 04A — revisão pós-sondagem",
+  "$defs": {
+    "objetivos": {
+      "type": "object",
+      "properties": {
+        "objetivos": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 2,
+          "maxItems": 4
+        }
+      },
+      "required": [
+        "objetivos"
+      ],
+      "additionalProperties": false
+    },
+    "metodologia": {
+      "type": "object",
+      "properties": {
+        "metodologia": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "recursos": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "metodologia",
+        "recursos"
+      ],
+      "additionalProperties": false
+    },
+    "sequencia": {
+      "type": "object",
+      "properties": {
+        "etapas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "etapa": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "minutos": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "atividade": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "etapa",
+              "minutos",
+              "atividade"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "etapas"
+      ],
+      "additionalProperties": false
+    },
+    "avaliacao": {
+      "type": "object",
+      "properties": {
+        "avaliacao": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "avaliacao"
+      ],
+      "additionalProperties": false
+    },
+    "adaptacao": {
+      "type": "object",
+      "properties": {
+        "adaptacoes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "required": [
+        "adaptacoes"
+      ],
+      "additionalProperties": false
+    },
+    "plano": {
+      "type": "object",
+      "properties": {
+        "titulo": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "habilidade_codigo": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "habilidade_texto": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "ano": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "tema": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "duracao_min": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "tipo": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "objetivos": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 2,
+          "maxItems": 4
+        },
+        "metodologia": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "recursos": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "etapas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "etapa": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "minutos": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "atividade": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "etapa",
+              "minutos",
+              "atividade"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "avaliacao": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "adaptacoes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "required": [
+        "titulo",
+        "habilidade_codigo",
+        "habilidade_texto",
+        "ano",
+        "tema",
+        "duracao_min",
+        "tipo",
+        "objetivos",
+        "metodologia",
+        "recursos",
+        "etapas",
+        "avaliacao",
+        "adaptacoes"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/objetivos"
+    },
+    {
+      "$ref": "#/$defs/metodologia"
+    },
+    {
+      "$ref": "#/$defs/sequencia"
+    },
+    {
+      "$ref": "#/$defs/avaliacao"
+    },
+    {
+      "$ref": "#/$defs/adaptacao"
+    },
+    {
+      "$ref": "#/$defs/plano"
+    }
+  ]
+}

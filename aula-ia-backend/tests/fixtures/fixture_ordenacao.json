@@ -1,0 +1,124 @@
+{
+  "natureza": "Fixture sintética escrita para revisão dos contratos; não é saída da API nem plano aprovado por professor.",
+  "versao_contrato": "poc04a-0.1",
+  "entrada": {
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "Quero ensinar ordenação",
+      "duracao_min": 50,
+      "recursos": "papel e cartões",
+      "tipo": "Computação desplugada"
+    },
+    "habilidade": {
+      "codigo": "EF08CO03",
+      "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+      "exemplos": [
+        "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+        "Algoritmos de inserção.",
+        "Algoritmos de remoção.",
+        "Algoritmos de busca linear.",
+        "Algoritmos de busca binária."
+      ]
+    }
+  },
+  "saidas": {
+    "objetivos": {
+      "objetivos": [
+        "Executar comparações e trocas entre cartões para ordenar uma lista pelo algoritmo de ordenação por bolha.",
+        "Explicar quando trocar dois elementos vizinhos e como verificar se a lista está ordenada."
+      ]
+    },
+    "metodologia": {
+      "metodologia": "Investigação orientada em duplas, com demonstração pelo professor e alternância entre quem compara e quem movimenta os cartões. As explicações serão orais e o professor observará o procedimento. O foco é a ordenação por bolha; os tempos ficam exclusivamente nas etapas.",
+      "recursos": "papel e cartões"
+    },
+    "sequencia": {
+      "etapas": [
+        {
+          "etapa": "Problema inicial",
+          "minutos": 5,
+          "atividade": "O professor apresenta cinco cartões numerados fora de ordem. A turma propõe oralmente maneiras de ordená-los. Os números são preparados pelo professor antes da aula; os alunos não precisam escrever."
+        },
+        {
+          "etapa": "Demonstração",
+          "minutos": 10,
+          "atividade": "O professor compara cartões vizinhos, troca os que estão fora de ordem e repete as passagens até não haver trocas. Explica cada decisão e usa o papel como superfície para organizar as posições."
+        },
+        {
+          "etapa": "Prática em duplas",
+          "minutos": 20,
+          "atividade": "As duplas ordenam cinco cartões pelo procedimento demonstrado, alternando os papéis de comparar e movimentar. Explicam oralmente cada troca e repetem com outra ordem inicial."
+        },
+        {
+          "etapa": "Verificação individual",
+          "minutos": 10,
+          "atividade": "Cada estudante explica ao colega uma comparação, indica se precisa trocar os cartões e justifica como sabe que a lista terminou ordenada. O professor verifica as explicações por amostragem."
+        },
+        {
+          "etapa": "Síntese",
+          "minutos": 5,
+          "atividade": "A turma descreve oralmente os passos da ordenação por bolha e discute uma comparação em que não ocorre troca."
+        }
+      ]
+    },
+    "avaliacao": {
+      "avaliacao": "Avaliação formativa durante a prática e a verificação individual. O professor observará se o estudante compara vizinhos, troca apenas quando necessário, repete passagens e reconhece o fim da ordenação. Como evidências esperadas, solicitará a manipulação correta dos cartões e a explicação oral de uma troca e de uma não troca. Se houver dificuldade, retomará a demonstração com uma lista menor. Nenhum resultado de aprendizagem é presumido."
+    },
+    "adaptacao": {
+      "adaptacoes": [
+        "Oferecer demonstrações passo a passo e começar com três cartões, ampliando a lista conforme a participação; preservar o objetivo de comparar vizinhos e justificar as trocas.",
+        "Alternar papéis nas duplas e permitir explicações orais ou por indicação dos cartões, oferecendo apoio do professor sem presumir condições individuais. A alternativa utiliza os mesmos materiais e o tempo da etapa."
+      ]
+    }
+  },
+  "plano_esperado": {
+    "titulo": "Plano de aula — Quero ensinar ordenação",
+    "habilidade_codigo": "EF08CO03",
+    "habilidade_texto": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+    "ano": "8º ano",
+    "tema": "Quero ensinar ordenação",
+    "duracao_min": 50,
+    "tipo": "Computação desplugada",
+    "objetivos": [
+      "Executar comparações e trocas entre cartões para ordenar uma lista pelo algoritmo de ordenação por bolha.",
+      "Explicar quando trocar dois elementos vizinhos e como verificar se a lista está ordenada."
+    ],
+    "metodologia": "Investigação orientada em duplas, com demonstração pelo professor e alternância entre quem compara e quem movimenta os cartões. As explicações serão orais e o professor observará o procedimento. O foco é a ordenação por bolha; os tempos ficam exclusivamente nas etapas.",
+    "recursos": "papel e cartões",
+    "etapas": [
+      {
+        "etapa": "Problema inicial",
+        "minutos": 5,
+        "atividade": "O professor apresenta cinco cartões numerados fora de ordem. A turma propõe oralmente maneiras de ordená-los. Os números são preparados pelo professor antes da aula; os alunos não precisam escrever."
+      },
+      {
+        "etapa": "Demonstração",
+        "minutos": 10,
+        "atividade": "O professor compara cartões vizinhos, troca os que estão fora de ordem e repete as passagens até não haver trocas. Explica cada decisão e usa o papel como superfície para organizar as posições."
+      },
+      {
+        "etapa": "Prática em duplas",
+        "minutos": 20,
+        "atividade": "As duplas ordenam cinco cartões pelo procedimento demonstrado, alternando os papéis de comparar e movimentar. Explicam oralmente cada troca e repetem com outra ordem inicial."
+      },
+      {
+        "etapa": "Verificação individual",
+        "minutos": 10,
+        "atividade": "Cada estudante explica ao colega uma comparação, indica se precisa trocar os cartões e justifica como sabe que a lista terminou ordenada. O professor verifica as explicações por amostragem."
+      },
+      {
+        "etapa": "Síntese",
+        "minutos": 5,
+        "atividade": "A turma descreve oralmente os passos da ordenação por bolha e discute uma comparação em que não ocorre troca."
+      }
+    ],
+    "avaliacao": "Avaliação formativa durante a prática e a verificação individual. O professor observará se o estudante compara vizinhos, troca apenas quando necessário, repete passagens e reconhece o fim da ordenação. Como evidências esperadas, solicitará a manipulação correta dos cartões e a explicação oral de uma troca e de uma não troca. Se houver dificuldade, retomará a demonstração com uma lista menor. Nenhum resultado de aprendizagem é presumido.",
+    "adaptacoes": [
+      "Oferecer demonstrações passo a passo e começar com três cartões, ampliando a lista conforme a participação; preservar o objetivo de comparar vizinhos e justificar as trocas.",
+      "Alternar papéis nas duplas e permitir explicações orais ou por indicação dos cartões, oferecendo apoio do professor sem presumir condições individuais. A alternativa utiliza os mesmos materiais e o tempo da etapa."
+    ]
+  }
+}
