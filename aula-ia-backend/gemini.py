@@ -4,7 +4,7 @@ import os
 import re
 import time
 from urllib import error, request
-from contratos import esquema, ler_json
+from contratos.execucao import esquema, ler_json
 from erros import ErroGeracao, ErroContrato
 
 MODELO_PADRAO = "gemini-3.5-flash-lite"
@@ -90,7 +90,7 @@ class AgenteGemini:
             if len(bruto) > LIMITE_RESPOSTA:
                 raise ErroGeracao("Resposta Gemini excedeu o limite de leitura.", tipo="resposta_api")
             try:
-                raw = ler_json(bruto)
+                raw = ler_json(bruto.decode("utf-8"))
                 if not isinstance(raw, dict):
                     raise ValueError()
             except (ErroContrato, ValueError, UnicodeError, RecursionError):
@@ -118,7 +118,11 @@ class AgenteGemini:
             texto = "".join(p["text"] for p in partes if not p.get("thought") and isinstance(p.get("text"), str))
             registro["conteudo_bruto"] = self._seguro(texto)
             # Validação sempre opera sobre o conteúdo original. A chave nunca está no prompt.
-            saida = ler_json(texto)
+            try:
+                saida = ler_json(texto)
+            except ErroContrato as erro:
+                erro.diagnosticos = self._seguro(getattr(erro, "diagnosticos", []))
+                raise
             if self._seguro(saida) != saida:
                 raise ErroGeracao("Resposta recusada por conter credencial.", tipo="resposta_api")
             return saida

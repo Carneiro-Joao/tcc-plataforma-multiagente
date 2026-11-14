@@ -1,12 +1,14 @@
-# AulaIA — PoC 04A: Gemini e contratos por especialista
+# AulaIA — integração Gemini sobre os contratos PoC 04A v0.1
 
 Plataforma local para planejar aulas de Computação do **8º ano**, com seleção explícita da habilidade BNCC, cinco especialistas, integração em Python e aprovação docente. O modo de IA agora usa a **API nativa do Gemini**. Os testes descartáveis anteriores com OpenAI/OpenRouter deixam de ser o caminho de execução.
+
+Esta entrega aplica os contratos já existentes em `feat/poc04a-contratos`. É uma etapa parcial da PoC 04A com o adaptador Gemini antecipado da 04B: não conclui o PlanoDeAula 2.0 de 11 seções. Consulte [o alinhamento com a especificação R2](docs/Alinhamento_PoC04A.md).
 
 A geração mantém a habilidade, o tema, o ano, o tipo, os recursos e a duração confirmados. Cada especialista é validado antes do próximo. A integração não usa LLM: isso evita a conversão de `metodologia` de texto para objeto observada no teste anterior.
 
 ## 1. Preparar no Windows
 
-É necessário Python 3.12 ou superior. Abra o terminal na pasta **`aula-ia-backend`**:
+É necessário Python 3.12 ou superior. O modo lexical, os contratos e o adaptador Gemini usam somente a biblioteca padrão; `requirements.txt` é um arquivo informativo sem dependências. Abra o terminal na pasta **`aula-ia-backend`**:
 
 ```bat
 python -m pip install -r requirements.txt
@@ -73,13 +75,15 @@ python app.py --modo lexical --gerador demonstracao
 
 Roteiro: informe **quero ensinar ordenação**, **50 minutos**, **papel e cartões**, **Computação desplugada**; consulte e confirme **EF08CO03**; gere o plano; confira cada seção e o rastreio. Uma saída válida estruturalmente continua sendo um **rascunho**. A aprovação é feita pelo professor. O botão de impressão permite salvar PDF pelo navegador.
 
-Não há login ou cadastro. Por padrão, os registros do site duram **somente durante a execução do servidor**, usando SQLite temporário, sem instalar um servidor de banco. Ao encerrar o servidor normalmente, o arquivo temporário é removido; ao reiniciar, faça nova consulta. Um encerramento forçado pode deixar arquivo temporário no sistema operacional. Os JSONs do teste de terminal permanecem para análise técnica.
+Não há login ou cadastro. Consultas, versões, aprovações e falhas mantêm o **SQLite local** em `local/consultas.sqlite3`, preservando a rastreabilidade técnica prevista na especificação R2. Isso não implementa histórico privado ou contas de usuário, e não exige instalar um servidor de banco. Os JSONs do teste de terminal também permanecem para análise técnica.
 
-Se quiser explicitamente preservar consultas e aprovações entre sessões, o suporte anterior continua disponível:
+Para uma demonstração explicitamente descartável, use:
 
 ```bat
-python app.py --gerador ia --banco local/consultas.sqlite3
+python app.py --gerador demonstracao --temporario
 ```
+
+Nesse modo, os dados são temporários e removidos ao encerrar normalmente; um encerramento forçado pode deixar arquivo temporário no sistema. Para escolher outro banco persistente, use `--banco caminho/arquivo.sqlite3`.
 
 ## 5. Contratos e fluxo
 
@@ -96,7 +100,7 @@ Campos extras, tipos diferentes, textos em branco, chaves duplicadas e números 
 
 Há no máximo um reparo por especialista na mesma execução, mantendo as dependências já validadas. Não é um ciclo de correção pedagógica. Se o reparo também falhar, os dependentes não executam. A tentativa fica em estado `falha`, com rastreio, e não pode ser aprovada. Uma nova solicitação do professor cria outra revisão e recalcula todos os especialistas.
 
-A **IA Juiz ainda não está implementada**. As verificações estruturais não comprovam alinhamento pedagógico, viabilidade dos materiais citados na prosa nem ausência de resultados inventados. Esses pontos são orientados nos prompts e precisam de revisão docente e avaliação posterior.
+O contrato operacional é `poc04a-0.1`, com 13 campos. Ainda faltam o PlanoDeAula 2.0 completo, IDs e vínculos objetivo–etapa–evidência, avaliação preliminar/final em chamadas separadas e rejeição explícita pelo usuário. A **IA Juiz ainda não está implementada**. As verificações estruturais não comprovam alinhamento pedagógico, viabilidade dos materiais citados na prosa nem ausência de resultados inventados. Esses pontos são orientados nos prompts e precisam de revisão docente e avaliação posterior.
 
 ## 6. Arquivos e validação
 
@@ -104,15 +108,16 @@ A **IA Juiz ainda não está implementada**. As verificações estruturais não 
 |---|---|
 | `aula-ia-backend/gemini.py` | API nativa, schema, limites de leitura, erros e metadados |
 | `aula-ia-backend/geracao.py` | Dependências, validação por etapa e reparo limitado |
-| `aula-ia-backend/contratos.py` | Parser estrito, validação e integração determinística |
+| `aula-ia-backend/contratos/validacao.py` | Validador e parser em Python puro, preservados da branch de contratos |
+| `aula-ia-backend/contratos/execucao.py` | Adaptação dos diagnósticos, schema para Gemini e integração determinística |
 | `aula-ia-backend/contratos/contratos.schema.json` | Contratos PoC 04A v0.1 |
 | `aula-ia-backend/teste_gemini.py` | Sondagem real ou simulação com registro JSON |
-| `aula-ia-backend/tests/fixtures/` | Fixture sintética e 27 casos da revisão anterior |
+| `aula-ia-backend/tests/dados/poc04a/` | Fixture sintética e 27 casos da revisão anterior |
 | `aula-ia-backend/tests/` | Contratos, transporte simulado, fluxo, concorrência e HTTP |
 | `aula-ia/public/geracao-ui.js` | Exibição do plano, falha e aprovação; espelhado em `dist/` |
 | `docs/PoC04A_Gemini.md` | Decisões, achados, evidências e limites deste incremento |
 
-Validação desta entrega: **32 testes aprovados e 1 teste opcional ignorado**, incluindo os 27 casos estruturais como subtestes; execução do CLI em simulação com duração de 45 minutos; sintaxe JavaScript conferida. O fluxo HTTP usa respostas Gemini simuladas. A execução do navegador automatizado foi bloqueada pelo ambiente, portanto a interface visual precisa ser conferida localmente. **A API real Gemini ainda não foi chamada com uma chave do projeto.**
+Validação desta entrega: **63 testes aprovados e 1 teste opcional ignorado**, incluindo os 27 casos estruturais como subtestes; execução do CLI em simulação com duração de 45 minutos; sintaxe JavaScript conferida. O fluxo HTTP usa respostas Gemini simuladas. A execução do navegador automatizado foi bloqueada pelo ambiente, portanto a interface visual precisa ser conferida localmente. **A API real Gemini ainda não foi chamada com uma chave do projeto.**
 
 Os módulos legados `AgenteOpenAI` e os probes que fazem monkeypatch de `geracao.request.urlopen` não integram mais o fluxo atual. Use `teste_gemini.py`. O modo de busca híbrida permanece opcional: instale também `requirements-hibrido.txt`, prepare os arquivos/modelos necessários e execute `--modo hibrido`. A alteração do provedor de geração não muda o catálogo ou o método da busca curricular.
 

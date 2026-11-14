@@ -1,1 +1,2 @@
-jsonschema==4.26.0
+# O modo lexical, os contratos e a API Gemini usam somente a biblioteca padrão.
+# Para busca híbrida opcional, instale requirements-hibrido.txt.

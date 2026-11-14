@@ -1,6 +1,8 @@
 # PoC 04A — migração para Gemini e aplicação dos contratos
 
-Data de revisão: 13/11/2026. Base: `3939dfd9aad00b3850f9e1c025af705cf812f644`.
+Data de revisão: 14/11/2026. Base de código: `3939dfd9aad00b3850f9e1c025af705cf812f644`; contratos: `70cfff23333e728f31e6b34d283c0e2f7be790a4`. Referência documental: `33e8025c7bbdae8ab27c37332f2c3b9d3cc11903`.
+
+**Alcance:** integração parcial dos contratos v0.1 e adaptador Gemini. Não equivale à conclusão da PoC 04A prevista na R2. Veja [o confronto com o planejamento](Alinhamento_PoC04A.md).
 
 ## Problema observado
 
@@ -12,10 +14,10 @@ Também apareceram campos extras na metodologia, alterações no contexto e form
 
 - Gemini nativo por REST, no backend. Cinco especialistas compartilham o identificador fixo `gemini-3.5-flash-lite` e usam prompts distintos. Não há SDK OpenAI, OpenRouter ou escolha aleatória de modelo neste fluxo.
 - Integração em Python com mapeamento explícito. Código e texto BNCC, ano, tema, tipo, duração e recursos provêm da entrada confirmada. O título é `Plano de aula — {tema}`.
-- Contratos v0.1 da revisão anterior aplicados ao código de produção. Tipos estritos: `true`, `5.0` e `"5"` não são minutos inteiros. Rejeição de extras e de textos vazios; não há coerção.
+- Validador `contratos/validacao.py`, seus testes e os dois arquivos de dados incorporados integralmente de `feat/poc04a-contratos`; diagnósticos adaptados ao pipeline em `contratos/execucao.py`. Sem biblioteca externa para validar. Contratos v0.1 aplicados ao código de produção. Tipos estritos: `true`, `5.0` e `"5"` não são minutos inteiros. Rejeição de extras e de textos vazios; não há coerção.
 - O Gemini recebe `generationConfig.responseFormat.text` com `mimeType: APPLICATION_JSON` e o schema do especialista. A validação local continua obrigatória, inclusive soma de minutos e igualdade dos recursos.
 - Estado de falha registrado, sem fabricar plano nem apagar a tentativa. Aprovação humana somente da revisão atual em rascunho. Falha HTTP não inicia novas tentativas automaticamente.
-- Site sem login, cadastro ou histórico durável por padrão. O armazenamento SQLite existente passa a ser temporário por execução; `--banco` mantém persistência opcional.
+- Site sem login, cadastro ou histórico privado. SQLite persistente local preserva versões e falhas conforme RF14/RF21; `--temporario` oferece demonstração descartável optativa.
 
 ## Dependências e retentativas
 
@@ -41,7 +43,7 @@ A cota não é inferida pelo script. A conta precisa estar em Free Tier no AI St
 
 ## Evidências e próximos passos
 
-- 32 testes aprovados e um teste opcional de ranking híbrido ignorado.
+- 63 testes aprovados e um teste opcional de ranking híbrido ignorado.
 - Os 27 casos da revisão são exercitados como subtestes contra o validador de produção.
 - Fixture sintética integrada exatamente ao plano esperado, sem LLM.
 - Transporte Gemini simulado: cinco chamadas, reparo localizado, falhas, JSON duplicado, credenciais, bloqueio, truncamento e concorrência.
@@ -53,3 +55,9 @@ A cota não é inferida pelo script. A conta precisa estar em Free Tier no AI St
 Próxima verificação: executar uma rodada real com chave do projeto Free Tier; examinar o JSON completo, inclusive respostas rejeitadas; depois repetir com as mesmas entradas/modelo para observar estabilidade. Os números da rodada OpenRouter não devem ser comparados diretamente ao pipeline de cinco chamadas sem separar o efeito da retirada do integrador LLM.
 
 A IA Juiz independente, rubrica, correção pedagógica dirigida e experimento comparativo continuam fora deste incremento. Não há nota automática de qualidade nem aprovação automática. A interface mantém a revisão e aprovação do professor.
+
+## Contrato operacional e arquitetura-alvo
+
+O contrato `poc04a-0.1` não implementa ainda as 11 seções de `PlanoDeAula 2.0`. A geração atual mantém cinco chamadas normais, incluindo uma avaliação final. A arquitetura-alvo mantém cinco especialistas gerativos, mas prevê duas chamadas do especialista de avaliação (preliminar e final). Portanto a migração de provedor, isoladamente, não satisfaz integralmente RF09/RF10/RF11/RF12/RF25.
+
+A incorporação da branch de contratos preserva seus cinco arquivos sem alteração e inclui o commit original na ancestralidade da branch Gemini. A branch documental e seu PR permanecem separados; os documentos R2 não foram reescritos nem mesclados por esta integração.

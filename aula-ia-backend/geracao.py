@@ -2,7 +2,7 @@
 from copy import deepcopy
 import time
 import re
-from contratos import VERSAO, validar, integrar
+from contratos.execucao import VERSAO, validar, integrar
 from erros import ErroGeracao, ErroContrato
 from gemini import AgenteGemini, MODELO_PADRAO
 
@@ -136,10 +136,11 @@ class GeradorDePlano:
                         reg["saida"] = deepcopy(saida)
                         validar(nome, saida, entrada)
                     except ErroContrato as erro:
-                        reg.update(estado="rejeitado", erro=str(erro), tipo_erro=erro.tipo)
+                        reg.update(estado="rejeitado", erro=str(erro), tipo_erro=erro.tipo,
+                                   diagnosticos=deepcopy(getattr(erro, "diagnosticos", [])))
                         if tentativa > self.reparos:
                             raise
-                        reparo = {"erro": str(erro), "resposta_anterior": reg.get("conteudo_bruto", reg.get("saida")),
+                        reparo = {"erro": str(erro), "diagnosticos": reg["diagnosticos"], "resposta_anterior": reg.get("conteudo_bruto", reg.get("saida")),
                                   "instrucao": "Corrija exclusivamente o contrato do especialista, mantendo a mesma entrada confirmada."}
                         continue
                     except ErroGeracao as erro:

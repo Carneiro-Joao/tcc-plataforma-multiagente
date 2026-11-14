@@ -102,7 +102,8 @@ def main():
     parser.add_argument("--porta", type=int, default=8000)
     parser.add_argument("--gerador", choices=("demonstracao", "ia"), default="demonstracao")
     parser.add_argument("--modelo", default=MODELO_PADRAO, help="Modelo usado com --gerador ia")
-    parser.add_argument("--banco", type=Path, help="Opcional: manter dados entre sessões; por padrão usa armazenamento temporário.")
+    parser.add_argument("--banco", type=Path, default=BASE / "local" / "consultas.sqlite3", help="SQLite local para rastreabilidade técnica.")
+    parser.add_argument("--temporario", action="store_true", help="Descartar dados ao encerrar; somente para demonstração descartável.")
     parser.add_argument("--reparos", type=int, choices=(0, 1), default=1, help="Reparos de contrato por especialista (não repete erros HTTP).")
     args = parser.parse_args()
     try:
@@ -115,8 +116,8 @@ def main():
     except ErroGeracao as erro:
         parser.exit(1, f"Não foi possível iniciar a geração: {erro}\n")
     servidor = ThreadingHTTPServer(("127.0.0.1", args.porta), Rotas)
-    temporario = TemporaryDirectory(prefix="aulaia-") if args.banco is None else None
-    banco = args.banco or Path(temporario.name) / "sessao.sqlite3"
+    temporario = TemporaryDirectory(prefix="aulaia-") if args.temporario else None
+    banco = Path(temporario.name) / "sessao.sqlite3" if temporario else args.banco
     servidor.servico = ServicoCurricular(busca, banco, gerador)
     print("Dados: " + ("somente nesta sessão; ao reiniciar, consulte novamente." if temporario else str(banco)), flush=True)
     if args.gerador == "ia":

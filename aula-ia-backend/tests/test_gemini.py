@@ -120,10 +120,11 @@ class TestGemini(TestCase):
             self.assertEqual(len(transporte.pedidos), 1)
 
     def test_credencial_ecoada_e_redigida(self):
-        pipeline, _ = gerador([envelope({"objetivos": [CHAVE, "Outro"]})])
-        with self.assertRaises(ErroGeracao) as ctx:
-            pipeline.gerar(FIXTURE["entrada"], 0)
-        self.assertNotIn(CHAVE, json.dumps(ctx.exception.rastreio))
+        for saida in ({"objetivos": [CHAVE, "Outro"]}, '{"' + CHAVE + '":1,"' + CHAVE + '":2}'):
+            pipeline, _ = gerador([envelope(saida), envelope(saida)])
+            with self.subTest(saida=type(saida).__name__), self.assertRaises(ErroGeracao) as ctx:
+                pipeline.gerar(FIXTURE["entrada"], 0)
+            self.assertNotIn(CHAVE, json.dumps(ctx.exception.rastreio))
 
     def test_texto_de_pensamento_nao_e_parseado_como_saida(self):
         respostas = respostas_validas()
