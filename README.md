@@ -2,7 +2,7 @@
 
 Plataforma local para planejar aulas de Computação do **8º ano**, com seleção explícita da habilidade BNCC, cinco especialistas, integração em Python e aprovação docente. O modo de IA agora usa a **API nativa do Gemini**. Os testes descartáveis anteriores com OpenAI/OpenRouter deixam de ser o caminho de execução.
 
-Esta entrega incorpora o **PlanoDeAula 2.0 com 11 seções**, avaliação em duas passagens e vínculos entre objetivos, etapas e evidências. Preserva os contratos e testes anteriores. Consulte o [contrato completo](docs/Contrato_PlanoDeAula_2_0.md) e o [alinhamento com a R2](docs/Alinhamento_PoC04A.md). A IA Juiz e a comprovação com chamadas reais ainda estão pendentes.
+Esta entrega incorpora o **PlanoDeAula 2.0 com 11 seções**, avaliação em duas passagens e vínculos entre objetivos, etapas e evidências. Preserva os contratos e testes anteriores. Consulte o [contrato completo](docs/Contrato_PlanoDeAula_2_0.md) e o [alinhamento com a R2](docs/Alinhamento_PoC04A.md). A execução real já confirmou três etapas; a sequência foi recusada pela complexidade do schema. A correção está implementada, mas a rodada completa e a IA Juiz seguem pendentes. Veja o [registro e a correção](docs/Execucao_Gemini_2026-11-16.md).
 
 A geração mantém a habilidade, o tema, o ano, o tipo, os recursos e a duração confirmados. Cada especialista é validado antes do próximo. A integração não usa LLM: isso evita a conversão de `metodologia` de texto para objeto observada no teste anterior.
 
@@ -97,7 +97,7 @@ Nesse modo, os dados são temporários e removidos ao encerrar normalmente; um e
 | Adaptação | Duas adaptações com vínculos a objetivos e etapas |
 | Integração | Composição local das 11 seções e metadados oficiais do catálogo |
 
-Campos extras, tipos diferentes, textos em branco, chaves duplicadas e números `NaN`/`Infinity` são rejeitados. Não há conversão silenciosa de objetos em texto ou descarte de campos extras. O schema enviado ao Gemini reduz desvios, mas a validação local permanece obrigatória.
+Campos extras, tipos diferentes, textos em branco, chaves duplicadas e números `NaN`/`Infinity` são rejeitados. Não há conversão silenciosa de objetos em texto ou descarte de campos extras. O schema enviado ao Gemini mantém estrutura/tipos e usa descrições para limites e formatos, evitando multiplicar estados na API. O contrato completo continua obrigatório na validação local.
 
 Há no máximo um reparo por especialista na mesma execução, mantendo as dependências já validadas. Não é um ciclo de correção pedagógica. Se o reparo também falhar, os dependentes não executam. A tentativa fica em estado `falha`, com rastreio, e não pode ser aprovada. Uma nova solicitação do professor cria outra revisão e recalcula todos os especialistas.
 
@@ -131,7 +131,7 @@ Para conferir a execução real, compartilhe o JSON desse diretório. Não compa
 | `aula-ia/public/geracao-ui.js` | Exibição do plano, falha e aprovação; espelhado em `dist/` |
 | `docs/PoC04A_Gemini.md` | Decisões, achados, evidências e limites deste incremento |
 
-Validação desta entrega: **89 testes aprovados e 1 teste opcional ignorado**, incluindo os 27 casos estruturais como subtestes; execução do CLI em simulação com duração de 45 minutos; sintaxe e renderização JavaScript das 11 seções conferidas, incluindo escape de HTML e leitura de planos antigos. O fluxo HTTP usa respostas Gemini simuladas, incluindo o contrato 2.0 até aprovação docente. A execução do navegador automatizado foi bloqueada pelo ambiente, portanto a interface visual precisa ser conferida localmente. **A API real Gemini ainda não foi chamada com uma chave do projeto.**
+Validação desta entrega: **94 testes aprovados e 1 teste opcional ignorado**, incluindo os 27 casos estruturais como subtestes; execução do CLI em simulação com duração de 45 minutos; sintaxe e renderização JavaScript das 11 seções conferidas, incluindo escape de HTML e leitura de planos antigos. O fluxo HTTP usa respostas Gemini simuladas, incluindo o contrato 2.0 até aprovação docente. A execução do navegador automatizado foi bloqueada pelo ambiente, portanto a interface visual precisa ser conferida localmente. **O JSON real fornecido pelo usuário confirmou três chamadas válidas e falha por complexidade na quarta. A correção do schema ainda precisa de nova execução real.**
 
 Os módulos legados `AgenteOpenAI` e os probes que fazem monkeypatch de `geracao.request.urlopen` não integram mais o fluxo atual. Use `teste_gemini.py`. O modo de busca híbrida permanece opcional: instale também `requirements-hibrido.txt`, prepare os arquivos/modelos necessários e execute `--modo hibrido`. A alteração do provedor de geração não muda o catálogo ou o método da busca curricular.
 

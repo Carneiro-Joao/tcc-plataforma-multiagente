@@ -6,6 +6,7 @@ from tempfile import TemporaryDirectory
 from unittest import TestCase
 from urllib.error import URLError
 from contratos import plano_v2 as c
+from contratos.esquema_gemini import esquema_api
 from erros import ErroContrato, ErroGeracao
 from geracao_v2 import AgenteGeminiCompleto, GeradorDePlanoCompleto
 from rag.search import BuscaCurricular
@@ -160,7 +161,7 @@ class TestPlanoCompleto(TestCase):
             corpo = json.loads(pedido.data)
             dados = json.loads(corpo['contents'][0]['parts'][0]['text'])
             self.assertEqual(set(dados['saidas_anteriores']),set(c.DEPENDENCIAS[nome]))
-            self.assertEqual(corpo['generationConfig']['responseFormat']['text']['schema'],c.esquema(nome))
+            self.assertEqual(corpo['generationConfig']['responseFormat']['text']['schema'],esquema_api(nome))
         self.assertNotIn(CHAVE,json.dumps(r))
 
     def test_reparo_local_conserva_tentativa_e_dependencias(self):

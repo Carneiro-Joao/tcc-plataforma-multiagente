@@ -1,5 +1,8 @@
 """PlanoDeAula 2.0: cinco especialidades, seis chamadas e integrador Python."""
 from contratos import plano_v2 as contrato
+from contratos.esquema_gemini import esquema_api, VERSAO_ESQUEMA_API
+from erros import ErroGeracao
+import json
 from geracao import GeradorDePlano, distribuicao_tempo
 from gemini import AgenteGemini, MODELO_PADRAO
 
@@ -13,10 +16,38 @@ INSTRUCOES = {
 }
 
 
+ORIENTACAO_RECURSOS = (
+    ' Só exija registros escritos se os recursos confirmados incluírem explicitamente '
+    'um instrumento ou dispositivo que permita escrever. Sem isso, use explicação e '
+    'contagem oral ou manipulação de cartões já preparados, sem acrescentar recursos.'
+)
+INSTRUCOES = {nome: texto + ORIENTACAO_RECURSOS for nome, texto in INSTRUCOES.items()}
+
+
 class AgenteGeminiCompleto(AgenteGemini):
     def __init__(self, modelo=MODELO_PADRAO, **kwargs):
-        super().__init__(modelo, esquema_saida=contrato.esquema, instrucoes=INSTRUCOES,
-                         versao_contrato=contrato.VERSAO, versao_prompt='especialistas-plano-2.0', **kwargs)
+        super().__init__(modelo, esquema_saida=esquema_api, instrucoes=INSTRUCOES,
+                         versao_contrato=contrato.VERSAO, versao_prompt='especialistas-plano-2.0.1', **kwargs)
+
+
+    def executar(self, nome, entrada, estado, revisao, *, registro, reparo=None):
+        registro['versao_esquema_api'] = VERSAO_ESQUEMA_API
+        try:
+            return super().executar(nome, entrada, estado, revisao, registro=registro, reparo=reparo)
+        except ErroGeracao:
+            # O corpo já foi sanitizado pelo transporte. Não repete HTTP 400.
+            if registro.get('http_status') == 400:
+                try:
+                    detalhe = json.loads(registro.get('erro_corpo', '{}')).get('error', {})
+                    mensagem = detalhe.get('message', '')
+                    razoes = {d.get('reason') for d in detalhe.get('details', []) if isinstance(d, dict)}
+                except (ValueError, TypeError, AttributeError):
+                    mensagem, razoes = '', set()
+                if isinstance(mensagem, str) and 'too many states' in mensagem.lower():
+                    raise ErroGeracao('Gemini HTTP 400: o esquema enviado excedeu o limite de complexidade da API. Atualize o adaptador de esquema; nenhuma repetição automática foi feita.', tipo='esquema_api') from None
+                if 'API_KEY_INVALID' in razoes:
+                    raise ErroGeracao('Gemini HTTP 400: chave inválida. Confira GEMINI_API_KEY e copie a chave completa do Google AI Studio.', tipo='autenticacao') from None
+            raise
 
 
 class AgenteDemonstrativoCompleto:
