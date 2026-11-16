@@ -17,7 +17,7 @@ class TestGeracao(TestCase):
         temp = TemporaryDirectory()
         self.addCleanup(temp.cleanup)
         self.db = Path(temp.name) / "test.sqlite3"
-        self.servico = ServicoCurricular(BuscaCurricular(), self.db)
+        self.servico = ServicoCurricular(BuscaCurricular(), self.db, gerador=GeradorDePlano())
         self.consulta = self.servico.consultar({"consulta": "tema", "contexto": CONTEXTO})
         self.id = self.consulta["id"]
 

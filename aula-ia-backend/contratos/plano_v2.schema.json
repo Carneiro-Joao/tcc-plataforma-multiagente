@@ -1,0 +1,805 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tcc-joao:plano-aula:2.0",
+  "title": "PlanoDeAula 2.0 e saídas por etapa",
+  "$defs": {
+    "objetivos": {
+      "type": "object",
+      "properties": {
+        "conteudos": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true
+        },
+        "objetivo_geral": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "objetivos_especificos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^OBJ[1-9][0-9]*$"
+              },
+              "descricao": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "id",
+              "descricao"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 2,
+          "maxItems": 4
+        }
+      },
+      "required": [
+        "conteudos",
+        "objetivo_geral",
+        "objetivos_especificos"
+      ],
+      "additionalProperties": false
+    },
+    "avaliacao_preliminar": {
+      "type": "object",
+      "properties": {
+        "evidencias": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^EVI[1-9][0-9]*$"
+              },
+              "objetivo_id": {
+                "type": "string",
+                "pattern": "^OBJ[1-9][0-9]*$"
+              },
+              "criterio": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "evidencia_esperada": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "id",
+              "objetivo_id",
+              "criterio",
+              "evidencia_esperada"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 2,
+          "maxItems": 12
+        }
+      },
+      "required": [
+        "evidencias"
+      ],
+      "additionalProperties": false
+    },
+    "metodologia": {
+      "type": "object",
+      "properties": {
+        "metodologia": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "recursos": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "metodologia",
+        "recursos"
+      ],
+      "additionalProperties": false
+    },
+    "sequencia": {
+      "type": "object",
+      "properties": {
+        "etapas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^ET[1-9][0-9]*$"
+              },
+              "titulo": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "minutos": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "acao_docente": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "acao_discente": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "atividade": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "objetivos_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^OBJ[1-9][0-9]*$"
+                },
+                "minItems": 1,
+                "maxItems": 20,
+                "uniqueItems": true
+              },
+              "evidencias_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^EVI[1-9][0-9]*$"
+                },
+                "minItems": 1,
+                "maxItems": 20,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "id",
+              "titulo",
+              "minutos",
+              "acao_docente",
+              "acao_discente",
+              "atividade",
+              "objetivos_ids",
+              "evidencias_ids"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 12
+        }
+      },
+      "required": [
+        "etapas"
+      ],
+      "additionalProperties": false
+    },
+    "avaliacao_final": {
+      "type": "object",
+      "properties": {
+        "instrumentos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^INS[1-9][0-9]*$"
+              },
+              "descricao": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "etapas_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^ET[1-9][0-9]*$"
+                },
+                "minItems": 1,
+                "maxItems": 20,
+                "uniqueItems": true
+              },
+              "evidencias_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^EVI[1-9][0-9]*$"
+                },
+                "minItems": 1,
+                "maxItems": 20,
+                "uniqueItems": true
+              },
+              "procedimento": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "id",
+              "descricao",
+              "etapas_ids",
+              "evidencias_ids",
+              "procedimento"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 12
+        },
+        "uso_resultados": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "instrumentos",
+        "uso_resultados"
+      ],
+      "additionalProperties": false
+    },
+    "adaptacao": {
+      "type": "object",
+      "properties": {
+        "adaptacoes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^ADP[1-9][0-9]*$"
+              },
+              "descricao": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "objetivos_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^OBJ[1-9][0-9]*$"
+                },
+                "minItems": 1,
+                "maxItems": 20,
+                "uniqueItems": true
+              },
+              "etapas_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^ET[1-9][0-9]*$"
+                },
+                "minItems": 1,
+                "maxItems": 20,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "id",
+              "descricao",
+              "objetivos_ids",
+              "etapas_ids"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "required": [
+        "adaptacoes"
+      ],
+      "additionalProperties": false
+    },
+    "plano": {
+      "type": "object",
+      "properties": {
+        "identificacao": {
+          "type": "object",
+          "properties": {
+            "titulo": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "componente": {
+              "type": "string",
+              "enum": [
+                "Computação"
+              ]
+            },
+            "ano": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "tema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "tipo": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "duracao_min": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1440
+            }
+          },
+          "required": [
+            "titulo",
+            "componente",
+            "ano",
+            "tema",
+            "tipo",
+            "duracao_min"
+          ],
+          "additionalProperties": false
+        },
+        "habilidade_bncc": {
+          "type": "object",
+          "properties": {
+            "codigo": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "descricao": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "eixo": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "objeto_conhecimento": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "referencia": {
+              "type": "object",
+              "properties": {
+                "documento": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "arquivo": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "pagina_habilidade": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "pagina_exemplos": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "versao_catalogo": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "sha256_catalogo": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "documento",
+                "arquivo",
+                "pagina_habilidade",
+                "pagina_exemplos",
+                "versao_catalogo",
+                "sha256_catalogo"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "codigo",
+            "descricao",
+            "eixo",
+            "objeto_conhecimento",
+            "referencia"
+          ],
+          "additionalProperties": false
+        },
+        "conteudos": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true
+        },
+        "objetivo_geral": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "objetivos_especificos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^OBJ[1-9][0-9]*$"
+              },
+              "descricao": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "id",
+              "descricao"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 2,
+          "maxItems": 4
+        },
+        "metodologia": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "recursos": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "desenvolvimento": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^ET[1-9][0-9]*$"
+              },
+              "titulo": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "minutos": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "acao_docente": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "acao_discente": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "atividade": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "objetivos_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^OBJ[1-9][0-9]*$"
+                },
+                "minItems": 1,
+                "maxItems": 20,
+                "uniqueItems": true
+              },
+              "evidencias_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^EVI[1-9][0-9]*$"
+                },
+                "minItems": 1,
+                "maxItems": 20,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "id",
+              "titulo",
+              "minutos",
+              "acao_docente",
+              "acao_discente",
+              "atividade",
+              "objetivos_ids",
+              "evidencias_ids"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 12
+        },
+        "avaliacao_aprendizagem": {
+          "type": "object",
+          "properties": {
+            "evidencias": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^EVI[1-9][0-9]*$"
+                  },
+                  "objetivo_id": {
+                    "type": "string",
+                    "pattern": "^OBJ[1-9][0-9]*$"
+                  },
+                  "criterio": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "evidencia_esperada": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                },
+                "required": [
+                  "id",
+                  "objetivo_id",
+                  "criterio",
+                  "evidencia_esperada"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 2,
+              "maxItems": 12
+            },
+            "instrumentos": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^INS[1-9][0-9]*$"
+                  },
+                  "descricao": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "etapas_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^ET[1-9][0-9]*$"
+                    },
+                    "minItems": 1,
+                    "maxItems": 20,
+                    "uniqueItems": true
+                  },
+                  "evidencias_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^EVI[1-9][0-9]*$"
+                    },
+                    "minItems": 1,
+                    "maxItems": 20,
+                    "uniqueItems": true
+                  },
+                  "procedimento": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                },
+                "required": [
+                  "id",
+                  "descricao",
+                  "etapas_ids",
+                  "evidencias_ids",
+                  "procedimento"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 12
+            },
+            "uso_resultados": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "evidencias",
+            "instrumentos",
+            "uso_resultados"
+          ],
+          "additionalProperties": false
+        },
+        "adaptacoes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^ADP[1-9][0-9]*$"
+              },
+              "descricao": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "objetivos_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^OBJ[1-9][0-9]*$"
+                },
+                "minItems": 1,
+                "maxItems": 20,
+                "uniqueItems": true
+              },
+              "etapas_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^ET[1-9][0-9]*$"
+                },
+                "minItems": 1,
+                "maxItems": 20,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "id",
+              "descricao",
+              "objetivos_ids",
+              "etapas_ids"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "referencias": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "BNCC"
+                ]
+              },
+              "titulo": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "arquivo": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "paginas": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "minItems": 1,
+                "maxItems": 2,
+                "uniqueItems": true
+              },
+              "versao_catalogo": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "sha256_catalogo": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "id",
+              "titulo",
+              "arquivo",
+              "paginas",
+              "versao_catalogo",
+              "sha256_catalogo"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 1
+        }
+      },
+      "required": [
+        "identificacao",
+        "habilidade_bncc",
+        "conteudos",
+        "objetivo_geral",
+        "objetivos_especificos",
+        "metodologia",
+        "recursos",
+        "desenvolvimento",
+        "avaliacao_aprendizagem",
+        "adaptacoes",
+        "referencias"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/objetivos"
+    },
+    {
+      "$ref": "#/$defs/avaliacao_preliminar"
+    },
+    {
+      "$ref": "#/$defs/metodologia"
+    },
+    {
+      "$ref": "#/$defs/sequencia"
+    },
+    {
+      "$ref": "#/$defs/avaliacao_final"
+    },
+    {
+      "$ref": "#/$defs/adaptacao"
+    },
+    {
+      "$ref": "#/$defs/plano"
+    }
+  ]
+}

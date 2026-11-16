@@ -1,12 +1,17 @@
 """Consultas, confirmação curricular, revisões e aprovação docente."""
 from contextlib import contextmanager
 import json
+from hashlib import sha256
 from pathlib import Path
 import sqlite3
 from uuid import uuid4
-from geracao import GeradorDePlano, ErroGeracao
+from erros import ErroGeracao
+from geracao_v2 import GeradorDePlanoCompleto as GeradorDePlano
 
-from rag.search import FONTE
+from rag.search import FONTE, BASE
+
+VERSAO_CATALOGO = "bncc-8ano-v1"
+HASH_CATALOGO = sha256((BASE / "data" / "bncc_8ano.json").read_bytes()).hexdigest()
 
 @contextmanager
 def abrir_banco(caminho):
@@ -54,6 +59,7 @@ def habilidade_publica(doc):
     return {**{k: doc[k] for k in campos}, "referencia": {
         "documento": FONTE, "arquivo": "BNCCComputacao.pdf",
         "pagina_habilidade": doc["pagina_habilidade"], "pagina_exemplos": doc["pagina_pdf"],
+        "versao_catalogo": VERSAO_CATALOGO, "sha256_catalogo": HASH_CATALOGO,
     }}
 
 
@@ -167,7 +173,9 @@ class ServicoCurricular:
             conhecido = isinstance(erro, ErroGeracao)
             mensagem = str(erro) if conhecido else "Falha interna na geração."
             falha = {"erro": mensagem, "tipo_erro": erro.tipo if conhecido else "interno",
-                     "rastreio": erro.rastreio if conhecido else [], "revisao": revisao}
+                     "rastreio": erro.rastreio if conhecido else [], "revisao": revisao,
+                     "contrato": getattr(self.gerador, "VERSAO_CONTRATO", None),
+                     "modo": getattr(self.gerador, "modo", None), "modelo": getattr(self.gerador, "modelo", None)}
             with abrir_banco(self.banco) as db:
                 db.execute("UPDATE geracoes SET estado = 'falha', resultado = ? WHERE id = ? AND estado = 'processando'",
                            (json.dumps(falha, ensure_ascii=False), id_geracao))

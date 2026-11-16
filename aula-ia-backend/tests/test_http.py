@@ -81,3 +81,28 @@ class TestHTTP(TestCase):
         status, consulta = self.api(rota + "/gerar", {})
         self.assertEqual(status, 201)
         self.assertEqual(consulta["geracao_atual"]["revisao"], 2)
+
+    def test_plano_completo_ate_aprovacao_humana(self):
+        from test_plano_v2 import pipeline, FIXTURE_V2
+        gerador, transporte = pipeline()
+        self.servidor.servico.gerador = gerador
+        rota = self.consultar_confirmar()
+        status, consulta = self.api(rota + "/gerar", {})
+        self.assertEqual(status,201)
+        geracao = consulta["geracao_atual"]
+        self.assertEqual(geracao["resultado"]["contrato"],"plano-aula-2.0")
+        self.assertEqual(geracao["resultado"]["plano"],FIXTURE_V2["plano_esperado"])
+        self.assertEqual(len(transporte.pedidos),6)
+        self.assertEqual(geracao["estado"],"rascunho")
+        status, consulta = self.api(f"/api/geracoes/{geracao['id']}/aprovar", {})
+        self.assertEqual(status,200)
+        self.assertEqual(consulta["geracao_atual"]["estado"],"aprovado")
+
+    def test_modo_padrao_gera_contrato_completo(self):
+        rota = self.consultar_confirmar()
+        status, consulta = self.api(rota + "/gerar", {})
+        self.assertEqual(status,201)
+        resultado = consulta["geracao_atual"]["resultado"]
+        self.assertEqual(resultado["contrato"],"plano-aula-2.0")
+        self.assertEqual(len(resultado["plano"]),11)
+        self.assertEqual(resultado["modo"],"demonstracao")

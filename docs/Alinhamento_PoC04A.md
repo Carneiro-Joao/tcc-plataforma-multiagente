@@ -1,6 +1,6 @@
 # Alinhamento da integração Gemini com as branches do projeto
 
-Conferência: 14/11/2026.
+Conferência: 16/11/2026. Continuação da branch Gemini a partir de `f6b7913`.
 
 ## Fontes conferidas
 
@@ -17,7 +17,7 @@ Referências fixadas para esta conferência:
 
 ## Aproveitamento do trabalho existente
 
-`contratos/validacao.py` permanece a fonte da validação local. Seus diagnósticos (caminho, regra, esperado e recebido quando aplicável) são aproveitados na mensagem de erro, rastreio e reparo estrutural. `contratos/execucao.py` adapta a interface para exceções do pipeline e compõe o plano em Python. O schema JSON fica como instrução enviada ao provedor, sem impor dependência de `jsonschema` ao usuário.
+`contratos/validacao.py` permanece a fonte da validação v0.1 e do parser estrito compartilhado. `contratos/plano_v2.py` acrescenta a validação completa das 11 seções e seus vínculos, com schema próprio versionado. Seus diagnósticos (caminho, regra, esperado e recebido quando aplicável) são aproveitados na mensagem de erro, rastreio e reparo estrutural. `contratos/execucao.py` adapta a interface para exceções do pipeline e compõe o plano em Python. O schema JSON fica como instrução enviada ao provedor, sem impor dependência de `jsonschema` ao usuário.
 
 Preservados integralmente:
 - `aula-ia-backend/contratos/__init__.py`
@@ -32,12 +32,12 @@ A integração elimina o módulo concorrente `contratos.py` e a segunda cópia d
 
 | Requisito/decisão R2 | Evidência desta integração | Situação |
 |---|---|---|
-| RF09: contratos e dependências | Validação imediata, apenas dependentes validados, um reparo estrutural | Parcial: falta avaliação em duas passagens |
-| RF10: PlanoDeAula 2.0 | Contrato operacional v0.1 com 13 campos | Parcial: faltam as 11 seções completas, IDs e vínculos |
-| RN01/RN04/RN12: fonte curricular e duração | Integrador usa catálogo/contexto confirmados; soma exata de inteiros positivos | Implementado no contrato v0.1 |
+| RF09: contratos e dependências | Seis chamadas, avaliação preliminar/final, dependências validadas e reparo limitado | Implementado no fluxo; verificação real Gemini pendente |
+| RF10: PlanoDeAula 2.0 | 11 seções, IDs, cobertura e vínculos objetivo–etapa–evidência | Contrato mecânico implementado; qualidade pedagógica pendente |
+| RN01/RN04/RN12: fonte curricular e duração | Integrador usa catálogo/contexto confirmados; soma exata de inteiros positivos | Implementado em 2.0, com versão e hash do catálogo JSON |
 | RF11/RF12/RN06/RN14: Juiz e correções dirigidas | Reparos técnicos separados; nova revisão recalcula todos os especialistas | Juiz, orçamento pedagógico e invalidação seletiva pendentes |
 | RF13: falhas rastreáveis | Estado `falha`, tentativas registradas, sem plano fictício | Implementado nos caminhos tratados |
-| RF14/RF21: persistência e rastreio | SQLite local por padrão; respostas, metadados e erros por tentativa | Parcial: faltam modelo de execução completo, versão de prompt e demais artefatos-alvo |
+| RF14/RF21: persistência e rastreio | SQLite local; respostas, metadados, versão de contrato/prompt e erros por tentativa | Parcial: faltam modelo de execução completo e demais artefatos-alvo |
 | RF25/UC10/RN13: aceitar/rejeitar | Aprovação humana explícita da revisão atual | Parcial: rejeição explícita ainda pendente |
 | RN03/RN11: versões | Nova tentativa não sobrescreve anterior | Parcial: regeneração após aprovação continua bloqueada |
 | Estados R2 | `processando`, `rascunho`, `aprovado`, `falha` | Parcial: enumeração de nove estados depende dos incrementos seguintes |
@@ -48,10 +48,10 @@ A árvore documental R2 descreve arquitetura-alvo. A implementação Gemini é *
 
 ## Verificação da integração conjunta
 
-63 testes aprovados e um teste híbrido opcional ignorado; os 27 casos estruturais anteriores continuam presentes. Os testes adicionais cobrem integração determinística, adaptação dos diagnósticos, protocolo Gemini simulado, reparo, erros e fluxo HTTP. Nenhuma chamada real à API foi feita nesta conferência.
+89 testes aprovados e um teste híbrido opcional ignorado; os 27 casos estruturais anteriores continuam presentes. A suíte inclui as 11 seções, referências/IDs/cobertura, protocolo Gemini simulado com seis chamadas, reparo limitado, falhas e HTTP até aprovação docente. O JavaScript foi verificado para renderização completa, escape de HTML e leitura do legado. Nenhuma chamada real à API foi feita nesta conferência.
 
-Próximos trabalhos permanecem explícitos: sondagem real com chave Free Tier; PlanoDeAula 2.0 e avaliação em duas passagens; IA Juiz e correção dirigida; aceite/rejeição e estados completos; consolidação de diagramas e Capítulo 4. Não é necessário substituir o trabalho de contratos para executar a sondagem Gemini v0.1.
+Próximos trabalhos: inspecionar o JSON da execução real do projeto; avaliar estabilidade e qualidade; implementar IA Juiz e correção dirigida; aceite/rejeição e estados completos. As 11 seções e as duas passagens de avaliação já fazem parte do código, com documentação atualizada nesta branch.
 
 ## Documentação da implementação atual
 
-O [diagrama dos componentes implementados](diagramas/PoC04A_Gemini_atual.md) registra o fluxo v0.1 e suas limitações. O [registro técnico do incremento](Capitulo_4_Incremento_04A_parcial.md) fornece a evidência para o Capítulo 4. Esses documentos complementam os diagramas-alvo R2, preservados no PR documental.
+O [diagrama dos componentes implementados](diagramas/PoC04A_Gemini_atual.md) registra o fluxo 2.0 e suas limitações. O [registro técnico do incremento](Capitulo_4_Incremento_04A_parcial.md) fornece a evidência para o Capítulo 4. Esses documentos complementam os diagramas-alvo R2, preservados no PR documental.

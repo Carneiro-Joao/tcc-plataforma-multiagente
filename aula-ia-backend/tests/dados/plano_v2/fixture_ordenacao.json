@@ -1,0 +1,378 @@
+{
+  "origem": "Fixture sintética por regras, revisada para teste estrutural. Não é resposta Gemini nem evidência de qualidade pedagógica.",
+  "contrato": "plano-aula-2.0",
+  "entrada": {
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "Quero ensinar ordenação",
+      "duracao_min": 50,
+      "tipo": "Computação desplugada",
+      "recursos": "papel e cartões"
+    },
+    "habilidade": {
+      "codigo": "EF08CO03",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+      "exemplos": [
+        "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+        "Algoritmos de inserção.",
+        "Algoritmos de remoção.",
+        "Algoritmos de busca linear.",
+        "Algoritmos de busca binária."
+      ],
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    }
+  },
+  "saidas": {
+    "objetivos": {
+      "conteudos": [
+        "Listas numéricas",
+        "Comparação de vizinhos e ordenação por bolha"
+      ],
+      "objetivo_geral": "Compreender e executar um procedimento de ordenação sobre listas.",
+      "objetivos_especificos": [
+        {
+          "id": "OBJ1",
+          "descricao": "Ordenar cartões numerados aplicando comparações e trocas entre vizinhos."
+        },
+        {
+          "id": "OBJ2",
+          "descricao": "Explicar quando realizar uma troca e como reconhecer que a lista está ordenada."
+        }
+      ]
+    },
+    "avaliacao_preliminar": {
+      "evidencias": [
+        {
+          "id": "EVI1",
+          "objetivo_id": "OBJ1",
+          "criterio": "Realizar a ação descrita no objetivo: Ordenar cartões numerados aplicando comparações e trocas entre vizinhos.",
+          "evidencia_esperada": "Demonstração do procedimento e explicação oral das decisões pelo estudante."
+        },
+        {
+          "id": "EVI2",
+          "objetivo_id": "OBJ2",
+          "criterio": "Realizar a ação descrita no objetivo: Explicar quando realizar uma troca e como reconhecer que a lista está ordenada.",
+          "evidencia_esperada": "Demonstração do procedimento e explicação oral das decisões pelo estudante."
+        }
+      ]
+    },
+    "metodologia": {
+      "metodologia": "Computação desplugada, com demonstração orientada, prática em duplas e discussão oral. O professor usa as evidências previstas para observar as decisões dos estudantes. As atividades utilizam os recursos confirmados, sem exigir escrita ou dispositivos adicionais.",
+      "recursos": "papel e cartões"
+    },
+    "sequencia": {
+      "etapas": [
+        {
+          "id": "ET1",
+          "titulo": "Problema inicial",
+          "minutos": 8,
+          "acao_docente": "Orientar a tarefa, demonstrar quando necessário e observar as evidências previstas.",
+          "acao_discente": "Participar da tarefa e explicar oralmente suas decisões.",
+          "atividade": "Comparar oralmente os valores de uma lista de cartões numerados já preparada.",
+          "objetivos_ids": [
+            "OBJ1",
+            "OBJ2"
+          ],
+          "evidencias_ids": [
+            "EVI1",
+            "EVI2"
+          ]
+        },
+        {
+          "id": "ET2",
+          "titulo": "Demonstração",
+          "minutos": 10,
+          "acao_docente": "Orientar a tarefa, demonstrar quando necessário e observar as evidências previstas.",
+          "acao_discente": "Participar da tarefa e explicar oralmente suas decisões.",
+          "atividade": "Comparar vizinhos, trocar os que estão fora de ordem e repetir passagens até não haver trocas.",
+          "objetivos_ids": [
+            "OBJ1",
+            "OBJ2"
+          ],
+          "evidencias_ids": [
+            "EVI1",
+            "EVI2"
+          ]
+        },
+        {
+          "id": "ET3",
+          "titulo": "Prática em duplas",
+          "minutos": 22,
+          "acao_docente": "Orientar a tarefa, demonstrar quando necessário e observar as evidências previstas.",
+          "acao_discente": "Participar da tarefa e explicar oralmente suas decisões.",
+          "atividade": "Ordenar uma nova disposição de cartões pelo procedimento de bolha, alternando quem compara e quem movimenta.",
+          "objetivos_ids": [
+            "OBJ1",
+            "OBJ2"
+          ],
+          "evidencias_ids": [
+            "EVI1",
+            "EVI2"
+          ]
+        },
+        {
+          "id": "ET4",
+          "titulo": "Síntese",
+          "minutos": 10,
+          "acao_docente": "Orientar a tarefa, demonstrar quando necessário e observar as evidências previstas.",
+          "acao_discente": "Participar da tarefa e explicar oralmente suas decisões.",
+          "atividade": "Explicar uma troca e uma não troca e justificar o término do algoritmo.",
+          "objetivos_ids": [
+            "OBJ1",
+            "OBJ2"
+          ],
+          "evidencias_ids": [
+            "EVI1",
+            "EVI2"
+          ]
+        }
+      ]
+    },
+    "avaliacao_final": {
+      "instrumentos": [
+        {
+          "id": "INS1",
+          "descricao": "Observação orientada e perguntas orais.",
+          "etapas_ids": [
+            "ET1",
+            "ET2",
+            "ET3",
+            "ET4"
+          ],
+          "evidencias_ids": [
+            "EVI1",
+            "EVI2"
+          ],
+          "procedimento": "Observar a execução, solicitar justificativas individuais e comparar as ações com os critérios de cada evidência."
+        }
+      ],
+      "uso_resultados": "Se as evidências esperadas não aparecerem, retomar a demonstração e oferecer uma tarefa menor; nenhuma aprendizagem é presumida antes da aula."
+    },
+    "adaptacao": {
+      "adaptacoes": [
+        {
+          "id": "ADP1",
+          "descricao": "Dividir as instruções em passos, demonstrar novamente e começar por uma tarefa menor usando os mesmos materiais.",
+          "objetivos_ids": [
+            "OBJ1",
+            "OBJ2"
+          ],
+          "etapas_ids": [
+            "ET1",
+            "ET2",
+            "ET3",
+            "ET4"
+          ]
+        },
+        {
+          "id": "ADP2",
+          "descricao": "Alternar funções nas duplas e permitir resposta oral ou indicação dos materiais, com apoio do professor sem presumir diagnósticos.",
+          "objetivos_ids": [
+            "OBJ1",
+            "OBJ2"
+          ],
+          "etapas_ids": [
+            "ET1",
+            "ET2",
+            "ET3",
+            "ET4"
+          ]
+        }
+      ]
+    }
+  },
+  "plano_esperado": {
+    "identificacao": {
+      "titulo": "Plano de aula — Quero ensinar ordenação",
+      "componente": "Computação",
+      "ano": "8º ano",
+      "tema": "Quero ensinar ordenação",
+      "tipo": "Computação desplugada",
+      "duracao_min": 50
+    },
+    "habilidade_bncc": {
+      "codigo": "EF08CO03",
+      "descricao": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    },
+    "conteudos": [
+      "Listas numéricas",
+      "Comparação de vizinhos e ordenação por bolha"
+    ],
+    "objetivo_geral": "Compreender e executar um procedimento de ordenação sobre listas.",
+    "objetivos_especificos": [
+      {
+        "id": "OBJ1",
+        "descricao": "Ordenar cartões numerados aplicando comparações e trocas entre vizinhos."
+      },
+      {
+        "id": "OBJ2",
+        "descricao": "Explicar quando realizar uma troca e como reconhecer que a lista está ordenada."
+      }
+    ],
+    "metodologia": "Computação desplugada, com demonstração orientada, prática em duplas e discussão oral. O professor usa as evidências previstas para observar as decisões dos estudantes. As atividades utilizam os recursos confirmados, sem exigir escrita ou dispositivos adicionais.",
+    "recursos": "papel e cartões",
+    "desenvolvimento": [
+      {
+        "id": "ET1",
+        "titulo": "Problema inicial",
+        "minutos": 8,
+        "acao_docente": "Orientar a tarefa, demonstrar quando necessário e observar as evidências previstas.",
+        "acao_discente": "Participar da tarefa e explicar oralmente suas decisões.",
+        "atividade": "Comparar oralmente os valores de uma lista de cartões numerados já preparada.",
+        "objetivos_ids": [
+          "OBJ1",
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI1",
+          "EVI2"
+        ]
+      },
+      {
+        "id": "ET2",
+        "titulo": "Demonstração",
+        "minutos": 10,
+        "acao_docente": "Orientar a tarefa, demonstrar quando necessário e observar as evidências previstas.",
+        "acao_discente": "Participar da tarefa e explicar oralmente suas decisões.",
+        "atividade": "Comparar vizinhos, trocar os que estão fora de ordem e repetir passagens até não haver trocas.",
+        "objetivos_ids": [
+          "OBJ1",
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI1",
+          "EVI2"
+        ]
+      },
+      {
+        "id": "ET3",
+        "titulo": "Prática em duplas",
+        "minutos": 22,
+        "acao_docente": "Orientar a tarefa, demonstrar quando necessário e observar as evidências previstas.",
+        "acao_discente": "Participar da tarefa e explicar oralmente suas decisões.",
+        "atividade": "Ordenar uma nova disposição de cartões pelo procedimento de bolha, alternando quem compara e quem movimenta.",
+        "objetivos_ids": [
+          "OBJ1",
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI1",
+          "EVI2"
+        ]
+      },
+      {
+        "id": "ET4",
+        "titulo": "Síntese",
+        "minutos": 10,
+        "acao_docente": "Orientar a tarefa, demonstrar quando necessário e observar as evidências previstas.",
+        "acao_discente": "Participar da tarefa e explicar oralmente suas decisões.",
+        "atividade": "Explicar uma troca e uma não troca e justificar o término do algoritmo.",
+        "objetivos_ids": [
+          "OBJ1",
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI1",
+          "EVI2"
+        ]
+      }
+    ],
+    "avaliacao_aprendizagem": {
+      "evidencias": [
+        {
+          "id": "EVI1",
+          "objetivo_id": "OBJ1",
+          "criterio": "Realizar a ação descrita no objetivo: Ordenar cartões numerados aplicando comparações e trocas entre vizinhos.",
+          "evidencia_esperada": "Demonstração do procedimento e explicação oral das decisões pelo estudante."
+        },
+        {
+          "id": "EVI2",
+          "objetivo_id": "OBJ2",
+          "criterio": "Realizar a ação descrita no objetivo: Explicar quando realizar uma troca e como reconhecer que a lista está ordenada.",
+          "evidencia_esperada": "Demonstração do procedimento e explicação oral das decisões pelo estudante."
+        }
+      ],
+      "instrumentos": [
+        {
+          "id": "INS1",
+          "descricao": "Observação orientada e perguntas orais.",
+          "etapas_ids": [
+            "ET1",
+            "ET2",
+            "ET3",
+            "ET4"
+          ],
+          "evidencias_ids": [
+            "EVI1",
+            "EVI2"
+          ],
+          "procedimento": "Observar a execução, solicitar justificativas individuais e comparar as ações com os critérios de cada evidência."
+        }
+      ],
+      "uso_resultados": "Se as evidências esperadas não aparecerem, retomar a demonstração e oferecer uma tarefa menor; nenhuma aprendizagem é presumida antes da aula."
+    },
+    "adaptacoes": [
+      {
+        "id": "ADP1",
+        "descricao": "Dividir as instruções em passos, demonstrar novamente e começar por uma tarefa menor usando os mesmos materiais.",
+        "objetivos_ids": [
+          "OBJ1",
+          "OBJ2"
+        ],
+        "etapas_ids": [
+          "ET1",
+          "ET2",
+          "ET3",
+          "ET4"
+        ]
+      },
+      {
+        "id": "ADP2",
+        "descricao": "Alternar funções nas duplas e permitir resposta oral ou indicação dos materiais, com apoio do professor sem presumir diagnósticos.",
+        "objetivos_ids": [
+          "OBJ1",
+          "OBJ2"
+        ],
+        "etapas_ids": [
+          "ET1",
+          "ET2",
+          "ET3",
+          "ET4"
+        ]
+      }
+    ],
+    "referencias": [
+      {
+        "id": "BNCC",
+        "titulo": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "paginas": [
+          52,
+          53
+        ],
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    ]
+  }
+}

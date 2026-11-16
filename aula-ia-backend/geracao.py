@@ -95,6 +95,13 @@ class AgenteDemonstrativo:
 
 
 class GeradorDePlano:
+    VERSAO_CONTRATO = VERSAO
+    integrar = staticmethod(integrar)
+
+    @staticmethod
+    def validar_etapa(nome, saida, entrada, estado):
+        validar(nome, saida, entrada)
+
     ESPECIALISTAS = ("objetivos", "metodologia", "sequencia", "avaliacao", "adaptacao")
     ORDEM = ESPECIALISTAS + ("integrador",)
     DEPENDENCIAS = {
@@ -134,7 +141,7 @@ class GeradorDePlano:
                         saida = self.agente.executar(nome, deepcopy(entrada), deepcopy(dependencias),
                                                      revisao, registro=reg, reparo=deepcopy(reparo))
                         reg["saida"] = deepcopy(saida)
-                        validar(nome, saida, entrada)
+                        self.validar_etapa(nome, saida, entrada, dependencias)
                     except ErroContrato as erro:
                         reg.update(estado="rejeitado", erro=str(erro), tipo_erro=erro.tipo,
                                    diagnosticos=deepcopy(getattr(erro, "diagnosticos", [])))
@@ -149,7 +156,7 @@ class GeradorDePlano:
                     reg["estado"] = "validado"
                     estado[nome] = deepcopy(saida)
                     break
-            plano = integrar(entrada, estado)
+            plano = self.integrar(entrada, estado)
             rastreio.append({"agente": "integrador", "tipo": "deterministico", "estado": "validado",
                             "entrada": {"contexto": deepcopy(entrada["contexto"]),
                                         "habilidade": deepcopy(entrada["habilidade"]),
@@ -167,7 +174,7 @@ class GeradorDePlano:
             raise erro from None
         return {"plano": plano, "rastreio": rastreio, "modo": self.modo,
                 "provedor": "gemini" if self.modo == "ia" else "regras",
-                "modelo": self.modelo, "revisao": revisao, "contrato": VERSAO,
+                "modelo": self.modelo, "revisao": revisao, "contrato": self.VERSAO_CONTRATO,
                 "tempo_total_s": round(time.perf_counter() - inicio, 3),
                 "avaliacao_pedagogica": "pendente", "criterios_mecanicos": {
                     "habilidade_confirmada_preservada": True,

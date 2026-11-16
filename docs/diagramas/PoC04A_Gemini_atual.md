@@ -1,22 +1,22 @@
-# Componentes implementados — contratos v0.1 e Gemini
+# Componentes implementados — PlanoDeAula 2.0 e Gemini
 
-Registro: 14/11/2026, branch `feat/poc04a-gemini`. Integra o adaptador inicialmente publicado em `448ea76` e os contratos de `70cfff2`, com o ajuste de alinhamento no histórico desta branch. Descreve a implementação parcial, não a arquitetura-alvo completa da R2.
+Registro: 16/11/2026, branch `feat/poc04a-gemini`. Descreve a implementação atual, com contrato completo e validação mecânica, sem reivindicar conclusão da arquitetura-alvo R2.
 
 ```mermaid
 flowchart TB
-    UI["Interface web"] --> API["API Python"]
+    UI["Interface: 11 seções"] --> API["API Python"]
     API --> S["Serviço curricular"]
     S --> R["Busca e catálogo BNCC"]
     S <--> DB[("SQLite local")]
-    S --> O["Gerador de plano"]
-    O --> G["Adaptador Gemini"]
-    O --> V["Validador v0.1 existente"]
+    S --> O["Orquestrador 2.0"]
+    O --> G["Gemini: seis chamadas"]
+    O --> V["Validador de estrutura e vínculos"]
     O --> I["Integrador Python"]
     I --> V
 ```
 
-O serviço exige a confirmação curricular e reserva uma revisão antes da geração. O gerador executa objetivos, metodologia, sequência, avaliação e adaptação em cinco chamadas normais ao mesmo modelo Gemini. Cada saída passa pelo validador antes de avançar. O único reparo estrutural permitido repete o especialista com as mesmas dependências e seus diagnósticos; não é correção pedagógica.
+A ordem das seis chamadas é: objetivos → avaliação preliminar → metodologia → sequência → avaliação final → adaptação. Cada saída é validada antes de liberar dependentes. A avaliação preliminar depende dos objetivos; a final também recebe as etapas. O integrador reúne as seis saídas validadas em 11 seções sem LLM.
 
-A integração monta os 13 campos do contrato v0.1 sem LLM, preservando os dados curriculares e o contexto. O serviço registra o resultado como `rascunho` ou registra `falha`; a aprovação humana altera o estado para `aprovado`. O modo demonstrativo usa regras locais. SQLite é persistente por padrão; `--temporario` é optativo.
+Cada chamada pode receber um reparo técnico com as mesmas dependências e seus diagnósticos. O serviço registra `rascunho` ou `falha`; somente aprovação humana muda para `aprovado`. O modo demonstrativo usa regras locais. SQLite é persistente por padrão; `--temporario` é optativo. O frontend reconhece 2.0 pela versão do resultado e mantém a renderização v0.1.
 
-A avaliação preliminar, os vínculos de objetivos/evidências, as 11 seções do PlanoDeAula 2.0, o Juiz e a rejeição explícita continuam previstos nos [diagramas-alvo R2](https://github.com/Carneiro-Joao/tcc-plataforma-multiagente/blob/33e8025c7bbdae8ab27c37332f2c3b9d3cc11903/docs/diagramas/diagramas-v2.1-R2.md), sem serem rotulados como implementados nesta figura.
+Juiz, correção pedagógica dirigida, rejeição e estados completos continuam previstos nos [diagramas-alvo R2](https://github.com/Carneiro-Joao/tcc-plataforma-multiagente/blob/33e8025c7bbdae8ab27c37332f2c3b9d3cc11903/docs/diagramas/diagramas-v2.1-R2.md). A API real ainda não foi verificada nesta entrega.

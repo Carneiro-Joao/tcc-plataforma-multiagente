@@ -26,7 +26,11 @@ SISTEMA = (
 
 
 class AgenteGemini:
-    def __init__(self, modelo=MODELO_PADRAO, chave=None, transporte=None, timeout=90):
+    def __init__(self, modelo=MODELO_PADRAO, chave=None, transporte=None, timeout=90, *,
+                 esquema_saida=esquema, instrucoes=None, versao_contrato="poc04a-0.1", versao_prompt="especialistas-v1"):
+        self.esquema_saida = esquema_saida
+        self.instrucoes = instrucoes if instrucoes is not None else INSTRUCOES
+        self.versao_contrato, self.versao_prompt = versao_contrato, versao_prompt
         self.chave = (chave or os.environ.get("GEMINI_API_KEY") or "").strip()
         if not self.chave:
             raise ErroGeracao("Defina GEMINI_API_KEY no terminal do backend.", tipo="configuracao")
@@ -51,18 +55,19 @@ class AgenteGemini:
         if reparo:
             dados["reparo_estrutural"] = reparo
         corpo = {
-            "systemInstruction": {"parts": [{"text": SISTEMA + INSTRUCOES[nome]}]},
+            "systemInstruction": {"parts": [{"text": SISTEMA + self.instrucoes[nome]}]},
             "contents": [{"role": "user", "parts": [{"text": json.dumps(dados, ensure_ascii=False)}]}],
             "generationConfig": {
                 "candidateCount": 1, "maxOutputTokens": 8192,
-                "responseFormat": {"text": {"mimeType": "APPLICATION_JSON", "schema": esquema(nome)}},
+                "responseFormat": {"text": {"mimeType": "APPLICATION_JSON", "schema": self.esquema_saida(nome)}},
             },
         }
         pedido = request.Request(
             f"https://generativelanguage.googleapis.com/v1beta/models/{self.modelo}:generateContent",
             data=json.dumps(corpo, ensure_ascii=False).encode("utf-8"),
             headers={"Content-Type": "application/json", "x-goog-api-key": self.chave}, method="POST")
-        registro.update(provedor="gemini", modelo_pedido=self.modelo)
+        registro.update(provedor="gemini", modelo_pedido=self.modelo,
+                        versao_contrato=self.versao_contrato, versao_prompt=self.versao_prompt)
         inicio = time.perf_counter()
         try:
             try:

@@ -9,7 +9,8 @@ import re
 from tempfile import TemporaryDirectory
 from urllib.parse import urlsplit
 from rag.search import BASE, BuscaCurricular
-from geracao import GeradorDePlano, ErroGeracao
+from erros import ErroGeracao
+from geracao_v2 import GeradorDePlanoCompleto as GeradorDePlano
 from gemini import MODELO_PADRAO
 from servico import ErroConsulta, ServicoCurricular
 
@@ -121,7 +122,7 @@ def main():
     servidor.servico = ServicoCurricular(busca, banco, gerador)
     print("Dados: " + ("somente nesta sessão; ao reiniciar, consulte novamente." if temporario else str(banco)), flush=True)
     if args.gerador == "ia":
-        print(f"Gemini: {args.modelo}; 5 chamadas normais, até {5 * (1 + args.reparos)} com reparos. Use projeto Free Tier no AI Studio.", flush=True)
+        print(f"Gemini: {args.modelo}; 6 chamadas normais, até {6 * (1 + args.reparos)} com reparos. Use projeto Free Tier no AI Studio.", flush=True)
     print(f"AulaIA | http://127.0.0.1:{servidor.server_port} | busca {args.modo} | geração {args.gerador}", flush=True)
     try:
         servidor.serve_forever()

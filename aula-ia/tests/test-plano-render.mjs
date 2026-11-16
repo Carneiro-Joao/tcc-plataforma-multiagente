@@ -1,0 +1,27 @@
+// Renderização sem DOM externo: contrato completo, escape de HTML e plano legado.
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import vm from 'node:vm';
+const ler = path => readFileSync(new URL(path, import.meta.url), 'utf8');
+const source = ler('../public/geracao-ui.js');
+assert.equal(source, ler('../dist/geracao-ui.js'));
+const context = {document:{getElementById:()=>null}, MutationObserver:class {observe(){}}, queueMicrotask:()=>{}};
+vm.createContext(context);
+vm.runInContext(source.replace('  agendar();\n})();','  globalThis.renderPlano = planoHtml;\n})();'),context);
+const f = JSON.parse(ler('../../aula-ia-backend/tests/dados/plano_v2/fixture_ordenacao.json'));
+const resultado = {contrato:f.contrato,plano:f.plano_esperado,rastreio:[]};
+const gerar = () => context.renderPlano(resultado.plano,resultado,{revisao:1,estado:'rascunho'});
+let html = gerar();
+assert.equal((html.match(/<h4>/g)||[]).length,11);
+for (const campo of [f.plano_esperado.objetivo_geral,f.plano_esperado.habilidade_bncc.eixo,'Professor:','Estudantes:','Evidência esperada:','Uso dos resultados futuros:','Referências']) assert.ok(html.includes(campo),campo);
+assert.ok(html.includes('Aguardando aprovação'));
+resultado.plano.objetivo_geral = '<img src=x onerror=alert(1)>';
+resultado.plano.desenvolvimento[0].atividade = '<script>alert(1)</script>';
+html = gerar();
+assert.ok(!html.includes('<img')); assert.ok(!html.includes('<script>'));
+assert.ok(html.includes('&lt;img')); assert.ok(html.includes('&lt;script&gt;'));
+const legado = JSON.parse(ler('../../aula-ia-backend/tests/dados/poc04a/fixture_ordenacao.json'));
+html = context.renderPlano(legado.plano_esperado,{contrato:'poc04a-0.1',rastreio:[]},{revisao:1,estado:'aprovado'});
+assert.ok(html.includes(legado.plano_esperado.titulo));
+assert.ok(html.includes('Aprovado pelo professor'));
+console.log('Renderização OK: 11 seções, escape de HTML, legado e public/dist iguais.');

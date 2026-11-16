@@ -11,7 +11,8 @@ import json
 from pathlib import Path
 import time
 from uuid import uuid4
-from geracao import GeradorDePlano, ErroGeracao
+from geracao import GeradorDePlano as GeradorLegado, ErroGeracao
+from geracao_v2 import GeradorDePlanoCompleto
 from gemini import MODELO_PADRAO
 from rag.search import BuscaCurricular
 from servico import habilidade_publica
@@ -63,7 +64,10 @@ def main(argv=None):
     parser.add_argument("--rodadas", type=inteiro_positivo, default=1)
     parser.add_argument("--duracao", type=inteiro_positivo, default=50)
     parser.add_argument("--reparos", type=int, choices=(0, 1), default=1)
+    parser.add_argument("--contrato", choices=("2.0", "v0.1"), default="2.0", help="2.0 completo; v0.1 somente para reproduzir a sondagem anterior.")
     args = parser.parse_args(argv)
+    GeradorDePlano = GeradorDePlanoCompleto if args.contrato == "2.0" else GeradorLegado
+    chamadas_normais = len(GeradorDePlano.ESPECIALISTAS)
     if args.duracao > 1440:
         parser.error("Duração máxima: 1440 minutos.")
     try:
@@ -77,11 +81,11 @@ def main(argv=None):
     pasta = BASE / "local" / "teste_gemini"
     pasta.mkdir(parents=True, exist_ok=True)
     destino = pasta / f"{datetime.now():%Y%m%d-%H%M%S}-{uuid4().hex[:8]}.json"
-    documento = {"versao": "poc04a-0.1", "criado_em": datetime.now(timezone.utc).isoformat(),
+    documento = {"versao": gerador.VERSAO_CONTRATO, "criado_em": datetime.now(timezone.utc).isoformat(),
                  "modo": gerador.modo, "modelo_pedido": gerador.modelo,
                  "entrada": entrada, "rodadas": []}
     salvar(destino, documento)
-    print("SIMULAÇÃO sem API." if args.simular else f"Gemini real: {args.modelo}. Cinco chamadas normais; até {5*(1+args.reparos)} por rodada com reparos.", flush=True)
+    print("SIMULAÇÃO sem API." if args.simular else f"Gemini real: {args.modelo}. {chamadas_normais} chamadas normais; até {chamadas_normais*(1+args.reparos)} por rodada com reparos.", flush=True)
     if not args.simular:
         print("Use um projeto Free Tier no AI Studio. O script não consegue verificar seu faturamento e não troca de modelo automaticamente.", flush=True)
     print(f"Resultados: {destino}", flush=True)

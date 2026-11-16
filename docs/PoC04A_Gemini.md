@@ -1,63 +1,45 @@
-# PoC 04A — migração para Gemini e aplicação dos contratos
+# PoC 04A — Gemini e contrato completo
 
-Data de revisão: 14/11/2026. Base de código: `3939dfd9aad00b3850f9e1c025af705cf812f644`; contratos: `70cfff23333e728f31e6b34d283c0e2f7be790a4`. Referência documental: `33e8025c7bbdae8ab27c37332f2c3b9d3cc11903`.
+Revisão: 16/11/2026. Base executável: `3939dfd`; contratos originais: `70cfff2`; referência documental R2: `33e8025`; integração Gemini anterior: `f6b7913`.
 
-**Alcance:** integração parcial dos contratos v0.1 e adaptador Gemini. Não equivale à conclusão da PoC 04A prevista na R2. Veja [o confronto com o planejamento](Alinhamento_PoC04A.md).
+O incremento implementa o contrato `plano-aula-2.0`, com 11 seções e avaliação preliminar/final. Isso fecha a definição mecânica do plano; não conclui Juiz, correção pedagógica ou os estados completos da PoC. Consulte o [contrato](Contrato_PlanoDeAula_2_0.md) e a [matriz R2](Alinhamento_PoC04A.md).
 
-## Problema observado
+## Problema observado e decisões
 
-Na sondagem OpenRouter, seis chamadas terminaram com `stop`, mas o plano foi rejeitado: a metodologia, anteriormente string, voltou como objeto no integrador. A rodada usou cinco modelos diferentes, consumiu 21.441 tokens conhecidos e levou 174,976 segundos. Esses dados descrevem uma rodada, não uma comparação de desempenho entre provedores.
+Na sondagem OpenRouter, seis chamadas terminaram com `stop`, mas o plano foi rejeitado: metodologia, antes string, voltou como objeto no integrador. A rodada usou modelos diferentes, consumiu 21.441 tokens conhecidos e levou 174,976 segundos. Esses dados descrevem aquela rodada, não uma comparação entre provedores.
 
-Também apareceram campos extras na metodologia, alterações no contexto e formatos de adaptação incompatíveis. A avaliação apresentava resultados como se a aula já tivesse ocorrido. O último problema é semântico: JSON válido não o resolve.
+A geração agora usa Gemini nativo por REST, sem SDK nem fallback. Cinco especialidades compartilham o modelo configurado, inicialmente `gemini-3.5-flash-lite`. A avaliação possui duas chamadas: fixa critérios/evidências antes das atividades e instrumentos/procedimentos depois. O integrador é Python, com mapeamento explícito. Contexto e metadados BNCC são imutáveis; versão/hash identificam o catálogo JSON utilizado.
 
-## Decisões implementadas
+Cada saída é validada antes dos dependentes. IDs, cobertura, duração e fontes são verificados localmente. O Gemini recebe `generationConfig.responseFormat.text`, `mimeType: APPLICATION_JSON` e o schema da etapa. A documentação oficial de `generateContent` e do modelo foi conferida em 16/11/2026; isso não substitui executar uma requisição com chave do projeto.
 
-- Gemini nativo por REST, no backend. Cinco especialistas compartilham o identificador fixo `gemini-3.5-flash-lite` e usam prompts distintos. Não há SDK OpenAI, OpenRouter ou escolha aleatória de modelo neste fluxo.
-- Integração em Python com mapeamento explícito. Código e texto BNCC, ano, tema, tipo, duração e recursos provêm da entrada confirmada. O título é `Plano de aula — {tema}`.
-- Validador `contratos/validacao.py`, seus testes e os dois arquivos de dados incorporados integralmente de `feat/poc04a-contratos`; diagnósticos adaptados ao pipeline em `contratos/execucao.py`. Sem biblioteca externa para validar. Contratos v0.1 aplicados ao código de produção. Tipos estritos: `true`, `5.0` e `"5"` não são minutos inteiros. Rejeição de extras e de textos vazios; não há coerção.
-- O Gemini recebe `generationConfig.responseFormat.text` com `mimeType: APPLICATION_JSON` e o schema do especialista. A validação local continua obrigatória, inclusive soma de minutos e igualdade dos recursos.
-- Estado de falha registrado, sem fabricar plano nem apagar a tentativa. Aprovação humana somente da revisão atual em rascunho. Falha HTTP não inicia novas tentativas automaticamente.
-- Site sem login, cadastro ou histórico privado. SQLite persistente local preserva versões e falhas conforme RF14/RF21; `--temporario` oferece demonstração descartável optativa.
+A documentação também informa que certas restrições, como `uniqueItems` e `minLength`, não são impostas pela geração estruturada do servidor. O validador local mantém essas regras. Tipos incompatíveis, extras e valores vazios são recusados sem coerção. Não se transforma objeto em texto para aparentar sucesso.
 
 ## Dependências e retentativas
 
-| Especialista | Saídas anteriores recebidas |
-|---|---|
-| objetivos | nenhuma |
-| metodologia | objetivos |
-| sequencia | objetivos, metodologia |
-| avaliacao | objetivos, metodologia, sequencia |
-| adaptacao | objetivos, metodologia, sequencia |
+A ordem é objetivos → avaliação preliminar → metodologia → sequência → avaliação final → adaptação. Cada chamada recebe as dependências declaradas em `contratos/plano_v2.py`. O integrador reúne as saídas validadas; código e texto oficiais vêm do catálogo confirmado, nunca de uma resposta LLM.
 
-Cada entrada e saída é copiada para evitar mutações compartilhadas e mistura de rastreios entre requisições concorrentes. O integrador recebe as cinco saídas validadas e não faz chamadas externas.
+São seis chamadas normais e até 12 se cada uma precisar do único reparo técnico permitido. `--reparos 0` desabilita reparos. Erros HTTP, timeout, bloqueio e término diferente de `STOP` encerram a execução sem repetição automática. O reparo conserva entrada/dependências e registra a tentativa anterior. Nova geração manual cria outra revisão e recalcula o fluxo completo; invalidação seletiva e orçamento pedagógico ficam para o Juiz.
 
-Um erro de JSON/schema/invariante permite no máximo um reparo naquele especialista, preservando a mesma entrada e as mesmas dependências. A resposta inválida e o reparo ficam registrados separadamente. A próxima etapa só executa após sucesso. Cinco chamadas normais, limite de dez com reparos; `--reparos 0` elimina chamadas de reparo.
+## Observabilidade e compatibilidade
 
-Erros HTTP, timeout, bloqueio ou término diferente de `STOP` param a execução. Não há fallback de modelo/provedor, nem substituição por demonstração. Uma nova geração solicitada manualmente incrementa a revisão e executa novamente todo o pipeline. A invalidação seletiva e o contador separado de correção pedagógica ficam para a IA Juiz, não são reivindicados nesta entrega.
+`teste_gemini.py` usa por padrão o mesmo contrato do site. O JSON registra entrada, envelope da API, conteúdo bruto, modelo respondido, `usageMetadata`, `finishReason`, status HTTP, latência, versões de contrato/prompt e tentativas. Ausência de uso não é interpretada como ausência de consumo. Cabeçalhos e credenciais não são gravados; a chave é enviada em `x-goog-api-key` e removida se for ecoada.
 
-## Observabilidade e dados
+`inspecionar_gemini.py` revalida registros já salvos, inclusive v0.1, sem novas chamadas. Informa o modo declarado e consumo conhecido e compara o plano com a recomposição das saídas. Não autentica a origem de arquivos editáveis.
 
-`teste_gemini.py` usa o mesmo gerador do site. Registra JSON local com entradas, conteúdo da API, modelo informado pela resposta, `usageMetadata`, `finishReason`, latência, estados e tentativas. O envelope é mantido para comparação futura. Erros HTTP guardam até 5.000 bytes do corpo, com remoção da chave se ela for ecoada. Headers e URL com credencial não são registrados: a chave vai no header `x-goog-api-key`.
+Os cinco arquivos originais do contrato v0.1 permanecem idênticos; o contrato completo está em novos módulos. Planos antigos continuam legíveis, sem migração destrutiva. Consultas antigas sem metadados do catálogo exigem nova consulta antes de gerar 2.0. O serviço mantém SQLite local para versões, aprovações e falhas; não implementa contas ou histórico privado. A branch documental e seu PR continuam separados.
 
-A cota não é inferida pelo script. A conta precisa estar em Free Tier no AI Studio. O schema não garante gratuidade: um projeto com faturamento pode cobrar pelo mesmo identificador. O modelo não é alterado automaticamente. O uso de cada tentativa, inclusive rejeitada, entra no total conhecido; ausência de uso não prova ausência de consumo.
+## Evidências e limites
 
-## Evidências e próximos passos
+- 90 testes Python: 89 aprovados e um teste híbrido opcional ignorado, também com `python -S`.
+- Os 27 casos estruturais anteriores continuam exercitados.
+- Transporte Gemini simulado: seis chamadas, reparo, falhas parciais e limite de 12 chamadas.
+- HTTP local: confirmação, geração 2.0, rascunho e aprovação humana; falha não pode ser aprovada.
+- Renderização JavaScript: 11 seções, leitura do legado e escape de HTML; `public` e `dist` iguais.
+- CLI simulado com 45 minutos; inspeção do registro sem chave e sem rede.
+- Revisão visual em navegador e execução Gemini real: pendentes. Nos arquivos acessíveis havia apenas simulações.
 
-- 63 testes aprovados e um teste opcional de ranking híbrido ignorado.
-- Os 27 casos da revisão são exercitados como subtestes contra o validador de produção.
-- Fixture sintética integrada exatamente ao plano esperado, sem LLM.
-- Transporte Gemini simulado: cinco chamadas, reparo localizado, falhas, JSON duplicado, credenciais, bloqueio, truncamento e concorrência.
-- HTTP local exercitado: confirmação, geração, aprovação, bloqueio de aprovação de falha e nova revisão após falha.
-- CLI executado em simulação com 45 minutos; resultado gravado com sucesso. Sintaxe dos scripts JavaScript conferida.
-- Navegador automatizado indisponível por restrição de processos/sockets do ambiente. Revisão visual local pendente.
-- Chamada Gemini real, qualidade pedagógica, latência real e consumo real: **pendentes**.
+Não há resultados empíricos de latência, tokens ou qualidade Gemini nesta entrega. Para obtê-los, executar `python teste_gemini.py --rodadas 1 --duracao 50 --reparos 0` no terminal com chave configurada e analisar o JSON completo. Cotas, disponibilidade e gratuidade dependem do projeto; o script não consulta faturamento e não troca de modelo.
 
-Próxima verificação: executar uma rodada real com chave do projeto Free Tier; examinar o JSON completo, inclusive respostas rejeitadas; depois repetir com as mesmas entradas/modelo para observar estabilidade. Os números da rodada OpenRouter não devem ser comparados diretamente ao pipeline de cinco chamadas sem separar o efeito da retirada do integrador LLM.
+IA Juiz independente, rubrica, correção dirigida, rejeição explícita e experimento comparativo continuam pendentes. A validação mecânica não aprova pedagogicamente um plano. Não foi realizado estudo com participantes.
 
-A IA Juiz independente, rubrica, correção pedagógica dirigida e experimento comparativo continuam fora deste incremento. Não há nota automática de qualidade nem aprovação automática. A interface mantém a revisão e aprovação do professor.
-
-## Contrato operacional e arquitetura-alvo
-
-O contrato `poc04a-0.1` não implementa ainda as 11 seções de `PlanoDeAula 2.0`. A geração atual mantém cinco chamadas normais, incluindo uma avaliação final. A arquitetura-alvo mantém cinco especialistas gerativos, mas prevê duas chamadas do especialista de avaliação (preliminar e final). Portanto a migração de provedor, isoladamente, não satisfaz integralmente RF09/RF10/RF11/RF12/RF25.
-
-A incorporação da branch de contratos preserva seus cinco arquivos sem alteração e inclui o commit original na ancestralidade da branch Gemini. A branch documental e seu PR permanecem separados; os documentos R2 não foram reescritos nem mesclados por esta integração.
+Referências oficiais: [modelo](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite), [generateContent](https://ai.google.dev/api/generate-content), [saída estruturada](https://ai.google.dev/gemini-api/docs/structured-output), [preços](https://ai.google.dev/gemini-api/docs/pricing) e [limites](https://ai.google.dev/gemini-api/docs/rate-limits).
