@@ -1,8 +1,8 @@
-# AulaIA — Gemini e contrato PlanoDeAula 2.0
+# AulaIA — Gemini, PlanoDeAula 2.0 e base da IA Juiz
 
 Plataforma local para planejar aulas de Computação do **8º ano**, com seleção explícita da habilidade BNCC, cinco especialistas, integração em Python e aprovação docente. O modo de IA agora usa a **API nativa do Gemini**. Os testes descartáveis anteriores com OpenAI/OpenRouter deixam de ser o caminho de execução.
 
-Esta entrega incorpora o **PlanoDeAula 2.0 com 11 seções**, avaliação em duas passagens e vínculos entre objetivos, etapas e evidências. Uma execução real no protótipo concluiu as seis etapas e a integração, com recuperação de dois HTTP 503. Consulte o [estado atual e a evidência completa](docs/Prototipo_Local_2026-11-16.md), o [contrato](docs/Contrato_PlanoDeAula_2_0.md) e o [alinhamento com a R2](docs/Alinhamento_PoC04A.md). A aprovação pedagógica e a IA Juiz continuam pendentes.
+Esta entrega incorpora o **PlanoDeAula 2.0 com 11 seções**, avaliação em duas passagens e vínculos entre objetivos, etapas e evidências. Uma execução real no protótipo concluiu as seis etapas e a integração, com recuperação de dois HTTP 503. Consulte a [evidência da geração real](docs/Prototipo_Local_2026-11-16.md), o [contrato](docs/Contrato_PlanoDeAula_2_0.md) e o [alinhamento com a R2](docs/Alinhamento_PoC04A.md). A branch `feat/poc05-juiz-contrato` acrescenta a base da **IA Juiz**, verificada offline: rubrica, parecer estruturado e política de decisão. A conexão ao site e a execução dos ciclos de correção ainda estão pendentes; veja a [revisão de compatibilidade de 17/11/2026](docs/Revisao_PoC05_2026-11-17.md).
 
 A geração mantém a habilidade, o tema, o ano, o tipo, os recursos e a duração confirmados. Cada especialista é validado antes do próximo. A integração não usa LLM: isso evita a conversão de `metodologia` de texto para objeto observada no teste anterior.
 
@@ -125,7 +125,15 @@ Há no máximo um reparo por especialista na mesma execução, mantendo as depen
 
 O contrato operacional é `plano-aula-2.0`. Todos os objetivos, etapas, evidências e instrumentos têm identificadores; o validador verifica cobertura e referências. A fonte curricular inclui versão e hash do catálogo JSON, não do PDF. Planos antigos continuam legíveis sem conversão; para reproduzir a sondagem antiga, use `--contrato v0.1`. Consultas antigas sem metadados de versão exigem nova consulta antes de gerar 2.0.
 
-A **IA Juiz ainda não está implementada**. As verificações estruturais não comprovam alinhamento pedagógico, viabilidade dos materiais citados na prosa nem ausência de resultados inventados. Esses pontos precisam de revisão docente e avaliação posterior.
+A **IA Juiz existe como módulo isolado** (`juiz.py`), com [rubrica preliminar e contrato ParecerJuiz 1.0](docs/Rubrica_e_Contrato_IA_Juiz.md). Antes de chamar o agente, o módulo valida o plano 2.0, o contexto confirmado e a política. O parecer pode indicar `aguardando_decisao`, `em_correcao` ou `revisao_necessaria`; ele nunca aprova o plano. Esses estados ainda não estão conectados ao SQLite ou à interface: o site continua com a geração e aprovação humana existentes. As verificações offline não demonstram qualidade pedagógica nem eficácia de um Juiz real.
+
+Para testar somente a base do Juiz, sem chave nem chamadas de API, execute na pasta `aula-ia-backend`:
+
+```bat
+python -m unittest discover -s tests -p test_juiz.py -v
+```
+
+São 54 testes com pareceres sintéticos e transporte simulado, incluindo os caminhos favorável, corrigível e crítico. A escolha para a próxima integração, definida em 17/11/2026, é usar a **API do DeepSeek para o Juiz** e manter o Gemini nos especialistas. O adaptador DeepSeek ainda não existe: a fábrica atual `criar_agente_juiz` configura Gemini. Ainda será necessário implementar o adaptador e conectar a avaliação ao serviço, à persistência, à interface e aos ciclos de correção.
 
 Um registro já salvo pode ser inspecionado sem chave e sem novas chamadas:
 
@@ -148,6 +156,10 @@ Para conferir a execução real, compartilhe o JSON desse diretório. Não compa
 | `aula-ia-backend/contratos/plano_v2.py` | Validação estrutural, vínculos e integração 2.0 |
 | `aula-ia-backend/contratos/plano_v2.schema.json` | Esquemas completos versionados |
 | `aula-ia-backend/contratos/esquema_gemini.py` | Projeção estrutural do esquema para a API |
+| `aula-ia-backend/juiz.py` | Avaliação isolada do plano 2.0 e rastreio; sem persistência ou correções automáticas |
+| `aula-ia-backend/contratos/juiz_v1.py` | Validação do parecer, configuração da política e decisão determinística |
+| `aula-ia-backend/contratos/juiz_v1.schema.json` | Contrato fechado ParecerJuiz 1.0 |
+| `aula-ia-backend/contratos/rubrica_juiz.py` | Seis critérios, indicadores e âncoras preliminares usados no prompt |
 | `aula-ia-backend/contratos/validacao.py` | Validador e parser em Python puro, preservados da branch de contratos |
 | `aula-ia-backend/contratos/execucao.py` | Parser compartilhado e integração legada v0.1 |
 | `aula-ia-backend/contratos/contratos.schema.json` | Contratos PoC 04A v0.1 |
@@ -157,7 +169,7 @@ Para conferir a execução real, compartilhe o JSON desse diretório. Não compa
 | `aula-ia/public/geracao-ui.js` | Exibição do plano, falha e aprovação; espelhado em `dist/` |
 | `docs/PoC04A_Gemini.md` | Decisões, achados, evidências e limites deste incremento |
 
-Validação da versão consolidada: **114 testes aprovados e 1 teste opcional ignorado**, também com `python -S`, incluindo os 27 casos estruturais como subtestes, HTTP local, inicializadores, IPv4 e recuperação limitada de HTTP 503. A sintaxe JavaScript e a igualdade entre `public` e `dist` foram conferidas. Uma geração real registrada no SQLite local concluiu o contrato 2.0 em **38,281 s**, com **8 requisições HTTP**, duas recuperações de 503 e **7.831 tokens conhecidos** em seis respostas com uso informado. O plano permanece rascunho; a validação mecânica não equivale à aprovação pedagógica. Consulte a [evidência e seus limites](docs/Prototipo_Local_2026-11-16.md).
+Validação em 17/11/2026: **168 testes aprovados e 1 teste opcional ignorado**, também com `python -S`, incluindo os 27 casos estruturais como subtestes, HTTP local, inicializadores, IPv4, recuperação limitada de HTTP 503 e 54 testes do Juiz. O teste de renderização JavaScript confere 11 seções, escape de HTML, planos legados e igualdade entre `public` e `dist`; funciona com quebras de linha Windows ou Unix. Uma geração real anterior, registrada no SQLite local, concluiu o contrato 2.0 em **38,281 s**, com **8 requisições HTTP**, duas recuperações de 503 e **7.831 tokens conhecidos** em seis respostas com uso informado. Essa execução não incluiu IA Juiz. O plano permanece rascunho; a validação mecânica não equivale à aprovação pedagógica. Consulte a [evidência e seus limites](docs/Prototipo_Local_2026-11-16.md).
 
 Os módulos legados `AgenteOpenAI` e os probes que fazem monkeypatch de `geracao.request.urlopen` não integram mais o fluxo atual. Use `teste_gemini.py`. O modo de busca híbrida permanece opcional: instale também `requirements-hibrido.txt`, prepare os arquivos/modelos necessários e execute `--modo hibrido`. A alteração do provedor de geração não muda o catálogo ou o método da busca curricular.
 

@@ -1,6 +1,6 @@
 # Alinhamento da integração Gemini com as branches do projeto
 
-Conferência: 16/11/2026. Continuação da branch Gemini a partir de `f6b7913`.
+Conferência inicial: 16/11/2026. Continuação da branch Gemini a partir de `f6b7913`. Atualização em 17/11/2026: base isolada da IA Juiz recebida em `8aa3546` e [revisada para compatibilidade](Revisao_PoC05_2026-11-17.md).
 
 ## Fontes conferidas
 
@@ -32,10 +32,10 @@ A integração elimina o módulo concorrente `contratos.py` e a segunda cópia d
 
 | Requisito/decisão R2 | Evidência desta integração | Situação |
 |---|---|---|
-| RF09: contratos e dependências | Seis chamadas, avaliação preliminar/final, dependências validadas e reparo limitado | Implementado no fluxo; verificação real Gemini pendente |
+| RF09: contratos e dependências | Seis chamadas, avaliação preliminar/final, dependências validadas e reparo limitado | Uma geração real concluída com prompt 2.1; prompt consolidado 2.2 verificado offline |
 | RF10: PlanoDeAula 2.0 | 11 seções, IDs, cobertura e vínculos objetivo–etapa–evidência | Contrato mecânico implementado; qualidade pedagógica pendente |
 | RN01/RN04/RN12: fonte curricular e duração | Integrador usa catálogo/contexto confirmados; soma exata de inteiros positivos | Implementado em 2.0, com versão e hash do catálogo JSON |
-| RF11/RF12/RN06/RN14: Juiz e correções dirigidas | Reparos técnicos separados; nova revisão recalcula todos os especialistas | Juiz, orçamento pedagógico e invalidação seletiva pendentes |
+| RF11/RF12/RN06/RN14: Juiz e correções dirigidas | Rubrica, contrato, avaliação isolada, decisão e cálculo de invalidação testados offline | Parcial: faltam ligação ao site, persistência do parecer e execução dos ciclos dirigidos |
 | RF13: falhas rastreáveis | Estado `falha`, tentativas registradas, sem plano fictício | Implementado nos caminhos tratados |
 | RF14/RF21: persistência e rastreio | SQLite local; respostas, metadados, versão de contrato/prompt e erros por tentativa | Parcial: faltam modelo de execução completo e demais artefatos-alvo |
 | RF25/UC10/RN13: aceitar/rejeitar | Aprovação humana explícita da revisão atual | Parcial: rejeição explícita ainda pendente |
@@ -48,9 +48,9 @@ A árvore documental R2 descreve arquitetura-alvo. A implementação Gemini é *
 
 ## Verificação da integração conjunta
 
-114 testes aprovados e um teste híbrido opcional ignorado; os 27 casos estruturais anteriores continuam presentes. A suíte inclui as 11 seções, referências/IDs/cobertura, protocolo Gemini simulado, reparo limitado, recuperação de 503, inicializadores, IPv4 e HTTP até aprovação docente. A sintaxe JavaScript e a igualdade entre `public` e `dist` foram conferidas. Após a [falha parcial inicial](Execucao_Gemini_2026-11-16.md), uma geração real concluiu as seis etapas e a integração, com duas recuperações de 503. Veja o [registro completo e os limites da evidência](Prototipo_Local_2026-11-16.md).
+168 testes aprovados e um teste híbrido opcional ignorado; os 27 casos estruturais anteriores continuam presentes. A suíte inclui as 11 seções, referências/IDs/cobertura, protocolo Gemini simulado, reparo limitado, recuperação de 503, inicializadores, IPv4, HTTP até aprovação docente e 54 testes do módulo Juiz. O teste JavaScript cobre renderização, escape, legado e igualdade entre `public` e `dist`. Após a [falha parcial inicial](Execucao_Gemini_2026-11-16.md), uma geração real concluiu as seis etapas e a integração, com duas recuperações de 503, ainda sem Juiz. Veja o [registro completo e os limites da evidência](Prototipo_Local_2026-11-16.md).
 
-Próximos trabalhos: ampliar as rodadas para avaliar estabilidade e qualidade, incluindo o prompt consolidado 2.2; implementar IA Juiz e correção dirigida; aceite/rejeição e estados completos. As 11 seções e as duas passagens de avaliação já fazem parte do código, com documentação atualizada nesta branch.
+Próximos trabalhos: ampliar as rodadas para avaliar estabilidade e qualidade, incluindo o prompt consolidado 2.2; conectar a base da IA Juiz ao fluxo, persistir pareceres e executar correções dirigidas; completar aceite/rejeição e estados. As 11 seções e as duas passagens de avaliação já fazem parte do código, com documentação atualizada nesta branch.
 
 ## Documentação da implementação atual
 

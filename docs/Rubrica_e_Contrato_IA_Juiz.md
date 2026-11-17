@@ -1,6 +1,6 @@
 # Rubrica e contrato da IA Juiz (`rubrica-juiz-0.1` / `parecer-juiz-1.0`)
 
-Rascunho técnico de 16/11/2026, em cima de `feat/poc04a-gemini` (`3e9e034`). **Proposta preliminar para ratificação do orientador.** Não foi executada contra nenhum LLM real; o que existe é contrato, lógica de decisão e testes offline. Nada aqui comprova qualidade pedagógica nem que um modelo real avalia bem.
+Rascunho técnico iniciado em 16/11/2026 sobre `feat/poc04a-gemini` (`3e9e034`), incorporado em `8aa3546` à base consolidada do protótipo (`3fb69cd`). Revisão de compatibilidade em 17/11/2026 na branch `feat/poc05-juiz-contrato`. **Proposta preliminar para ratificação do orientador.** Não foi executada contra nenhum LLM real; o que existe é contrato, lógica de decisão e testes offline. Nada aqui comprova qualidade pedagógica nem que um modelo real avalia bem.
 
 ## 1. Papel e limites
 
@@ -30,6 +30,8 @@ Quatro níveis evitam o ponto médio neutro. A escala e as âncoras são uma pro
 ## 3. Critérios
 
 Os seis critérios vêm da especificação v2.1 (§5). Cada nota tem uma âncora descritiva; para dar 3, o Juiz precisa apontar no plano o trecho que demonstra o critério.
+
+O prompt `juiz-v1.1` inclui perguntas, seções, os 24 indicadores e todas as âncoras de `rubrica_juiz.py`. A revisão anterior enviava as perguntas e âncoras, mas omitia os indicadores. A rubrica continua na versão `rubrica-juiz-0.1`: a alteração corrige sua transmissão ao agente.
 
 ### Aderência curricular (`aderencia_curricular`)
 
@@ -202,6 +204,8 @@ Ordem de avaliação:
 
 Os componentes a corrigir vêm das falhas graves. As falhas `menor` do mesmo critério só entram se o critério ficar abaixo da nota mínima **e** não tiver nenhuma falha grave (política mais rigorosa). Isso evita refazer componentes a mais.
 
+`resolver_politica` recusa parâmetros desconhecidos, notas mínimas fora de 0–3, gravidades inválidas ou repetidas, contadores negativos/não inteiros e valores não booleanos para revisão humana. Limite zero é permitido e encaminha diretamente para revisão quando há o que corrigir. A política efetiva é copiada antes da chamada e registrada integralmente no resultado e no rastreio; alterações posteriores no objeto do chamador não mudam a decisão. Ajustes experimentais devem receber um nome de política próprio para comparação entre execuções.
+
 ## 7. Invalidação
 
 Corrigir um componente invalida quem depende dele (grafo de `plano_v2.DEPENDENCIAS`). `invalidados(componentes)` calcula o fecho:
@@ -217,23 +221,30 @@ Corrigir um componente invalida quem depende dele (grafo de `plano_v2.DEPENDENCI
 
 ## 8. Entrada, saída e independência
 
-**Entrada:** contexto confirmado, habilidade oficial e o **plano já integrado** (`saidas_anteriores = {plano}`). O Juiz não vê as saídas intermediárias.
+**Entrada:** contexto confirmado, habilidade oficial e o **plano já integrado** (`saidas_anteriores = {plano}`). `avaliar_plano` exige o contrato PlanoDeAula 2.0 e verifica a preservação do contexto/habilidade antes de consumir qualquer chamada. Entradas vazias, planos inválidos ou legados são recusados; planos legados continuam legíveis no site, mas exigem nova geração 2.0 para passar pelo Juiz. O Juiz não vê as saídas intermediárias.
 
-**Saída (`parecer-juiz-1.0`):** `avaliacoes` (seis, com nota e justificativa), `falhas` (até 12) e `resumo`. O esquema está em `contratos/juiz_v1.schema.json` e é enviado ao Gemini como esquema de saída; o validador Python mantém todas as regras localmente, porque o servidor não garante restrições como `minLength` e `uniqueItems`.
+**Saída (`parecer-juiz-1.0`):** `avaliacoes` (seis, com nota e justificativa), `falhas` (até 12) e `resumo`. O contrato completo está em `contratos/juiz_v1.schema.json`. O esquema enviado ao Gemini reutiliza a projeção de `contratos/esquema_gemini.py`: campos, tipos e obrigatoriedade permanecem estruturais; limites, formatos e valores permitidos viram descrições. O validador Python continua exigindo todas as regras e invariantes. A projeção é registrada como `parecer-juiz-1.0-estrutura-v1`; a aceitação por um Juiz real ainda precisa ser verificada.
 
 **Independência.** O resultado registra `modelo_distinto_do_gerador`. Isso só diz que os identificadores de modelo diferem; **não garante famílias diferentes**. Vieses a controlar na avaliação do Juiz: autopreferência, verbosidade, posição e leniência. O prompt pede nota 3 apenas com trecho do plano como prova, e diz que quantidade de texto não é qualidade.
 
+O identificador declarado do Juiz deve coincidir com o modelo configurado no agente. O rastreio conserva plano avaliado, contexto/habilidade, revisão, ciclos usados, política e versões, inclusive nas falhas do provedor. HTTP 503 só é repetido quando `repeticoes_503` é configurado no agente (padrão zero; máximo duas repetições); o reparo estrutural tem contador separado e não repete erros HTTP.
+
+O resultado também expõe `versao_esquema_api`, fornecida pelo agente: `parecer-juiz-1.0-estrutura-v1` para o Gemini Juiz, ou `None` para agentes de teste sem essa informação. O campo foi incorporado do patch complementar `poc05-juiz-patch2-esquema-api.patch`, preservando a versão no rastreio de cada tentativa.
+
 ## 9. O que está e o que não está verificado
 
-**Verificado offline** (`tests/test_juiz.py`, 42 testes; suíte completa 132, 1 ignorado; também com `python -S`):
+**Verificado offline em 17/11/2026** (`tests/test_juiz.py`, 54 testes aprovados; suíte completa 169 executados, 168 aprovados e 1 ignorado; também com `python -S`):
 
 - contrato, esquema fechado, enums iguais aos do código e aos seis critérios da spec;
 - invariantes nota × falha e estados de decisão, com caminho e regra em cada rejeição;
 - política, limite de ciclos e invalidação;
 - um reparo técnico, falha de provedor sem repetição, plano e entrada não alterados;
 - requisição Gemini simulada com esquema, instrução e plano como dado.
+- entrada inválida e política malformada recusadas antes da chamada, com preservação da configuração usada;
+- geração 2.0 seguida do Juiz em transporte simulado, nos cenários favorável, corrigível e crítico, sem refazer especialistas;
+- projeção de esquema com validação local estrita e recuperação opcional de HTTP 503.
 
-Teste de mutação com 9 defeitos plantados no validador e na decisão: 8 detectados; 1 equivalente (cópia redundante).
+O rascunho original relata um teste de mutação com 9 defeitos plantados no validador e na decisão: 8 detectados e 1 equivalente (cópia redundante). Esse experimento não foi reproduzido nesta revisão; os resultados acima correspondem à suíte automatizada versionada.
 
 **Não verificado:** que um LLM real siga o contrato e a rubrica; que as notas sejam calibradas ou estáveis entre execuções; que o Juiz **detecte defeitos reais**; que concorde com avaliadores humanos. Os pareceres das fixtures são sintéticos, escritos à mão.
 
@@ -249,7 +260,8 @@ Teste de mutação com 9 defeitos plantados no validador e na decisão: 8 detect
 
 ## 11. Próximos passos
 
-1. Ligar o Juiz ao pipeline: ciclo de correção com `componentes_invalidados`, contador de ciclos e estados no banco, mais o registro do Juiz no rastreio.
-2. Conjunto de planos com **defeitos injetados** para medir detecção e falsos positivos do Juiz.
-3. CLI de uma rodada real (como `teste_gemini.py`) e inspeção do JSON.
-4. Ajustar rubrica e política com base nessas rodadas, registrando cada mudança de versão.
+1. Implementar o adaptador da API DeepSeek, escolhido em 17/11/2026 para a próxima integração do Juiz. A fábrica atual usa Gemini; ainda não há configuração nem chamada DeepSeek no protótipo.
+2. Ligar o Juiz ao pipeline: ciclo de correção com `componentes_invalidados`, contador de ciclos e estados no banco, mais o registro do Juiz no rastreio.
+3. Conjunto de planos com **defeitos injetados** para medir detecção e falsos positivos do Juiz.
+4. CLI de uma rodada real (como `teste_gemini.py`) e inspeção do JSON.
+5. Ajustar rubrica e política com base nessas rodadas, registrando cada mudança de versão.

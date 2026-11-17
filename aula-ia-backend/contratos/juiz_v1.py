@@ -13,7 +13,7 @@ from contratos.execucao import exigir_sem_erros
 from contratos.plano_v2 import DEPENDENCIAS, ETAPAS, _estrutura
 
 VERSAO = "parecer-juiz-1.0"
-VERSAO_PROMPT = "juiz-v1"
+VERSAO_PROMPT = "juiz-v1.1"
 CRITERIOS = rubrica.CRITERIOS
 COMPONENTES = ETAPAS
 SCHEMA = json.loads((Path(__file__).parent / "juiz_v1.schema.json").read_text(encoding="utf-8"))
@@ -78,6 +78,35 @@ def validar(saida):
 
 # ----------------------------------------------------------------------- decisão
 
+def resolver_politica(politica=None, *, ciclos_usados=0):
+    """Valida a configuração antes de avaliar e devolve uma cópia independente."""
+    if type(ciclos_usados) is not int or ciclos_usados < 0:
+        raise ValueError("Ciclos usados deve ser um inteiro não negativo.")
+    if politica is not None and not isinstance(politica, dict):
+        raise ValueError("Política deve ser um objeto de configuração.")
+    ajustes = politica if politica is not None else {}
+    if set(ajustes) - set(POLITICA_PRELIMINAR):
+        raise ValueError("Política contém parâmetros desconhecidos.")
+    pol = deepcopy(POLITICA_PRELIMINAR)
+    pol.update(deepcopy(ajustes))
+    for campo in ("nome", "status"):
+        if not isinstance(pol[campo], str) or not pol[campo].strip():
+            raise ValueError(f"Política exige {campo} não vazio.")
+    if type(pol["nota_minima"]) is not int or not 0 <= pol["nota_minima"] <= 3:
+        raise ValueError("Nota mínima deve ser um inteiro entre 0 e 3.")
+    if type(pol["limite_ciclos"]) is not int or pol["limite_ciclos"] < 0:
+        raise ValueError("Limite de ciclos deve ser um inteiro não negativo.")
+    if type(pol["critica_exige_revisao_humana"]) is not bool:
+        raise ValueError("Revisão humana de casos críticos deve ser booleana.")
+    gravidades = pol["gravidades_que_exigem_correcao"]
+    if (not isinstance(gravidades, (list, tuple))
+            or any(not isinstance(g, str) or g not in rubrica.GRAVIDADES for g in gravidades)
+            or len(set(gravidades)) != len(gravidades)):
+        raise ValueError("Gravidades devem ser uma lista sem repetição de menor, maior ou critica.")
+    pol["gravidades_que_exigem_correcao"] = tuple(gravidades)
+    return pol
+
+
 def invalidados(componentes):
     """Fecho transitivo pelo grafo de dependências: o que precisa ser refeito se `componentes` mudarem."""
     conjunto = set(componentes)
@@ -97,7 +126,7 @@ def decidir(parecer, ciclos_usados=0, politica=None):
     Estados da spec R2: `aguardando_decisao` (parecer favorável; NÃO é aprovação),
     `em_correcao` e `revisao_necessaria`. Valida o parecer antes de decidir.
     """
-    pol = dict(POLITICA_PRELIMINAR, **(politica or {}))
+    pol = resolver_politica(politica, ciclos_usados=ciclos_usados)
     validar(parecer)
     notas = {a["criterio"]: a["nota"] for a in parecer["avaliacoes"]}
     abaixo = {c for c, n in notas.items() if n < pol["nota_minima"]}
@@ -143,6 +172,7 @@ def instrucoes():
     for c in CRITERIOS:
         r = rubrica.RUBRICA[c]
         partes.append(f"CRITÉRIO {c} ({r['rotulo']}): {r['pergunta']} Seções: {', '.join(r['secoes'])}. "
+                      + "Indicadores: " + " ".join(r["indicadores"]) + " "
                       + " ".join(f"Nota {n}: {t}" for n, t in sorted(r["ancoras"].items(), reverse=True)))
     partes += [
         "Regras de avaliação: não presuma nota 3; para dar 3, aponte na justificativa o trecho do plano que "

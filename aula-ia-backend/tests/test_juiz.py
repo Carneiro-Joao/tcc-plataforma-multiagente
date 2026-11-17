@@ -5,16 +5,20 @@ o contrato e a lógica de decisão; não medem se um LLM real avalia bem. Isso d
 medir o Juiz contra defeitos injetados e contra avaliadores humanos.
 """
 from copy import deepcopy
+import io
 import json
 from pathlib import Path
 from unittest import TestCase
+from unittest.mock import patch
+from urllib.error import HTTPError
 
 from contratos import juiz_v1 as j
 from contratos import rubrica_juiz as rubrica
 from contratos.plano_v2 import DEPENDENCIAS, ETAPAS
 from erros import ErroContrato, ErroGeracao
 from gemini import MODELO_PADRAO
-from juiz import avaliar_plano, criar_agente_juiz
+from geracao_v2 import AgenteGeminiCompleto, GeradorDePlanoCompleto
+from juiz import avaliar_plano, criar_agente_juiz, esquema_api, VERSAO_ESQUEMA_API
 from test_gemini import CHAVE, Transporte, envelope
 
 DADOS = Path(__file__).resolve().parent / "dados"
@@ -70,6 +74,12 @@ class TestRubrica(TestCase):
             self.assertIn(gravidade, texto)
         self.assertIn("DADOS", texto)
         self.assertIn("NÃO reescreve", texto)
+
+    def test_prompt_inclui_os_indicadores_operacionais_da_rubrica(self):
+        texto = j.instrucoes()
+        for criterio in rubrica.RUBRICA.values():
+            for indicador in criterio["indicadores"]:
+                self.assertIn(indicador, texto)
 
     def test_documentacao_cita_todos_os_criterios_e_versoes(self):
         doc = (DADOS.parents[2] / "docs" / "Rubrica_e_Contrato_IA_Juiz.md").read_text(encoding="utf-8")
@@ -273,6 +283,58 @@ class TestInvalidacao(TestCase):
                                 any(d in j.invalidados([nome]) for d in DEPENDENCIAS[invalido]))
 
 
+class TestConfiguracaoJuiz(TestCase):
+    def test_politicas_invalidas_sao_recusadas_antes_de_chamar_o_agente(self):
+        casos = [[], False, "padrao", {"nota_minma": 3}, {"nome": " "}, {"status": None},
+                 {"nota_minima": True}, {"nota_minima": 4}, {"nota_minima": -1},
+                 {"nota_minima": 2.0}, {"limite_ciclos": -1}, {"limite_ciclos": True},
+                 {"limite_ciclos": "2"}, {"critica_exige_revisao_humana": "false"},
+                 {"gravidades_que_exigem_correcao": "maior"},
+                 {"gravidades_que_exigem_correcao": ["grave"]},
+                 {"gravidades_que_exigem_correcao": ["maior", "maior"]},
+                 {"gravidades_que_exigem_correcao": [{}]}]
+        for politica in casos:
+            with self.subTest(politica=politica):
+                agente = AgenteFalso(parecer("favoravel"))
+                with self.assertRaises(ValueError):
+                    avaliar_plano(PLANO, ENTRADA, agente, modelo_gerador="gemini-a",
+                                  modelo_juiz="gemini-b", politica=politica)
+                self.assertEqual(agente.chamadas, [])
+                with self.assertRaises(ValueError):
+                    j.decidir(parecer("favoravel"), politica=politica)
+
+    def test_contadores_invalidos_nao_consumem_chamadas(self):
+        for campo in ("ciclos_usados", "revisao"):
+            for valor in (-1, True, 1.5, "1", None):
+                with self.subTest(campo=campo, valor=valor):
+                    agente = AgenteFalso(parecer("favoravel"))
+                    with self.assertRaises(ValueError):
+                        avaliar_plano(PLANO, ENTRADA, agente, modelo_gerador="gemini-a",
+                                      modelo_juiz="gemini-b", **{campo: valor})
+                    self.assertEqual(agente.chamadas, [])
+                    if campo == "ciclos_usados":
+                        with self.assertRaises(ValueError):
+                            j.decidir(parecer("favoravel"), ciclos_usados=valor)
+
+    def test_limite_zero_encaminha_falha_corrigivel_para_revisao(self):
+        d = j.decidir(parecer("correcao"), politica={"limite_ciclos": 0})
+        self.assertEqual(d["proximo_estado"], "revisao_necessaria")
+
+    def test_politica_do_resultado_e_a_mesma_usada_no_inicio(self):
+        politica = {"nota_minima": 3, "gravidades_que_exigem_correcao": ["maior", "critica"]}
+        class Mutante(AgenteFalso):
+            def executar(self, *args, **kwargs):
+                politica["nota_minima"] = 0
+                politica["gravidades_que_exigem_correcao"].clear()
+                return super().executar(*args, **kwargs)
+        r = avaliar_plano(PLANO, ENTRADA, Mutante(parecer("favoravel")),
+                          modelo_gerador="gemini-a", modelo_juiz="gemini-b", politica=politica)
+        self.assertEqual(r["decisao"]["proximo_estado"], "em_correcao")
+        self.assertEqual(r["politica"]["nota_minima"], 3)
+        self.assertEqual(r["politica"]["gravidades_que_exigem_correcao"], ("maior", "critica"))
+        self.assertEqual(r["rastreio"][0]["politica"], r["politica"])
+
+
 class TestAvaliarPlano(TestCase):
     def avaliar(self, agente, **kw):
         base = dict(modelo_gerador="gemini-a", modelo_juiz="gemini-b")
@@ -287,6 +349,39 @@ class TestAvaliarPlano(TestCase):
         self.assertEqual(len(agente.chamadas), 1)
         self.assertEqual(agente.chamadas[0]["estado"], {"plano": PLANO})  # o Juiz recebe só o plano integrado
         self.assertTrue(r["modelo_distinto_do_gerador"])
+        self.assertIsNone(r["versao_esquema_api"])  # o agente falso não declara uma projeção Gemini
+
+    def test_rejeita_plano_invalido_ou_incompativel_antes_da_avaliacao(self):
+        casos = [(None, deepcopy(ENTRADA)), ({}, deepcopy(ENTRADA)), (deepcopy(PLANO), {})]
+        for campo in ("recursos", "objetivo_geral"):
+            plano = deepcopy(PLANO)
+            plano[campo] = "ADULTERADO" if campo == "recursos" else " "
+            casos.append((plano, deepcopy(ENTRADA)))
+        plano = deepcopy(PLANO)
+        plano["desenvolvimento"][0]["minutos"] += 1
+        casos.append((plano, deepcopy(ENTRADA)))
+        entrada = deepcopy(ENTRADA)
+        entrada["habilidade"]["codigo"] = "OUTRA_HABILIDADE"
+        casos.append((deepcopy(PLANO), entrada))
+        legado = json.loads((DADOS / "poc04a" / "fixture_ordenacao.json").read_text(encoding="utf-8"))
+        casos.append((legado["plano_esperado"], legado["entrada"]))
+        for i, (plano, entrada) in enumerate(casos):
+            with self.subTest(caso=i):
+                agente = AgenteFalso(parecer("favoravel"))
+                with self.assertRaises(ErroContrato):
+                    avaliar_plano(plano, entrada, agente, modelo_gerador="gemini-a", modelo_juiz="gemini-b")
+                self.assertEqual(agente.chamadas, [])
+
+    def test_rastreio_preserva_plano_revisao_e_politica_em_falha(self):
+        with self.assertRaises(ErroGeracao) as ctx:
+            self.avaliar(AgenteFalso(ErroGeracao("Indisponível", tipo="http")), revisao=3, ciclos_usados=1)
+        reg = ctx.exception.rastreio[0]
+        self.assertEqual(reg["entrada"]["saidas_anteriores"], {"plano": PLANO})
+        self.assertEqual(reg["entrada"]["contexto"], ENTRADA["contexto"])
+        self.assertEqual(reg["revisao"], 3)
+        self.assertEqual(reg["ciclos_usados"], 1)
+        self.assertEqual(reg["politica"], j.POLITICA_PRELIMINAR)
+        self.assertEqual(reg["versao_rubrica"], rubrica.VERSAO)
 
     def test_sinaliza_quando_juiz_e_gerador_sao_o_mesmo_modelo(self):
         r = self.avaliar(AgenteFalso(parecer("favoravel")), modelo_juiz="gemini-a")
@@ -362,11 +457,101 @@ class TestJuizComTransporteGeminiSimulado(TestCase):
         self.assertFalse(r["modelo_distinto_do_gerador"])
         pedido = transporte.pedidos[0]
         corpo = json.loads(pedido.data)
-        self.assertEqual(corpo["generationConfig"]["responseFormat"]["text"]["schema"], j.esquema())
+        self.assertEqual(corpo["generationConfig"]["responseFormat"]["text"]["schema"], esquema_api())
+        self.assertEqual(r["versao_esquema_api"], VERSAO_ESQUEMA_API)
+        self.assertEqual(agente.versao_esquema_api, VERSAO_ESQUEMA_API)
         self.assertIn("AVALIADOR independente", corpo["systemInstruction"]["parts"][0]["text"])
         dados = json.loads(corpo["contents"][0]["parts"][0]["text"])
         self.assertEqual(dados["saidas_anteriores"], {"plano": PLANO})
         self.assertNotIn(CHAVE, pedido.full_url + pedido.data.decode())
         self.assertEqual(r["rastreio"][0]["versao_contrato"], "parecer-juiz-1.0")
-        self.assertEqual(r["rastreio"][0]["versao_prompt"], "juiz-v1")
+        self.assertEqual(r["rastreio"][0]["versao_prompt"], "juiz-v1.1")
+        self.assertEqual(r["rastreio"][0]["versao_esquema_api"], VERSAO_ESQUEMA_API)
         self.assertNotIn(CHAVE, json.dumps(r))
+
+    def test_esquema_projetado_preserva_estrutura_e_limites_seguem_locais(self):
+        original = j.esquema()
+        api = esquema_api()
+        self.assertEqual(j.esquema(), original)
+        def comparar(local, remoto):
+            self.assertEqual(local["type"], remoto["type"])
+            for limite in ("minItems", "maxItems", "minimum", "maximum", "minLength", "maxLength",
+                           "pattern", "enum", "uniqueItems"):
+                self.assertNotIn(limite, remoto)
+                if limite in local:
+                    self.assertTrue(remoto.get("description"))
+            if local["type"] == "object":
+                self.assertEqual(local["required"], remoto["required"])
+                self.assertFalse(remoto["additionalProperties"])
+                self.assertEqual(set(local["properties"]), set(remoto["properties"]))
+                for campo, regra in local["properties"].items():
+                    comparar(regra, remoto["properties"][campo])
+            elif local["type"] == "array":
+                comparar(local["items"], remoto["items"])
+        comparar(original, api)
+        casos = (("avaliacoes", "nota", 4, "limite_invalido"),
+                 ("falhas", "gravidade", "grave", "valor_invalido"),
+                 ("falhas", "id", "X1", "formato_invalido"),
+                 ("avaliacoes", "criterio", "criatividade", "valor_invalido"))
+        for lista, campo, valor, regra in casos:
+            with self.subTest(campo=campo):
+                invalido = parecer("favoravel")
+                invalido[lista][0][campo] = valor
+                transporte = Transporte([envelope(invalido), envelope(parecer("favoravel"))])
+                r = avaliar_plano(PLANO, ENTRADA, criar_agente_juiz(chave=CHAVE, transporte=transporte),
+                                  modelo_gerador=MODELO_PADRAO, modelo_juiz=MODELO_PADRAO)
+                self.assertEqual([t["estado"] for t in r["rastreio"]], ["rejeitado", "validado"])
+                self.assertIn(regra, [d["regra"] for d in r["rastreio"][0]["diagnosticos"]])
+
+    def test_valores_permitidos_viram_orientacao_textual(self):
+        props = esquema_api()["properties"]["falhas"]["items"]["properties"]
+        self.assertEqual(props["gravidade"]["description"], "Valores permitidos: critica, maior, menor.")
+        for componente in ETAPAS:
+            self.assertIn(componente, props["componente"]["description"])
+        for criterio in rubrica.CRITERIOS:
+            self.assertIn(criterio, props["criterio"]["description"])
+
+    def test_modelo_declarado_diferente_do_agente_e_recusado_sem_http(self):
+        transporte = Transporte([])
+        agente = criar_agente_juiz(chave=CHAVE, transporte=transporte)
+        with self.assertRaises(ValueError):
+            avaliar_plano(PLANO, ENTRADA, agente, modelo_gerador=MODELO_PADRAO, modelo_juiz="gemini-outro")
+        self.assertEqual(transporte.pedidos, [])
+
+    def test_503_repetido_so_quando_configurado_e_preserva_auditoria(self):
+        for repeticoes in (0, 1, 2):
+            with self.subTest(repeticoes=repeticoes), patch("gemini.time.sleep") as espera:
+                falha = HTTPError("https://exemplo.invalid", 503, "Indisponível", {}, io.BytesIO(b'{}'))
+                transporte = Transporte([falha, envelope(parecer("favoravel"))])
+                agente = criar_agente_juiz(chave=CHAVE, transporte=transporte, repeticoes_503=repeticoes)
+                if repeticoes:
+                    r = avaliar_plano(PLANO, ENTRADA, agente, modelo_gerador=MODELO_PADRAO, modelo_juiz=MODELO_PADRAO)
+                    self.assertEqual(len(r["rastreio"]), 1)
+                    self.assertEqual(r["rastreio"][0]["chamadas_http"], 2)
+                    self.assertEqual(len(r["rastreio"][0]["falhas_http_transitorias"]), 1)
+                    self.assertEqual(espera.call_count, 1)
+                else:
+                    with self.assertRaises(ErroGeracao) as ctx:
+                        avaliar_plano(PLANO, ENTRADA, agente, modelo_gerador=MODELO_PADRAO, modelo_juiz=MODELO_PADRAO)
+                    self.assertEqual(ctx.exception.rastreio[0]["chamadas_http"], 1)
+                    self.assertEqual(len(transporte.pedidos), 1)
+                    espera.assert_not_called()
+
+    def test_plano_do_pipeline_atual_e_avaliado_sem_refazer_especialistas(self):
+        transporte_gerador = Transporte([envelope(V2["saidas"][nome]) for nome in ETAPAS])
+        gerador = GeradorDePlanoCompleto("ia", agente=AgenteGeminiCompleto(chave=CHAVE, transporte=transporte_gerador))
+        resultado = gerador.gerar(deepcopy(ENTRADA), 2)
+        original = deepcopy(resultado)
+        for caso, estado in (("favoravel", "aguardando_decisao"), ("correcao", "em_correcao"),
+                             ("critico", "revisao_necessaria")):
+            with self.subTest(caso=caso):
+                transporte_juiz = Transporte([envelope(parecer(caso))])
+                r = avaliar_plano(resultado["plano"], ENTRADA,
+                                  criar_agente_juiz(chave=CHAVE, transporte=transporte_juiz),
+                                  modelo_gerador=resultado["modelo"], modelo_juiz=MODELO_PADRAO,
+                                  revisao=resultado["revisao"])
+                self.assertEqual(r["decisao"]["proximo_estado"], estado)
+                self.assertEqual(r["revisao"], 2)
+                self.assertEqual(len(transporte_juiz.pedidos), 1)
+        self.assertEqual(len(transporte_gerador.pedidos), 6)
+        self.assertEqual(resultado, original)

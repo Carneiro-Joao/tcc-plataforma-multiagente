@@ -7,7 +7,7 @@ const source = ler('../public/geracao-ui.js');
 assert.equal(source, ler('../dist/geracao-ui.js'));
 const context = {document:{getElementById:()=>null}, MutationObserver:class {observe(){}}, queueMicrotask:()=>{}};
 vm.createContext(context);
-vm.runInContext(source.replace('  agendar();\n})();','  globalThis.renderPlano = planoHtml;\n})();'),context);
+vm.runInContext(source.replace(/\r\n/g, '\n').replace('  agendar();\n})();','  globalThis.renderPlano = planoHtml;\n})();'),context);
 const f = JSON.parse(ler('../../aula-ia-backend/tests/dados/plano_v2/fixture_ordenacao.json'));
 const resultado = {contrato:f.contrato,plano:f.plano_esperado,rastreio:[]};
 const gerar = () => context.renderPlano(resultado.plano,resultado,{revisao:1,estado:'rascunho'});
