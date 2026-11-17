@@ -40,6 +40,12 @@ def criar_agente_juiz(modelo=MODELO_PADRAO, **kwargs):
     return AgenteGeminiJuiz(modelo, **kwargs)
 
 
+def criar_agente_groq_juiz(**kwargs):
+    """Provedor da PoC 05B; a fábrica Gemini anterior permanece compatível."""
+    from groq_juiz import AgenteGroqJuiz
+    return AgenteGroqJuiz(**kwargs)
+
+
 def avaliar_plano(plano, entrada, agente, *, modelo_gerador, modelo_juiz, revisao=0,
                   reparos=1, ciclos_usados=0, politica=None):
     if type(reparos) is not int or reparos not in (0, 1):
