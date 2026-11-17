@@ -102,3 +102,43 @@ A decisão `aguardando_decisao` é uma consequência determinística do parecer 
 Uma única avaliação permite afirmar **não detecção neste caso**; não permite estimar taxa de erro, precisão geral ou confiabilidade estatística. Conservar a configuração congelada e repetir V02 como teste de estabilidade, registrando também HTTP 400/429 separadamente se ocorrerem. Não modificar o prompt até fechar uma série predefinida de repetições e submeter o gabarito à validação humana. A correção automática de planos por IA continua desabilitada, sem alteração na aprovação docente.
 
 **Resumo arquivado em formato estruturado:** [V02_20261117T190159Z_analise.json](resultados/V02_20261117T190159Z_analise.json). A evidência bruta completa de 91.294 bytes e seu SHA-256 acima continuam no arquivo local citado; este commit preserva **resumo verificável**, não uma cópia integral do registro.
+
+## 7. Segundo ensaio real da V02 — 17/11/2026
+
+**Esta seção foi redigida depois da segunda resposta real.** Hipótese e gabarito da V02 (seções 1–5) permanecem pré-registrados e inalterados. O primeiro ensaio (§6) foi preservado integralmente.
+
+**Registro bruto local:** `aula-ia-backend/local/ensaios_juiz/20261117T190500Z-67f19a8598e0/resultado.json`.  
+**SHA-256 do arquivo bruto carregado para análise:** `64a045979b3f6bb7d42c6d13de8f90f68d2459d15be8aa17475ac05023e2462e` (`90585` bytes).  
+**Arquivo do caso:** SHA-256 `05b836174ea2595c9db1140e6fe43dc44695b34b7bc284baf0a127316ff7cf31` (mesmo da primeira avaliação).  
+**Plano canônico:** SHA-256 `f98719c00248d16f95b26bfc138780ed0bf17c2eab5c3531a62c3a6b3de87c43` (mesmo da primeira avaliação).  
+**Commit local:** `ad2631bf44184e3b59dbea4703a7127795d3a135` (atualização apenas documental desde o primeiro ensaio); `arvore_modificada=false`. Os hashes de código dos módulos executáveis registrados no ensaio não mudaram.  
+**Parâmetros congelados:** Groq `openai/gpt-oss-120b`, prompt `juiz-v1.2`, rubrica `rubrica-juiz-0.1`, contrato `parecer-juiz-1.0`, temperatura 0, seed 42, `reasoning_effort=medium`, `max_completion_tokens=8192`, `--reparos 1`.
+
+### 7.1. Observado
+
+- `status=sucesso`, `modo=api_real`, **HTTP 200**, uma chamada, uma resposta aceita; `finish_reason=stop`, nenhuma tentativa de reparo.
+- **Seis notas 3/3 (total 18/18)**, `falhas=[]`.
+- `decisao.proximo_estado=aguardando_decisao`, `componentes_a_corrigir=[]`, `componentes_invalidados=[]`.
+- **Resultado da hipótese H-V02: não confirmada.** O parecer não localiza a inversão do operador de comparação em `ET2.acao_discente`. A saída considera ET2 coerente, apesar de a regra de troca com `esquerda < direita` produzir ordem decrescente, contradizendo a exigência de ordem crescente. É o **segundo falso negativo**.
+- Persistem as justificativas problemáticas: viabilidade fundamentada parcialmente na soma dos minutos e invocação de número reduzido de cartões sem contexto informado; descrição de uma sequência que inclui "síntese" sem etapa explicitamente prevista. O parecer também enfatiza vínculos estruturais EVI/INS sem verificar a consistência da lógica algorítmica de ET2.
+- **Dados operacionais:** `tempo_total_s=5.345594`; latência da chamada `5.227486` s; `prompt_tokens=4464`, `completion_tokens=2054`, total `6518`; `system_fingerprint=fp_dee443f41b` (diferente do primeiro: `fp_fe269835c7`).
+- `aprovacao_docente=nao_alterada`, `ciclos_pedagogicos_executados=0`.
+
+### 7.2. Comparação provisória da V02
+
+| Resultado observado | Ensaio 1 (19:01:59 UTC) | Ensaio 2 (19:05:00 UTC) |
+|---|---|---|
+| Status técnico | Sucesso / HTTP 200 | Sucesso / HTTP 200 |
+| Plano enviado | SHA-256 `f98719c...` | Mesmo SHA-256 |
+| Nota total | 18/18 | 18/18 |
+| Falhas | 0 | 0 |
+| Identificou inversão da regra? | **Não** | **Não** |
+| Decisão | `aguardando_decisao` | `aguardando_decisao` |
+| Classificação do pesquisador | Falso negativo | Falso negativo |
+| `system_fingerprint` | `fp_fe269835c7` | `fp_dee443f41b` |
+
+**Síntese 2/2:** erro injetado foi **omitido em ambas as respostas válidas**. Isso mede apenas duas repetições do mesmo caso, **não** uma taxa populacional de falso negativo ou validação geral do Juiz. A estabilidade da decisão neste caso **não** equivale à confiabilidade pedagógica: ambas as decisões podem repetir a mesma omissão.
+
+**Encaminhamento:** manter o prompt e a rubrica congelados até completar uma terceira avaliação válida da V02; preservar o resultado bruto no diretório de ensaio e documentar futuros erros técnicos separadamente. A aceitação estrutural do parecer **não** certifica correção do algoritmo e não deve autorizar correção ou aprovação docente automáticas.
+
+**Resumo estruturado:** [V02_20261117T190500Z_analise.json](resultados/V02_20261117T190500Z_analise.json). O arquivo de análise é derivado do registro bruto, que permanece apenas local e não foi adicionado ao Git.

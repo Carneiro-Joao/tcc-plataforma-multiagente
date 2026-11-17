@@ -255,3 +255,13 @@ retornou HTTP 200 e um parecer formalmente válido, mas atribuiu **18/18** e
 **Falso negativo nesta execução**, não prova de taxa geral de erro.
 Ver [protocolo V02 atualizado](../experimentos/juiz/Protocolo_V02_Bubble_Sort_Comparacao_Invertida.md)
 e [resumo rastreável do resultado](../experimentos/juiz/resultados/V02_20261117T190159Z_analise.json).
+
+### V02 — segunda execução real (17/11/2026)
+
+A segunda execução da mesma variante, com os mesmos parâmetros e hash do
+plano, repetiu **18/18**, `falhas=[]` e `aguardando_decisao`, sem identificar
+a comparação invertida. **Dois falsos negativos em dois pareceres válidos do
+mesmo caso** — observação descritiva, não estimativa de taxa geral.
+A estabilidade da decisão não comprova correção pedagógica. Ver o
+[protocolo V02 (§7)](../experimentos/juiz/Protocolo_V02_Bubble_Sort_Comparacao_Invertida.md)
+e o [segundo resumo estruturado](../experimentos/juiz/resultados/V02_20261117T190500Z_analise.json).
