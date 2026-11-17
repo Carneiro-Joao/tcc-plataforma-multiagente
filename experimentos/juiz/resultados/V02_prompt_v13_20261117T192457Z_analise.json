@@ -1,0 +1,106 @@
+{
+  "schema": "analise_ensaio_juiz-0.1",
+  "id": "V02-V13-E01",
+  "documentado_apos_ensaio": true,
+  "data_utc": "2026-11-17T19:24:57.666005+00:00",
+  "caso": {
+    "id": "V02-BUBBLE-COMPARACAO-INVERTIDA",
+    "tipo": "variante_controlada",
+    "base": "experimentos/juiz/casos/ordenacao_real_994c4cd5.json",
+    "campo_alterado": "plano.desenvolvimento[1].acao_discente",
+    "arquivo_caso_sha256": "05b836174ea2595c9db1140e6fe43dc44695b34b7bc284baf0a127316ff7cf31",
+    "plano_sha256": "f98719c00248d16f95b26bfc138780ed0bf17c2eab5c3531a62c3a6b3de87c43"
+  },
+  "registro_bruto": {
+    "caminho_local": "aula-ia-backend/local/ensaios_juiz/20261117T192457Z-dc6c34345f59/resultado.json",
+    "arquivo_sha256": "cbc43497c61335b14d5800c99e7203e411d555c31de51912df9e87fff6ec7b33",
+    "tamanho_bytes": 99720,
+    "copia_integral_neste_repositorio": false
+  },
+  "codigo": {
+    "commit": "f965f814c953c69fc91b8af796e2fb8255433170",
+    "arvore_modificada": false
+  },
+  "configuracao": {
+    "provedor": "groq",
+    "modelo": "openai/gpt-oss-120b",
+    "versao_prompt": "juiz-v1.3",
+    "prompt_sha256": "bdb7f05ee34f5aa59c4ea410282fa267bcbb057d370e0f8be223ad33367f2bd8",
+    "versao_rubrica": "rubrica-juiz-0.1",
+    "contrato": "parecer-juiz-1.0",
+    "politica": "politica-juiz-prelim-0.1",
+    "temperature": 0,
+    "seed": 42,
+    "reasoning_effort": "medium",
+    "max_completion_tokens": 8192,
+    "reparos_permitidos": 1
+  },
+  "resultado": {
+    "status": "sucesso",
+    "http_status": 200,
+    "parecer_contrato_valido": true,
+    "notas": {
+      "aderencia_curricular": 1,
+      "alinhamento_objetivos": 3,
+      "coerencia_metodologica": 1,
+      "viabilidade": 3,
+      "avaliacao_aprendizagem": 3,
+      "inclusao": 3
+    },
+    "soma_notas": 14,
+    "numero_falhas": 2,
+    "falhas": [
+      {
+        "id": "F1",
+        "criterio": "aderencia_curricular",
+        "componente": "sequencia",
+        "gravidade": "critica",
+        "descricao": "ET2 determina troca quando esquerda < direita, invertendo regra de Bubble Sort crescente; correção esquerda > direita."
+      },
+      {
+        "id": "F2",
+        "criterio": "coerencia_metodologica",
+        "componente": "sequencia",
+        "gravidade": "critica",
+        "descricao": "Regra invertida em ET2 contradiz a metodologia e simulação pretendida de Bubble Sort."
+      }
+    ],
+    "decisao": "revisao_necessaria",
+    "componentes_a_corrigir": [
+      "sequencia"
+    ],
+    "componentes_invalidados": [
+      "sequencia",
+      "avaliacao_final",
+      "adaptacao"
+    ],
+    "aprovacao_docente": "nao_alterada",
+    "ciclos_pedagogicos_executados": 0,
+    "chamadas_http": 1,
+    "tentativas": 1,
+    "reparos_usados": 0,
+    "finish_reason": "stop",
+    "system_fingerprint": "fp_fe269835c7",
+    "tempo_total_s": 6.580651,
+    "latencia_chamada_s": 6.458269,
+    "prompt_tokens": 4778,
+    "completion_tokens": 2446,
+    "total_tokens": 7224,
+    "custo_informado": null
+  },
+  "analise_pesquisador": {
+    "hipotese_alvo": "Verificar se juiz-v1.3 identifica contradicao operacional da inversao esquerda < direita para ordenacao crescente na etapa ET2 e aponta componente sequencia.",
+    "detectou_defeito_alvo": true,
+    "resultado": "detecao_pedagogica_positiva",
+    "regressao_v01": "nao_testada",
+    "controle_plano_original": "nao_testado",
+    "validacao_pedagogica_humana": "pendente",
+    "possivel_dupla_contagem": "F1 e F2 classificam o mesmo erro experimental em dois criterios; nao sao duas injecoes independentes.",
+    "instrucao_ignorada": "A justificativa de viabilidade usa soma de minutos apesar do prompt proibir esse criterio isolado.",
+    "limitacoes": [
+      "Primeiro parecer real valido v1.3; uma tentativa HTTP 429 anterior separada",
+      "V02 motivou ajuste do prompt; nao e avaliacao cega nem holdout",
+      "Nao atribuir eficacia estatistica ou causalidade isolada a diferenca observada"
+    ]
+  }
+}

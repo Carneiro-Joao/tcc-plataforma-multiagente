@@ -155,3 +155,101 @@ Não contar como acerto, falso negativo ou parecer válido da v1.3.
 janela de limite estar liberada; não modificar prompt, caso, parâmetros,
 política ou gabarito para contornar esse bloqueio. O status da v1.3
 permanece **zero pareceres reais válidos**.
+
+## 7. Primeiro parecer real válido da v1.3 — 17/11/2026, V02
+
+**Seção acrescentada APÓS a execução real.** As hipóteses e critérios das
+seções 1–5 não foram modificados. A tentativa HTTP 429 da seção 6 permanece
+como **falha técnica sem parecer**, não entra nos resultados pedagógicos.
+
+- **Horário da avaliação:** `2026-11-17T19:24:57.666005+00:00`.
+- **Registro bruto local:** `aula-ia-backend/local/ensaios_juiz/20261117T192457Z-dc6c34345f59/resultado.json`.
+- **SHA-256 do arquivo bruto anexado:** `cbc43497c61335b14d5800c99e7203e411d555c31de51912df9e87fff6ec7b33` (**99.720 bytes**).
+  O registro bruto não foi adicionado ao GitHub. Este arquivo e o resumo
+  estruturado abaixo permitem relacionar o resultado à evidência original.
+- **Commit de execução:** `f965f814c953c69fc91b8af796e2fb8255433170`;
+  `arvore_modificada=false`. A alteração desde a tentativa de 429 foi
+  exclusivamente documental.
+- **Caso V02:** SHA-256 de arquivo `05b836174ea2595c9db1140e6fe43dc44695b34b7bc284baf0a127316ff7cf31`,
+  plano canônico `f98719c00248d16f95b26bfc138780ed0bf17c2eab5c3531a62c3a6b3de87c43`.
+- **Prompt:** `juiz-v1.3`, SHA-256 `bdb7f05ee34f5aa59c4ea410282fa267bcbb057d370e0f8be223ad33367f2bd8`.
+  Permaneceram `rubrica-juiz-0.1`, `parecer-juiz-1.0`,
+  `politica-juiz-prelim-0.1`, modelo `openai/gpt-oss-120b`,
+  temperatura 0, seed 42, `reasoning_effort=medium`,
+  `max_completion_tokens=8192` e `--reparos 1`.
+
+### 7.1 Resultado bruto e leitura do pesquisador
+
+**Status técnico:** `sucesso`; **HTTP 200**; um único envio; parecer
+estrutural e semanticamente válido pelo contrato; `finish_reason=stop`;
+**nenhum reparo usado**.
+
+| Critério | Nota (0–3) |
+|---|---:|
+| `aderencia_curricular` | 1 |
+| `alinhamento_objetivos` | 3 |
+| `coerencia_metodologica` | 1 |
+| `viabilidade` | 3 |
+| `avaliacao_aprendizagem` | 3 |
+| `inclusao` | 3 |
+| **Total** | **14/18** |
+
+**Duas falhas apontadas para o mesmo defeito central**, ambas
+`componente=sequencia`, `gravidade=critica`:
+
+1. `F1`, `criterio=aderencia_curricular`: ET2 manda trocar pares
+   adjacentes se o número da esquerda for **menor** que o da direita;
+   a regra de troca esperada para ordenação **crescente** é trocar
+   quando a esquerda for **maior**.
+2. `F2`, `criterio=coerencia_metodologica`: a regra de ET2
+   contradiz a metodologia e a execução pretendida do Bubble Sort;
+   sugere corrigir a etapa ET2.
+
+O parecer inclui correção causalmente adequada da comparação e localiza
+a falha no componente correto. **A hipótese-alvo H-13 teve detecção
+positiva nesta primeira execução válida.** As duas falhas representam
+**duas leituras do mesmo defeito experimental**, não dois defeitos
+independentes.
+
+**Decisão determinada por código:** `revisao_necessaria`;
+`componentes_a_corrigir=["sequencia"]`;
+`componentes_invalidados=["sequencia","avaliacao_final","adaptacao"]`;
+`falhas_que_motivam=["F1","F2"]`. Nenhuma correção pedagógica nem
+aprovação docente foi executada.
+
+**Métricas informadas pela API:** 4.778 tokens de entrada,
+2.446 de saída, **7.224 no total**. O ensaio durou **6,580651 s**
+(latência de chamada **6,458269 s**); `system_fingerprint=fp_fe269835c7`.
+O custo financeiro não foi informado; não estimar custo zero.
+
+**Limitação que permanece:** a justificativa de `viabilidade=3`
+invocou diretamente `15 min + 35 min = 50 min`, apesar da instrução
+explícita de que a soma já foi verificada em Python e não deve ser
+tomada como evidência de viabilidade pedagógica. Isso é um
+**descumprimento de instrução**, não um defeito V02 adicional.
+
+### 7.2 Comparação provisória com a v1.2
+
+| Variável no mesmo caso V02 | `juiz-v1.2` (histórico) | `juiz-v1.3` |
+|---|---|---|
+| Pareceres válidos | 3 | **1** |
+| Detecção da comparação invertida | **0/3** | **1/1** |
+| Notas totais | 18/18, 18/18, 17/18 | 14/18 |
+| Decisões | 3 × `aguardando_decisao` | `revisao_necessaria` |
+| Erro técnico separado | 0 na série válida | 1 tentativa HTTP 429 anterior à resposta válida |
+
+**Interpretação restrita:** o resultado é **promissor**, mas uma única
+detecção no caso que motivou o novo prompt **não demonstra generalização,
+estabilidade, sensibilidade populacional ou causalidade isolada do texto do prompt**.
+O caso não é holdout; o `system_fingerprint` também pode variar.
+Não tratar 1/1 como taxa robusta nem anunciar a v1.3 como validada.
+
+**Próximo controle:** testar V01 com v1.3 para detectar possível regressão
+e o plano original sem edição para examinar falsos positivos. Manter
+o prompt v1.3 congelado, registrar cada chamada/resultado, e depois
+verificar repetibilidade da V02 em mais respostas válidas com pausas
+operacionais suficientes para evitar HTTP 429. Guardar o gabarito
+fora da requisição da LLM. Realizar avaliação com casos novos
+não usados para refinar o prompt antes de reivindicar qualidade externa.
+
+**Resumo estruturado:** [V02_prompt_v13_20261117T192457Z_analise.json](resultados/V02_prompt_v13_20261117T192457Z_analise.json).

@@ -308,3 +308,23 @@ para refinar o prompt.
 
 Ver [protocolo v1.2 × v1.3](../experimentos/juiz/Protocolo_Comparacao_Prompts_v12_v13.md)
 e [síntese histórica V01 × V02](../experimentos/juiz/Sintese_Comparativa_V01_V02.md).
+
+### V02 — primeiro parecer real válido com `juiz-v1.3` (17/11/2026)
+
+Após uma tentativa HTTP 429 **sem parecer** (documentada no protocolo),
+a primeira execução válida da **v1.3** produziu HTTP 200, **14/18**
+e **duas falhas críticas** em `sequencia`, pelos critérios
+`aderencia_curricular` e `coerencia_metodologica`. Ambas descrevem
+o **mesmo defeito**: ET2 manda trocar elementos se o da esquerda for
+menor que o da direita para alcançar ordem crescente, quando deveria
+trocar se fosse maior. A política encaminhou para
+`revisao_necessaria`, sem executar correção ou aprovar plano.
+
+É a **primeira detecção correta da V02 com a v1.3 (1/1)**, contra
+**0/3** pareceres válidos da v1.2; um sinal exploratório de melhoria
+no caso usado para desenhar a alteração, **não validação independente**
+nem demonstração de confiabilidade. O Juiz ainda justificou
+`viabilidade` pela soma de minutos, descumprindo instrução anterior.
+
+Ver [protocolo comparativo §7](../experimentos/juiz/Protocolo_Comparacao_Prompts_v12_v13.md)
+e [registro estruturado do primeiro acerto v1.3](../experimentos/juiz/resultados/V02_prompt_v13_20261117T192457Z_analise.json).
