@@ -1,0 +1,154 @@
+{
+  "_nota": "Pareceres SINTÉTICOS escritos à mão; não vieram de nenhuma API.",
+  "favoravel": {
+    "avaliacoes": [
+      {
+        "criterio": "aderencia_curricular",
+        "nota": 3,
+        "justificativa": "Justificativa do critério aderencia_curricular com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "alinhamento_objetivos",
+        "nota": 3,
+        "justificativa": "Justificativa do critério alinhamento_objetivos com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "coerencia_metodologica",
+        "nota": 3,
+        "justificativa": "Justificativa do critério coerencia_metodologica com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "viabilidade",
+        "nota": 3,
+        "justificativa": "Justificativa do critério viabilidade com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "avaliacao_aprendizagem",
+        "nota": 3,
+        "justificativa": "Justificativa do critério avaliacao_aprendizagem com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "inclusao",
+        "nota": 2,
+        "justificativa": "Justificativa do critério inclusao com referência a OBJ1 e ET2."
+      }
+    ],
+    "falhas": [
+      {
+        "id": "F1",
+        "criterio": "inclusao",
+        "componente": "adaptacao",
+        "gravidade": "menor",
+        "descricao": "Falha 1 em inclusao, na seção ligada a adaptacao.",
+        "correcao_sugerida": "Orientar o especialista de adaptacao a revisar este ponto."
+      }
+    ],
+    "resumo": "Plano coerente; ressalva pontual nas adaptações."
+  },
+  "correcao": {
+    "avaliacoes": [
+      {
+        "criterio": "aderencia_curricular",
+        "nota": 3,
+        "justificativa": "Justificativa do critério aderencia_curricular com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "alinhamento_objetivos",
+        "nota": 3,
+        "justificativa": "Justificativa do critério alinhamento_objetivos com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "coerencia_metodologica",
+        "nota": 3,
+        "justificativa": "Justificativa do critério coerencia_metodologica com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "viabilidade",
+        "nota": 1,
+        "justificativa": "Justificativa do critério viabilidade com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "avaliacao_aprendizagem",
+        "nota": 3,
+        "justificativa": "Justificativa do critério avaliacao_aprendizagem com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "inclusao",
+        "nota": 3,
+        "justificativa": "Justificativa do critério inclusao com referência a OBJ1 e ET2."
+      }
+    ],
+    "falhas": [
+      {
+        "id": "F1",
+        "criterio": "viabilidade",
+        "componente": "sequencia",
+        "gravidade": "maior",
+        "descricao": "ET2 usa projetor, que não consta nos recursos.",
+        "correcao_sugerida": "Orientar o especialista de sequencia a revisar este ponto."
+      },
+      {
+        "id": "F2",
+        "criterio": "viabilidade",
+        "componente": "metodologia",
+        "gravidade": "menor",
+        "descricao": "Falha 2 em viabilidade, na seção ligada a metodologia.",
+        "correcao_sugerida": "Orientar o especialista de metodologia a revisar este ponto."
+      }
+    ],
+    "resumo": "Etapa ET2 depende de recurso não informado."
+  },
+  "critico": {
+    "avaliacoes": [
+      {
+        "criterio": "aderencia_curricular",
+        "nota": 0,
+        "justificativa": "Justificativa do critério aderencia_curricular com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "alinhamento_objetivos",
+        "nota": 3,
+        "justificativa": "Justificativa do critério alinhamento_objetivos com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "coerencia_metodologica",
+        "nota": 2,
+        "justificativa": "Justificativa do critério coerencia_metodologica com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "viabilidade",
+        "nota": 3,
+        "justificativa": "Justificativa do critério viabilidade com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "avaliacao_aprendizagem",
+        "nota": 3,
+        "justificativa": "Justificativa do critério avaliacao_aprendizagem com referência a OBJ1 e ET2."
+      },
+      {
+        "criterio": "inclusao",
+        "nota": 3,
+        "justificativa": "Justificativa do critério inclusao com referência a OBJ1 e ET2."
+      }
+    ],
+    "falhas": [
+      {
+        "id": "F1",
+        "criterio": "aderencia_curricular",
+        "componente": "objetivos",
+        "gravidade": "critica",
+        "descricao": "Os objetivos tratam de outro tema e não da habilidade confirmada.",
+        "correcao_sugerida": "Orientar o especialista de objetivos a revisar este ponto."
+      },
+      {
+        "id": "F2",
+        "criterio": "coerencia_metodologica",
+        "componente": "sequencia",
+        "gravidade": "menor",
+        "descricao": "Falha 2 em coerencia_metodologica, na seção ligada a sequencia.",
+        "correcao_sugerida": "Orientar o especialista de sequencia a revisar este ponto."
+      }
+    ],
+    "resumo": "Plano não desenvolve a habilidade confirmada."
+  }
+}

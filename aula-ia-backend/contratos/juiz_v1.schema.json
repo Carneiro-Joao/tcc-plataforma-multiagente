@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aulaia:parecer-juiz:1.0",
+  "title": "ParecerJuiz 1.0 (rubrica preliminar)",
+  "$defs": {
+    "juiz": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "avaliacoes",
+        "falhas",
+        "resumo"
+      ],
+      "properties": {
+        "avaliacoes": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "criterio",
+              "nota",
+              "justificativa"
+            ],
+            "properties": {
+              "criterio": {
+                "type": "string",
+                "enum": [
+                  "aderencia_curricular",
+                  "alinhamento_objetivos",
+                  "coerencia_metodologica",
+                  "viabilidade",
+                  "avaliacao_aprendizagem",
+                  "inclusao"
+                ]
+              },
+              "nota": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3
+              },
+              "justificativa": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          }
+        },
+        "falhas": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "criterio",
+              "componente",
+              "gravidade",
+              "descricao",
+              "correcao_sugerida"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^F[1-9][0-9]*$"
+              },
+              "criterio": {
+                "type": "string",
+                "enum": [
+                  "aderencia_curricular",
+                  "alinhamento_objetivos",
+                  "coerencia_metodologica",
+                  "viabilidade",
+                  "avaliacao_aprendizagem",
+                  "inclusao"
+                ]
+              },
+              "componente": {
+                "type": "string",
+                "enum": [
+                  "objetivos",
+                  "avaliacao_preliminar",
+                  "metodologia",
+                  "sequencia",
+                  "avaliacao_final",
+                  "adaptacao"
+                ]
+              },
+              "gravidade": {
+                "type": "string",
+                "enum": [
+                  "critica",
+                  "maior",
+                  "menor"
+                ]
+              },
+              "descricao": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "correcao_sugerida": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          }
+        },
+        "resumo": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      }
+    }
+  }
+}
