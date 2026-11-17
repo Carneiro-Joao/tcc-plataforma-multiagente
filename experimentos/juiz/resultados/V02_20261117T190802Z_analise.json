@@ -1,0 +1,86 @@
+{
+  "schema": "analise_ensaio_juiz-0.1",
+  "id": "V02-E03",
+  "documentado_apos_ensaio": true,
+  "data_utc": "2026-11-17T19:08:02.409577+00:00",
+  "caso": {
+    "id": "V02-BUBBLE-COMPARACAO-INVERTIDA",
+    "base": "experimentos/juiz/casos/ordenacao_real_994c4cd5.json",
+    "campo_alterado": "plano.desenvolvimento[1].acao_discente",
+    "arquivo_caso_sha256": "05b836174ea2595c9db1140e6fe43dc44695b34b7bc284baf0a127316ff7cf31",
+    "plano_sha256": "f98719c00248d16f95b26bfc138780ed0bf17c2eab5c3531a62c3a6b3de87c43"
+  },
+  "registro_bruto": {
+    "caminho_local": "aula-ia-backend/local/ensaios_juiz/20261117T190802Z-f5fb77c4a5b4/resultado.json",
+    "arquivo_sha256": "2db2169efe20afcbebcb18effcc9b7d0c32b8b96055827326e0bb5e966cc7395",
+    "tamanho_bytes": 95996,
+    "copia_integral_neste_repositorio": false
+  },
+  "codigo": {
+    "commit": "065ef032098976a64fa9e57b7edec2f3881e7b2e",
+    "arvore_modificada": false
+  },
+  "configuracao": {
+    "provedor": "groq",
+    "modelo": "openai/gpt-oss-120b",
+    "versao_prompt": "juiz-v1.2",
+    "versao_rubrica": "rubrica-juiz-0.1",
+    "contrato": "parecer-juiz-1.0",
+    "temperature": 0,
+    "seed": 42,
+    "reasoning_effort": "medium",
+    "max_completion_tokens": 8192,
+    "reparos_permitidos": 1
+  },
+  "resultado": {
+    "status": "sucesso",
+    "http_status": 200,
+    "parecer_contrato_valido": true,
+    "notas": {
+      "aderencia_curricular": 3,
+      "alinhamento_objetivos": 3,
+      "coerencia_metodologica": 3,
+      "viabilidade": 3,
+      "avaliacao_aprendizagem": 2,
+      "inclusao": 3
+    },
+    "soma_notas": 17,
+    "numero_falhas": 1,
+    "falhas": [
+      {
+        "id": "F1",
+        "criterio": "avaliacao_aprendizagem",
+        "componente": "avaliacao_preliminar",
+        "gravidade": "menor",
+        "descricao": "Os critérios de avaliação (EVI1, EVI2) são descritos de forma genérica e não especificam níveis de desempenho para distinguir desempenho adequado de inadequado.",
+        "correcao_sugerida": "Definir rubricas com descritores claros para níveis de desempenho (por exemplo, insuficiente, satisfatório, avançado) vinculados a cada evidência, permitindo discriminar os resultados dos alunos."
+      }
+    ],
+    "decisao": "aguardando_decisao",
+    "componentes_a_corrigir": [],
+    "componentes_invalidados": [],
+    "aprovacao_docente": "nao_alterada",
+    "ciclos_pedagogicos_executados": 0,
+    "system_fingerprint": "fp_96d96a151c",
+    "tentativas": 1,
+    "chamadas_http": 1,
+    "tempo_total_s": 6.247232,
+    "latencia_chamada_s": 6.088801,
+    "prompt_tokens": 4464,
+    "completion_tokens": 2466,
+    "total_tokens": 6930
+  },
+  "analise_pesquisador": {
+    "esperado": "Juiz identifica inversao esquerda < direita para ordenacao crescente na etapa ET2, componente sequencia; gravidade critica ou maior a validar.",
+    "observado": "Parecer formalmente valido com nota 17/18 e uma falha menor, relativa a niveis de desempenho de EVI1/EVI2, sem identificar a inversao de comparacao.",
+    "desfecho": "falso_negativo",
+    "hipotese_confirmada": false,
+    "validacao_pedagogica_humana": "pendente",
+    "limitacao": "Terceira repeticao do mesmo caso, nao amostra independente; 0/3 detecoes nesse caso, sem inferir desempenho populacional.",
+    "observacoes": [
+      "A falha menor apontada nao pertence a manipulacao V02; sua pertinencia nao foi validada por humano",
+      "Justificativa de viabilidade cita soma dos minutos verificada em codigo",
+      "Decisao de manter aguardando_decisao e mecanicamente coerente com a falha menor, mas insuficiente pedagogicamente"
+    ]
+  }
+}

@@ -142,3 +142,72 @@ Uma única avaliação permite afirmar **não detecção neste caso**; não perm
 **Encaminhamento:** manter o prompt e a rubrica congelados até completar uma terceira avaliação válida da V02; preservar o resultado bruto no diretório de ensaio e documentar futuros erros técnicos separadamente. A aceitação estrutural do parecer **não** certifica correção do algoritmo e não deve autorizar correção ou aprovação docente automáticas.
 
 **Resumo estruturado:** [V02_20261117T190500Z_analise.json](resultados/V02_20261117T190500Z_analise.json). O arquivo de análise é derivado do registro bruto, que permanece apenas local e não foi adicionado ao Git.
+
+## 8. Terceiro ensaio real da V02 — 17/11/2026
+
+**Análise posterior à execução; hipótese §3 inalterada.** Registro bruto:
+`aula-ia-backend/local/ensaios_juiz/20261117T190802Z-f5fb77c4a5b4/resultado.json`,
+SHA-256 **`2db2169efe20afcbebcb18effcc9b7d0c32b8b96055827326e0bb5e966cc7395`**, **95996 bytes**, verificado diretamente no arquivo bruto anexado pelo pesquisador.
+A entrada e o plano mantiveram os mesmos SHA-256 das duas execuções anteriores:
+`05b836174ea2595c9db1140e6fe43dc44695b34b7bc284baf0a127316ff7cf31` (arquivo de caso)
+e `f98719c00248d16f95b26bfc138780ed0bf17c2eab5c3531a62c3a6b3de87c43` (plano canônico).
+
+**Reprodutibilidade operacional:** código no commit `065ef032098976a64fa9e57b7edec2f3881e7b2e`
+(árvore limpa, hashes dos módulos executáveis iguais aos ensaios anteriores).
+Configuração conservada: `openai/gpt-oss-120b`, `juiz-v1.2`, `rubrica-juiz-0.1`, `parecer-juiz-1.0`,
+`temperature=0`, `seed=42`, `reasoning_effort=medium`, `max_completion_tokens=8192`, `--reparos 1`.
+
+**Verificação técnica:** HTTP 200, uma chamada, parecer aceito sem reparo; `finish_reason=stop`.
+Tempo total do ensaio: **6,247232 s**; latência da chamada **6,088801 s**;
+4.464 tokens de entrada, 2.466 de saída (total **6.930**);
+`system_fingerprint=fp_96d96a151c`.
+Nenhum ciclo de correção pedagógica foi executado; aprovação docente não alterada.
+
+### 8.1. Parecer e desfecho da hipótese
+
+- Notas `aderencia_curricular=3`, `alinhamento_objetivos=3`, `coerencia_metodologica=3`,
+  `viabilidade=3`, `avaliacao_aprendizagem=2`, `inclusao=3`: **total 17/18**.
+- Uma falha **F1**, `gravidade=menor`, `criterio=avaliacao_aprendizagem`,
+  `componente=avaliacao_preliminar`: critérios EVI1/EVI2 descritos como genéricos, sem níveis
+  explícitos de desempenho. A pertinência dessa observação não foi adjudicada pelo orientador;
+  **não corresponde ao erro de comparação invertida** e não deve contar como detecção da V02.
+- `decisao.proximo_estado=aguardando_decisao`,
+  `componentes_a_corrigir=[]`, `componentes_invalidados=[]`.
+  A falha menor não provoca correção automática pela política.
+- **H-V02 não confirmada novamente:** o parecer considerou ET2 metodologicamente coerente,
+  sem perceber que a instrução troca cartões quando `esquerda < direita`, produzindo ordem
+  decrescente em vez da crescente exigida. Trata-se de **falso negativo quanto ao defeito
+  injetado**, apesar de ter encontrado uma ressalva diferente.
+- A justificativa de viabilidade voltou a citar a soma 15 + 35 = 50 como argumento,
+  apesar da instrução expressa em `juiz-v1.2` para não fazê-lo. A metodologia segue
+  alegando uma síntese sem etapa explícita correspondente.
+
+### 8.2. Fechamento da primeira série V02 — três pareceres válidos
+
+| Ensaio UTC | Nota total | Falha da comparação invertida? | Outras falhas | Decisão |
+|---|---:|---|---|---|
+| `20261117T190159Z-004f470ecc98` | 18/18 | **Não** | Nenhuma | `aguardando_decisao` |
+| `20261117T190500Z-67f19a8598e0` | 18/18 | **Não** | Nenhuma | `aguardando_decisao` |
+| `20261117T190802Z-f5fb77c4a5b4` | 17/18 | **Não** | Uma `menor`, relacionada a EVI1/EVI2 | `aguardando_decisao` |
+
+**Desfecho descritivo:** detecção da inversão = **0/3**; omissão = **3/3**
+nas três respostas aceitas do **mesmo caso**, com variação em justificativas,
+notas e falhas secundárias. Não são três casos independentes.
+A estabilidade de `aguardando_decisao` não significa qualidade pedagógica:
+a política determinística aplicou corretamente as regras a diagnósticos que
+omitiram o erro central.
+
+**Comparação com V01:** V01 detectou a falha de evidência injetada em 3/3
+pareceres válidos, embora com variação de gravidade e um falso positivo curricular
+aparente. A diferença V01/V02 sugere maior dificuldade do Juiz para verificar
+a lógica do algoritmo do que vínculos entre objetivo e evidência **neste
+pequeno conjunto**, sem permitir estimar capacidade geral por categoria.
+
+**Encerramento da série congelada:** não repetir V02 indefinidamente para
+obter um parecer favorável; não mudar o gabarito a posteriori.
+A revisão do prompt (eventual `juiz-v1.3`) deve ser tratada como
+**nova configuração experimental**, preservando resultados e hashes de `juiz-v1.2`.
+Exigir revisão humana de classificações, gravidades e falsos positivos;
+manter o fluxo de correção e aprovação docente separados e sem automação.
+
+**Resumo estruturado:** [V02_20261117T190802Z_analise.json](resultados/V02_20261117T190802Z_analise.json).

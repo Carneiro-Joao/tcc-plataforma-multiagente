@@ -265,3 +265,22 @@ mesmo caso** — observação descritiva, não estimativa de taxa geral.
 A estabilidade da decisão não comprova correção pedagógica. Ver o
 [protocolo V02 (§7)](../experimentos/juiz/Protocolo_V02_Bubble_Sort_Comparacao_Invertida.md)
 e o [segundo resumo estruturado](../experimentos/juiz/resultados/V02_20261117T190500Z_analise.json).
+
+### V02 — terceira execução e encerramento da série (17/11/2026)
+
+A terceira resposta real, com o mesmo caso de comparação invertida,
+não detectou o erro de Bubble Sort. Apontou uma falha **menor** relacionada
+à especificidade dos critérios EVI1/EVI2, nota total **17/18** e manteve
+`aguardando_decisao`. A série V02 terminou com **0/3 detecções do
+defeito-alvo em três pareceres tecnicamente válidos**, contra 3/3 na V01
+(evidência desalinhada). Esses seis pareceres são repetições de apenas
+**dois casos** — não caracterizam acurácia global do Juiz.
+
+Os casos, resultados e limites foram consolidados em
+[síntese comparativa V01 × V02](../experimentos/juiz/Sintese_Comparativa_V01_V02.md);
+[protocolo V02 (§8)](../experimentos/juiz/Protocolo_V02_Bubble_Sort_Comparacao_Invertida.md)
+e [resumo da terceira avaliação](../experimentos/juiz/resultados/V02_20261117T190802Z_analise.json).
+
+**Marco de controle:** nenhuma correção automática ativada; antes de novas
+chamadas, registrar proposta `juiz-v1.3` como configuração experimental
+separada, mantendo intactas as evidências da v1.2.
