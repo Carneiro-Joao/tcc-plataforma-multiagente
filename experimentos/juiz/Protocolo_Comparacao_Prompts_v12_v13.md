@@ -122,3 +122,36 @@ python ensaio_juiz.py avaliar --caso ../experimentos/juiz/casos/ordenacao_varian
 ```
 
 **Nenhum ensaio real v1.3 foi executado durante a criação deste protocolo.**
+
+## 6. Tentativa real v1.3 bloqueada por limite da API (registro posterior)
+
+Em **17/11/2026 às 19:21:24 UTC**, após a validação local da V02 com
+`status=validado_localmente`, a primeira tentativa real de avaliar
+V02 pela `juiz-v1.3` **não produziu parecer**:
+`status=falha`, **HTTP 429** (`rate_limit_exceeded`, `type=tokens`).
+Foi uma única chamada HTTP, sem reparo e sem resposta com métricas de uso.
+Não contar como acerto, falso negativo ou parecer válido da v1.3.
+
+- Registro bruto local: `aula-ia-backend/local/ensaios_juiz/20261117T192124Z-1620642ff976/resultado.json`.
+- SHA-256 do arquivo bruto enviado para análise:
+  `980474589f42a605ec067c92e0ae7f4dfd9a3d5d63ccc18075d0d8df4a1c43b6`
+  (39.295 bytes). O bruto **não** foi incorporado ao Git.
+- Commit em execução: `1ba402f22d80c4322e8f4329f99dba5a1e40952c`,
+  `arvore_modificada=false`.
+- Caso V02 SHA-256 do arquivo:
+  `05b836174ea2595c9db1140e6fe43dc44695b34b7bc284baf0a127316ff7cf31`.
+  Plano canônico: `f98719c00248d16f95b26bfc138780ed0bf17c2eab5c3531a62c3a6b3de87c43`.
+- Prompt: `juiz-v1.3`, SHA-256
+  `bdb7f05ee34f5aa59c4ea410282fa267bcbb057d370e0f8be223ad33367f2bd8`.
+  Mesma rubrica, contrato, modelo `openai/gpt-oss-120b` e parâmetros
+  congelados do protocolo.
+- Janela de tokens informada pelo provedor: limite **8.000 TPM**;
+  **5.474 usados** e **5.066 solicitados**; apenas **2.526 restantes**
+  naquele instante. Header `Retry-After: 20`, reset de tokens
+  `41.055s`. Tempos relativos são referentes àquela tentativa,
+  não garantias de disponibilidade futura.
+
+**Encaminhamento:** só repetir a **mesma** solicitação depois de a
+janela de limite estar liberada; não modificar prompt, caso, parâmetros,
+política ou gabarito para contornar esse bloqueio. O status da v1.3
+permanece **zero pareceres reais válidos**.
