@@ -253,3 +253,94 @@ fora da requisição da LLM. Realizar avaliação com casos novos
 não usados para refinar o prompt antes de reivindicar qualidade externa.
 
 **Resumo estruturado:** [V02_prompt_v13_20261117T192457Z_analise.json](resultados/V02_prompt_v13_20261117T192457Z_analise.json).
+
+## 8. Primeiro controle de regressão V01 — `juiz-v1.3`, 17/11/2026
+
+**Registro pós-execução, preservando intacta a hipótese da seção 1 e o protocolo prospectivo.**
+A avaliação real de V01 pelo novo prompt é um controle exploratório de
+não regressão no caso usado previamente para desenvolver `juiz-v1.2`;
+**não é validação cega ou independente**.
+
+- **Início (UTC):** `2026-11-17T19:27:51.136419+00:00`.
+- **Registro bruto local:** `aula-ia-backend/local/ensaios_juiz/20261117T192751Z-26db5472e016/resultado.json`.
+- **SHA-256 do bruto efetivamente inspecionado:** `ed95fce497f2a03ba9d704f12cf2cc9d58e0b1d41213c1917f1ec8f3be032e4c`;
+  **100.285 bytes**. O arquivo completo não foi incorporado ao Git.
+- **Commit local executado:** `559c6b4e640d6803daa55d92aa805aaec1bf51f6`,
+  `arvore_modificada=false`. Módulos de execução iguais aos do teste
+  V02-v1.3 anterior; apenas atualizações documentais entre commits.
+- **Variante V01:** caso SHA-256 `6d1d376c812963648620c6e2462e1a9ef22975f1bc1d1e6a339408492e66dcd5`,
+  plano canônico SHA-256 `74a89df558601df64ba9fcb50f402f7f2fe80d3baf972fe94aa6c286287c5249`,
+  alteração única em `plano.avaliacao_aprendizagem.evidencias[1].evidencia_esperada`.
+- **Versão avaliada:** `juiz-v1.3`, prompt SHA-256
+  `bdb7f05ee34f5aa59c4ea410282fa267bcbb057d370e0f8be223ad33367f2bd8`,
+  `rubrica-juiz-0.1`, `parecer-juiz-1.0`, Groq
+  `openai/gpt-oss-120b`; temperatura 0, seed 42,
+  `reasoning_effort=medium`, `max_completion_tokens=8192`, `--reparos 1`.
+
+### 8.1. Observações no parecer
+
+**Técnica:** `status=sucesso`, `modo=api_real`, HTTP 200, **uma chamada**,
+parecer validado sem reparo, `finish_reason=stop`.
+**Notas por critério:** aderência curricular 2, alinhamento de objetivos 3,
+coerência metodológica 3, viabilidade 3, avaliação da aprendizagem 2,
+inclusão 3; **total 16/18**.
+
+- **F1 — detecção-alvo correta:** `criterio=avaliacao_aprendizagem`,
+  `componente=avaliacao_preliminar`, `gravidade=maior`. Identificou que
+  `EVI2` apenas relata atenção e gosto pela atividade e não comprova
+  a simulação de trocas de cartões solicitada em `OBJ2`.
+  Propôs substituir EVI2 por evidência observável da execução.
+  **H-13 de não regressão V01 foi atendida neste primeiro parecer válido.**
+- **F2 — possível falso positivo curricular:** `criterio=aderencia_curricular`,
+  `componente=objetivos`, `gravidade=menor`. O modelo questionou que
+  o objetivo geral se refere a “algoritmos clássicos de ordenação” (plural)
+  enquanto a aula trabalha somente Bubble Sort, e sugeriu incluir outro
+  algoritmo ou restringir a redação do objetivo. A observação sobre a
+  precisão do plural é discutível; **exigir mais algoritmos como requisito
+  da BNCC em uma única aula de 50 minutos é indevido** e contraria o
+  controle explícito de escopo do prompt. Marcar como **possível falso
+  positivo** até adjudicação docente; não classificar como
+  verdadeira falha curricular sem revisão humana.
+- **Viabilidade:** a nota 3 foi fundamentada em parte pela soma
+  `15 + 35 = 50`, embora a soma seja verificação determinística já
+  realizada e haja proibição expressa do uso dessa justificativa isolada.
+
+**Decisão determinística do contrato:** `em_correcao`, pois F1 é
+`maior`; `componentes_a_corrigir=["avaliacao_preliminar"]`,
+`falhas_que_motivam=["F1"]`. F2 `menor` não acionou correção.
+Os componentes invalidados por dependência foram
+`["avaliacao_preliminar","metodologia","sequencia","avaliacao_final","adaptacao"]`.
+Nenhum ciclo de correção pedagógica foi executado e a aprovação do
+professor permaneceu inalterada.
+
+**Métricas informadas pelo provedor:** 4.762 tokens de prompt,
+3.059 tokens de conclusão, **7.821 tokens totais**; tempo total
+do ensaio **7,403247 s**, latência de chamada **7,280655 s**;
+`system_fingerprint=fp_7a4ab09ae4`; custo monetário não informado.
+O consumo ficou próximo da cota de 8.000 tokens/minuto, de modo
+que chamadas consecutivas podem ser bloqueadas por HTTP 429.
+
+### 8.2. Resultado parcial de comparação v1.2 × v1.3
+
+| Caso | `juiz-v1.2` histórico | `juiz-v1.3` inicial |
+|---|---|---|
+| V01 (evidência EVI2 inadequada) | **3/3 detectaram** | **1/1 detectou** |
+| V02 (troca invertida no Bubble Sort) | **0/3 detectaram** | **1/1 detectou** |
+| Falso positivo de escopo curricular | Apareceu em ao menos 1 parecer V01 | **Reapareceu na V01** |
+| Vício de citar soma dos minutos como viabilidade | Observado | **Persistente** |
+
+**Interpretação restrita:** não regressão demonstrada **nesta execução
+V01**, mas o prompt v1.3 não resolveu o problema de escopo curricular,
+nem o de fundamentar viabilidade em análise além da aritmética.
+A diferença de detecção V02 ainda não permite inferir estabilidade ou
+eficácia geral: são dois casos conhecidos no desenvolvimento, com
+somente um parecer válido novo por caso.
+
+**Próximo controle:** executar o plano original imutável com `juiz-v1.3`
+para observar se a nova versão introduz falso positivo no caso sem
+defeito injetado. Registrar todas as críticas que apareçam em vez de
+pressupor que o original deva receber 18/18. Depois decidir a série
+de repetições e preparação de casos novos, mantendo o prompt congelado.
+
+**Resumo estruturado:**
+[V01_prompt_v13_20261117T192751Z_analise.json](resultados/V01_prompt_v13_20261117T192751Z_analise.json).

@@ -1,0 +1,112 @@
+{
+  "schema": "analise_ensaio_juiz-0.1",
+  "id": "V01-V13-E01",
+  "documentado_apos_ensaio": true,
+  "data_utc": "2026-11-17T19:27:51.136419+00:00",
+  "caso": {
+    "id": "V01-EVI2-DESALINHADA",
+    "tipo": "variante_controlada",
+    "base": "experimentos/juiz/casos/ordenacao_real_994c4cd5.json",
+    "campo_alterado": "plano.avaliacao_aprendizagem.evidencias[1].evidencia_esperada",
+    "arquivo_caso_sha256": "6d1d376c812963648620c6e2462e1a9ef22975f1bc1d1e6a339408492e66dcd5",
+    "plano_sha256": "74a89df558601df64ba9fcb50f402f7f2fe80d3baf972fe94aa6c286287c5249"
+  },
+  "registro_bruto": {
+    "caminho_local": "aula-ia-backend/local/ensaios_juiz/20261117T192751Z-26db5472e016/resultado.json",
+    "arquivo_sha256": "ed95fce497f2a03ba9d704f12cf2cc9d58e0b1d41213c1917f1ec8f3be032e4c",
+    "tamanho_bytes": 100285,
+    "copia_integral_neste_repositorio": false
+  },
+  "codigo": {
+    "commit": "559c6b4e640d6803daa55d92aa805aaec1bf51f6",
+    "arvore_modificada": false
+  },
+  "configuracao": {
+    "provedor": "groq",
+    "modelo": "openai/gpt-oss-120b",
+    "versao_prompt": "juiz-v1.3",
+    "prompt_sha256": "bdb7f05ee34f5aa59c4ea410282fa267bcbb057d370e0f8be223ad33367f2bd8",
+    "versao_rubrica": "rubrica-juiz-0.1",
+    "contrato": "parecer-juiz-1.0",
+    "politica": "politica-juiz-prelim-0.1",
+    "temperature": 0,
+    "seed": 42,
+    "reasoning_effort": "medium",
+    "max_completion_tokens": 8192,
+    "reparos_permitidos": 1
+  },
+  "resultado": {
+    "status": "sucesso",
+    "http_status": 200,
+    "parecer_contrato_valido": true,
+    "notas": {
+      "aderencia_curricular": 2,
+      "alinhamento_objetivos": 3,
+      "coerencia_metodologica": 3,
+      "viabilidade": 3,
+      "avaliacao_aprendizagem": 2,
+      "inclusao": 3
+    },
+    "soma_notas": 16,
+    "numero_falhas": 2,
+    "falhas": [
+      {
+        "id": "F1",
+        "criterio": "avaliacao_aprendizagem",
+        "componente": "avaliacao_preliminar",
+        "gravidade": "maior",
+        "descricao": "EVI2 mostra atencao e satisfacao, nao a simulacao de trocas de cartoes demandada por OBJ2.",
+        "avaliacao_pesquisador": "detecao_correta_do_defeito_alvo"
+      },
+      {
+        "id": "F2",
+        "criterio": "aderencia_curricular",
+        "componente": "objetivos",
+        "gravidade": "menor",
+        "descricao": "Exigencia de alinhamento do plural algoritmos de ordenacao ao Bubble Sort unico, com sugestao alternativa de incluir outro algoritmo.",
+        "avaliacao_pesquisador": "possivel_falso_positivo_curricular_sujeito_adjudicacao"
+      }
+    ],
+    "decisao": "em_correcao",
+    "componentes_a_corrigir": [
+      "avaliacao_preliminar"
+    ],
+    "componentes_invalidados": [
+      "avaliacao_preliminar",
+      "metodologia",
+      "sequencia",
+      "avaliacao_final",
+      "adaptacao"
+    ],
+    "falhas_que_motivam": [
+      "F1"
+    ],
+    "aprovacao_docente": "nao_alterada",
+    "ciclos_pedagogicos_executados": 0,
+    "chamadas_http": 1,
+    "tentativas": 1,
+    "reparos_usados": 0,
+    "finish_reason": "stop",
+    "system_fingerprint": "fp_7a4ab09ae4",
+    "tempo_total_s": 7.403247,
+    "latencia_chamada_s": 7.280655,
+    "prompt_tokens": 4762,
+    "completion_tokens": 3059,
+    "total_tokens": 7821,
+    "custo_informado": null
+  },
+  "analise_pesquisador": {
+    "hipotese_alvo": "Verificar se v1.3 continua detectando EVI2 de atencao/satisfacao como evidência insuficiente de OBJ2, sem agravar falso positivo curricular.",
+    "detectou_defeito_alvo": true,
+    "resultado": "nao_regressao_da_deteccao_v01_em_uma_resposta",
+    "falso_positivo_curricular_possivel": true,
+    "validacao_pedagogica_humana": "pendente",
+    "instrucao_ignorada": "Viabilidade justificada pela soma aritmetica de tempos.",
+    "limitacoes": [
+      "Um parecer v1.3 para V01; nao inferir estabilidade nem melhoria generalizavel",
+      "V01 e V02 foram utilizados durante desenvolvimento de prompts; nao sao holdout",
+      "Gravidade F2 e utilidade pedagogica de reformular o plural dependem de adjudicacao docente",
+      "O algoritmo de Bubble Sort em si nao foi manipulado na V01"
+    ]
+  }
+}

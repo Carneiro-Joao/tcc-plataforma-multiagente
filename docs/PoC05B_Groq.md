@@ -328,3 +328,25 @@ nem demonstração de confiabilidade. O Juiz ainda justificou
 
 Ver [protocolo comparativo §7](../experimentos/juiz/Protocolo_Comparacao_Prompts_v12_v13.md)
 e [registro estruturado do primeiro acerto v1.3](../experimentos/juiz/resultados/V02_prompt_v13_20261117T192457Z_analise.json).
+
+### V01 — primeiro controle real de não regressão com `juiz-v1.3` (17/11/2026)
+
+Após o acerto V02, a primeira avaliação real da V01 pela v1.3
+detectou corretamente o defeito de evidência **EVI2 × OBJ2**:
+`avaliacao_aprendizagem`, `avaliacao_preliminar`, gravidade
+`maior`. O parecer teve **16/18**, `em_correcao`, uma chamada HTTP
+200 e **7.821 tokens**.
+
+Houve outra falha `menor` sobre o plural do objetivo geral e
+o foco exclusivo em Bubble Sort. A justificativa mistura ajuste
+textual discutível com a exigência curricular indevida de mais
+algoritmos na mesma aula: **possível falso positivo**, sujeito a
+revisão pedagógica humana. O modelo também voltou a citar a soma
+de minutos como prova de viabilidade.
+
+**Quadro exploratório até aqui:** V01 detectada 3/3 pela v1.2 e
+1/1 pela v1.3; V02 detectada 0/3 pela v1.2 e 1/1 pela v1.3.
+Ainda não são resultados independentes nem prova de estabilidade.
+
+Ver [protocolo comparativo §8](../experimentos/juiz/Protocolo_Comparacao_Prompts_v12_v13.md)
+e [registro V01-v1.3](../experimentos/juiz/resultados/V01_prompt_v13_20261117T192751Z_analise.json).
