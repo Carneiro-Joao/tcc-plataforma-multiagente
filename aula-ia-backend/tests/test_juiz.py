@@ -81,6 +81,17 @@ class TestRubrica(TestCase):
             for indicador in criterio["indicadores"]:
                 self.assertIn(indicador, texto)
 
+    def test_prompt_v12_corrige_escopo_bncc_e_exige_evidencia_pedagogica(self):
+        texto = j.instrucoes()
+        self.assertEqual(j.VERSAO_PROMPT, "juiz-v1.2")
+        self.assertEqual(rubrica.VERSAO, "rubrica-juiz-0.1")
+        self.assertIn("NÃO uma lista obrigatória", texto)
+        self.assertIn("NUNCA sugira modificar", texto)
+        self.assertIn("objetivo (OBJ)", texto)
+        self.assertIn("evidência (EVI)", texto)
+        self.assertIn("instrumento (INS)", texto)
+        self.assertIn("NÃO use a soma correta dos minutos", texto)
+
     def test_documentacao_cita_todos_os_criterios_e_versoes(self):
         doc = (DADOS.parents[2] / "docs" / "Rubrica_e_Contrato_IA_Juiz.md").read_text(encoding="utf-8")
         for c in rubrica.CRITERIOS:
@@ -465,7 +476,7 @@ class TestJuizComTransporteGeminiSimulado(TestCase):
         self.assertEqual(dados["saidas_anteriores"], {"plano": PLANO})
         self.assertNotIn(CHAVE, pedido.full_url + pedido.data.decode())
         self.assertEqual(r["rastreio"][0]["versao_contrato"], "parecer-juiz-1.0")
-        self.assertEqual(r["rastreio"][0]["versao_prompt"], "juiz-v1.1")
+        self.assertEqual(r["rastreio"][0]["versao_prompt"], "juiz-v1.2")
         self.assertEqual(r["rastreio"][0]["versao_esquema_api"], VERSAO_ESQUEMA_API)
         self.assertNotIn(CHAVE, json.dumps(r))
 

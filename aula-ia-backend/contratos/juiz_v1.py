@@ -13,7 +13,7 @@ from contratos.execucao import exigir_sem_erros
 from contratos.plano_v2 import DEPENDENCIAS, ETAPAS, _estrutura
 
 VERSAO = "parecer-juiz-1.0"
-VERSAO_PROMPT = "juiz-v1.1"
+VERSAO_PROMPT = "juiz-v1.2"
 CRITERIOS = rubrica.CRITERIOS
 COMPONENTES = ETAPAS
 SCHEMA = json.loads((Path(__file__).parent / "juiz_v1.schema.json").read_text(encoding="utf-8"))
@@ -175,6 +175,24 @@ def instrucoes():
                       + "Indicadores: " + " ".join(r["indicadores"]) + " "
                       + " ".join(f"Nota {n}: {t}" for n, t in sorted(r["ancoras"].items(), reverse=True)))
     partes += [
+        "Escopo curricular: avalie se objetivos e atividades exercitam uma parte legítima da habilidade "
+        "oficial escolhida dentro da duração informada. Os exemplos de algoritmos do catálogo são "
+        "possibilidades, NÃO uma lista obrigatória para cada aula. Uma aula que pratica adequadamente "
+        "um algoritmo clássico pertinente pode desenvolver a habilidade sem abordar todos os outros "
+        "exemplos. Não classifique como falha a ausência isolada de outros algoritmos; aponte falha "
+        "somente quando houver desvio concreto em relação à habilidade, aos objetivos ou às atividades. "
+        "O código e o texto oficial da habilidade BNCC são imutáveis nesta avaliação: NUNCA sugira "
+        "modificar, restringir ou substituir a habilidade; oriente ajustes somente no plano.",
+        "Avaliação das evidências: confronte o verbo e a exigência completa de cada objetivo (OBJ) "
+        "com a ação observável descrita na evidência (EVI) e o procedimento do instrumento (INS). "
+        "Observar uma operação isolada ou pré-requisito não comprova automaticamente o domínio de "
+        "uma sequência de passos ou procedimento completo. Justifique possíveis lacunas com IDs; "
+        "não invente uma falha quando a evidência realmente sustentar o objetivo.",
+        "Viabilidade real: NÃO use a soma correta dos minutos como justificativa de viabilidade; "
+        "a soma já foi verificada por código. Considere se o tempo de cada etapa é realista para "
+        "explicação, preparação, participação, prática e síntese efetivamente previstas. Confira "
+        "os recursos confirmados; não presuma tamanho da turma nem materiais não informados. "
+        "Se houver incerteza contextual, explicite-a sem tratá-la automaticamente como falha.",
         "Regras de avaliação: não presuma nota 3; para dar 3, aponte na justificativa o trecho do plano que "
         "demonstra o critério, citando IDs (OBJ, EVI, ET, INS, ADP). Quantidade de texto ou de detalhe não é "
         "qualidade. Em dúvida, atribua a nota menor e explique. Não use conhecimento de que a aula tenha ocorrido, "

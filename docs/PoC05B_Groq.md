@@ -20,12 +20,34 @@ a Groq respondeu HTTP 400, código `json_validate_failed`: o modelo usou `conteu
 O adaptador `groq-juiz-0.2` classifica esse erro específico como erro de contrato, preserva
 a resposta rejeitada e permite usar o reparo técnico existente com `--reparos 1`.
 O padrão continua zero reparos; outros HTTP 400 não são repetidos. Plano, rubrica e prompts
-permanecem iguais. Verificação do ajuste: 90 testes do juiz aprovados, incluindo dois novos
-para o HTTP 400 de schema com e sem reparo habilitado. A nova tentativa autenticada é pendente.
+permaneciam iguais nesse ajuste. Verificação: 90 testes do juiz aprovados, incluindo dois novos
+para o HTTP 400 de schema com e sem reparo habilitado. Naquele momento, a nova chamada ainda era pendente.
 
 A resposta rejeitada também alegou que uma aula sobre Bubble Sort deveria cobrir outros algoritmos
 da habilidade. Essa conclusão requer revisão humana; não é uma falha pedagógica comprovada.
 Reparo de schema não valida a pertinência pedagógica do parecer.
+
+### Primeiro parecer real válido e refinamento do prompt v1.2
+
+Em 17/11/2026, às 15:26:52 (America/Fortaleza), o caso real recuperado do SQLite recebeu
+HTTP 200 em uma chamada ao `openai/gpt-oss-120b`, sem consumir o reparo opcional:
+`status=sucesso`, `parecer-juiz-1.0` válido, 5,39 s no total e 6.162 tokens registrados.
+O Juiz atribuiu 2 em aderência curricular e 3 nos demais cinco critérios, classificou
+como `maior` a ausência de outros algoritmos além do Bubble Sort e sugeriu `em_correcao`.
+Essa interpretação da EF08CO03 não está comprovada; uma aula de 50 minutos pode trabalhar
+um algoritmo pertinente sem ter de cobrir toda a lista de exemplos curriculares. A
+proposta de alterar a habilidade oficial também não é aceitável. Na avaliação da
+aprendizagem, EVI1 verifica comparação de valores, mas não necessariamente os passos
+integrais previstos em OBJ1. Para viabilidade, somar 15 + 35 minutos não demonstra que
+a execução é realista.
+
+O prompt `juiz-v1.2` foi refinado no arquivo `contratos/juiz_v1.py` para impedir esses
+atalhos: exemplos curriculares não são checklist obrigatório por aula, habilidade oficial
+não deve ser modificada, OBJ/EVI/INS devem corresponder integralmente e a viabilidade
+precisa de justificativa pedagógica. O refinamento é instrução ao modelo, **não garantia
+de acerto**. Exige repetição do ensaio com o mesmo caso para observar o efeito; testes
+offline apenas verificam invariantes e presença das instruções. Os registros anteriores
+devem ser preservados e comparados, não sobrescritos.
 
 - `groq_juiz.py`: `AgenteGroqJuiz`, REST HTTPS para `openai/gpt-oss-120b` na GroqCloud,
   credencial exclusivamente por `GROQ_API_KEY` no uso da CLI. Não requer SDK ou pacote adicional.
@@ -39,7 +61,7 @@ Reparo de schema não valida a pertinência pedagógica do parecer.
   o serviço do site, não gera planos, não grava estados no SQLite e não aprova aulas.
 
 Preservados sem alteração: seis critérios, 24 indicadores, escala inteira 0–3,
-`rubrica-juiz-0.1`, `parecer-juiz-1.0`, prompt `juiz-v1.1`, política
+`rubrica-juiz-0.1`, `parecer-juiz-1.0`, prompt `juiz-v1.2`, política
 `politica-juiz-prelim-0.1`, grafo de invalidação e aprovação docente. A decisão é calculada
 pelo Python existente e registrada como sugestão; `em_correcao` não inicia nenhum ciclo.
 
@@ -191,9 +213,10 @@ Em ambiente com sockets locais permitidos, executar a suíte completa:
 
 ## Limitações e próximo incremento
 
-1. Validar a chamada autenticada e a aceitação do esquema pela Groq no projeto/conta real.
-   A documentação suporta a interface escolhida; mocks não demonstram disponibilidade, cota ou estabilidade.
-2. Emitir o primeiro parecer real do caso 01 e revisar suas justificativas com o responsável/orientador.
+1. Repetir o ensaio com o mesmo caso real e o prompt `juiz-v1.2`, comparando parecer, notas,
+   falhas e justificativas com a execução v1.1. Não presumir que um teste prove estabilidade.
+2. Submeter as justificativas dos pareceres ao responsável/orientador; a validade do
+   contrato não comprova pertinência pedagógica.
 3. Seguir o protocolo RD-002: congelar expectativas antes das chamadas; criar cópias identificadas como
    `variante_controlada`, alterando uma condição por vez (evidência desalinhada, erro de algoritmo,
    recurso indisponível, adaptação genérica, conteúdo periférico) e um controle de síntese sem ET3 formal.

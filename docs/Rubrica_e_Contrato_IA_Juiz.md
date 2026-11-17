@@ -31,7 +31,7 @@ Quatro níveis evitam o ponto médio neutro. A escala e as âncoras são uma pro
 
 Os seis critérios vêm da especificação v2.1 (§5). Cada nota tem uma âncora descritiva; para dar 3, o Juiz precisa apontar no plano o trecho que demonstra o critério.
 
-O prompt `juiz-v1.1` inclui perguntas, seções, os 24 indicadores e todas as âncoras de `rubrica_juiz.py`. A revisão anterior enviava as perguntas e âncoras, mas omitia os indicadores. A rubrica continua na versão `rubrica-juiz-0.1`: a alteração corrige sua transmissão ao agente.
+O prompt `juiz-v1.2` inclui perguntas, seções, os 24 indicadores e todas as âncoras de `rubrica_juiz.py`. A revisão anterior enviava as perguntas e âncoras, mas omitia os indicadores. A rubrica continua na versão `rubrica-juiz-0.1`: os indicadores foram transmitidos integralmente desde o prompt v1.1. O v1.2 acrescenta orientações de escopo por aula, imutabilidade da habilidade BNCC, correspondência entre OBJ/EVI/INS e viabilidade efetiva, sem alterar âncoras, critérios, contrato ou política.
 
 ### Aderência curricular (`aderencia_curricular`)
 
