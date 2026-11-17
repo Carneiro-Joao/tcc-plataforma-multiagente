@@ -57,3 +57,48 @@ O restante do desenvolvimento, `ET2.atividade`, `ET2.acao_docente`, objetivos, m
 A V01 mostrou detecção de falha de evidência em 3/3 pareceres válidos, mas instabilidade em gravidade e um falso positivo curricular; ocorreu também uma chamada de reparo bloqueada por HTTP 429. **V02 é caso distinto**, voltado à correção de algoritmo. Como o plano conserva sua BNCC e os demais componentes, o critério central de acerto é a identificação do sinal invertido na comparação, não apenas alterar a decisão para `em_correcao` ou `revisao_necessaria`.
 
 Nenhum resultado real V02 foi obtido ou alegado neste pré-registro.
+
+## 6. Primeiro ensaio real da V02 — análise posterior ao pré-registro
+
+**Momento do ensaio (UTC):** 2026-11-17T19:01:59.053845+00:00. Esta seção é um resultado **posterior** à hipótese congelada nas seções 1–5 acima, não uma alteração retroativa dessa hipótese.
+
+**Registro original preservado localmente:** `aula-ia-backend/local/ensaios_juiz/20261117T190159Z-004f470ecc98/resultado.json`.
+**SHA-256 do arquivo bruto recebido para análise:** `9ff3c4e7cc51d43a35c519fd9a9fac0621bfdc8c001bf814ad2f7709ebc1e0c6`.
+**SHA-256 do arquivo do caso:** `05b836174ea2595c9db1140e6fe43dc44695b34b7bc284baf0a127316ff7cf31`.
+**SHA-256 canônico do plano:** `f98719c00248d16f95b26bfc138780ed0bf17c2eab5c3531a62c3a6b3de87c43`.
+**Código:** commit `cffae67459cdf22bc86a146d4f08f50c1a7aaff8`, árvore não modificada.
+**Modelo:** `openai/gpt-oss-120b`; prompt `juiz-v1.2`, rubrica `rubrica-juiz-0.1`, contrato `parecer-juiz-1.0`, seed 42, temperatura 0 e demais parâmetros conforme §4.
+**Resposta do serviço:** HTTP 200, uma chamada, sem reparo, `finish_reason=stop`, esquema aceito, `status=sucesso`.
+**Métricas:** 4.665647 s de ensaio total; 4.551826 s de latência da chamada; 4.464 tokens de prompt, 1.743 tokens de completion (6.207 no total); `system_fingerprint=fp_fe269835c7`. `ciclos_pedagogicos_executados=0`, `aprovacao_docente=nao_alterada`.
+
+### 6.1. Parecer observado
+
+| Critério | Nota (0–3) |
+|---|---:|
+| `aderencia_curricular` | 3 |
+| `alinhamento_objetivos` | 3 |
+| `coerencia_metodologica` | 3 |
+| `viabilidade` | 3 |
+| `avaliacao_aprendizagem` | 3 |
+| `inclusao` | 3 |
+| **Total** | **18/18** |
+
+- `falhas=[]`: **nenhuma falha foi apontada**.
+- `decisao.proximo_estado="aguardando_decisao"`, `componentes_a_corrigir=[]`, `componentes_invalidados=[]`.
+- A justificativa de coerência metodológica afirma haver ações discentes coerentes em ET1/ET2, **sem citar a regra errada em `ET2.acao_discente`**.
+- A justificativa de avaliação da aprendizagem dá nota 3, apoiada nos vínculos EVI/INS, sem perceber que o procedimento de troca definido em ET2 produziria ordenação decrescente, embora se exija crescente.
+- A viabilidade volta a citar a **soma de minutos**, previamente verificada por código, e pressupõe um "número pequeno de cartões", que não foi especificado.
+
+### 6.2. Confronto com a hipótese pré-registrada
+
+**Resultado:** **falso negativo / não detecção da falha injetada** nesta primeira avaliação da V02.
+
+A regra incorreta é explícita: para ordenação **crescente**, ET2 manda trocar cartões quando a **esquerda é menor** que a direita. A regra resultante é oposta à ordenação crescente. Como o Juiz não apontou inversão da comparação, nem defeito de sequência, nem qualquer outra falha, **H-V02 não foi confirmada neste ensaio**.
+
+A decisão `aguardando_decisao` é uma consequência determinística do parecer emitido sem falhas; o mecanismo de decisão não detecta esse erro independentemente. **Não interpretar** essa decisão como aprovação pedagógica nem alterar o gabarito do pesquisador para conciliar a saída.
+
+### 6.3. Limites e ações previstas
+
+Uma única avaliação permite afirmar **não detecção neste caso**; não permite estimar taxa de erro, precisão geral ou confiabilidade estatística. Conservar a configuração congelada e repetir V02 como teste de estabilidade, registrando também HTTP 400/429 separadamente se ocorrerem. Não modificar o prompt até fechar uma série predefinida de repetições e submeter o gabarito à validação humana. A correção automática de planos por IA continua desabilitada, sem alteração na aprovação docente.
+
+**Resumo arquivado em formato estruturado:** [V02_20261117T190159Z_analise.json](resultados/V02_20261117T190159Z_analise.json). A evidência bruta completa de 91.294 bytes e seu SHA-256 acima continuam no arquivo local citado; este commit preserva **resumo verificável**, não uma cópia integral do registro.

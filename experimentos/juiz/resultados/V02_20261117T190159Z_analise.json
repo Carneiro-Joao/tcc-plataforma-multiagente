@@ -1,0 +1,75 @@
+{
+  "schema": "analise_ensaio_juiz-0.1",
+  "id": "V02-E01",
+  "documentado_apos_ensaio": true,
+  "data_utc": "2026-11-17T19:01:59.053845+00:00",
+  "caso": {
+    "id": "V02-BUBBLE-COMPARACAO-INVERTIDA",
+    "base": "experimentos/juiz/casos/ordenacao_real_994c4cd5.json",
+    "campo_alterado": "plano.desenvolvimento[1].acao_discente",
+    "arquivo_caso_sha256": "05b836174ea2595c9db1140e6fe43dc44695b34b7bc284baf0a127316ff7cf31",
+    "plano_sha256": "f98719c00248d16f95b26bfc138780ed0bf17c2eab5c3531a62c3a6b3de87c43"
+  },
+  "registro_bruto": {
+    "caminho_local": "aula-ia-backend/local/ensaios_juiz/20261117T190159Z-004f470ecc98/resultado.json",
+    "arquivo_sha256": "9ff3c4e7cc51d43a35c519fd9a9fac0621bfdc8c001bf814ad2f7709ebc1e0c6",
+    "tamanho_bytes": 91294,
+    "copia_integral_neste_repositorio": false
+  },
+  "codigo": {
+    "commit": "cffae67459cdf22bc86a146d4f08f50c1a7aaff8",
+    "arvore_modificada": false
+  },
+  "configuracao": {
+    "provedor": "groq",
+    "modelo": "openai/gpt-oss-120b",
+    "versao_prompt": "juiz-v1.2",
+    "versao_rubrica": "rubrica-juiz-0.1",
+    "contrato": "parecer-juiz-1.0",
+    "temperature": 0,
+    "seed": 42,
+    "reasoning_effort": "medium",
+    "max_completion_tokens": 8192,
+    "reparos_permitidos": 1
+  },
+  "resultado": {
+    "status": "sucesso",
+    "http_status": 200,
+    "parecer_contrato_valido": true,
+    "notas": {
+      "aderencia_curricular": 3,
+      "alinhamento_objetivos": 3,
+      "coerencia_metodologica": 3,
+      "viabilidade": 3,
+      "avaliacao_aprendizagem": 3,
+      "inclusao": 3
+    },
+    "soma_notas": 18,
+    "numero_falhas": 0,
+    "falhas": [],
+    "decisao": "aguardando_decisao",
+    "componentes_a_corrigir": [],
+    "aprovacao_docente": "nao_alterada",
+    "ciclos_pedagogicos_executados": 0,
+    "system_fingerprint": "fp_fe269835c7",
+    "tentativas": 1,
+    "tempo_total_s": 4.665647,
+    "latencia_chamada_s": 4.551826,
+    "prompt_tokens": 4464,
+    "completion_tokens": 1743,
+    "total_tokens": 6207
+  },
+  "analise_pesquisador": {
+    "esperado": "Identificar regra invertida (trocar quando esquerda < direita) que contraria a ordenacao crescente; localizar sequencia; gravidade provavelmente critica, sujeita a validacao humana.",
+    "observado": "Nenhuma falha reportada; notas maximas nos seis criterios",
+    "desfecho": "falso_negativo",
+    "hipotese_confirmada": false,
+    "validacao_pedagogica_humana": "pendente",
+    "limitacao": "Apenas uma avaliacao valida ate agora. Nao inferir taxa global de erro. Notas e decisao automatica refletem parecer errado.",
+    "observacoes": [
+      "Coerencia metodologica recebeu 3 sem avaliar sinal de comparacao",
+      "Viabilidade usou soma correta dos minutos como justificativa",
+      "Parecer presumiu numero pequeno de cartoes sem que tenha sido especificado"
+    ]
+  }
+}

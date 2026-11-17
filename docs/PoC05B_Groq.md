@@ -244,3 +244,14 @@ uma nova geração do Gemini. A hipótese, os hashes e o protocolo foram
 congelados **antes de qualquer avaliação GroqCloud da V02**; não existem
 resultados V02 registrados nesta revisão. Ver
 [protocolo V02](../experimentos/juiz/Protocolo_V02_Bubble_Sort_Comparacao_Invertida.md).
+
+
+### V02 — primeiro resultado real (17/11/2026)
+
+Com o caso de comparação invertida de Bubble Sort (ET2), a chamada GroqCloud
+retornou HTTP 200 e um parecer formalmente válido, mas atribuiu **18/18** e
+`falhas=[]`, gerando `aguardando_decisao`. A regra incorreta de troca
+`esquerda < direita` para ordenação crescente não foi identificada.
+**Falso negativo nesta execução**, não prova de taxa geral de erro.
+Ver [protocolo V02 atualizado](../experimentos/juiz/Protocolo_V02_Bubble_Sort_Comparacao_Invertida.md)
+e [resumo rastreável do resultado](../experimentos/juiz/resultados/V02_20261117T190159Z_analise.json).
