@@ -1,6 +1,6 @@
 # Contrato PlanoDeAula 2.0
 
-Versão operacional: `plano-aula-2.0`. Revisão: 16/11/2026. Fecha a estrutura e os vínculos mecânicos das 11 seções previstas na especificação v2.1-R2. A aceitação empírica das respostas reais Gemini e a validação pedagógica permanecem pendentes.
+Versão operacional: `plano-aula-2.0`. Revisão: 16/11/2026. Fecha a estrutura e os vínculos mecânicos das 11 seções previstas na especificação v2.1-R2. Uma geração real completa foi registrada no protótipo e revalidada offline; a validação pedagógica permanece pendente. Veja a [evidência completa](Prototipo_Local_2026-11-16.md).
 
 O schema executável está em [plano_v2.schema.json](../aula-ia-backend/contratos/plano_v2.schema.json), com definições de cada chamada e do plano. O validador [plano_v2.py](../aula-ia-backend/contratos/plano_v2.py) implementa seu subconjunto e acrescenta invariantes entre seções. Não é um interpretador geral de JSON Schema. A [fixture sintética](../aula-ia-backend/tests/dados/plano_v2/fixture_ordenacao.json) contém entrada, seis saídas e plano esperado; não veio da API.
 
@@ -86,10 +86,10 @@ python inspecionar_gemini.py "local/teste_gemini/NOME_DO_ARQUIVO.json"
 
 O inspetor diferencia simulação pelo modo declarado, informa chamadas/consumo conhecido, revalida conteúdos e compara o plano com a recomposição das etapas. Falta de `usageMetadata` não é zero consumo. O arquivo é editável: inspeção não autentica sua origem. Versão desconhecida é recusada.
 
-Em 16/11/2026, os registros acessíveis eram simulações. Não havia credencial Gemini no ambiente nem JSON de chamada real disponível. Não foram inferidos tempo, tokens ou qualidade real a partir dos testes com transporte simulado.
+O registro real `20261116-104248-7f7fbf52.json` confirmou objetivos, avaliação preliminar e metodologia, mas a API recusou a sequência por complexidade do schema. A correção envia apenas restrições estruturais à API e mantém os limites/formatos como descrições e validações locais. Consulte a [análise inicial](Execucao_Gemini_2026-11-16.md) e a [geração completa posterior](Prototipo_Local_2026-11-16.md), que também recuperou dois erros 503.
 
 ## Evidências e limites
 
-Verificação: 90 testes Python, **89 aprovados e 1 opcional ignorado**, executados com `python -S`; renderização JavaScript das 11 seções, escape de HTML, leitura do formato antigo e igualdade `public`/`dist`; CLI simulado com 45 minutos. HTTP local exercita o contrato completo até aprovação docente. A inspeção visual em navegador permanece pendente.
+Verificação da versão consolidada: 115 testes Python, **114 aprovados e 1 opcional ignorado**, também executados com `python -S`; sintaxe JavaScript e igualdade `public`/`dist` conferidas. HTTP local exercita o contrato completo até aprovação docente. Uma geração real completa com prompt 2.1 permanece como rascunho; a consolidação do prompt 2.2 foi verificada offline.
 
-A estrutura completa não prova qualidade pedagógica, viabilidade dos materiais citados no texto ou ausência de resultados inventados na prosa. Continuam pendentes o teste real Gemini, IA Juiz independente, rubrica, correção pedagógica dirigida, rejeição explícita e enumeração completa de estados R2. A PoC inteira ainda não está encerrada.
+A estrutura completa não prova qualidade pedagógica, viabilidade dos materiais citados no texto ou ausência de resultados inventados na prosa. Continuam pendentes múltiplas rodadas para avaliar estabilidade, IA Juiz independente, rubrica, correção pedagógica dirigida, rejeição explícita e enumeração completa de estados R2. A PoC inteira ainda não está encerrada.

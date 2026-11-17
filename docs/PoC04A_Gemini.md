@@ -10,7 +10,7 @@ Na sondagem OpenRouter, seis chamadas terminaram com `stop`, mas o plano foi rej
 
 A geração agora usa Gemini nativo por REST, sem SDK nem fallback. Cinco especialidades compartilham o modelo configurado, inicialmente `gemini-3.5-flash-lite`. A avaliação possui duas chamadas: fixa critérios/evidências antes das atividades e instrumentos/procedimentos depois. O integrador é Python, com mapeamento explícito. Contexto e metadados BNCC são imutáveis; versão/hash identificam o catálogo JSON utilizado.
 
-Cada saída é validada antes dos dependentes. IDs, cobertura, duração e fontes são verificados localmente. O Gemini recebe `generationConfig.responseFormat.text`, `mimeType: APPLICATION_JSON` e o schema da etapa. A documentação oficial de `generateContent` e do modelo foi conferida em 16/11/2026; isso não substitui executar uma requisição com chave do projeto.
+Cada saída é validada antes dos dependentes. IDs, cobertura, duração e fontes são verificados localmente. O Gemini recebe `generationConfig.responseFormat.text`, `mimeType: APPLICATION_JSON` e uma projeção estrutural do schema da etapa. Os limites e formatos ficam como descrições e continuam obrigatórios localmente. A documentação oficial de `generateContent` e do modelo foi conferida em 16/11/2026; isso não substitui executar uma requisição com chave do projeto.
 
 A documentação também informa que certas restrições, como `uniqueItems` e `minLength`, não são impostas pela geração estruturada do servidor. O validador local mantém essas regras. Tipos incompatíveis, extras e valores vazios são recusados sem coerção. Não se transforma objeto em texto para aparentar sucesso.
 
@@ -32,15 +32,15 @@ Os cinco arquivos originais do contrato v0.1 permanecem idênticos; o contrato c
 
 ## Evidências e limites
 
-- 90 testes Python: 89 aprovados e um teste híbrido opcional ignorado, também com `python -S`.
+- 115 testes Python: 114 aprovados e um teste híbrido opcional ignorado, também com `python -S`.
 - Os 27 casos estruturais anteriores continuam exercitados.
 - Transporte Gemini simulado: seis chamadas, reparo, falhas parciais e limite de 12 chamadas.
 - HTTP local: confirmação, geração 2.0, rascunho e aprovação humana; falha não pode ser aprovada.
 - Renderização JavaScript: 11 seções, leitura do legado e escape de HTML; `public` e `dist` iguais.
 - CLI simulado com 45 minutos; inspeção do registro sem chave e sem rede.
-- Revisão visual em navegador e execução Gemini real: pendentes. Nos arquivos acessíveis havia apenas simulações.
+- A execução parcial inicial apresentou três etapas válidas e falha por complexidade. Posteriormente, uma geração completa no protótipo concluiu as seis etapas e a integração em 38,281 s, com 8 requisições, duas recuperações de 503 e 7.831 tokens conhecidos. O plano persistido foi revalidado offline e permanece rascunho.
 
-Não há resultados empíricos de latência, tokens ou qualidade Gemini nesta entrega. Para obtê-los, executar `python teste_gemini.py --rodadas 1 --duracao 50 --reparos 0` no terminal com chave configurada e analisar o JSON completo. Cotas, disponibilidade e gratuidade dependem do projeto; o script não consulta faturamento e não troca de modelo.
+O [registro inicial](Execucao_Gemini_2026-11-16.md) documenta a execução parcial. O [estado atual do protótipo](Prototipo_Local_2026-11-16.md) registra a geração completa e diferencia o prompt 2.1 observado da versão consolidada 2.2, validada offline. A qualidade pedagógica e a estabilidade por múltiplas rodadas ainda precisam ser avaliadas. Cotas, disponibilidade e gratuidade dependem do projeto; o script não consulta faturamento e não troca de modelo.
 
 IA Juiz independente, rubrica, correção dirigida, rejeição explícita e experimento comparativo continuam pendentes. A validação mecânica não aprova pedagogicamente um plano. Não foi realizado estudo com participantes.
 

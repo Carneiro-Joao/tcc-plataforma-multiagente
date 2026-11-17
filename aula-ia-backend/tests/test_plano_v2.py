@@ -6,8 +6,9 @@ from tempfile import TemporaryDirectory
 from unittest import TestCase
 from urllib.error import URLError
 from contratos import plano_v2 as c
+from contratos.esquema_gemini import esquema_api
 from erros import ErroContrato, ErroGeracao
-from geracao_v2 import AgenteGeminiCompleto, GeradorDePlanoCompleto, esquema_gemini
+from geracao_v2 import AgenteGeminiCompleto, GeradorDePlanoCompleto
 from rag.search import BuscaCurricular
 from servico import ServicoCurricular, ErroConsulta, abrir_banco, habilidade_publica
 from test_gemini import Transporte, envelope, CHAVE
@@ -160,7 +161,7 @@ class TestPlanoCompleto(TestCase):
             corpo = json.loads(pedido.data)
             dados = json.loads(corpo['contents'][0]['parts'][0]['text'])
             self.assertEqual(set(dados['saidas_anteriores']),set(c.DEPENDENCIAS[nome]))
-            self.assertEqual(corpo['generationConfig']['responseFormat']['text']['schema'],esquema_gemini(nome))
+            self.assertEqual(corpo['generationConfig']['responseFormat']['text']['schema'],esquema_api(nome))
         self.assertNotIn(CHAVE,json.dumps(r))
 
     def test_schema_gemini_preserva_estrutura_e_contrato_local(self):
@@ -183,9 +184,9 @@ class TestPlanoCompleto(TestCase):
 
         for nome in c.ETAPAS:
             with self.subTest(agente=nome):
-                conferir(c.esquema(nome), esquema_gemini(nome))
+                conferir(c.esquema(nome), esquema_api(nome))
         self.assertEqual(c.SCHEMA, original)
-        sequencia = esquema_gemini('sequencia')['properties']['etapas']
+        sequencia = esquema_api('sequencia')['properties']['etapas']
         self.assertIn('Quantidade máxima de itens: 12.', sequencia['description'])
         self.assertIn('Valor mínimo: 1.', sequencia['items']['properties']['minutos']['description'])
 

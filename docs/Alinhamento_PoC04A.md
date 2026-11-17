@@ -48,9 +48,9 @@ A árvore documental R2 descreve arquitetura-alvo. A implementação Gemini é *
 
 ## Verificação da integração conjunta
 
-89 testes aprovados e um teste híbrido opcional ignorado; os 27 casos estruturais anteriores continuam presentes. A suíte inclui as 11 seções, referências/IDs/cobertura, protocolo Gemini simulado com seis chamadas, reparo limitado, falhas e HTTP até aprovação docente. O JavaScript foi verificado para renderização completa, escape de HTML e leitura do legado. Nenhuma chamada real à API foi feita nesta conferência.
+114 testes aprovados e um teste híbrido opcional ignorado; os 27 casos estruturais anteriores continuam presentes. A suíte inclui as 11 seções, referências/IDs/cobertura, protocolo Gemini simulado, reparo limitado, recuperação de 503, inicializadores, IPv4 e HTTP até aprovação docente. A sintaxe JavaScript e a igualdade entre `public` e `dist` foram conferidas. Após a [falha parcial inicial](Execucao_Gemini_2026-11-16.md), uma geração real concluiu as seis etapas e a integração, com duas recuperações de 503. Veja o [registro completo e os limites da evidência](Prototipo_Local_2026-11-16.md).
 
-Próximos trabalhos: inspecionar o JSON da execução real do projeto; avaliar estabilidade e qualidade; implementar IA Juiz e correção dirigida; aceite/rejeição e estados completos. As 11 seções e as duas passagens de avaliação já fazem parte do código, com documentação atualizada nesta branch.
+Próximos trabalhos: ampliar as rodadas para avaliar estabilidade e qualidade, incluindo o prompt consolidado 2.2; implementar IA Juiz e correção dirigida; aceite/rejeição e estados completos. As 11 seções e as duas passagens de avaliação já fazem parte do código, com documentação atualizada nesta branch.
 
 ## Documentação da implementação atual
 

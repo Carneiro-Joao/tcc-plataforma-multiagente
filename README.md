@@ -2,7 +2,7 @@
 
 Plataforma local para planejar aulas de Computação do **8º ano**, com seleção explícita da habilidade BNCC, cinco especialistas, integração em Python e aprovação docente. O modo de IA agora usa a **API nativa do Gemini**. Os testes descartáveis anteriores com OpenAI/OpenRouter deixam de ser o caminho de execução.
 
-Esta entrega incorpora o **PlanoDeAula 2.0 com 11 seções**, avaliação em duas passagens e vínculos entre objetivos, etapas e evidências. Preserva os contratos e testes anteriores. Consulte o [contrato completo](docs/Contrato_PlanoDeAula_2_0.md) e o [alinhamento com a R2](docs/Alinhamento_PoC04A.md). A IA Juiz e a comprovação com chamadas reais ainda estão pendentes.
+Esta entrega incorpora o **PlanoDeAula 2.0 com 11 seções**, avaliação em duas passagens e vínculos entre objetivos, etapas e evidências. Uma execução real no protótipo concluiu as seis etapas e a integração, com recuperação de dois HTTP 503. Consulte o [estado atual e a evidência completa](docs/Prototipo_Local_2026-11-16.md), o [contrato](docs/Contrato_PlanoDeAula_2_0.md) e o [alinhamento com a R2](docs/Alinhamento_PoC04A.md). A aprovação pedagógica e a IA Juiz continuam pendentes.
 
 A geração mantém a habilidade, o tema, o ano, o tipo, os recursos e a duração confirmados. Cada especialista é validado antes do próximo. A integração não usa LLM: isso evita a conversão de `metodologia` de texto para objeto observada no teste anterior.
 
@@ -65,7 +65,7 @@ python teste_gemini.py --ipv4 --rodadas 1 --duracao 50 --reparos 0
 
 `--ipv4` vale somente para essa execução, mantém HTTPS com validação de certificado e não altera a rede do Windows. O JSON registra a opção em `rede`. A chave continua sendo lida de `GEMINI_API_KEY`; falhas da API encerram a rodada sem repetição automática.
 
-No contrato 2.0, o esquema enviado ao Gemini preserva campos obrigatórios, tipos e objetos fechados. Limites de listas/números, padrões de texto e unicidade são descritos para o modelo e continuam sendo exigidos pelo validador Python. Isso reduz a complexidade da gramática da API, evitando a rejeição HTTP 400 `too many states` causada por limites de listas aninhadas. Os registros desta versão usam `versao_prompt: especialistas-plano-2.1`; o contrato local permanece `plano-aula-2.0`. Consulte as [orientações oficiais sobre simplificação de esquemas](https://ai.google.dev/gemini-api/docs/structured-output#simplifying-complex-schemas).
+No contrato 2.0, o esquema enviado ao Gemini preserva campos obrigatórios, tipos e objetos fechados. Limites de listas/números, padrões de texto e unicidade são descritos para o modelo e continuam sendo exigidos pelo validador Python. Isso reduz a complexidade da gramática da API, evitando a rejeição HTTP 400 `too many states` causada por limites de listas aninhadas. A versão consolidada registra `versao_prompt: especialistas-plano-2.2` e `versao_esquema_api: plano-2.0-estrutura-v1`; o contrato local permanece `plano-aula-2.0`. A execução completa documentada usou o prompt 2.1, anterior à consolidação. Consulte as [orientações oficiais sobre simplificação de esquemas](https://ai.google.dev/gemini-api/docs/structured-output#simplifying-complex-schemas).
 
 ## 4. Abrir o site
 
@@ -119,7 +119,7 @@ Nesse modo, os dados são temporários e removidos ao encerrar normalmente; um e
 | Adaptação | Duas adaptações com vínculos a objetivos e etapas |
 | Integração | Composição local das 11 seções e metadados oficiais do catálogo |
 
-Campos extras, tipos diferentes, textos em branco, chaves duplicadas e números `NaN`/`Infinity` são rejeitados. Não há conversão silenciosa de objetos em texto ou descarte de campos extras. O schema enviado ao Gemini reduz desvios, mas a validação local permanece obrigatória.
+Campos extras, tipos diferentes, textos em branco, chaves duplicadas e números `NaN`/`Infinity` são rejeitados. Não há conversão silenciosa de objetos em texto ou descarte de campos extras. O schema enviado ao Gemini mantém estrutura/tipos e usa descrições para limites e formatos, evitando multiplicar estados na API. O contrato completo continua obrigatório na validação local.
 
 Há no máximo um reparo por especialista na mesma execução, mantendo as dependências já validadas. Não é um ciclo de correção pedagógica. Se o reparo também falhar, os dependentes não executam. A tentativa fica em estado `falha`, com rastreio, e não pode ser aprovada. Uma nova solicitação do professor cria outra revisão e recalcula todos os especialistas.
 
@@ -139,11 +139,15 @@ Para conferir a execução real, compartilhe o JSON desse diretório. Não compa
 
 | Arquivo | Responsabilidade |
 |---|---|
+| `INICIAR_AULAIA.cmd` | Inicialização por duplo clique no Windows |
+| `aula-ia-backend/iniciar_prototipo.py` | Janela para colar a chave, mantida somente em memória |
+| `aula-ia-backend/rede.py` | Transporte IPv4 opcional com HTTPS e validação de certificado |
 | `aula-ia-backend/gemini.py` | API nativa, schema, limites de leitura, erros e metadados |
 | `aula-ia-backend/geracao_v2.py` | Prompts completos e fluxo com seis chamadas |
 | `aula-ia-backend/geracao.py` | Orquestrador compartilhado e compatibilidade v0.1 |
 | `aula-ia-backend/contratos/plano_v2.py` | Validação estrutural, vínculos e integração 2.0 |
 | `aula-ia-backend/contratos/plano_v2.schema.json` | Esquemas completos versionados |
+| `aula-ia-backend/contratos/esquema_gemini.py` | Projeção estrutural do esquema para a API |
 | `aula-ia-backend/contratos/validacao.py` | Validador e parser em Python puro, preservados da branch de contratos |
 | `aula-ia-backend/contratos/execucao.py` | Parser compartilhado e integração legada v0.1 |
 | `aula-ia-backend/contratos/contratos.schema.json` | Contratos PoC 04A v0.1 |
@@ -153,7 +157,7 @@ Para conferir a execução real, compartilhe o JSON desse diretório. Não compa
 | `aula-ia/public/geracao-ui.js` | Exibição do plano, falha e aprovação; espelhado em `dist/` |
 | `docs/PoC04A_Gemini.md` | Decisões, achados, evidências e limites deste incremento |
 
-Validação desta entrega: **89 testes aprovados e 1 teste opcional ignorado**, incluindo os 27 casos estruturais como subtestes; execução do CLI em simulação com duração de 45 minutos; sintaxe e renderização JavaScript das 11 seções conferidas, incluindo escape de HTML e leitura de planos antigos. O fluxo HTTP usa respostas Gemini simuladas, incluindo o contrato 2.0 até aprovação docente. A execução do navegador automatizado foi bloqueada pelo ambiente, portanto a interface visual precisa ser conferida localmente. **A API real Gemini ainda não foi chamada com uma chave do projeto.**
+Validação da versão consolidada: **114 testes aprovados e 1 teste opcional ignorado**, também com `python -S`, incluindo os 27 casos estruturais como subtestes, HTTP local, inicializadores, IPv4 e recuperação limitada de HTTP 503. A sintaxe JavaScript e a igualdade entre `public` e `dist` foram conferidas. Uma geração real registrada no SQLite local concluiu o contrato 2.0 em **38,281 s**, com **8 requisições HTTP**, duas recuperações de 503 e **7.831 tokens conhecidos** em seis respostas com uso informado. O plano permanece rascunho; a validação mecânica não equivale à aprovação pedagógica. Consulte a [evidência e seus limites](docs/Prototipo_Local_2026-11-16.md).
 
 Os módulos legados `AgenteOpenAI` e os probes que fazem monkeypatch de `geracao.request.urlopen` não integram mais o fluxo atual. Use `teste_gemini.py`. O modo de busca híbrida permanece opcional: instale também `requirements-hibrido.txt`, prepare os arquivos/modelos necessários e execute `--modo hibrido`. A alteração do provedor de geração não muda o catálogo ou o método da busca curricular.
 
