@@ -13,7 +13,7 @@ from erros import ErroContrato, ErroGeracao
 
 MODELO_PADRAO = "openai/gpt-oss-120b"
 ENDPOINT = "https://api.groq.com/openai/v1/chat/completions"
-VERSAO_ADAPTADOR = "groq-juiz-0.1"
+VERSAO_ADAPTADOR = "groq-juiz-0.2"
 VERSAO_ESQUEMA_API = "parecer-juiz-1.0-groq-strict-v1"
 LIMITE_RESPOSTA = 1_000_000
 
@@ -105,6 +105,21 @@ class AgenteGroqJuiz:
                     registro["erro_corpo"] = "Corpo de erro indisponível."
                 finally:
                     exc.close()
+                # A Groq pode rejeitar a própria geração mesmo em strict=true.
+                # Somente esse código é reparável pelo fluxo técnico existente.
+                try:
+                    erro_api = json.loads(registro["erro_corpo"])
+                    erro_api = erro_api.get("error") if isinstance(erro_api, dict) else None
+                except (ValueError, RecursionError):
+                    erro_api = None
+                if (exc.code == 400 and isinstance(erro_api, dict)
+                        and erro_api.get("code") == "json_validate_failed"
+                        and isinstance(erro_api.get("failed_generation"), str)):
+                    registro["conteudo_bruto"] = erro_api["failed_generation"]
+                    erro_contrato = ErroContrato("Groq rejeitou o parecer gerado por incompatibilidade com o JSON Schema.")
+                    erro_contrato.diagnosticos = [{"caminho": "$", "regra": "json_schema_provedor",
+                                                  "detalhe": erro_api.get("message", "") }]
+                    raise erro_contrato from None
                 orientacao = {400: "Confira esquema e parâmetros.", 401: "Confira GROQ_API_KEY.",
                               403: "Confira permissões da conta/modelo.", 404: "Confira a disponibilidade do modelo.",
                               429: "Limite atingido; consulte Retry-After e cotas da conta."}.get(

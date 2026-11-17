@@ -3,12 +3,29 @@
 Data: 17/11/2026. Base: `feat/poc05-juiz-contrato`, SHA `eda344fc3f6acd0a88df615b9184809fb7a73cea`.
 Branch: `feat/poc05b-juiz-groq`.
 
-**Integração implementada e verificada com mocks. Chamada autenticada à Groq ainda não executada:**
+**Estado da entrega inicial (antes do ensaio abaixo): integração verificada com mocks; chamada autenticada não executada.**
 `GROQ_API_KEY` não estava configurada no ambiente de implementação. Não há parecer pedagógico real
 do GPT-OSS nesta entrega. O ensaio sem chave terminou em falha de configuração persistida, com zero
 requisições HTTP. O caso original passou na validação local.
 
 ## Comportamento implementado
+
+### Primeiro ensaio autenticado e ajuste 0.2
+
+Em 17/11/2026 às 15:23:58 (America/Fortaleza), execução `20261117T182358Z-b3e13161128a`,
+a Groq respondeu HTTP 400, código `json_validate_failed`: o modelo usou `conteudos` em
+`falhas[0].componente`, fora do enum do contrato. O provedor incluiu a geração rejeitada em
+`failed_generation`. Portanto houve chamada real, mas nenhum parecer válido nessa execução.
+
+O adaptador `groq-juiz-0.2` classifica esse erro específico como erro de contrato, preserva
+a resposta rejeitada e permite usar o reparo técnico existente com `--reparos 1`.
+O padrão continua zero reparos; outros HTTP 400 não são repetidos. Plano, rubrica e prompts
+permanecem iguais. Verificação do ajuste: 90 testes do juiz aprovados, incluindo dois novos
+para o HTTP 400 de schema com e sem reparo habilitado. A nova tentativa autenticada é pendente.
+
+A resposta rejeitada também alegou que uma aula sobre Bubble Sort deveria cobrir outros algoritmos
+da habilidade. Essa conclusão requer revisão humana; não é uma falha pedagógica comprovada.
+Reparo de schema não valida a pertinência pedagógica do parecer.
 
 - `groq_juiz.py`: `AgenteGroqJuiz`, REST HTTPS para `openai/gpt-oss-120b` na GroqCloud,
   credencial exclusivamente por `GROQ_API_KEY` no uso da CLI. Não requer SDK ou pacote adicional.

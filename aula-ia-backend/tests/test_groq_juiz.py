@@ -53,6 +53,33 @@ def avaliar(transporte, reparos=0, **kwargs):
 
 
 class TestGroqJuiz(TestCase):
+    def _falha_schema_groq(self):
+        p = deepcopy(PARECERES["correcao"])
+        p["falhas"][0]["componente"] = "conteudos"
+        body = json.dumps({"error": {"code": "json_validate_failed",
+                          "message": "componente deve pertencer ao enum",
+                          "failed_generation": json.dumps(p)}}).encode()
+        return HTTPError(ENDPOINT, 400, "Bad Request", {}, io.BytesIO(body))
+
+    def test_schema_recusado_pelo_provedor_permite_reparo_opt_in(self):
+        t = Transporte(self._falha_schema_groq(), envelope())
+        r = avaliar(t, reparos=1)
+        self.assertEqual(len(t.chamadas), 2)
+        self.assertEqual(r["rastreio"][0]["http_status"], 400)
+        self.assertEqual(r["rastreio"][0]["estado"], "rejeitado")
+        self.assertIn("conteudos", r["rastreio"][0]["conteudo_bruto"])
+        dados = json.loads(json.loads(t.chamadas[1][0].data)["messages"][1]["content"])
+        self.assertIn("reparo_estrutural", dados)
+        self.assertEqual(dados["saidas_anteriores"]["plano"], FIXTURE["plano_esperado"])
+
+    def test_schema_recusado_sem_opt_in_preserva_falha(self):
+        t = Transporte(self._falha_schema_groq())
+        with self.assertRaises(ErroContrato) as cm:
+            avaliar(t)
+        self.assertEqual(len(t.chamadas), 1)
+        self.assertEqual(cm.exception.diagnosticos[0]["regra"], "json_schema_provedor")
+        self.assertIn("conteudos", cm.exception.rastreio[0]["conteudo_bruto"])
+
     def test_requisicao_realusa_contrato_prompt_e_parametros(self):
         t = Transporte(envelope())
         r = avaliar(t)
