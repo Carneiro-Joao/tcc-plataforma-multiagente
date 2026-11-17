@@ -56,8 +56,10 @@ def metricas(rastreio):
 
 def executar_ensaio(caminho, destino, *, reparos=0, somente_validar=False,
                      timeout=90, temperature=0, max_completion_tokens=8192,
-                     reasoning_effort="medium", seed=42, fabrica=criar_agente_groq_juiz):
+                     reasoning_effort="medium", seed=42, versao_prompt=None, fabrica=criar_agente_groq_juiz):
     """Grava início antes da chamada; sucesso e falha preservam o mesmo identificador."""
+    versao_prompt = contrato.resolver_versao_prompt(versao_prompt)
+    prompt_sha256 = sha256(contrato.instrucoes(versao_prompt).encode("utf-8")).hexdigest()
     pasta = Path(destino) / (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid4().hex[:12])
     pasta.mkdir(parents=True, exist_ok=False)
     inicio = time.perf_counter()
@@ -65,7 +67,8 @@ def executar_ensaio(caminho, destino, *, reparos=0, somente_validar=False,
                     status="iniciado", modo="validacao_local" if somente_validar else "api_real",
                     codigo=versao_codigo(), python=platform.python_version(),
                     contrato_plano=plano_v2.VERSAO, contrato_parecer=contrato.VERSAO,
-                    versao_rubrica=contrato.rubrica.VERSAO, versao_prompt=contrato.VERSAO_PROMPT,
+                    versao_rubrica=contrato.rubrica.VERSAO, versao_prompt=versao_prompt,
+                    prompt_sha256=prompt_sha256,
                     versao_adaptador=VERSAO_ADAPTADOR, versao_esquema_api=VERSAO_ESQUEMA_API,
                     politica=deepcopy(contrato.POLITICA_PRELIMINAR),
                     modelo_juiz=MODELO_PADRAO, reparos_contrato_permitidos=reparos,
@@ -88,7 +91,8 @@ def executar_ensaio(caminho, destino, *, reparos=0, somente_validar=False,
             registro["status"] = "validado_localmente"
         else:
             agente = fabrica(timeout=timeout, temperature=temperature,
-                              max_completion_tokens=max_completion_tokens, reasoning_effort=reasoning_effort, seed=seed)
+                              max_completion_tokens=max_completion_tokens, reasoning_effort=reasoning_effort, seed=seed,
+                               versao_prompt=versao_prompt)
             resultado = avaliar_plano(caso["plano"], caso["entrada"], agente,
                                       modelo_gerador=caso["modelo_gerador"], modelo_juiz=MODELO_PADRAO,
                                       revisao=caso.get("revisao", 0), reparos=reparos, ciclos_usados=0)
@@ -120,6 +124,9 @@ def main(argv=None):
     avaliar.add_argument("--max-completion-tokens", type=int, default=8192)
     avaliar.add_argument("--reasoning-effort", choices=("low", "medium", "high"), default="medium")
     avaliar.add_argument("--seed", type=int, default=42)
+    avaliar.add_argument("--versao-prompt", choices=contrato.VERSOES_PROMPT,
+                          default=contrato.VERSAO_PROMPT,
+                          help="Prompt do Juiz; default v1.3, v1.2 preservado para comparação.")
     args = parser.parse_args(argv)
     try:
         if args.acao == "exportar":
@@ -132,7 +139,8 @@ def main(argv=None):
         resultado, arquivo = executar_ensaio(args.caso, args.destino, reparos=args.reparos,
                                              somente_validar=args.somente_validar, timeout=args.timeout,
                                              temperature=args.temperature, max_completion_tokens=args.max_completion_tokens,
-                                             reasoning_effort=args.reasoning_effort, seed=args.seed)
+                                             reasoning_effort=args.reasoning_effort, seed=args.seed,
+                                             versao_prompt=args.versao_prompt)
         print("Status:", resultado["status"])
         print("Registro:", arquivo)
         if resultado["status"] == "falha":

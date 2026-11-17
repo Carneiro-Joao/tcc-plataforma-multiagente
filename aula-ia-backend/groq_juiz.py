@@ -45,7 +45,7 @@ class AgenteGroqJuiz:
 
     def __init__(self, modelo=MODELO_PADRAO, *, chave=None, transporte=None,
                  timeout=90, temperature=0, max_completion_tokens=8192,
-                 reasoning_effort="medium", seed=42):
+                 reasoning_effort="medium", seed=42, versao_prompt=None):
         self.chave = (chave if chave is not None else os.environ.get("GROQ_API_KEY", "")).strip()
         if not self.chave or any(c.isspace() for c in self.chave):
             raise ErroGeracao("Defina GROQ_API_KEY no terminal do ensaio.", tipo="configuracao")
@@ -58,6 +58,7 @@ class AgenteGroqJuiz:
                 or reasoning_effort not in ("low", "medium", "high")
                 or type(seed) is not int or not 0 <= seed <= 2147483647):
             raise ErroGeracao("Parâmetros Groq inválidos.", tipo="configuracao")
+        self.versao_prompt = contrato.resolver_versao_prompt(versao_prompt)
         self.modelo, self.timeout = modelo, timeout
         self.parametros = dict(temperature=temperature, max_completion_tokens=max_completion_tokens,
                                reasoning_effort=reasoning_effort, seed=seed,
@@ -72,7 +73,7 @@ class AgenteGroqJuiz:
         if reparo:
             dados["reparo_estrutural"] = reparo
         corpo = dict(model=self.modelo, **self.parametros, messages=[
-            {"role": "system", "content": contrato.instrucoes()},
+            {"role": "system", "content": contrato.instrucoes(self.versao_prompt)},
             {"role": "user", "content": json.dumps(dados, ensure_ascii=False, allow_nan=False)},
         ], response_format={"type": "json_schema", "json_schema": {
             "name": "parecer_juiz", "strict": True, "schema": contrato.esquema()}})
@@ -81,7 +82,7 @@ class AgenteGroqJuiz:
             raise ErroGeracao("Entrada recusada por conter credencial.", tipo="configuracao")
         registro.update(provedor="groq", modelo_pedido=self.modelo,
                         versao_adaptador=VERSAO_ADAPTADOR, versao_contrato=contrato.VERSAO,
-                        versao_prompt=contrato.VERSAO_PROMPT, versao_rubrica=contrato.rubrica.VERSAO,
+                        versao_prompt=self.versao_prompt, versao_rubrica=contrato.rubrica.VERSAO,
                         versao_esquema_api=self.versao_esquema_api, requisicao=corpo,
                         iniciado_em=datetime.now(timezone.utc).isoformat(), timeout_s=self.timeout,
                         chamadas_http=0)

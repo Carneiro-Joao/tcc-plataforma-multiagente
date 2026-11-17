@@ -82,8 +82,8 @@ class TestRubrica(TestCase):
                 self.assertIn(indicador, texto)
 
     def test_prompt_v12_corrige_escopo_bncc_e_exige_evidencia_pedagogica(self):
-        texto = j.instrucoes()
-        self.assertEqual(j.VERSAO_PROMPT, "juiz-v1.2")
+        texto = j.instrucoes("juiz-v1.2")
+        self.assertEqual(j.VERSAO_PROMPT, "juiz-v1.3")
         self.assertEqual(rubrica.VERSAO, "rubrica-juiz-0.1")
         self.assertIn("NÃO uma lista obrigatória", texto)
         self.assertIn("NUNCA sugira modificar", texto)

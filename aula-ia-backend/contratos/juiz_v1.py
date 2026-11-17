@@ -13,7 +13,8 @@ from contratos.execucao import exigir_sem_erros
 from contratos.plano_v2 import DEPENDENCIAS, ETAPAS, _estrutura
 
 VERSAO = "parecer-juiz-1.0"
-VERSAO_PROMPT = "juiz-v1.2"
+VERSAO_PROMPT = "juiz-v1.3"
+VERSOES_PROMPT = ("juiz-v1.2", "juiz-v1.3")
 CRITERIOS = rubrica.CRITERIOS
 COMPONENTES = ETAPAS
 SCHEMA = json.loads((Path(__file__).parent / "juiz_v1.schema.json").read_text(encoding="utf-8"))
@@ -158,8 +159,17 @@ def decidir(parecer, ciclos_usados=0, politica=None):
 
 # ------------------------------------------------------------------------ prompt
 
-def instrucoes():
-    """Instrução do Juiz, gerada da rubrica (fonte única)."""
+def resolver_versao_prompt(versao=None):
+    """Seleciona um prompt congelado. Versões inválidas não são avaliadas."""
+    usada = VERSAO_PROMPT if versao is None else versao
+    if not isinstance(usada, str) or usada not in VERSOES_PROMPT:
+        raise ValueError("Versão do prompt do Juiz não suportada.")
+    return usada
+
+
+def instrucoes(versao=None):
+    """Instrução do Juiz, gerada da rubrica; permite reproduzir a v1.2."""
+    versao = resolver_versao_prompt(versao)
     partes = [
         "Nesta chamada você atua como AVALIADOR independente de um plano de aula de Computação já integrado e "
         "validado mecanicamente. Você avalia e aponta falhas; NÃO reescreve o plano nem propõe um plano novo. "
@@ -207,4 +217,30 @@ def instrucoes():
         "Responda em português brasileiro com um único objeto JSON aderente ao esquema (avaliacoes com os seis "
         "critérios, falhas e resumo), sem texto fora do JSON.",
     ]
+
+    if versao == "juiz-v1.3":
+        # Checagem genérica de consistência de algoritmos: não incluir casos, nomes
+        # ou respostas do corpus V01/V02 no prompt enviado ao avaliador.
+        partes.insert(-5,
+            "Auditoria conceitual obrigatória ANTES das notas: para cada etapa ET que ensine "
+            "um procedimento, algoritmo, regra de decisão ou transformação, confronte a ação "
+            "concreta do estudante com o resultado pretendido, o objetivo OBJ, as evidências "
+            "EVI e a metodologia. A presença do nome correto de um algoritmo no título ou "
+            "conteúdo NÃO comprova que as operações descritas estejam corretas. "
+            "Quando existir uma condição operacional explícita, verifique seu efeito "
+            "simulando mentalmente um caso mínimo que a exercite (por exemplo, uma entrada "
+            "simples e um contraexemplo) e veja se o resultado contradiz o objetivo. "
+            "Cheque sentido da comparação, pré-condições, operações, ordem das ações e "
+            "resultado final sempre que isso for pertinente ao procedimento descrito. "
+            "Se identificar contradição conceitual demonstrável, descreva a ação literal, "
+            "sua consequência e a correção esperada; cite os IDs envolvidos. Para erro "
+            "contido em desenvolvimento, marque componente sequencia e critério "
+            "coerencia_metodologica ou aderencia_curricular conforme o impacto; erro "
+            "conceitual central pode justificar gravidade critica e nota 0 ou 1. "
+            "Faça essa verificação mesmo quando a estrutura, os vínculos e as demais "
+            "seções do plano pareçam coerentes. Não crie erro por falta de detalhes: "
+            "se o procedimento não especifica uma condição necessária, registre apenas "
+            "uma lacuna comprovável, sem inventar ações ou presumir uma implementação "
+            "incorreta. Não exija que o plano inclua exemplos extras nem algoritmos "
+            "não previstos no objetivo da aula.")
     return " ".join(partes)

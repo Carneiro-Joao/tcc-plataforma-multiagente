@@ -265,3 +265,26 @@ O rascunho original relata um teste de mutação com 9 defeitos plantados no val
 3. Conjunto de planos com **defeitos injetados** para medir detecção e falsos positivos do Juiz.
 4. CLI de uma rodada real (como `teste_gemini.py`) e inspeção do JSON.
 5. Ajustar rubrica e política com base nessas rodadas, registrando cada mudança de versão.
+
+## Evolução de prompt: `juiz-v1.3` (configuração experimental)
+
+Em 17/11/2026, após os protocolos V01 e V02 com `juiz-v1.2`,
+foi introduzida uma orientação nova para conferir **correção conceitual
+dos procedimentos descritos nas etapas**, inclusive por testes mentais
+de entradas mínimas quando há regra explícita. O modelo deve confrontar
+a operação descrita com os objetivos e a evidência esperada e só
+apontar erro quando houver contradição verificável.
+
+Esta mudança altera **somente instruções do prompt**: os seis critérios,
+24 indicadores, notas 0–3, esquema `parecer-juiz-1.0`, rubrica
+`rubrica-juiz-0.1`, política de decisão e grafo de dependências permanecem
+inalterados. O prompt original `juiz-v1.2` pode ser reproduzido por
+seleção explícita e sua integridade é protegida por regressão de
+SHA-256 `f93058ca002d0718955d7ff391c77d3343030cd41005c8cf6732dd7f251280b5`.
+
+O aumento de instruções não comprova melhor qualidade.
+A V02 já era conhecida quando a v1.3 foi desenhada, portanto seu reuso
+será **teste de regressão durante desenvolvimento**, não validação
+independente. Ver o
+[protocolo de comparação v1.2 × v1.3](../experimentos/juiz/Protocolo_Comparacao_Prompts_v12_v13.md)
+para critérios definidos antes das novas chamadas ao provedor.

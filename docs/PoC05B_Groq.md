@@ -284,3 +284,27 @@ e [resumo da terceira avaliação](../experimentos/juiz/resultados/V02_20261117T
 **Marco de controle:** nenhuma correção automática ativada; antes de novas
 chamadas, registrar proposta `juiz-v1.3` como configuração experimental
 separada, mantendo intactas as evidências da v1.2.
+
+## Novo marco — prompt `juiz-v1.3` (preparação do ensaio)
+
+Após as três avaliações válidas da V01 e V02 (17/11/2026), a v1.2
+detectou a falha de evidência em **3/3** pareceres V01, mas omitiu a
+inversão conceitual do algoritmo em **3/3** pareceres V02. A v1.3
+acrescenta uma auditoria genérica de correção operacional antes de
+pontuar, incluindo contraexemplos mínimos para regras explícitas.
+Não modifica rubrica, contrato, política, modelo ou estado docente.
+
+A v1.2 pode continuar sendo escolhida explicitamente com
+`--versao-prompt juiz-v1.2`; o novo padrão é `juiz-v1.3`.
+Cada ensaio registra `versao_prompt` e `prompt_sha256` para
+distinção inequívoca, inclusive em validação offline.
+
+**Não houve chamadas autenticadas nesta implementação v1.3.**
+A auditoria não é garantia de detecção nem prova de qualidade.
+A V02 foi usada para motivar a alteração e por isso **não é conjunto
+cego independente**. Comparações posteriores devem incluir V01, V02,
+plano real sem edição e novos casos de validação ainda não usados
+para refinar o prompt.
+
+Ver [protocolo v1.2 × v1.3](../experimentos/juiz/Protocolo_Comparacao_Prompts_v12_v13.md)
+e [síntese histórica V01 × V02](../experimentos/juiz/Sintese_Comparativa_V01_V02.md).
