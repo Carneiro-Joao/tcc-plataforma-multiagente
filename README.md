@@ -1,4 +1,4 @@
-# AulaIA — Gemini, PlanoDeAula 2.0 e base da IA Juiz
+# AulaIA — Gemini, PlanoDeAula 2.0 e IA Juiz via Groq
 
 Plataforma local para planejar aulas de Computação do **8º ano**, com seleção explícita da habilidade BNCC, cinco especialistas, integração em Python e aprovação docente. O modo de IA agora usa a **API nativa do Gemini**. Os testes descartáveis anteriores com OpenAI/OpenRouter deixam de ser o caminho de execução.
 
@@ -133,7 +133,20 @@ Para testar somente a base do Juiz, sem chave nem chamadas de API, execute na pa
 python -m unittest discover -s tests -p test_juiz.py -v
 ```
 
-São 54 testes com pareceres sintéticos e transporte simulado, incluindo os caminhos favorável, corrigível e crítico. A escolha para a próxima integração, definida em 17/11/2026, é usar a **API do DeepSeek para o Juiz** e manter o Gemini nos especialistas. O adaptador DeepSeek ainda não existe: a fábrica atual `criar_agente_juiz` configura Gemini. Ainda será necessário implementar o adaptador e conectar a avaliação ao serviço, à persistência, à interface e aos ciclos de correção.
+A **PoC 05B implementa o adaptador GroqCloud** para `openai/gpt-oss-120b`, com `GROQ_API_KEY`, mantendo `gemini-3.5-flash-lite` nos especialistas. A fábrica `criar_agente_groq_juiz` seleciona o novo adaptador; `criar_agente_juiz` continua compatível com Gemini. O contrato, a rubrica de seis critérios/escala 0–3 e a política permanecem iguais. **A chamada autenticada à Groq ainda precisa ser validada:** a chave não estava disponível no ambiente desta entrega.
+
+A execução isolada registra pareceres, falhas, justificativas, modelos, versões, hashes, latência e uso conhecido em `local/ensaios_juiz/`, sem acionar correções ou aprovação. O JSON original do caso da revisão foi recuperado do SQLite e conferido contra o PDF; está separado das fixtures sintéticas.
+
+```powershell
+# Na pasta aula-ia-backend, sem chave nem rede:
+python ensaio_juiz.py avaliar --caso ../experimentos/juiz/casos/ordenacao_real_994c4cd5.json --somente-validar
+# Com GROQ_API_KEY configurada no mesmo terminal:
+python ensaio_juiz.py avaliar --caso ../experimentos/juiz/casos/ordenacao_real_994c4cd5.json
+# Testes com mocks:
+python -S -m unittest discover -s tests -p '*juiz*.py' -q
+```
+
+Resultado: **88 testes do juiz/ensaio aprovados**, sendo 34 novos. Regressão sem os quatro testes HTTP local: **198 aprovados e 1 opcional ignorado**. Os testes HTTP local foram bloqueados pelas permissões de sockets deste ambiente. Veja o [roteiro completo, proveniência e limitações da PoC 05B](docs/PoC05B_Groq.md), incluindo configuração oculta da chave. A integração dos ciclos de correção com o site continua para o próximo incremento.
 
 Um registro já salvo pode ser inspecionado sem chave e sem novas chamadas:
 
