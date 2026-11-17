@@ -350,3 +350,28 @@ Ainda não são resultados independentes nem prova de estabilidade.
 
 Ver [protocolo comparativo §8](../experimentos/juiz/Protocolo_Comparacao_Prompts_v12_v13.md)
 e [registro V01-v1.3](../experimentos/juiz/resultados/V01_prompt_v13_20261117T192751Z_analise.json).
+
+### Plano original (sem mutação manual) — primeiro controle com `juiz-v1.3`
+
+A execução real sobre o plano extraído do SQLite retornou HTTP 200
+e **16/18**, com **três falhas**: `F1` maior (`EVI1` compara dois
+cartões, mas `OBJ1` pede identificar os passos do algoritmo),
+`F2` menor (sobreposição entre objetivos), e `F3` menor
+(discussão coletiva não explicitada em ET1/ET2). A política
+determinística decidiu **`em_correcao`** por F1.
+
+**Não classificar as três falhas como falsos positivos:** o plano
+original não recebeu alteração experimental, mas foi gerado por IA
+e **não é gabarito pedagogicamente perfeito**. F1 apresenta
+fundamento plausível; F2 é discutível e F3 é melhoria potencial.
+Há necessidade de avaliação humana para rotular essas críticas.
+A justificativa de viabilidade repetiu a soma dos minutos, apesar
+da orientação contrária do prompt.
+
+**Primeira rodada v1.3:** um parecer válido para cada V01, V02 e
+original. A detecção da manipulação ocorreu em V01 e V02; o
+original revelou críticas ainda não adjudicadas. As repetições
+e os casos inéditos permanecem pendentes.
+
+Ver [protocolo comparativo §9](../experimentos/juiz/Protocolo_Comparacao_Prompts_v12_v13.md)
+e [resumo do ensaio original](../experimentos/juiz/resultados/Original_prompt_v13_20261117T193100Z_analise.json).

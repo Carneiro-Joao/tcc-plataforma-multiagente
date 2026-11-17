@@ -1,0 +1,122 @@
+{
+  "schema": "analise_ensaio_juiz-0.1",
+  "id": "ORIGINAL-V13-E01",
+  "documentado_apos_ensaio": true,
+  "data_utc": "2026-11-17T19:31:00.829804+00:00",
+  "caso": {
+    "id": "ORIGINAL-SQLITE",
+    "tipo": "sqlite_real",
+    "arquivo_caso_sha256": "f96aae72a335c02322ec39f0c4e568ca6ccf194732c0e03351ad969615d2a61a",
+    "plano_sha256": "1b3bfddcee405c918e70d91faf1cd931419b71be84e5556885fe05b4dfec352d",
+    "geracao_id": "994c4cd51d944ca6a1344b15366c3971",
+    "defeitos_injetados": 0,
+    "rotulo_de_plano_perfeito": false,
+    "avaliacao_docente_pendente": true
+  },
+  "registro_bruto": {
+    "caminho_local": "aula-ia-backend/local/ensaios_juiz/20261117T193100Z-60bc40e3bbad/resultado.json",
+    "arquivo_sha256": "ad587f8a3aad3e6103f6e31bce257948fc81771907e5859e12e32eefe5478b9e",
+    "tamanho_bytes": 102491,
+    "copia_integral_neste_repositorio": false
+  },
+  "codigo": {
+    "commit": "0fda26f653b6ccdda56c63545e6ba3dbc1bebaf1",
+    "arvore_modificada": false
+  },
+  "configuracao": {
+    "provedor": "groq",
+    "modelo": "openai/gpt-oss-120b",
+    "versao_prompt": "juiz-v1.3",
+    "prompt_sha256": "bdb7f05ee34f5aa59c4ea410282fa267bcbb057d370e0f8be223ad33367f2bd8",
+    "versao_rubrica": "rubrica-juiz-0.1",
+    "contrato": "parecer-juiz-1.0",
+    "politica": "politica-juiz-prelim-0.1",
+    "temperature": 0,
+    "seed": 42,
+    "reasoning_effort": "medium",
+    "max_completion_tokens": 8192,
+    "reparos_permitidos": 1
+  },
+  "resultado": {
+    "status": "sucesso",
+    "http_status": 200,
+    "parecer_contrato_valido": true,
+    "notas": {
+      "aderencia_curricular": 3,
+      "alinhamento_objetivos": 3,
+      "coerencia_metodologica": 3,
+      "viabilidade": 3,
+      "avaliacao_aprendizagem": 1,
+      "inclusao": 3
+    },
+    "soma_notas": 16,
+    "numero_falhas": 3,
+    "falhas": [
+      {
+        "id": "F1",
+        "criterio": "avaliacao_aprendizagem",
+        "componente": "avaliacao_preliminar",
+        "gravidade": "maior",
+        "descricao": "EVI1 limita-se a comparar dois cartoes enquanto OBJ1 pede identificar passos do algoritmo.",
+        "avaliacao_pesquisador": "critica_plausivel; gravidade sujeita a avaliacao docente"
+      },
+      {
+        "id": "F2",
+        "criterio": "alinhamento_objetivos",
+        "componente": "objetivos",
+        "gravidade": "menor",
+        "descricao": "Possivel sobreposicao entre identificar passos OBJ1 e simular o algoritmo OBJ2.",
+        "avaliacao_pesquisador": "pertinencia discutivel; nao adjudicada"
+      },
+      {
+        "id": "F3",
+        "criterio": "coerencia_metodologica",
+        "componente": "sequencia",
+        "gravidade": "menor",
+        "descricao": "Metodologia menciona discussoes coletivas sem etapa ET1/ET2 explicita correspondente.",
+        "avaliacao_pesquisador": "melhoria plausivel, sem obrigacao de criar etapa extra"
+      }
+    ],
+    "decisao": "em_correcao",
+    "componentes_a_corrigir": [
+      "avaliacao_preliminar"
+    ],
+    "componentes_invalidados": [
+      "avaliacao_preliminar",
+      "metodologia",
+      "sequencia",
+      "avaliacao_final",
+      "adaptacao"
+    ],
+    "falhas_que_motivam": [
+      "F1"
+    ],
+    "aprovacao_docente": "nao_alterada",
+    "ciclos_pedagogicos_executados": 0,
+    "chamadas_http": 1,
+    "tentativas": 1,
+    "reparos_usados": 0,
+    "finish_reason": "stop",
+    "system_fingerprint": "fp_02b0d31eca",
+    "tempo_total_s": 8.192639,
+    "latencia_chamada_s": 8.05512,
+    "prompt_tokens": 4767,
+    "completion_tokens": 3445,
+    "total_tokens": 8212,
+    "custo_informado": null
+  },
+  "analise_pesquisador": {
+    "natureza": "controle_original_sem_injecao",
+    "desfecho": "criticas_pedagogicas_nao_adjudicadas",
+    "falso_positivo_nao_determinavel": true,
+    "justificativa": "Plano-base Gemini pode conter lacunas; sem gabarito docente, críticas não são automaticamente falsos positivos.",
+    "falha_f1": "plausivel_desalinhamento_EVI1_OBJ1",
+    "falhas_f2_f3": "melhorias_discricionarias_pendentes_avaliacao",
+    "instrucao_descumprida": "viabilidade justificada pela soma deterministica dos minutos",
+    "limites": [
+      "Primeira resposta v1.3 no plano original",
+      "Sem rotulagem docente, não calcular especificidade ou falso-positivo",
+      "Caso original usado no desenvolvimento; não é holdout"
+    ]
+  }
+}

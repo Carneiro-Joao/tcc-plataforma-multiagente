@@ -344,3 +344,103 @@ de repetições e preparação de casos novos, mantendo o prompt congelado.
 
 **Resumo estruturado:**
 [V01_prompt_v13_20261117T192751Z_analise.json](resultados/V01_prompt_v13_20261117T192751Z_analise.json).
+
+## 9. Controle sem injeção — plano original, primeiro ensaio `juiz-v1.3`
+
+**Registrado após a execução, em 17/11/2026.** Mantidas inalteradas
+as hipóteses e os parâmetros congelados nas seções anteriores.
+Este caso é o **plano real original produzido pelo Gemini** e não
+uma variante com erro artificial. **Isso não o transforma em plano
+pedagogicamente perfeito**, nem num controle negativo com gabarito
+humano homologado.
+
+- Ensaio iniciado em `2026-11-17T19:31:00.829804+00:00`.
+- Arquivo bruto local: `aula-ia-backend/local/ensaios_juiz/20261117T193100Z-60bc40e3bbad/resultado.json`.
+- SHA-256 do bruto analisado: `ad587f8a3aad3e6103f6e31bce257948fc81771907e5859e12e32eefe5478b9e`; **102.491 bytes**.
+  O bruto completo permanece local; o repositório conserva este
+  protocolo e o resumo estruturado.
+- Commit de execução `0fda26f653b6ccdda56c63545e6ba3dbc1bebaf1`, árvore limpa;
+  sem alteração dos módulos executáveis desde os ensaios v1.3 anteriores.
+- Arquivo do caso SHA-256 `f96aae72a335c02322ec39f0c4e568ca6ccf194732c0e03351ad969615d2a61a`;
+  plano canônico SHA-256 `1b3bfddcee405c918e70d91faf1cd931419b71be84e5556885fe05b4dfec352d`.
+- Prompt `juiz-v1.3`, SHA-256
+  `bdb7f05ee34f5aa59c4ea410282fa267bcbb057d370e0f8be223ad33367f2bd8`;
+  rubrica `rubrica-juiz-0.1`, parecer `parecer-juiz-1.0`,
+  Groq `openai/gpt-oss-120b`, temperatura 0, seed 42,
+  `reasoning_effort=medium`, `max_completion_tokens=8192`,
+  `--reparos 1`.
+
+### 9.1. Parecer observado
+
+- **Status técnico:** sucesso / HTTP 200; uma chamada, resposta válida
+  sem reparos; `finish_reason=stop`.
+- **Notas (0–3):** aderência curricular **3**; alinhamento dos objetivos
+  **3**; coerência metodológica **3**; viabilidade **3**;
+  avaliação da aprendizagem **1**; inclusão **3**.
+  **Total: 16/18.**
+- **F1:** `criterio=avaliacao_aprendizagem`,
+  `componente=avaliacao_preliminar`, `gravidade=maior`.
+  Aponta que `EVI1` apenas verifica a identificação do maior
+  elemento de dois cartões, mas `OBJ1` exige identificar
+  **passos de um algoritmo de ordenação** por manipulação física.
+  **Avaliação preliminar do pesquisador: crítica fundamentada e
+  pedagogicamente plausível**; contudo, a gravidade requer
+  adjudicação docente e não é um defeito manualmente injetado.
+- **F2:** `criterio=alinhamento_objetivos`,
+  `componente=objetivos`, `gravidade=menor`.
+  Aponta sobreposição entre `OBJ1` (identificar passos) e `OBJ2`
+  (simular Bubble Sort). **Avaliação do pesquisador: melhoria
+  discutível**, pois os verbos correspondem a ações distintas,
+  embora relacionadas; não classificar automaticamente como
+  acerto ou falso positivo.
+- **F3:** `criterio=coerencia_metodologica`,
+  `componente=sequencia`, `gravidade=menor`.
+  A metodologia menciona discussões coletivas e as etapas
+  `ET1`/`ET2` não explicitam esse momento.
+  **Avaliação preliminar: melhoria plausível**, possivelmente
+  solucionável dentro da própria `ET2` sem alterar a duração total.
+- **Problema de observância do prompt:** a justificativa de
+  `viabilidade=3` voltou a invocar a soma aritmética
+  `15 + 35 = 50`, embora a soma já esteja validada por código e
+  o prompt tenha instrução explícita de não a usar como prova
+  de exequibilidade pedagógica.
+
+**Decisão do código:** `em_correcao`, provocada por **F1**;
+`componentes_a_corrigir=["avaliacao_preliminar"]`;
+`falhas_que_motivam=["F1"]`.
+Invalidação: `["avaliacao_preliminar","metodologia","sequencia","avaliacao_final","adaptacao"]`.
+As duas falhas `menor` não acionaram correção automática.
+`ciclos_pedagogicos_executados=0` e
+`aprovacao_docente=nao_alterada`.
+
+**Métricas:** 4.767 tokens de entrada, 3.445 de saída, **8.212 tokens**
+no total; duração do ensaio **8,192639 s**, latência do provedor
+**8,05512 s**, `system_fingerprint=fp_02b0d31eca`.
+Custo monetário não informado; **não** assumir custo zero.
+
+### 9.2. Interpretação e marco do controle
+
+O plano-base original foi **questionado por três motivos**, dos quais
+ao menos um apresenta fundamento pedagógico plausível. Portanto,
+**não usar este ensaio para calcular falso-positivo ou especificidade
+sem um gabarito construído e revisado por docente**. Ausência de
+injeção experimental não garante ausência de defeitos nativos,
+especialmente em plano gerado automaticamente.
+
+Os primeiros ensaios válidos de `juiz-v1.3` cobrem os **três
+casos congelados**: **V01 1/1 detectou EVI2**, **V02 1/1 detectou
+a inversão**, e **Original 1/1 apontou três críticas, sem
+adjudicação humana**. Os acertos observados são exploratórios;
+a decisão automática de correção do original depende de F1,
+cuja pertinência final ainda precisa ser julgada.
+
+**Próximo marco recomendado:** solicitar adjudicação humana
+das falhas do original e dos possíveis falsos positivos curriculares
+antes de rotular respostas como verdadeiras ou falsas; preservar
+`juiz-v1.3` e, se se desejar estabilidade, efetuar replicações
+pré-definidas em todas as condições, registrando custos e HTTP 429.
+A seguir, construir casos inéditos com gabaritos prévios e
+reservados, não usados na evolução do prompt.
+
+**Resumo estruturado:**
+[Original_prompt_v13_20261117T193100Z_analise.json](resultados/Original_prompt_v13_20261117T193100Z_analise.json).
