@@ -56,3 +56,58 @@ Ensaio real, **somente após a validação**:
 ```powershell
 python ensaio_juiz.py avaliar --caso ../experimentos/juiz/casos/ordenacao_variante_evi2_desalinhada_01.json --reparos 1
 ```
+
+## 6. Resultados observados — série V01 (17/11/2026)
+
+**Análise posterior aos ensaios, sem alteração da hipótese pré-registrada (§3).**
+As execuções utilizaram o mesmo arquivo de caso (SHA-256 de arquivo
+`6d1d376c812963648620c6e2462e1a9ef22975f1bc1d1e6a339408492e66dcd5`),
+a mesma revisão de código `794af1a`, prompt `juiz-v1.2`, rubrica
+`rubrica-juiz-0.1`, modelo `openai/gpt-oss-120b`, temperatura 0, seed 42,
+`reasoning_effort=medium`, `max_completion_tokens=8192` e `--reparos 1`.
+Os registros originais de execução estão na pasta local ignorada pelo Git
+(`aula-ia-backend/local/ensaios_juiz/`) do responsável; **os arquivos
+`resultado.json` não foram incorporados ao Git nesta atualização**.
+
+| Ensaio / pasta UTC | Status | Nota aderência | Nota avaliação da aprendizagem | Falhas emitidas | Decisão |
+| --- | --- | ---: | ---: | --- | --- |
+| `20261117T184531Z-e40eead530df` | sucesso / parecer válido | 2 | 1 | F1 curricular questionável (`maior`); F2 EVI2 × OBJ2 (`critica`) | `revisao_necessaria` |
+| `20261117T184810Z-ec3aac6cfbf5` | sucesso / parecer válido | 3 | 1 | F1 EVI2 × OBJ2 (`maior`) | `em_correcao` |
+| `20261117T185010Z-ae34c9511e83` | falha / sem parecer válido | — | — | 1ª chamada HTTP 400: `componente="conteudos"` fora do enum; reparo técnico HTTP 429 (TPM 8.000, `retry-after: 43`) | nenhuma |
+| `20261117T185332Z-b68b4a0e4708` | sucesso / parecer válido | 3 | 1 | F1 EVI2 × OBJ2 (`maior`) | `em_correcao` |
+
+**Consolidação descritiva (somente três pareceres aceitos):**
+
+- **Detecção do desalinhamento EVI2 × OBJ2:** 3/3.
+- **Critério correto `avaliacao_aprendizagem` e componente correto
+  `avaliacao_preliminar`:** 3/3.
+- **Gravidade prevista `maior`:** 2/3; uma avaliação indicou `critica`.
+  A adequação da gravidade depende de revisão pedagógica humana.
+- **Decisão prevista `em_correcao`:** 2/3; uma indicou
+  `revisao_necessaria` em razão da classificação `critica`.
+- **Falso positivo curricular aparente (exigir outros algoritmos além de
+  Bubble Sort na mesma aula):** 1/3 pareceres válidos. No ensaio rejeitado
+  com HTTP 400, a geração bruta também repetiu essa alegação, mas **não é
+  parecer válido** e não entra nesse denominador.
+- **Pontuação total:** 15/18 na primeira avaliação válida; 16/18 nas duas
+  seguintes. A nota de `avaliacao_aprendizagem` foi 1/3 nas três.
+- **Problema recorrente de justificativa:** nota 3 em `viabilidade` ainda
+  se apoia parcialmente na soma de minutos, já validada mecanicamente.
+  As avaliações bem-sucedidas também sugeriram ajustar INS2, embora seu
+  procedimento já descreva observação das trocas; revisar a necessidade.
+
+**Limites e integridade:** os ensaios são repetições de **um único caso
+manualmente manipulado**, não três casos independentes nem validação
+estatística. O mesmo `seed` e a temperatura 0 não garantiram respostas
+idênticas; houve diferentes `system_fingerprint` registrados. A detecção
+demonstrada não garante especificidade, precisão global, calibração da
+gravidade ou adequação da política de correção. O HTTP 400 inicial e o 429
+do reparo devem ser relatados como falhas técnicas separadas dos pareceres
+aceitos. A aprovação docente não foi alterada e nenhum ciclo pedagógico de
+correção foi executado.
+
+**Encaminhamento:** manter o prompt, a rubrica e o contrato congelados nesta
+série. Submeter a avaliação da gravidade e o falso positivo curricular ao
+orientador; pré-registrar a V02 em documento próprio antes de uma nova
+chamada real. Evitar integrar correção automática enquanto as decisões e
+diagnósticos não forem mais bem avaliados.
