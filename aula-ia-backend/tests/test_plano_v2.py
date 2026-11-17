@@ -7,7 +7,7 @@ from unittest import TestCase
 from urllib.error import URLError
 from contratos import plano_v2 as c
 from erros import ErroContrato, ErroGeracao
-from geracao_v2 import AgenteGeminiCompleto, GeradorDePlanoCompleto
+from geracao_v2 import AgenteGeminiCompleto, GeradorDePlanoCompleto, esquema_gemini
 from rag.search import BuscaCurricular
 from servico import ServicoCurricular, ErroConsulta, abrir_banco, habilidade_publica
 from test_gemini import Transporte, envelope, CHAVE
@@ -160,8 +160,52 @@ class TestPlanoCompleto(TestCase):
             corpo = json.loads(pedido.data)
             dados = json.loads(corpo['contents'][0]['parts'][0]['text'])
             self.assertEqual(set(dados['saidas_anteriores']),set(c.DEPENDENCIAS[nome]))
-            self.assertEqual(corpo['generationConfig']['responseFormat']['text']['schema'],c.esquema(nome))
+            self.assertEqual(corpo['generationConfig']['responseFormat']['text']['schema'],esquema_gemini(nome))
         self.assertNotIn(CHAVE,json.dumps(r))
+
+    def test_schema_gemini_preserva_estrutura_e_contrato_local(self):
+        original = deepcopy(c.SCHEMA)
+        restricoes = {'minItems', 'maxItems', 'minimum', 'maximum', 'minLength', 'maxLength', 'pattern', 'uniqueItems'}
+
+        def conferir(local, enviado):
+            self.assertEqual(enviado['type'], local['type'])
+            self.assertFalse(restricoes & enviado.keys())
+            if restricoes & local.keys():
+                self.assertTrue(enviado['description'])
+            if local['type'] == 'object':
+                self.assertEqual(enviado['required'], local['required'])
+                self.assertFalse(enviado['additionalProperties'])
+                self.assertEqual(set(enviado['properties']), set(local['properties']))
+                for campo in local['properties']:
+                    conferir(local['properties'][campo], enviado['properties'][campo])
+            elif local['type'] == 'array':
+                conferir(local['items'], enviado['items'])
+
+        for nome in c.ETAPAS:
+            with self.subTest(agente=nome):
+                conferir(c.esquema(nome), esquema_gemini(nome))
+        self.assertEqual(c.SCHEMA, original)
+        sequencia = esquema_gemini('sequencia')['properties']['etapas']
+        self.assertIn('Quantidade máxima de itens: 12.', sequencia['description'])
+        self.assertIn('Valor mínimo: 1.', sequencia['items']['properties']['minutos']['description'])
+
+    def test_limites_locais_bloqueiam_respostas_apos_simplificar_schema_api(self):
+        casos = [('minutos', 0, 'limite_invalido'),
+                 ('id', 'fase-1', 'formato_invalido'),
+                 ('objetivos_ids', [], 'quantidade_invalida'),
+                 ('objetivos_ids', ['OBJ1', 'OBJ1'], 'item_duplicado'),
+                 ('atividade', ' ', 'texto_vazio')]
+        for campo, valor, regra in casos:
+            with self.subTest(campo=campo, valor=valor):
+                ruim = deepcopy(self.estado['sequencia'])
+                ruim['etapas'][0][campo] = valor
+                gerador, transporte = pipeline(respostas()[:3] + [envelope(ruim)], reparos=0)
+                with self.assertRaises(ErroContrato) as ctx:
+                    gerador.gerar(self.entrada, 0)
+                rejeitada = ctx.exception.rastreio[-1]
+                self.assertEqual(rejeitada['estado'], 'rejeitado')
+                self.assertIn(regra, [d['regra'] for d in rejeitada['diagnosticos']])
+                self.assertEqual(len(transporte.pedidos), 4)
 
     def test_reparo_local_conserva_tentativa_e_dependencias(self):
         lista = respostas()

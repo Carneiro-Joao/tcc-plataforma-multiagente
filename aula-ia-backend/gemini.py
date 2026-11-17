@@ -1,6 +1,7 @@
 """Gemini nativo via REST; nenhuma dependência de SDK nem fallback de provedor."""
 import json
 import os
+import random
 import re
 import time
 from urllib import error, request
@@ -27,7 +28,8 @@ SISTEMA = (
 
 class AgenteGemini:
     def __init__(self, modelo=MODELO_PADRAO, chave=None, transporte=None, timeout=90, *,
-                 esquema_saida=esquema, instrucoes=None, versao_contrato="poc04a-0.1", versao_prompt="especialistas-v1"):
+                 esquema_saida=esquema, instrucoes=None, versao_contrato="poc04a-0.1", versao_prompt="especialistas-v1",
+                 repeticoes_503=0):
         self.esquema_saida = esquema_saida
         self.instrucoes = instrucoes if instrucoes is not None else INSTRUCOES
         self.versao_contrato, self.versao_prompt = versao_contrato, versao_prompt
@@ -36,6 +38,9 @@ class AgenteGemini:
             raise ErroGeracao("Defina GEMINI_API_KEY no terminal do backend.", tipo="configuracao")
         if not isinstance(modelo, str) or not re.fullmatch(r"gemini-[a-z0-9.-]+", modelo):
             raise ErroGeracao("Identificador de modelo Gemini inválido.", tipo="configuracao")
+        if type(repeticoes_503) is not int or not 0 <= repeticoes_503 <= 2:
+            raise ErroGeracao("Use de zero a duas repetições para HTTP 503.", tipo="configuracao")
+        self.repeticoes_503 = repeticoes_503
         self.modelo, self.timeout = modelo, timeout
         self.transporte = transporte or request.urlopen
 
@@ -48,6 +53,33 @@ class AgenteGemini:
         if isinstance(valor, dict):
             return {self._seguro(k): self._seguro(v) for k, v in valor.items()}
         return valor
+
+    def _ler_http(self, pedido, registro):
+        """Repete somente 503, sem executar novamente os especialistas anteriores."""
+        for repeticao in range(self.repeticoes_503 + 1):
+            registro["chamadas_http"] = repeticao + 1
+            inicio = time.perf_counter()
+            try:
+                with self.transporte(pedido, timeout=self.timeout) as resposta:
+                    bruto = resposta.read(LIMITE_RESPOSTA + 1)
+                    registro["http_status"] = getattr(resposta, "status", 200)
+                    return bruto
+            except error.HTTPError as exc:
+                if exc.code != 503 or repeticao == self.repeticoes_503:
+                    raise
+                try:
+                    corpo_erro = self._seguro(exc.read(5000).decode("utf-8", "replace"))
+                except OSError:
+                    corpo_erro = "Corpo de erro indisponível."
+                finally:
+                    exc.close()
+                espera = round(2 ** (repeticao + 1) + random.uniform(0, 1), 3)
+                registro.setdefault("falhas_http_transitorias", []).append({
+                    "tentativa_http": repeticao + 1, "http_status": 503,
+                    "erro_corpo": corpo_erro, "latencia_s": round(time.perf_counter() - inicio, 3),
+                    "espera_s": espera,
+                })
+                time.sleep(espera)
 
     def executar(self, nome, entrada, estado, revisao, *, registro, reparo=None):
         dados = {"contexto": entrada["contexto"], "habilidade": entrada["habilidade"],
@@ -67,13 +99,12 @@ class AgenteGemini:
             data=json.dumps(corpo, ensure_ascii=False).encode("utf-8"),
             headers={"Content-Type": "application/json", "x-goog-api-key": self.chave}, method="POST")
         registro.update(provedor="gemini", modelo_pedido=self.modelo,
-                        versao_contrato=self.versao_contrato, versao_prompt=self.versao_prompt)
+                        versao_contrato=self.versao_contrato, versao_prompt=self.versao_prompt,
+                        repeticoes_503=self.repeticoes_503)
         inicio = time.perf_counter()
         try:
             try:
-                with self.transporte(pedido, timeout=self.timeout) as resposta:
-                    bruto = resposta.read(LIMITE_RESPOSTA + 1)
-                    registro["http_status"] = getattr(resposta, "status", 200)
+                bruto = self._ler_http(pedido, registro)
             except error.HTTPError as e:
                 registro["http_status"] = e.code
                 try:
@@ -87,11 +118,37 @@ class AgenteGemini:
                     401: "Chave inválida. Confira GEMINI_API_KEY.",
                     403: "Acesso negado. Confira chave, projeto e disponibilidade regional.",
                     404: "Modelo indisponível. Confira o identificador e acesso no AI Studio.",
-                    429: "Cota ou limite de requisições atingido. Confira os limites do projeto no AI Studio; nenhuma repetição automática foi feita.",
+                    429: "Cota ou limite de requisições atingido. Confira os limites do projeto no AI Studio; esse erro não será repetido automaticamente.",
+                    503: "Gemini temporariamente indisponível ou sobrecarregado. Tente novamente mais tarde.",
                 }
-                raise ErroGeracao(f"Gemini HTTP {e.code}: " + orientacoes.get(e.code, "Provedor indisponível; tente novamente mais tarde."), tipo="http") from None
-            except (error.URLError, TimeoutError, OSError):
-                raise ErroGeracao("Falha de conexão ou timeout ao chamar Gemini. Nenhuma repetição automática foi feita.", tipo="transporte") from None
+                orientacao = orientacoes.get(e.code, "Provedor indisponível; tente novamente mais tarde.")
+                try:
+                    envelope_erro = json.loads(registro["erro_corpo"])
+                except (ValueError, RecursionError):
+                    envelope_erro = {}
+                erro_api = envelope_erro.get("error") if isinstance(envelope_erro, dict) else None
+                detalhes = erro_api.get("details") if isinstance(erro_api, dict) else None
+                mensagem_api = erro_api.get("message") if isinstance(erro_api, dict) else None
+                if e.code == 503:
+                    if isinstance(mensagem_api, str) and "high demand" in mensagem_api.lower():
+                        orientacao = "Modelo Gemini sobrecarregado por alta demanda. Tente novamente mais tarde."
+                    if self.repeticoes_503:
+                        orientacao += f" Foram feitas {registro['chamadas_http']} tentativas nesta etapa."
+                if e.code == 400 and isinstance(mensagem_api, str) and "too many states" in mensagem_api.lower():
+                    orientacao = ("Esquema JSON de saída excedeu o limite de complexidade do Gemini. "
+                                  "Simplifique limites de listas, números e padrões enviados à API.")
+                if isinstance(detalhes, list) and any(
+                    isinstance(d, dict) and d.get("reason") == "API_KEY_INVALID" for d in detalhes
+                ):
+                    orientacao = ("Chave Gemini inválida (API_KEY_INVALID). Defina GEMINI_API_KEY com uma "
+                                  "chave válida do Google AI Studio no mesmo terminal e execute novamente.")
+                raise ErroGeracao(f"Gemini HTTP {e.code}: " + orientacao, tipo="http") from None
+            except (error.URLError, TimeoutError, OSError) as exc:
+                causa = exc.reason if isinstance(exc, error.URLError) else exc
+                detalhe = self._seguro(f"{type(causa).__name__}: {causa}")
+                registro["erro_transporte"] = detalhe
+                raise ErroGeracao("Falha de conexão ou timeout ao chamar Gemini. "
+                                  f"Detalhe: {detalhe}. Essa falha não será repetida automaticamente.", tipo="transporte") from None
             if len(bruto) > LIMITE_RESPOSTA:
                 raise ErroGeracao("Resposta Gemini excedeu o limite de leitura.", tipo="resposta_api")
             try:

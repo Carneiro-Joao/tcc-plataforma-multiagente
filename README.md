@@ -57,15 +57,37 @@ Resultados em `aula-ia-backend/local/teste_gemini/`, ignorados pelo Git. O termi
 
 O parâmetro `--modelo` permite escolher outro identificador Gemini, mas você deve conferir antes suporte a JSON estruturado, disponibilidade e preço. Não existe fallback automático.
 
+Se houver `ConnectionResetError` / `WinError 10054` em uma rede com IPv6 instável, teste a conexão por IPv4:
+
+```powershell
+python teste_gemini.py --ipv4 --rodadas 1 --duracao 50 --reparos 0
+```
+
+`--ipv4` vale somente para essa execução, mantém HTTPS com validação de certificado e não altera a rede do Windows. O JSON registra a opção em `rede`. A chave continua sendo lida de `GEMINI_API_KEY`; falhas da API encerram a rodada sem repetição automática.
+
+No contrato 2.0, o esquema enviado ao Gemini preserva campos obrigatórios, tipos e objetos fechados. Limites de listas/números, padrões de texto e unicidade são descritos para o modelo e continuam sendo exigidos pelo validador Python. Isso reduz a complexidade da gramática da API, evitando a rejeição HTTP 400 `too many states` causada por limites de listas aninhadas. Os registros desta versão usam `versao_prompt: especialistas-plano-2.1`; o contrato local permanece `plano-aula-2.0`. Consulte as [orientações oficiais sobre simplificação de esquemas](https://ai.google.dev/gemini-api/docs/structured-output#simplifying-complex-schemas).
+
 ## 4. Abrir o site
+
+No Windows, dê duplo clique em **`INICIAR_AULAIA.cmd`** na pasta do projeto. Se a chave ainda não estiver no ambiente, uma janela permite usar **Colar chave** e **Iniciar protótipo**. A entrada aparece como asteriscos; a chave não é gravada em arquivo. O iniciador usa Gemini real por IPv4 e abre o navegador. Mantenha a janela do servidor aberta.
 
 No mesmo terminal com a chave definida:
 
 ```bat
-python app.py --modo lexical --gerador ia
+python app.py --modo lexical --gerador ia --ipv4 --abrir
 ```
 
 Abra **http://127.0.0.1:8000**. Não precisa executar Node, npm ou Vite: o frontend compilado está versionado.
+
+Se estiver em um novo terminal, sem `GEMINI_API_KEY`, use a entrada oculta da chave:
+
+```powershell
+python app.py --modo lexical --gerador ia --ipv4 --pedir-chave --abrir
+```
+
+A chave fica somente na memória desse processo. Mantenha o terminal aberto enquanto usa o protótipo; pressione `Ctrl+C` nele para encerrar. `--abrir` inicia o navegador e `--ipv4` aplica ao site o mesmo transporte usado no teste de terminal.
+
+No site, HTTP **503** recebe até **duas novas tentativas na mesma etapa**, com esperas de 2–3 e 4–5 segundos. As etapas anteriores não são refeitas. Se o serviço continuar indisponível, a geração termina em falha. O rastreio mantém `chamadas_http` e `falhas_http_transitorias`, incluindo erros e esperas. O limite é de 18 requisições sem reparos ou 36 com um reparo estrutural em cada etapa. `--repeticoes-503 0` desativa esse comportamento; `teste_gemini.py` continua sem repetir erros HTTP. Cota (429), autenticação, rede e outros erros não são repetidos automaticamente. A estratégia segue a [orientação do Google para falhas transitórias](https://ai.google.dev/gemini-api/docs/troubleshooting#retry-strategy).
 
 Para demonstrar sem chave e sem rede:
 

@@ -1,17 +1,21 @@
 """Servidor local da prova de conceito. Execute python app.py --help."""
 import argparse
+from getpass import getpass
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import mimetypes
+import os
 from pathlib import Path
 import re
 from tempfile import TemporaryDirectory
 from urllib.parse import urlsplit
+import webbrowser
 from rag.search import BASE, BuscaCurricular
 from erros import ErroGeracao
-from geracao_v2 import GeradorDePlanoCompleto as GeradorDePlano
+from geracao_v2 import AgenteGeminiCompleto, GeradorDePlanoCompleto as GeradorDePlano
 from gemini import MODELO_PADRAO
+from rede import transporte_ipv4
 from servico import ErroConsulta, ServicoCurricular
 
 DIST = BASE.parent / "aula-ia" / "dist"
@@ -97,34 +101,59 @@ class Rotas(BaseHTTPRequestHandler):
     do_GET = do_POST = responder
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--modo", choices=("lexical", "hibrido"), default="lexical")
     parser.add_argument("--porta", type=int, default=8000)
     parser.add_argument("--gerador", choices=("demonstracao", "ia"), default="demonstracao")
     parser.add_argument("--modelo", default=MODELO_PADRAO, help="Modelo usado com --gerador ia")
+    parser.add_argument("--ipv4", action="store_true", help="Usa IPv4 nas chamadas ao Gemini nesta execução.")
+    parser.add_argument("--pedir-chave", action="store_true", help="Solicita a chave com entrada oculta se GEMINI_API_KEY não estiver definida; não salva a chave.")
+    parser.add_argument("--abrir", action="store_true", help="Abre o protótipo no navegador ao iniciar.")
     parser.add_argument("--banco", type=Path, default=BASE / "local" / "consultas.sqlite3", help="SQLite local para rastreabilidade técnica.")
     parser.add_argument("--temporario", action="store_true", help="Descartar dados ao encerrar; somente para demonstração descartável.")
     parser.add_argument("--reparos", type=int, choices=(0, 1), default=1, help="Reparos de contrato por especialista (não repete erros HTTP).")
-    args = parser.parse_args()
+    parser.add_argument("--repeticoes-503", type=int, choices=(0, 1, 2), default=2,
+                        help="Novas tentativas com espera somente para HTTP 503, por chamada (padrão: 2).")
+    args = parser.parse_args(argv)
     try:
         busca = BuscaCurricular(args.modo)
     except (ImportError, OSError, ValueError) as erro:
         parser.exit(1, f"Não foi possível iniciar a busca ({args.modo}): {erro}\n"
                        "Consulte a instalação do modo híbrido no README.md. Para testar sem modelo, use --modo lexical.\n")
     try:
-        gerador = GeradorDePlano(args.gerador, args.modelo, reparos=args.reparos)
+        agente = None
+        if args.gerador == "ia":
+            chave = os.environ.get("GEMINI_API_KEY", "").strip()
+            if args.pedir_chave and not chave:
+                print("AulaIA: cole sua chave do Gemini e pressione Enter. A entrada fica oculta e não é salva.", flush=True)
+                chave = getpass("Chave Gemini: ").strip()
+            agente = AgenteGeminiCompleto(args.modelo, chave=chave,
+                                         transporte=transporte_ipv4() if args.ipv4 else None,
+                                         repeticoes_503=args.repeticoes_503)
+        gerador = GeradorDePlano(args.gerador, args.modelo, agente=agente, reparos=args.reparos)
+    except (EOFError, KeyboardInterrupt):
+        parser.exit(1, "Inicialização cancelada.\n")
     except ErroGeracao as erro:
         parser.exit(1, f"Não foi possível iniciar a geração: {erro}\n")
-    servidor = ThreadingHTTPServer(("127.0.0.1", args.porta), Rotas)
+    try:
+        servidor = ThreadingHTTPServer(("127.0.0.1", args.porta), Rotas)
+    except OSError as erro:
+        parser.exit(1, f"Não foi possível abrir a porta {args.porta}: {erro}\n")
     temporario = TemporaryDirectory(prefix="aulaia-") if args.temporario else None
     banco = Path(temporario.name) / "sessao.sqlite3" if temporario else args.banco
     servidor.servico = ServicoCurricular(busca, banco, gerador)
     print("Dados: " + ("somente nesta sessão; ao reiniciar, consulte novamente." if temporario else str(banco)), flush=True)
     if args.gerador == "ia":
         print(f"Gemini: {args.modelo}; 6 chamadas normais, até {6 * (1 + args.reparos)} com reparos. Use projeto Free Tier no AI Studio.", flush=True)
-    print(f"AulaIA | http://127.0.0.1:{servidor.server_port} | busca {args.modo} | geração {args.gerador}", flush=True)
+        print("Conexão Gemini: " + ("IPv4" if args.ipv4 else "automática"), flush=True)
+        print(f"HTTP 503: até {args.repeticoes_503} novas tentativas com espera por chamada. "
+              f"Limite total com reparos e repetições: {6 * (1 + args.reparos) * (1 + args.repeticoes_503)} requisições.", flush=True)
+    url = f"http://127.0.0.1:{servidor.server_port}"
+    print(f"AulaIA | {url} | busca {args.modo} | geração {args.gerador}", flush=True)
     try:
+        if args.abrir:
+            webbrowser.open(url)
         servidor.serve_forever()
     except KeyboardInterrupt:
         pass

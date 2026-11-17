@@ -97,7 +97,7 @@
       <h4>10. Adaptações inclusivas</h4><ul>${p.adaptacoes.map(a => `<li><b>${texto(a.id)}</b> — ${texto(a.descricao)}<p>Objetivos: ${ids(a.objetivos_ids)} · Etapas: ${ids(a.etapas_ids)}</p></li>`).join("")}</ul>
       <h4>11. Referências</h4><ul>${p.referencias.map(r => `<li>${texto(r.titulo)}. ${texto(r.arquivo)}. Páginas: ${ids(r.paginas)}. Catálogo: ${texto(r.versao_catalogo)}.</li>`).join("")}</ul>
       <details class="geracao-rastreio"><summary>Inspecionar a construção do plano</summary>
-      <p>Cinco especialidades em seis chamadas: a avaliação define evidências antes das atividades e instrumentos depois. O integrador compõe as 11 seções em Python. Na demonstração, todas as etapas usam regras locais.</p>
+      <p>Cinco especialidades em seis chamadas normais: a avaliação define evidências antes das atividades e instrumentos depois. Reparos e novas tentativas após indisponibilidade ficam registrados em cada etapa. O integrador compõe as 11 seções em Python. Na demonstração, todas as etapas usam regras locais.</p>
       ${(resultado.rastreio || []).map(a => `<details><summary>${texto(a.agente)} · ${texto(a.estado)} · tentativa ${texto(a.tentativa || "—")}</summary><pre>${json(a)}</pre></details>`).join("")}</details>
       <details><summary>Ver plano completo (JSON)</summary><pre>${json(resultado)}</pre></details>
     </article>`;

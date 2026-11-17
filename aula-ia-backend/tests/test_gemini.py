@@ -34,9 +34,9 @@ class Transporte:
         return io.BytesIO(json.dumps(proximo).encode())
 
 
-def gerador(respostas, reparos=1):
+def gerador(respostas, reparos=1, repeticoes_503=0):
     transporte = Transporte(respostas)
-    agente = AgenteGemini(chave=CHAVE, transporte=transporte)
+    agente = AgenteGemini(chave=CHAVE, transporte=transporte, repeticoes_503=repeticoes_503)
     return GeradorDePlano("ia", agente=agente, reparos=reparos), transporte
 
 
@@ -109,6 +109,61 @@ class TestGemini(TestCase):
                 self.assertEqual(len(transporte.pedidos), 1)
                 self.assertNotIn(CHAVE, str(ctx.exception) + json.dumps(ctx.exception.rastreio))
                 self.assertEqual(ctx.exception.rastreio[0]["estado"], "falha")
+
+    def test_http_400_com_chave_invalida_indica_como_corrigir(self):
+        corpo = {"error": {"code": 400, "message": f"API key not valid: {CHAVE}",
+                           "status": "INVALID_ARGUMENT", "details": [
+                               {"@type": "type.googleapis.com/google.rpc.ErrorInfo",
+                                "reason": "API_KEY_INVALID", "domain": "googleapis.com"}]}}
+        erro = HTTPError("https://example.invalid", 400, "Bad Request", {},
+                         io.BytesIO(json.dumps(corpo).encode()))
+        pipeline, transporte = gerador([erro])
+        with self.assertRaises(ErroGeracao) as ctx:
+            pipeline.gerar(FIXTURE["entrada"], 0)
+        self.assertIn("API_KEY_INVALID", str(ctx.exception))
+        self.assertIn("GEMINI_API_KEY", str(ctx.exception))
+        self.assertEqual(ctx.exception.tipo, "http")
+        self.assertEqual(ctx.exception.rastreio[0]["http_status"], 400)
+        self.assertEqual(len(transporte.pedidos), 1)
+        self.assertNotIn(CHAVE, str(ctx.exception) + json.dumps(ctx.exception.rastreio))
+
+    def test_http_400_sem_motivo_reconhecido_preserva_orientacao(self):
+        for corpo in ({"error": {"details": [None, {"reason": "OUTRO"}]}},
+                      {"error": {"details": None}}, {"error": []}, [], None, "incompleto {"):
+            with self.subTest(corpo=corpo):
+                erro = HTTPError("https://example.invalid", 400, "Bad Request", {},
+                                 io.BytesIO(json.dumps(corpo).encode()))
+                pipeline, _ = gerador([erro])
+                with self.assertRaises(ErroGeracao) as ctx:
+                    pipeline.gerar(FIXTURE["entrada"], 0)
+                self.assertIn("Requisição recusada", str(ctx.exception))
+                self.assertEqual(ctx.exception.tipo, "http")
+
+    def test_falha_de_transporte_preserva_causa_sem_expor_chave(self):
+        for causa in (TimeoutError(f"tempo esgotado {CHAVE}"),
+                      PermissionError(13, f"acesso bloqueado {CHAVE}")):
+            with self.subTest(causa=type(causa).__name__):
+                pipeline, transporte = gerador([URLError(causa)])
+                with self.assertRaises(ErroGeracao) as ctx:
+                    pipeline.gerar(FIXTURE["entrada"], 0)
+                detalhe = ctx.exception.rastreio[0]["erro_transporte"]
+                self.assertIn(type(causa).__name__, detalhe)
+                self.assertIn(detalhe, str(ctx.exception))
+                self.assertNotIn(CHAVE, str(ctx.exception) + json.dumps(ctx.exception.rastreio))
+                self.assertEqual(ctx.exception.tipo, "transporte")
+                self.assertEqual(len(transporte.pedidos), 1)
+
+    def test_http_400_com_schema_complexo_informa_causa_sem_repetir(self):
+        corpo = {"error": {"code": 400, "status": "INVALID_ARGUMENT",
+                           "message": "The specified schema produces a constraint that has too many states for serving."}}
+        erro = HTTPError("https://example.invalid", 400, "Bad Request", {},
+                         io.BytesIO(json.dumps(corpo).encode()))
+        pipeline, transporte = gerador([erro])
+        with self.assertRaises(ErroGeracao) as ctx:
+            pipeline.gerar(FIXTURE["entrada"], 0)
+        self.assertIn("limite de complexidade", str(ctx.exception))
+        self.assertEqual(ctx.exception.tipo, "http")
+        self.assertEqual(len(transporte.pedidos), 1)
 
     def test_bloqueio_e_resposta_truncada_nao_entram_no_plano(self):
         truncado = envelope(FIXTURE["saidas"]["objetivos"])

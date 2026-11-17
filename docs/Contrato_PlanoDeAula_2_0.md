@@ -64,9 +64,9 @@ Uma adaptação contém `id`, `descricao`, `objetivos_ids` e `etapas_ids`. Os ob
 | `avaliacao_final` | Objetivos, avaliação preliminar, metodologia e sequência |
 | `adaptacao` | Todas as saídas anteriores |
 
-São cinco especialidades, **seis chamadas normais**, pois avaliação tem duas passagens. O integrador é Python e não chama a API. Cada chamada pode receber um reparo técnico, resultando em até 12 chamadas. `--reparos 0` limita às seis tentativas originais, interrompendo na primeira falha. Dependências já validadas são copiadas e preservadas durante o reparo.
+São cinco especialidades, **seis chamadas normais**, pois avaliação tem duas passagens. O integrador é Python e não chama a API. Cada etapa pode receber um reparo técnico, resultando em até 12 tentativas estruturais. `--reparos 0` desabilita esses reparos. Dependências já validadas são copiadas e preservadas durante o reparo.
 
-Erros HTTP, timeout, bloqueio ou término diferente de `STOP` interrompem a execução sem repetição automática. Não há fallback. JSON inválido, schema ou invariante violada permite o reparo técnico limitado. A tentativa inválida e seus diagnósticos ficam registrados. Isso não implementa o ciclo de correção pedagógica do Juiz.
+No site, HTTP 503 permite até duas novas tentativas da mesma chamada, com esperas de 2–3 e 4–5 segundos, sem refazer etapas anteriores. `--repeticoes-503 0` desativa as repetições; o teste de terminal mantém esse comportamento desativado. O limite do site é de 18 requisições sem reparos ou 36 com reparos. `chamadas_http` e `falhas_http_transitorias` registram as requisições extras. Outros erros HTTP, timeout, bloqueio ou término diferente de `STOP` interrompem a execução sem repetição automática. Não há fallback. JSON inválido, schema ou invariante violada permite o reparo técnico limitado. A tentativa inválida e seus diagnósticos ficam registrados. Isso não implementa o ciclo de correção pedagógica do Juiz.
 
 ## Conferência da execução real
 

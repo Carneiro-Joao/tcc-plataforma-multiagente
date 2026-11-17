@@ -13,10 +13,43 @@ INSTRUCOES = {
 }
 
 
+def esquema_gemini(nome):
+    """Mantém a estrutura; limites de valores são orientados e validados em Python.
+
+    Limites de listas aninhadas multiplicam os estados da gramática do Gemini.
+    Trabalhamos sobre uma cópia para preservar o contrato local completo.
+    """
+    esquema = contrato.esquema(nome)
+
+    def simplificar(no):
+        orientacoes = []
+        for chave, rotulo in (
+            ('minItems', 'Quantidade mínima de itens'), ('maxItems', 'Quantidade máxima de itens'),
+            ('minimum', 'Valor mínimo'), ('maximum', 'Valor máximo'),
+            ('minLength', 'Comprimento mínimo do texto'), ('maxLength', 'Comprimento máximo do texto'),
+        ):
+            if chave in no:
+                orientacoes.append(f'{rotulo}: {no.pop(chave)}.')
+        if no.pop('uniqueItems', False):
+            orientacoes.append('Não repita itens.')
+        padrao = no.pop('pattern', None)
+        if padrao:
+            orientacoes.append('Use texto não vazio.' if padrao == r'\S' else f'Formato obrigatório (regex): {padrao}.')
+        if orientacoes:
+            no['description'] = ' '.join(filter(None, [no.get('description'), *orientacoes]))
+        for propriedade in no.get('properties', {}).values():
+            simplificar(propriedade)
+        if isinstance(no.get('items'), dict):
+            simplificar(no['items'])
+
+    simplificar(esquema)
+    return esquema
+
+
 class AgenteGeminiCompleto(AgenteGemini):
     def __init__(self, modelo=MODELO_PADRAO, **kwargs):
-        super().__init__(modelo, esquema_saida=contrato.esquema, instrucoes=INSTRUCOES,
-                         versao_contrato=contrato.VERSAO, versao_prompt='especialistas-plano-2.0', **kwargs)
+        super().__init__(modelo, esquema_saida=esquema_gemini, instrucoes=INSTRUCOES,
+                         versao_contrato=contrato.VERSAO, versao_prompt='especialistas-plano-2.1', **kwargs)
 
 
 class AgenteDemonstrativoCompleto:

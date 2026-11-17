@@ -1,0 +1,2 @@
+# O hash do catalogo BNCC deve ser identico em Windows e Linux.
+/aula-ia-backend/data/bncc_8ano.json text eol=lf

@@ -3,6 +3,7 @@
 Exemplos na pasta aula-ia-backend:
     python teste_gemini.py --simular
     python teste_gemini.py --rodadas 1 --duracao 50
+    python teste_gemini.py --ipv4 --rodadas 1 --reparos 0
 Registros técnicos em local/teste_gemini/; não incluem headers ou chaves.
 """
 import argparse
@@ -12,9 +13,10 @@ from pathlib import Path
 import time
 from uuid import uuid4
 from geracao import GeradorDePlano as GeradorLegado, ErroGeracao
-from geracao_v2 import GeradorDePlanoCompleto
-from gemini import MODELO_PADRAO
+from geracao_v2 import AgenteGeminiCompleto, GeradorDePlanoCompleto
+from gemini import AgenteGemini, MODELO_PADRAO
 from rag.search import BuscaCurricular
+from rede import transporte_ipv4
 from servico import habilidade_publica
 
 BASE = Path(__file__).resolve().parent
@@ -60,6 +62,7 @@ def resumir(rodada):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--simular", action="store_true", help="Executa regras locais; não usa Gemini nem comprova sua qualidade.")
+    parser.add_argument("--ipv4", action="store_true", help="Usa IPv4 nesta execução para contornar falhas de conexão em redes com IPv6 instável.")
     parser.add_argument("--modelo", default=MODELO_PADRAO)
     parser.add_argument("--rodadas", type=inteiro_positivo, default=1)
     parser.add_argument("--duracao", type=inteiro_positivo, default=50)
@@ -71,7 +74,12 @@ def main(argv=None):
     if args.duracao > 1440:
         parser.error("Duração máxima: 1440 minutos.")
     try:
-        gerador = GeradorDePlano("demonstracao" if args.simular else "ia", args.modelo, reparos=args.reparos)
+        agente = None
+        if args.ipv4 and not args.simular:
+            ClasseAgente = AgenteGeminiCompleto if args.contrato == "2.0" else AgenteGemini
+            agente = ClasseAgente(args.modelo, transporte=transporte_ipv4())
+        gerador = GeradorDePlano("demonstracao" if args.simular else "ia", args.modelo,
+                                agente=agente, reparos=args.reparos)
     except ErroGeracao as e:
         parser.exit(1, f"{e}\n")
     hab = next(h for h in BuscaCurricular().documentos if h["codigo"] == "EF08CO03")
@@ -83,10 +91,13 @@ def main(argv=None):
     destino = pasta / f"{datetime.now():%Y%m%d-%H%M%S}-{uuid4().hex[:8]}.json"
     documento = {"versao": gerador.VERSAO_CONTRATO, "criado_em": datetime.now(timezone.utc).isoformat(),
                  "modo": gerador.modo, "modelo_pedido": gerador.modelo,
+                 "rede": "sem_rede" if args.simular else ("ipv4" if args.ipv4 else "automatica"),
                  "entrada": entrada, "rodadas": []}
     salvar(destino, documento)
     print("SIMULAÇÃO sem API." if args.simular else f"Gemini real: {args.modelo}. {chamadas_normais} chamadas normais; até {chamadas_normais*(1+args.reparos)} por rodada com reparos.", flush=True)
     if not args.simular:
+        if args.ipv4:
+            print("Conexão via IPv4 nesta execução.", flush=True)
         print("Use um projeto Free Tier no AI Studio. O script não consegue verificar seu faturamento e não troca de modelo automaticamente.", flush=True)
     print(f"Resultados: {destino}", flush=True)
     codigo = 0

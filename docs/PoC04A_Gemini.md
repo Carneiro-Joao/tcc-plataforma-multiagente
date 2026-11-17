@@ -18,11 +18,13 @@ A documentação também informa que certas restrições, como `uniqueItems` e `
 
 A ordem é objetivos → avaliação preliminar → metodologia → sequência → avaliação final → adaptação. Cada chamada recebe as dependências declaradas em `contratos/plano_v2.py`. O integrador reúne as saídas validadas; código e texto oficiais vêm do catálogo confirmado, nunca de uma resposta LLM.
 
-São seis chamadas normais e até 12 se cada uma precisar do único reparo técnico permitido. `--reparos 0` desabilita reparos. Erros HTTP, timeout, bloqueio e término diferente de `STOP` encerram a execução sem repetição automática. O reparo conserva entrada/dependências e registra a tentativa anterior. Nova geração manual cria outra revisão e recalcula o fluxo completo; invalidação seletiva e orçamento pedagógico ficam para o Juiz.
+São seis chamadas normais e até 12 tentativas estruturais se cada uma precisar do único reparo técnico permitido. `--reparos 0` desabilita reparos. No site, somente HTTP 503 permite duas novas tentativas na mesma etapa, com espera crescente e variação aleatória; `--repeticoes-503 0` desativa essa recuperação. São no máximo 18 requisições sem reparos ou 36 com reparos. O teste de terminal mantém erros HTTP sem repetição. Outros erros HTTP, timeout, bloqueio e término diferente de `STOP` encerram a execução. O reparo conserva entrada/dependências e registra a tentativa anterior. Nova geração manual cria outra revisão e recalcula o fluxo completo; invalidação seletiva e orçamento pedagógico ficam para o Juiz.
 
 ## Observabilidade e compatibilidade
 
 `teste_gemini.py` usa por padrão o mesmo contrato do site. O JSON registra entrada, envelope da API, conteúdo bruto, modelo respondido, `usageMetadata`, `finishReason`, status HTTP, latência, versões de contrato/prompt e tentativas. Ausência de uso não é interpretada como ausência de consumo. Cabeçalhos e credenciais não são gravados; a chave é enviada em `x-goog-api-key` e removida se for ecoada.
+
+Quando há recuperação de HTTP 503 no site, `chamadas_http` informa a quantidade real de requisições daquela tentativa estrutural. `falhas_http_transitorias` conserva cada 503 intermediário, seu corpo redigido, latência e espera; a resposta final fica nos campos usuais da etapa.
 
 `inspecionar_gemini.py` revalida registros já salvos, inclusive v0.1, sem novas chamadas. Informa o modo declarado e consumo conhecido e compara o plano com a recomposição das saídas. Não autentica a origem de arquivos editáveis.
 
