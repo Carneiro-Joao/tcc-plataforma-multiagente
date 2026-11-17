@@ -233,3 +233,14 @@ Em ambiente com sockets locais permitidos, executar a suíte completa:
 - [Revisão científica e protocolo RD-002](Revisao_Fundamentacao_Rubrica_Juiz_2026-11-17.md).
 
 Os registros antigos que mencionam DeepSeek são históricos. A decisão implementada nesta PoC é GroqCloud.
+
+## V02 — Comparação invertida no Bubble Sort (pré-registro)
+
+A variante controlada V02 foi derivada do mesmo plano real SQLite, alterando somente
+`plano.desenvolvimento[1].acao_discente` (ET2) para inverter o sentido da troca
+em ordenação crescente. É um experimento de **erro conceitual**, distinto do
+desalinhamento EVI2/OBJ2 estudado na V01. Não confundir a edição manual com
+uma nova geração do Gemini. A hipótese, os hashes e o protocolo foram
+congelados **antes de qualquer avaliação GroqCloud da V02**; não existem
+resultados V02 registrados nesta revisão. Ver
+[protocolo V02](../experimentos/juiz/Protocolo_V02_Bubble_Sort_Comparacao_Invertida.md).
