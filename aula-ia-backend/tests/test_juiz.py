@@ -476,7 +476,7 @@ class TestJuizComTransporteGeminiSimulado(TestCase):
         self.assertEqual(dados["saidas_anteriores"], {"plano": PLANO})
         self.assertNotIn(CHAVE, pedido.full_url + pedido.data.decode())
         self.assertEqual(r["rastreio"][0]["versao_contrato"], "parecer-juiz-1.0")
-        self.assertEqual(r["rastreio"][0]["versao_prompt"], "juiz-v1.2")
+        self.assertEqual(r["rastreio"][0]["versao_prompt"], j.VERSAO_PROMPT)
         self.assertEqual(r["rastreio"][0]["versao_esquema_api"], VERSAO_ESQUEMA_API)
         self.assertNotIn(CHAVE, json.dumps(r))
 
