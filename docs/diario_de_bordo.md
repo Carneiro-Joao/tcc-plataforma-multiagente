@@ -22,8 +22,10 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 - `src/App.css` e o início de `public/tema-compat.css` são cópias; manter iguais.
 
 **Pendências**
-- Overflow horizontal da página no celular (~420 px): pré-existente, não corrigido.
-- Tela de confirmação (React compilado) ainda mostra o tema como digitado.
+- ~~Overflow no celular~~: era artefato da captura (`--window-size` do Chrome headless tem largura mínima). Medido com emulação
+  real (CDP) em 360/390/430/768 px, inclusive confirmação e plano gerado: nenhum elemento passa da largura da tela.
+- ~~Tema/Recursos minúsculos na confirmação~~: resolvido só com CSS (`::first-letter` nas linhas 1 e 5 do `dl`), ver commit seguinte.
+- O título do plano de demonstração repete o tema como digitado ("Plano de aula — quero ensinar…"); não alterado.
 - Branch não mesclada; `main` não tocada.
 
 ---

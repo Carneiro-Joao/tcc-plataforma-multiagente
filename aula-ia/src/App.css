@@ -125,6 +125,8 @@ dl { margin: 0 0 15px; }
 dl > div { display: grid; grid-template-columns: 112px 1fr; gap: 10px; padding: 9px 3px; border-bottom: 1px solid #d6e3ea; font-size: 13px; }
 dt { color: #4a5670; }
 dd { margin: 0; overflow-wrap: anywhere; }
+/* Tema (1a linha) e Recursos (5a) com inicial maiuscula so na exibicao; o dado digitado nao muda. */
+.confirmacao dl > div:nth-child(1) dd::first-letter, .confirmacao dl > div:nth-child(5) dd::first-letter { text-transform: uppercase; }
 .json-entrada { background: #eef3f6; padding: 13px 17px; border-radius: 10px; font-size: 13px; font-weight: 750; }
 pre { max-height: 360px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; padding: 14px; background: #eef3f6; border-radius: 8px; font-family: ui-monospace,Consolas,monospace; }
 
