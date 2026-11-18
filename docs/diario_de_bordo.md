@@ -6,6 +6,28 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-18 01:10 · Claude Code · `feat/ui-identidade-cores` @ `bb94f16`, `9ff2b29`
+
+**Feito** (branch criada a partir de `feat/poc05g-completar-series`; pedido do João, só visual)
+- `bb94f16` identidade visual: marinho `#0b1f3a` (dominante), gelo `#e6f4f6` (secundária), turquesa `#14b8b0` (destaque; texto
+  marinho sobre ele). Fonte Sora (títulos/menu/botões) + Inter (texto). Variáveis `--marinho`, `--gelo`, `--turquesa`.
+  Primeira tentativa (marinho/creme `#FBE8CF`/laranja `#FDAC2F`) foi descartada pelo João: o creme dominou.
+- `9ff2b29` Tema e Recursos aparecem com inicial maiúscula **só na exibição** do plano (`geracao-ui.js`). O dado salvo não muda,
+  porque o contrato exige `recursos` idêntico à entrada. Teste em `aula-ia/tests/test-plano-render.mjs` (mutação manual: tirar a
+  maiúscula ou o escape faz o teste falhar). Backend: 309 testes OK.
+
+**Atenção para quem mexer no front**
+- O app serve `aula-ia/dist/` = React **antigo** compilado + `tema-compat.css` + `geracao-ui.css/js` por cima. Editar em `public/` e
+  copiar para `dist/`. **Não rodar `npm run build`** sem decisão do João: troca o app pela versão nova de `src/App.jsx`.
+- `src/App.css` e o início de `public/tema-compat.css` são cópias; manter iguais.
+
+**Pendências**
+- Overflow horizontal da página no celular (~420 px): pré-existente, não corrigido.
+- Tela de confirmação (React compilado) ainda mostra o tema como digitado.
+- Branch não mesclada; `main` não tocada.
+
+---
+
 ## 2026-11-18 00:35 · Claude Code · `feat/poc05g-completar-series` @ `f35ff84`
 
 **Feito**

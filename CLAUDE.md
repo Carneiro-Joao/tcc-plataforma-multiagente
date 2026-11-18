@@ -41,7 +41,9 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 ## Estado em 18/11/2026
 - Cadeia de branches: `feat/poc04a-contratos` → `poc04a-gemini` → `poc04a-prototipo-local` → `poc05-juiz-contrato` → `poc05b-juiz-groq`
   → `poc05c-variantes` → `poc05d-analise-serie` → `poc05e-relatorio-testes` → `poc05f-filtro-baseline` → `claude-md-contexto`
-  → `poc05g-completar-series`. `main` está defasada (`3939dfd`).
+  → `poc05g-completar-series` → `ui-identidade-cores` (paleta marinho/gelo/turquesa, fonte Sora + Inter). `main` está defasada (`3939dfd`).
+- Front: o app serve `aula-ia/dist/` (React antigo compilado + `tema-compat.css` + `geracao-ui.*`). Editar `public/` e copiar para `dist/`;
+  não rodar `npm run build` sem o João pedir.
 - Registro entre Claude Code, Codex e Claude do chat: `docs/diario_de_bordo.md` (mais novas no topo; escrever uma entrada ao terminar algo).
 - Juiz: prompt `juiz-v1.3`, rubrica 0.1, política preliminar. **Não está integrado** ao pipeline, à UI nem ao SQLite.
 - Séries com v1.3 **completas** (3 válidos cada; falhas técnicas à parte): controle do plano original = 3; V03 = 3; V04 = 3 (+2 falhas 413);
