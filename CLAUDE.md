@@ -40,15 +40,20 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 
 ## Estado em 18/11/2026
 - Cadeia de branches: `feat/poc04a-contratos` → `poc04a-gemini` → `poc04a-prototipo-local` → `poc05-juiz-contrato` → `poc05b-juiz-groq`
-  → `poc05c-variantes` → `poc05d-analise-serie` → `poc05e-relatorio-testes` → `poc05f-filtro-baseline`. `main` está defasada (`3939dfd`).
+  → `poc05c-variantes` → `poc05d-analise-serie` → `poc05e-relatorio-testes` → `poc05f-filtro-baseline` → `claude-md-contexto`
+  → `poc05g-completar-series`. `main` está defasada (`3939dfd`).
+- Registro entre Claude Code, Codex e Claude do chat: `docs/diario_de_bordo.md` (mais novas no topo; escrever uma entrada ao terminar algo).
 - Juiz: prompt `juiz-v1.3`, rubrica 0.1, política preliminar. **Não está integrado** ao pipeline, à UI nem ao SQLite.
-- Séries com v1.3: controle do plano original = 3 válidos; V03 = 3; V06 = 3 (estável pelo critério mecânico, mas com limites);
-  V04 = 1 e V05 = 2 válidos (HTTP 413 nas demais) — faltam 2 e 1.
+- Séries com v1.3 **completas** (3 válidos cada; falhas técnicas à parte): controle do plano original = 3; V03 = 3; V04 = 3 (+2 falhas 413);
+  V05 = 3 (+1 falha 413); V06 = 3. Níveis mecânicos: V03 parcial 2/ausente 1; V04 parcial 1/ausente 2; V05 plena 3;
+  V06 sem pares novos e decisão igual à base 3/3. Tudo provisório, aguardando adjudicação humana.
+- A busca de chaves com `findstr` dá falso positivo conhecido em `20261118T023623Z-e8304f3019e7/resultado.json`
+  (mensagem de erro cita "GROQ_API_KEY"; sem chave real). Qualquer outro match: parar e avisar o João.
 - Achados a adjudicar: o Juiz repete "plano só trabalha Bubble sort" (possível falso positivo curricular) e "ET2 simula uma passagem só";
   na V03 ele acha o defeito mas atribui ao componente `metodologia` em vez de `sequencia`.
 
 ## Pendências (ordem sugerida)
-1. Completar V04 (+2) e V05 (+1), commitar `ensaios_juiz`, analisar.
+1. ~~Completar V04 e V05~~ (feito em `f35ff84`, 18/11). Próximo: adjudicação humana das séries V03–V06.
 2. Planilha de adjudicação humana (definir quem adjudica enquanto o orientador viaja).
 3. Registro de decisões + e-mail ao orientador (pendente de ratificação). Perguntar a data final do TCC.
 4. Juiz → pipeline (estados, tabela de pareceres no SQLite, UI); ciclo de correção entre agentes.
