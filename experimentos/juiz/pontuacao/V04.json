@@ -1,0 +1,41 @@
+{
+  "id_variante": "V04-ADAPTACAO-GENERICA",
+  "numero": "V04",
+  "tipo": "deteccao",
+  "ids_alvo": [
+    "ADP2"
+  ],
+  "pleno": {
+    "criterios": [
+      "inclusao"
+    ],
+    "componentes": [
+      "adaptacao"
+    ],
+    "gravidades": [
+      "maior"
+    ]
+  },
+  "parcial": [
+    {
+      "criterios": [
+        "inclusao"
+      ],
+      "componentes": [
+        "adaptacao"
+      ],
+      "gravidades": [
+        "menor"
+      ]
+    }
+  ],
+  "nota_maxima": {
+    "inclusao": 2
+  },
+  "fonte": {
+    "protocolo": "experimentos/juiz/Protocolo_V04_Adaptacao_Generica.md",
+    "especificacao": "experimentos/juiz/variantes/ordenacao_variante_adaptacao_generica_04.spec.json",
+    "sha256_hipotese": "6443389ec3805f0e7d5de67e54623e6e786a1dbed50712853ddccd9cc80f4ff1",
+    "observacao": "Regras mecânicas derivadas do texto pré-registrado da hipótese. Commit ANTES dos ensaios; não editar depois de ver resultados."
+  }
+}

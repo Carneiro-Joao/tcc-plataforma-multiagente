@@ -1,0 +1,54 @@
+{
+  "id_variante": "V03-RECURSO-NAO-CONFIRMADO",
+  "numero": "V03",
+  "tipo": "deteccao",
+  "ids_alvo": [
+    "ET1"
+  ],
+  "pleno": {
+    "criterios": [
+      "viabilidade"
+    ],
+    "componentes": [
+      "sequencia"
+    ],
+    "gravidades": [
+      "maior"
+    ]
+  },
+  "parcial": [
+    {
+      "criterios": [
+        "viabilidade"
+      ],
+      "componentes": [
+        "sequencia"
+      ],
+      "gravidades": [
+        "menor"
+      ]
+    },
+    {
+      "criterios": [
+        "coerencia_metodologica"
+      ],
+      "componentes": [
+        "sequencia"
+      ],
+      "gravidades": [
+        "menor",
+        "maior",
+        "critica"
+      ]
+    }
+  ],
+  "nota_maxima": {
+    "viabilidade": 2
+  },
+  "fonte": {
+    "protocolo": "experimentos/juiz/Protocolo_V03_Recurso_Nao_Confirmado.md",
+    "especificacao": "experimentos/juiz/variantes/ordenacao_variante_projetor_nao_confirmado_03.spec.json",
+    "sha256_hipotese": "c851dd8ee36f59d30945ba174ed90e7984b9358fc9867fe7b76c927056d6bca5",
+    "observacao": "Regras mecânicas derivadas do texto pré-registrado da hipótese. Commit ANTES dos ensaios; não editar depois de ver resultados."
+  }
+}

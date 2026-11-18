@@ -1,0 +1,44 @@
+{
+  "id_variante": "V05-CONTEUDO-PERIFERICO",
+  "numero": "V05",
+  "tipo": "deteccao",
+  "ids_alvo": [
+    "ET2"
+  ],
+  "pleno": {
+    "criterios": [
+      "aderencia_curricular"
+    ],
+    "componentes": [
+      "sequencia"
+    ],
+    "gravidades": [
+      "critica",
+      "maior"
+    ]
+  },
+  "parcial": [
+    {
+      "criterios": [
+        "coerencia_metodologica"
+      ],
+      "componentes": [
+        "sequencia"
+      ],
+      "gravidades": [
+        "menor",
+        "maior",
+        "critica"
+      ]
+    }
+  ],
+  "nota_maxima": {
+    "aderencia_curricular": 1
+  },
+  "fonte": {
+    "protocolo": "experimentos/juiz/Protocolo_V05_Conteudo_Periferico.md",
+    "especificacao": "experimentos/juiz/variantes/ordenacao_variante_conteudo_periferico_05.spec.json",
+    "sha256_hipotese": "7e91aa5692c013f5d31da8ef4b62e34441b7af8dbab66df0b50498b7b80268f3",
+    "observacao": "Regras mecânicas derivadas do texto pré-registrado da hipótese. Commit ANTES dos ensaios; não editar depois de ver resultados."
+  }
+}

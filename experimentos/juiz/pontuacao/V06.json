@@ -1,0 +1,17 @@
+{
+  "id_variante": "V06-PERTURBACAO-NEUTRA",
+  "numero": "V06",
+  "tipo": "controle",
+  "termos_da_reformulacao": [
+    "objetivo geral",
+    "objetivo_geral",
+    "reformula\\w*",
+    "reescrit\\w*"
+  ],
+  "fonte": {
+    "protocolo": "experimentos/juiz/Protocolo_V06_Perturbacao_Neutra.md",
+    "especificacao": "experimentos/juiz/variantes/ordenacao_variante_perturbacao_neutra_06.spec.json",
+    "sha256_hipotese": "eb88156b1f17c3e3b58b3116b8cb6663fb1804915948248a7f94df9ce38e8b4a",
+    "observacao": "Regras mecânicas derivadas do texto pré-registrado da hipótese. Commit ANTES dos ensaios; não editar depois de ver resultados."
+  }
+}
