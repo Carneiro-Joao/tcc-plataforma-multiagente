@@ -1,0 +1,54 @@
+{
+  "versao_ensaio": "ensaio-juiz-0.1",
+  "iniciado_em": "2026-11-17T18:37:14.588226+00:00",
+  "status": "iniciado",
+  "modo": "api_real",
+  "codigo": {
+    "sha": "e6f2d90e358511382e90a8ce5bfcc22eb06967ea",
+    "arvore_modificada": false,
+    "arquivos_sha256": {
+      "ensaio_juiz.py": "f340b679da909f2fd989063e7a68c801753ea100898003f7c429bb301f111911",
+      "casos_juiz.py": "c7821d537e5ec2d3bc190f36e5cd6452b7dbc001e36f5fee2b7658800c4d0374",
+      "groq_juiz.py": "d560f427a3b99023961e54b91b182a130aa1f773553e027e40644e12700c304b",
+      "juiz.py": "9b1669d2d1a12364ecec77a59c298952e43db21f7ca7fe2288c33c8f7bc53156",
+      "erros.py": "226fd1ee8f98f8ac2936988f705f51ecd6b20db043886f2e40f2049f2c03d854",
+      "contratos/juiz_v1.py": "4e0c592a1e6ce49480d7158c07e759d65e48a908083e57be3d6b90e0032627b7",
+      "contratos/juiz_v1.schema.json": "5fc4d36a8bdb613fa777e687824c7aaa9b02251c6e68c80000198c91ee0f0436",
+      "contratos/rubrica_juiz.py": "a65ff67bb88522c1d11dee73b6af59f3540d3ca1fe42da0ca4012ba5188c0451",
+      "contratos/plano_v2.py": "7cbcf2e632cd0c497a790e80cf227ae6c30489f41475b3bff090fe4fb3668d24",
+      "contratos/plano_v2.schema.json": "098bf113288ddb66cc2c9200508c58b182661a029d2056d07f300aeaa758b8d7",
+      "contratos/execucao.py": "069a969574674c387fdc08aaf549befc8a4ded05d50552f3bebed5d64b6d6566",
+      "contratos/validacao.py": "4a7b0eeca40e13f7b7e0d1638ca3e687a487eb9e22736567649ca474bb94a390"
+    }
+  },
+  "python": "3.14.0",
+  "contrato_plano": "plano-aula-2.0",
+  "contrato_parecer": "parecer-juiz-1.0",
+  "versao_rubrica": "rubrica-juiz-0.1",
+  "versao_prompt": "juiz-v1.2",
+  "versao_adaptador": "groq-juiz-0.2",
+  "versao_esquema_api": "parecer-juiz-1.0-groq-strict-v1",
+  "politica": {
+    "nome": "politica-juiz-prelim-0.1",
+    "status": "preliminar; não validada empiricamente; deve ser ajustada após testes",
+    "nota_minima": 2,
+    "gravidades_que_exigem_correcao": [
+      "maior",
+      "critica"
+    ],
+    "critica_exige_revisao_humana": true,
+    "limite_ciclos": 2
+  },
+  "modelo_juiz": "openai/gpt-oss-120b",
+  "reparos_contrato_permitidos": 1,
+  "ciclos_pedagogicos_executados": 0,
+  "aprovacao_docente": "nao_alterada",
+  "parametros": {
+    "timeout_s": 90,
+    "temperature": 0,
+    "max_completion_tokens": 8192,
+    "reasoning_effort": "medium",
+    "seed": 42
+  },
+  "rastreio": []
+}
