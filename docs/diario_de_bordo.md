@@ -6,6 +6,20 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-18 15:30 · Claude do chat · `feat/poc05h-adjudicacao`
+
+**Feito**
+- Ferramenta de adjudicação humana das séries V03–V06 + controle (v1.3): `adjudicacao.py`, `adjudicacao_web.py`, `concordancia.py`
+  e `docs/Guia_Adjudicacao_Humana.md`. Gera 3 páginas HTML offline (Fase A cega, Fase B informada, comparação com kappa e consenso)
+  e `chave_de_codigos.json` (não compartilhar antes do fim da Fase A).
+- Escopo: 5 planos, 39 críticas, 12 pareceres (só válidos de `juiz-v1.3`).
+- Testes novos: `test_adjudicacao.py` (23) e `test_concordancia.py` (12), com mutação manual; interface testada em Chromium.
+
+**Pendências**
+- João escolhe o 2º avaliador, gera as páginas (`python adjudicacao.py`) e conduz as fases; o resultado volta em `experimentos/juiz/adjudicacao/`.
+
+---
+
 ## 2026-11-18 00:35 · Claude Code · `feat/poc05g-completar-series` @ `f35ff84`
 
 **Feito**

@@ -21,6 +21,7 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 - App: `python app.py --modo lexical --gerador ia --ipv4 --abrir` (demo sem API: `--gerador demonstracao`).
 - Juiz: `python ensaio_juiz.py avaliar --caso ../experimentos/juiz/casos/<caso>.json --versao-prompt juiz-v1.3 --reparos 1`
   (use `--somente-validar` para testar sem rede nem chave).
+- Adjudicação humana: `python adjudicacao.py` (gera páginas em `local/adjudicacao/`); guia em `docs/Guia_Adjudicacao_Humana.md`; `python concordancia.py a.json b.json`.
 - Análise: `python analisar_serie.py --pasta local/ensaios_juiz --regra ../experimentos/juiz/pontuacao/V0X.json --baseline-pasta local/ensaios_juiz`.
 
 ## Regras que não podem ser quebradas
@@ -54,7 +55,7 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 
 ## Pendências (ordem sugerida)
 1. ~~Completar V04 e V05~~ (feito em `f35ff84`, 18/11). Próximo: adjudicação humana das séries V03–V06.
-2. Planilha de adjudicação humana (definir quem adjudica enquanto o orientador viaja).
+2. Adjudicação humana: ferramenta pronta (`feat/poc05h-adjudicacao`); falta escolher o 2º avaliador e rodar as Fases A e B.
 3. Registro de decisões + e-mail ao orientador (pendente de ratificação). Perguntar a data final do TCC.
 4. Juiz → pipeline (estados, tabela de pareceres no SQLite, UI); ciclo de correção entre agentes.
 5. Plano de merge para `main`; limpar menções residuais a DeepSeek na documentação.
