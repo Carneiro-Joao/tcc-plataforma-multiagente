@@ -19,6 +19,8 @@
   // O dado salvo não muda, pois o contrato exige recursos idênticos à entrada.
   const inicialMaiuscula = valor => String(valor ?? "").trim().replace(/^\p{Ll}/u, letra => letra.toLocaleUpperCase("pt-BR"));
   const textoDigitado = valor => escapar(inicialMaiuscula(valor));
+  // Título: o modelo de demonstração repete o tema digitado após o travessão ("Plano de aula — quero…").
+  const tituloExibido = valor => escapar(inicialMaiuscula(valor).replace(/(—\s*)(\p{Ll})/u, (_, sep, letra) => sep + letra.toLocaleUpperCase("pt-BR")));
   const json = valor => escapar(JSON.stringify(valor, null, 2));
 
   async function api(url, corpo) {
@@ -79,7 +81,7 @@
     const ids = valores => valores.map(texto).join(", ");
     return `<article class="geracao-documento">
       <div class="geracao-cabecalho"><div><span class="geracao-rotulo">Plano candidato · revisão ${texto(geracao.revisao)}</span>
-      <h3>${texto(i.titulo)}</h3></div><span class="geracao-status ${geracao.estado === "aprovado" ? "aprovado" : ""}">${geracao.estado === "aprovado" ? "Aprovado pelo professor" : "Aguardando aprovação"}</span></div>
+      <h3>${tituloExibido(i.titulo)}</h3></div><span class="geracao-status ${geracao.estado === "aprovado" ? "aprovado" : ""}">${geracao.estado === "aprovado" ? "Aprovado pelo professor" : "Aguardando aprovação"}</span></div>
       <h4>1. Identificação</h4>
       <div class="geracao-resumo"><span><b>Componente</b> ${texto(i.componente)}</span><span><b>Ano</b> ${texto(i.ano)}</span><span><b>Duração</b> ${texto(i.duracao_min)} min</span><span><b>Tipo</b> ${texto(i.tipo)}</span></div>
       <p><b>Tema:</b> ${textoDigitado(i.tema)}</p>
@@ -111,7 +113,7 @@
     if (resultado.contrato === "plano-aula-2.0") return planoCompletoHtml(plano, resultado, geracao);
     return `<article class="geracao-documento">
       <div class="geracao-cabecalho"><div><span class="geracao-rotulo">Plano candidato · revisão ${geracao.revisao}</span>
-      <h3>${texto(plano.titulo)}</h3></div><span class="geracao-status ${geracao.estado === "aprovado" ? "aprovado" : ""}">${geracao.estado === "aprovado" ? "Aprovado pelo professor" : "Aguardando aprovação"}</span></div>
+      <h3>${tituloExibido(plano.titulo)}</h3></div><span class="geracao-status ${geracao.estado === "aprovado" ? "aprovado" : ""}">${geracao.estado === "aprovado" ? "Aprovado pelo professor" : "Aguardando aprovação"}</span></div>
       <div class="geracao-resumo"><span><b>Ano</b> ${texto(plano.ano)}</span><span><b>Duração</b> ${texto(plano.duracao_min)} min</span><span><b>Tipo</b> ${texto(plano.tipo)}</span></div>
       <div class="geracao-habilidade"><b>Habilidade BNCC · ${texto(plano.habilidade_codigo)}</b><p>${texto(plano.habilidade_texto)}</p></div>
       <h4>Objetivos de aprendizagem</h4><ul>${(plano.objetivos || []).map(o => `<li>${texto(o)}</li>`).join("")}</ul>
