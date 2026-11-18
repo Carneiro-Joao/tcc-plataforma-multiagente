@@ -6,6 +6,26 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-18 02:00 · Claude Code · `feat/ui-jsx-nativo` (a partir de `feat/ui-identidade-cores` @ `a734cca`)
+
+**Feito** (decisão do João: usar a versão nova do JSX)
+- `a734cca` (em `ui-identidade-cores`): título do plano com inicial maiúscula na exibição, inclusive após o travessão
+  ("Plano de aula — Quero ensinar…"). Teste + mutação manual.
+- `npm ci` + `npm run build`: `dist/` agora vem de `src/App.jsx` (antes: React da PoC 02 compilado + camada `tema-compat`).
+  Mesma API, mesma chave de sessão `aulaia.consulta.v1`, mesmos campos. Ganhos: menu lateral, trilha e etapas nativos no React,
+  ícones SVG, indicador de progresso que escuta `aulaia:geracao-atualizada` (aprovação marca a etapa 3).
+- Removidos `public/tema-compat.css/js` (e cópias em `dist/`), sem uso com o JSX novo.
+- `geracao-ui.css`: `.primario.geracao-aprovar` (mais específica), porque no build novo o CSS do app carrega depois e deixaria o botão
+  Aprovar marinho em vez de verde.
+- Verificação: fluxo real na UI via CDP (preencher → consultar → escolher → confirmar → gerar → aprovar) em 1440 e 360 px:
+  sem erro no console, sem estouro horizontal, Aprovar verde, 3 etapas concluídas após aprovar. Front test OK; backend 309 OK.
+
+**Pendências**
+- `npm audit`: 0 vulnerabilidades nas dependências de produção; avisos só nas de desenvolvimento (não afetam o `dist/`).
+- Merge da cadeia para `main` continua pendente.
+
+---
+
 ## 2026-11-18 01:10 · Claude Code · `feat/ui-identidade-cores` @ `bb94f16`, `9ff2b29`
 
 **Feito** (branch criada a partir de `feat/poc05g-completar-series`; pedido do João, só visual)

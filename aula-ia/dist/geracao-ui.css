@@ -32,8 +32,8 @@
 .geracao-botoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 .geracao-botoes button{cursor:pointer}
 .geracao-botoes button:disabled{opacity:.55;cursor:wait}
-.geracao-aprovar{background:linear-gradient(125deg,#168754,#09633d)}
-.geracao-aprovar:hover:enabled{background:linear-gradient(125deg,#18a16a,#08613b)}
+.primario.geracao-aprovar{background:linear-gradient(125deg,#168754,#09633d)}
+.primario.geracao-aprovar:hover:enabled{background:linear-gradient(125deg,#18a16a,#08613b)}
 .geracao-nota{color:#5f6a80;font-size:12px;margin:13px 0 0}
 @media(max-width:760px){.geracao-painel{padding:21px 18px;border-radius:17px}.geracao-intro,.geracao-cabecalho{flex-direction:column}.geracao-documento{padding:16px}.geracao-status{white-space:normal}}
 @media print{.geracao-intro,.geracao-alerta,.geracao-botoes,.geracao-nota,.geracao-rastreio,.geracao-documento details{display:none!important}.geracao-painel,.geracao-documento{border:none;margin:0;padding:0;box-shadow:none}.geracao-documento{display:block!important}.geracao-habilidade{background:#f2f2f2}body{background:#fff}}
