@@ -162,6 +162,108 @@ class TestControleV06(Base):
         self.assertEqual(self.analisar("V06", self.pasta)["n_baseline"], 0)
 
 
+class TestBaselineCompativel(Base):
+    """Controle só vale se for do MESMO plano e da MESMA configuração (prompt, modelo, rubrica, parâmetros)."""
+    fa = ("aderencia_curricular", "objetivos", "maior", "ET1 depende de projeção e internet.")
+
+    def alterar(self, pasta_ensaio, **campos):
+        arq = pasta_ensaio / "resultado.json"
+        d = json.loads(arq.read_text(encoding="utf-8"))
+        for k, v in campos.items():
+            d[k] = v
+        arq.write_text(json.dumps(d), encoding="utf-8")
+
+    def base(self, n=1, **campos):
+        antes = set(self.pasta.iterdir())
+        for _ in range(n):
+            self.rodar("BASE", parecer(self.fa))
+        novos = sorted(set(self.pasta.iterdir()) - antes)
+        if campos:
+            for pasta_ensaio in novos:
+                self.alterar(pasta_ensaio, **campos)
+        return novos
+
+    def test_tres_controles_de_prompts_diferentes_nao_viram_tres_baselines(self):
+        for versao in ("juiz-v1.1", "juiz-v1.2"):
+            self.base(1, versao_prompt=versao)
+        self.rodar("V06", parecer(self.fa))
+        atual = self.base(1)  # mesma configuração da série
+        analise = self.analisar("V06", self.pasta)
+        self.assertEqual(analise["n_baseline"], 1 + 0)  # só o controle da configuração atual
+        self.assertEqual(sum(analise["baseline_descartados"].values()), 2)
+        self.assertTrue(any("versao_prompt" in m for m in analise["baseline_descartados"]))
+        self.assertTrue(atual)
+
+    def test_controle_de_outro_plano_e_descartado(self):
+        self.base(1, plano_sha256="0" * 64)
+        self.base(1)
+        self.rodar("V06", parecer(self.fa))
+        analise = self.analisar("V06", self.pasta)
+        self.assertEqual(analise["n_baseline"], 1)
+        self.assertEqual(analise["baseline_descartados"], {"outro plano (hash diferente)": 1})
+
+    def test_controle_de_outro_modelo_ou_parametros_e_descartado(self):
+        self.base(1, modelo_juiz="outro/modelo")
+        self.base(1, parametros={"temperature": 1})
+        self.base(1, modo="somente_validar")
+        self.rodar("V06", parecer(self.fa))
+        analise = self.analisar("V06", self.pasta)
+        self.assertEqual(analise["n_baseline"], 0)
+        self.assertEqual(sum(analise["baseline_descartados"].values()), 3)
+
+    def test_controle_de_outra_politica_de_decisao_e_descartado(self):
+        self.base(1, politica={"nome": "politica-juiz-outra"})
+        self.rodar("V06", parecer(self.fa))
+        analise = self.analisar("V06", self.pasta)
+        self.assertEqual(analise["n_baseline"], 0)
+        self.assertTrue(any("politica" in m for m in analise["baseline_descartados"]))
+
+    def test_relatorio_informa_descartes_e_configuracao(self):
+        self.base(1, versao_prompt="juiz-v1.1")
+        self.rodar("V06", parecer(self.fa))
+        texto = a.renderizar_relatorio(self.analisar("V06", self.pasta))
+        self.assertIn("Controle descartado", texto)
+        self.assertIn("versao_prompt", texto)
+        self.assertIn("Configuração da série", texto)
+        self.assertIn("insuficiente", texto)
+
+    def test_serie_com_configuracoes_misturadas_nao_seleciona_baseline(self):
+        self.base(3)
+        for _ in range(2):
+            self.rodar("V06", parecer(self.fa))
+        antigos = sorted(p for p in self.pasta.iterdir() if "variante" in (self.lerorigem(p).get("tipo") or ""))
+        self.alterar(antigos[0], versao_prompt="juiz-v1.1")
+        analise = self.analisar("V06", self.pasta)
+        self.assertEqual(analise["n_baseline"], 0)
+        self.assertTrue(any("mistura" in x for x in analise["avisos"]))
+
+    def lerorigem(self, pasta_ensaio):
+        return json.loads((pasta_ensaio / "resultado.json").read_text(encoding="utf-8")).get("origem") or {}
+
+    def test_sem_pareceres_da_variante_nao_chuta_baseline(self):
+        self.base(3)
+        analise = self.analisar("V06", self.pasta)
+        self.assertEqual(analise["n_baseline"], 0)
+        self.assertTrue(any("Nenhum baseline" in x for x in analise["avisos"]))
+
+    def test_antes_da_serie_versao_do_prompt_conta_so_os_controles_daquela_versao(self):
+        self.base(2, versao_prompt="juiz-v1.1")
+        self.base(1, versao_prompt="juiz-v1.3")
+        analise = a.analisar(self.pasta, regra("V06"), self.pasta, "juiz-v1.3")
+        self.assertEqual(analise["n_baseline"], 1)
+        self.assertTrue(any("juiz-v1.3" in x for x in analise["avisos"]))
+        self.assertEqual(a.analisar(self.pasta, regra("V06"), self.pasta, "juiz-v9")["n_baseline"], 0)
+        self.assertEqual(a.analisar(self.pasta, regra("V06"), self.pasta)["n_baseline"], 0)
+
+    def test_deteccao_expoe_trecho_e_nao_confirma_semantica(self):
+        self.rodar("V03", parecer(("viabilidade", "sequencia", "maior", "ET1 está longa demais para o tempo da aula.")))
+        p = self.analisar("V03")["linhas"][0]["pontuacao"]
+        self.assertEqual(p["nivel"], "plena")  # mecânico: ID + critério + componente + gravidade
+        self.assertFalse(p["semantica_confirmada"])
+        self.assertIn("longa demais", p["trechos_do_alvo"]["F1"])
+        self.assertIn("NÃO confirma", a.renderizar_relatorio(self.analisar("V03")))
+
+
 class TestSeparacaoDeExecucoes(Base):
     def test_falha_tecnica_nao_entra_no_denominador(self):
         self.rodar("V03", parecer(V03_PLENA))

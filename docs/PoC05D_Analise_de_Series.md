@@ -41,3 +41,20 @@ Os arquivos em `experimentos/juiz/pontuacao/` são derivados do texto já pré-r
 - Três pareceres por variante descrevem o comportamento nesses casos; não medem estabilidade, sensibilidade nem especificidade.
 - A auditoria de soma de minutos usa uma expressão regular; pode haver falso positivo (por exemplo, uma soma legítima de itens) e falso negativo (uma soma escrita por extenso).
 - Os testes usam pareceres **sintéticos** gerados pelo próprio `executar_ensaio` com agentes falsos. Eles provam a lógica do analisador, não o comportamento de um LLM.
+
+## Correção de 17/11 (noite): controle só vale na mesma configuração
+
+Problema achado na revisão: o analisador escolhia os controles do plano original só por `origem.tipo = sqlite_real`.
+No repositório existem 3 pareceres válidos desse plano, mas de **prompts diferentes** (v1.1, v1.2, v1.3), então havia
+apenas **1** controle válido para a configuração v1.3, e não 3.
+
+Agora um controle só entra na linha de base se tiver o **mesmo `plano_sha256`** (hash do plano original, lido de
+`origem.plano_base_sha256` da variante) e a **mesma configuração experimental** da série analisada: modo, versão e hash do
+prompt, rubrica, adaptador, esquema da API, modelo do Juiz, parâmetros e política de decisão. O relatório lista cada
+controle descartado e o motivo. Série com configurações misturadas não recebe baseline.
+
+Antes de existir qualquer parecer da variante, `--versao-prompt juiz-v1.3` conta quantos controles daquela versão existem.
+
+Limite que continua valendo na detecção (V03 a V05): "plena" = ID-alvo citado + critério + componente + gravidade
+esperados. Isso **não** confirma que o texto descreve o defeito inserido; o relatório mostra o trecho (`trechos_do_alvo`)
+e `semantica_confirmada` é sempre `False` até a adjudicação humana.

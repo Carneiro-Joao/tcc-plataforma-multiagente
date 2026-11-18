@@ -93,6 +93,7 @@ def pontuar_deteccao(parecer, regra):
     notas = {a["criterio"]: a["nota"] for a in parecer["avaliacoes"]}
     acima = {c: notas[c] for c, maxima in regra.get("nota_maxima", {}).items() if notas[c] > maxima}
     return dict(nivel=nivel, motivo=motivo, falhas_do_alvo=[f["id"] for f in do_alvo],
+                trechos_do_alvo={f["id"]: texto_da_falha(f)[:300] for f in do_alvo}, semantica_confirmada=False,
                 gravidades=sorted({f["gravidade"] for f in do_alvo}), falhas_fora_do_alvo=[f["id"] for f in fora],
                 notas_acima_do_esperado=acima, resultado_negativo_provavel=not do_alvo and bool(acima))
 
@@ -137,6 +138,42 @@ def selecionar(execs, id_variante=None, tipo=None):
     return saida
 
 
+CAMPOS_CONFIG = ("modo", "versao_prompt", "prompt_sha256", "versao_rubrica", "versao_adaptador", "versao_esquema_api",
+                 "modelo_juiz", "parametros")
+
+
+def config_experimental(registro):
+    """Tudo o que, se mudar, torna dois pareceres NÃO comparáveis (além do plano avaliado)."""
+    c = {k: registro.get(k) for k in CAMPOS_CONFIG}
+    c["politica"] = (registro.get("politica") or {}).get("nome")
+    return c
+
+
+def configs_distintas(execs):
+    vistas = []
+    for e in execs:
+        c = config_experimental(e["registro"])
+        if c not in vistas:
+            vistas.append(c)
+    return vistas
+
+
+def baseline_compativel(execs, plano_sha256, config):
+    """Controles do plano ORIGINAL com o mesmo hash de plano e a mesma configuração da série analisada.
+    Devolve (execuções, descartadas) onde descartadas conta o motivo de cada exclusão."""
+    aceitos, descartados = [], Counter()
+    for e in selecionar(execs, tipo="sqlite_real"):
+        r = e["registro"]
+        if r.get("plano_sha256") != plano_sha256:
+            descartados["outro plano (hash diferente)"] += 1
+        elif config_experimental(r) != config:
+            diferentes = sorted(k for k, v in config_experimental(r).items() if v != config.get(k))
+            descartados["configuração diferente: " + ", ".join(diferentes)] += 1
+        else:
+            aceitos.append(e)
+    return aceitos, descartados
+
+
 def validos_e_falhas(execs):
     validos, falhas = [], []
     for e in execs:
@@ -154,15 +191,33 @@ def parecer_de(e):
     return dict(r["parecer"], _decisao=r["decisao"]["proximo_estado"])
 
 
-def analisar(pasta, regra, pasta_baseline=None):
+def analisar(pasta, regra, pasta_baseline=None, versao_prompt=None):
     execs, avisos = carregar_execucoes(pasta)
     do_caso = selecionar(execs, id_variante=regra["id_variante"])
     validos, falhas = validos_e_falhas(do_caso)
-    baselines = []
+    baselines, descartados = [], Counter()
+    configs = configs_distintas(validos)
+    if len(configs) > 1:
+        avisos.append(f"A série mistura {len(configs)} configurações experimentais (prompt/modelo/parâmetros): "
+                      "não é uma série homogênea e nenhum baseline foi selecionado.")
     if pasta_baseline is not None:
         base_execs, av2 = carregar_execucoes(pasta_baseline)
         avisos += av2
-        baselines = [parecer_de(e) for e in validos_e_falhas(selecionar(base_execs, tipo="sqlite_real"))[0]]
+        hashes = {(e["registro"].get("origem") or {}).get("plano_base_sha256") for e in validos} - {None}
+        if not validos and versao_prompt:  # antes da série: a configuração vem do prompt pedido, o plano do próprio controle
+            candidatos = [e for e in validos_e_falhas(selecionar(base_execs, tipo="sqlite_real"))[0]
+                          if e["registro"].get("versao_prompt") == versao_prompt]
+            configs = configs_distintas(candidatos)
+            hashes = {e["registro"].get("plano_sha256") for e in candidatos}
+            avisos.append(f"Série ainda sem pareceres: baseline calculado pelo prompt informado ({versao_prompt}); "
+                          "confirme que a série futura usará exatamente esta configuração.")
+        if len(configs) != 1 or len(hashes) != 1:
+            if len(configs) == 1 or not validos:
+                avisos.append("Sem pareceres válidos da variante (ou sem plano_base_sha256): não há como saber qual "
+                              "configuração e qual plano o baseline deve ter. Nenhum baseline selecionado.")
+        else:
+            aceitos, descartados = baseline_compativel(validos_e_falhas(base_execs)[0], next(iter(hashes)), configs[0])
+            baselines = [parecer_de(e) for e in aceitos]
     linhas = []
     for e in validos:
         p = parecer_de(e)
@@ -178,6 +233,7 @@ def analisar(pasta, regra, pasta_baseline=None):
             linha["pontuacao"] = pontuar_controle(p, regra, baselines)
         linhas.append(linha)
     return dict(regra=regra, linhas=linhas, falhas_tecnicas=falhas, avisos=avisos, n_baseline=len(baselines),
+                baseline_descartados=dict(descartados), configuracao=configs[0] if len(configs) == 1 else None,
                 n_execucoes=len(do_caso))
 
 
@@ -195,7 +251,14 @@ def renderizar_relatorio(a):
            f"falhas técnicas: **{len(a['falhas_tecnicas'])}**.",
            f"- Os pareceres válidos são o denominador. Falhas técnicas (HTTP, cota, recusa) **não** entram como "
            "detecção nem como falso negativo."]
+    if a.get("configuracao"):
+        c = a["configuracao"]
+        out.append(f"- Configuração da série: prompt `{c['versao_prompt']}`, modelo `{c['modelo_juiz']}`, "
+                   f"rubrica `{c['versao_rubrica']}`, modo `{c['modo']}`.")
     if r["tipo"] == "deteccao":
+        out.append("- **Atenção:** \"plena\" significa ID-alvo citado + critério, componente e gravidade esperados. "
+                   "Isso NÃO confirma que o texto da falha descreve o defeito inserido; confirme lendo cada trecho "
+                   "(`trechos_do_alvo`) na adjudicação humana.")
         cont = Counter(l["pontuacao"]["nivel"] for l in linhas)
         out += [f"- Níveis (mecânicos): " + ", ".join(f"{n}: {cont.get(n, 0)}/{len(linhas)}" for n in NIVEIS) + ".", "",
                 "| Execução | Nível | Falhas do alvo (gravidade) | Fora do alvo | Notas acima do esperado | Decisão |",
@@ -207,7 +270,8 @@ def renderizar_relatorio(a):
                        f"{p['notas_acima_do_esperado'] or '—'} | {l['decisao']} |")
     else:
         out += [f"- Pareceres do controle original usados como linha de base: **{a['n_baseline']}**"
-                + (" (insuficiente: o protocolo pede 3)." if a["n_baseline"] < 3 else "."), "",
+                + (" (insuficiente: o protocolo pede 3)." if a["n_baseline"] < 3 else "."),
+                *[f"- Controle descartado ({n}): {motivo}." for motivo, n in sorted(a.get("baseline_descartados", {}).items())], "",
                 "| Execução | Citam a reformulação | Pares (critério, componente) novos | Crítica/maior nova | Decisão igual à base | Decisão |",
                 "|---|---|---|---|---|---|"]
         for l in linhas:
@@ -246,12 +310,13 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="Análise mecânica provisória de uma série de ensaios do Juiz.")
     parser.add_argument("--pasta", required=True, type=Path, help="Pasta com os ensaios (local/ensaios_juiz).")
     parser.add_argument("--regra", required=True, type=Path, help="Arquivo de pontuação da variante.")
+    parser.add_argument("--versao-prompt", help="Antes da série existir: conta os controles válidos desta versão (ex.: juiz-v1.3).")
     parser.add_argument("--baseline-pasta", type=Path, help="Pasta com os ensaios do caso original (só para controles).")
     parser.add_argument("--saida", type=Path, help="Grava o relatório (não sobrescreve).")
     args = parser.parse_args(argv)
     try:
         regra = ler_json(args.regra.read_text(encoding="utf-8-sig"))
-        relatorio = renderizar_relatorio(analisar(args.pasta, regra, args.baseline_pasta))
+        relatorio = renderizar_relatorio(analisar(args.pasta, regra, args.baseline_pasta, args.versao_prompt))
         if args.saida:
             with args.saida.open("x", encoding="utf-8", newline="\n") as arquivo:
                 arquivo.write(relatorio)
