@@ -1,0 +1,24 @@
+{
+  "id_variante": "V04-ADAPTACAO-GENERICA",
+  "numero": "V04",
+  "caso_base": "experimentos/juiz/casos/ordenacao_real_994c4cd5.json",
+  "campo": "plano.adaptacoes[1].descricao",
+  "valor_original": "Reduzir a quantidade de cartões de papel utilizados simultaneamente na simulação do Bubble sort, focando em pares menores para facilitar a contagem oral e a manipulação manual.",
+  "valor_novo": "Adaptar as atividades conforme as necessidades individuais de cada estudante, oferecendo apoio adicional sempre que necessário.",
+  "arquivo_caso": "experimentos/juiz/casos/ordenacao_variante_adaptacao_generica_04.json",
+  "arquivo_protocolo": "experimentos/juiz/Protocolo_V04_Adaptacao_Generica.md",
+  "titulo": "adaptação genérica",
+  "tipo_defeito": "adaptação genérica",
+  "descricao_manipulacao": "A descrição de ADP2 passa a ser uma frase aplicável a qualquer plano de qualquer disciplina: não indica material, alternativa de participação nem como o apoio ocorre. Os vínculos com OBJ1, OBJ2 e ET2 são preservados, então o contrato mecânico continua satisfeito. ADP1 permanece específica.",
+  "hipotese": {
+    "principal": "O Juiz aponta que ADP2 é genérica: não oferece alternativa concreta de participação ou de demonstração da aprendizagem e poderia ser copiada para qualquer plano.",
+    "criterio_esperado": "`inclusao`.",
+    "componente_esperado": "`adaptacao`.",
+    "gravidade_provavel": "`maior` (a rubrica descreve adaptações genéricas como nota 1). `menor` conta como detecção parcial.",
+    "nota_esperada": "`inclusao` no máximo 2; esperada 1 se a falha for `maior`.",
+    "resultado_negativo": "Nota 3 em `inclusao` sem falha sobre ADP2, ou elogio de ADP2 como específica ou concreta.",
+    "falsos_positivos": "Falhas sobre ADP1 ou fora de `adaptacoes` são registradas separadamente e comparadas ao controle original; não contam como detecção.",
+    "observacao_de_desenho": "Como ADP1 continua específica, é plausível uma nota 2 com falha sobre ADP2. Isso será lido como detecção, com a nota registrada."
+  },
+  "natureza_do_conjunto": "O tipo de defeito **já é descrito pela rubrica** (indicador e âncora de `inclusao`: adaptações específicas do plano, não frases genéricas). O ensaio mede se o Juiz **aplica a rubrica que recebe** a um caso concreto; não mede a descoberta de defeitos imprevistos. O plano-base já foi usado no desenvolvimento do prompt: não é holdout de plano."
+}

@@ -1,0 +1,24 @@
+{
+  "id_variante": "V06-PERTURBACAO-NEUTRA",
+  "numero": "V06",
+  "caso_base": "experimentos/juiz/casos/ordenacao_real_994c4cd5.json",
+  "campo": "plano.objetivo_geral",
+  "valor_original": "Compreender e simular algoritmos clássicos de ordenação usando cartões de papel em uma atividade desplugada.",
+  "valor_novo": "Compreender e simular, em uma atividade desplugada com cartões de papel, algoritmos clássicos de ordenação.",
+  "arquivo_caso": "experimentos/juiz/casos/ordenacao_variante_perturbacao_neutra_06.json",
+  "arquivo_protocolo": "experimentos/juiz/Protocolo_V06_Perturbacao_Neutra.md",
+  "titulo": "perturbação semanticamente neutra (controle de estabilidade)",
+  "tipo_defeito": "nenhum: controle de estabilidade",
+  "descricao_manipulacao": "O objetivo geral é reescrito com as mesmas palavras em outra ordem; o sentido não muda. Não há defeito a detectar. A variante serve para medir se uma mudança neutra, sem consequência pedagógica, altera os diagnósticos do Juiz (estabilidade) e quantas falhas novas ele inventa (falso positivo).",
+  "hipotese": {
+    "principal": "Perturbação neutra. O Juiz não deve apontar falha nova atribuível à reformulação e deve reproduzir, no essencial, o conjunto de falhas (critério e componente) do controle original com o mesmo prompt.",
+    "criterio_esperado": "Nenhum específico (controle de estabilidade).",
+    "componente_esperado": "Nenhum.",
+    "gravidade_provavel": "Não se aplica.",
+    "nota_esperada": "Sem queda sistemática em relação ao controle original.",
+    "resultado_negativo": "Instabilidade: falha `critica` ou `maior` nova, ligada ao objetivo geral e ausente no controle original; ou mudança de decisão causada por falha nova.",
+    "falsos_positivos": "Toda falha cuja descrição cite a reformulação do objetivo geral é falso positivo. Diferenças de conjunto de falhas em relação ao controle original sem citar a reformulação são registradas como variabilidade do Juiz ou do provedor, não como falso positivo.",
+    "observacao_de_desenho": "O controle original tem hoje um único parecer válido com `juiz-v1.3`. Para uma comparação justa, execute o plano original com o mesmo prompt até ter três pareceres válidos."
+  },
+  "natureza_do_conjunto": "Controle de estabilidade: **não há defeito a detectar**. Mede a variabilidade do Juiz diante de uma mudança sem consequência pedagógica. O plano-base já foi usado no desenvolvimento do prompt."
+}

@@ -1,0 +1,25 @@
+{
+  "id_variante": "V03-RECURSO-NAO-CONFIRMADO",
+  "numero": "V03",
+  "caso_base": "experimentos/juiz/casos/ordenacao_real_994c4cd5.json",
+  "campo": "plano.desenvolvimento[0].acao_docente",
+  "valor_original": "Apresentar o conceito de algoritmos clássicos de manipulação de listas e demonstrar com cartões de papel a lógica de comparação de elementos adjacentes.",
+  "valor_novo": "Apresentar o conceito de algoritmos clássicos de manipulação de listas e demonstrar a lógica de comparação de elementos adjacentes projetando no quadro uma animação online do Bubble sort, avançando passo a passo na tela.",
+  "arquivo_caso": "experimentos/juiz/casos/ordenacao_variante_projetor_nao_confirmado_03.json",
+  "arquivo_protocolo": "experimentos/juiz/Protocolo_V03_Recurso_Nao_Confirmado.md",
+  "titulo": "recurso não confirmado (projeção e internet)",
+  "tipo_defeito": "recurso não confirmado",
+  "descricao_manipulacao": "A ação docente de ET1 passa a exigir projeção em tela e acesso à internet. O contexto confirmado declara apenas `papel` como recurso. O campo `recursos` do plano permanece `papel`, de modo que a verificação mecânica de recursos não detecta a mudança: ela só aparece na prosa da etapa. Como apenas um campo foi alterado, `atividade` e `acao_discente` de ET1 continuam falando em cartões.",
+  "hipotese": {
+    "principal": "O Juiz aponta que a ação docente de ET1 depende de projeção em tela e de acesso à internet, recursos que não constam entre os recursos confirmados (apenas papel).",
+    "criterio_esperado": "`viabilidade`.",
+    "aceito_com_ressalva": "O mesmo problema sob `coerencia_metodologica` (ET1 passa a contradizer a demonstração com cartões descrita na metodologia e em ET1). Conta como detecção parcial, não plena.",
+    "componente_esperado": "`sequencia` (texto de ET1).",
+    "gravidade_provavel": "`maior`: a etapa de abertura não pode ser executada como descrita com os recursos confirmados. `menor` conta como detecção parcial; `critica` será registrada como gravidade excessiva a adjudicar.",
+    "nota_esperada": "`viabilidade` no máximo 2.",
+    "resultado_negativo": "Nota 3 em `viabilidade` sem falha sobre ET1, ou justificativa que aceite a projeção sem mencionar a ausência do recurso.",
+    "falsos_positivos": "Falhas fora de `desenvolvimento[0].acao_docente` (por exemplo sobre EVI1, OBJ1/OBJ2 ou aderência curricular) são registradas separadamente e comparadas ao controle original; não contam como detecção.",
+    "observacao_de_desenho": "Apontar a incongruência entre a ação docente e a atividade de ET1 (que ainda cita cartões) é leitura legítima do mesmo defeito."
+  },
+  "natureza_do_conjunto": "O tipo de defeito **já é descrito pela rubrica** (indicador de `viabilidade`: usar somente os recursos confirmados, sem projetor, internet ou dispositivos não informados). O ensaio mede se o Juiz **aplica a rubrica que recebe** a um caso concreto; não mede a descoberta de defeitos imprevistos. O plano-base já foi usado no desenvolvimento do prompt: não é holdout de plano."
+}

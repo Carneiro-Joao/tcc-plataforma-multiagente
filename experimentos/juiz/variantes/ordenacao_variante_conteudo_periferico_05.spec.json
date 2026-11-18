@@ -1,0 +1,25 @@
+{
+  "id_variante": "V05-CONTEUDO-PERIFERICO",
+  "numero": "V05",
+  "caso_base": "experimentos/juiz/casos/ordenacao_real_994c4cd5.json",
+  "campo": "plano.desenvolvimento[1].atividade",
+  "valor_original": "Atividade prática desplugada de simulação do Bubble sort utilizando cartões de papel com números.",
+  "valor_novo": "Pesquisa e debate em grupos sobre a história dos computadores e a evolução dos dispositivos de armazenamento, com registro das conclusões em papel.",
+  "arquivo_caso": "experimentos/juiz/casos/ordenacao_variante_conteudo_periferico_05.json",
+  "arquivo_protocolo": "experimentos/juiz/Protocolo_V05_Conteudo_Periferico.md",
+  "titulo": "conteúdo periférico na etapa principal",
+  "tipo_defeito": "conteúdo periférico",
+  "descricao_manipulacao": "A atividade de ET2, que ocupa 35 dos 50 minutos, passa a tratar da história dos computadores e do armazenamento, assunto alheio à habilidade EF08CO03 e ao OBJ2. Os IDs, os vínculos e a soma de minutos permanecem válidos. Como apenas um campo mudou, `acao_docente` e `acao_discente` de ET2 continuam falando em Bubble sort e cartões.",
+  "hipotese": {
+    "principal": "O Juiz aponta que a atividade central de ET2 (35 dos 50 minutos) trata da história dos computadores e do armazenamento, assunto que não desenvolve a habilidade EF08CO03 nem o OBJ2.",
+    "criterio_esperado": "`aderencia_curricular`.",
+    "aceito_com_ressalva": "O mesmo problema sob `coerencia_metodologica` (incoerência entre a atividade e as ações de ET2), desde que a descrição diga que o assunto é alheio à habilidade ou aos objetivos. Apontar somente a incoerência interna, sem mencionar o assunto alheio, conta como detecção parcial.",
+    "componente_esperado": "`sequencia` (texto de ET2).",
+    "gravidade_provavel": "`critica` ou `maior` (a atividade principal trata de outro assunto). Será registrada a gravidade atribuída, sem se exigir uma delas.",
+    "nota_esperada": "`aderencia_curricular` no máximo 1.",
+    "resultado_negativo": "Nota 2 ou 3 em `aderencia_curricular` sem falha sobre a atividade de ET2, ou parecer que não relacione o assunto da atividade à habilidade e aos objetivos.",
+    "falsos_positivos": "Falhas fora de `desenvolvimento[1]` são registradas separadamente e comparadas ao controle original; não contam como detecção.",
+    "observacao_de_desenho": "A V02 também altera um campo de ET2 (`acao_discente`), com outra natureza de defeito (erro conceitual do algoritmo)."
+  },
+  "natureza_do_conjunto": "O tipo de defeito **já é descrito pela rubrica** (indicadores e âncoras de `aderencia_curricular`: nenhum assunto periférico ocupa a maior parte do tempo; atividades principais que tratam de outro assunto). O ensaio mede se o Juiz **aplica a rubrica que recebe** a um caso concreto; não mede a descoberta de defeitos imprevistos. O plano-base já foi usado no desenvolvimento do prompt: não é holdout de plano."
+}
