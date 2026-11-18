@@ -15,6 +15,15 @@ let html = gerar();
 assert.equal((html.match(/<h4>/g)||[]).length,11);
 for (const campo of [f.plano_esperado.objetivo_geral,f.plano_esperado.habilidade_bncc.eixo,'Professor:','Estudantes:','Evidência esperada:','Uso dos resultados futuros:','Referências']) assert.ok(html.includes(campo),campo);
 assert.ok(html.includes('Aguardando aprovação'));
+// Inicial maiúscula só na exibição do que o professor digitou; o dado do plano não muda.
+resultado.plano.identificacao.tema = 'quero ensinar ordenação';
+resultado.plano.recursos = 'ábaco, papel e <b>cartões</b>';
+html = gerar();
+assert.ok(html.includes('<b>Tema:</b> Quero ensinar ordenação'));
+assert.ok(html.includes('<p>Ábaco, papel e &lt;b&gt;cartões&lt;/b&gt;</p>'));
+assert.equal(resultado.plano.recursos, 'ábaco, papel e <b>cartões</b>');
+resultado.plano.recursos = '<b>papel</b>';
+assert.ok(gerar().includes('<p>&lt;b&gt;papel&lt;/b&gt;</p>'));
 resultado.plano.objetivo_geral = '<img src=x onerror=alert(1)>';
 resultado.plano.desenvolvimento[0].atividade = '<script>alert(1)</script>';
 html = gerar();
