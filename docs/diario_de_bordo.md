@@ -6,6 +6,27 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-18 22:40 · Claude do chat · `feat/poc07b-prompt-2-3` (base: `poc07-exportar-planos`)
+
+**Feito**
+- Revisão de 5 planos reais (prompt 2.2) + PDFs impressos pela interface. Achados: "cartões" sem estar nos recursos em 2/5 (causa: o próprio
+  prompt sugeria "cartões já preparados"); 1/5 com campos sem acento; plano "Programação" sem programação (EF08CO01 × só material impresso);
+  evidências fracas ("registra oralmente/mentalmente"; "o computador exibe a lista ordenada"); falta de conteúdo concreto; 4/4 planos de
+  ordenação só com Bubble Sort (fato; se é defeito fica para a adjudicação).
+- **Prompt `especialistas-plano-2.3`** (`geracao_v2.py`), com a 2.2 preservada em `VERSOES_PROMPT`. Pré-registro com hipóteses, as 5 entradas
+  exatas e a regra de medição em `docs/PoC07B_Prompt_2_3.md`, **commitado antes de qualquer chamada**. 5 testes novos; mutação: 8 mutantes, 0 vivos.
+- **Erro de método corrigido:** meus testes de mutação deixavam `.pyc` velho (mutante do mesmo tamanho restaurado no mesmo segundo), o que
+  fez a 2.2 parecer quebrada na suíte e mascarou um sobrevivente no exportador (`gsk_` redundante com o `sanitizar`). Refeitos sem bytecode
+  (tema 12, exportador 14, prompt 8 mutantes): 0 vivos depois de um teste novo no exportador. Regra adicionada ao `CLAUDE.md`.
+
+**Pendências**
+- João regenera as 5 entradas com a 2.3 e exporta; comparação descritiva pela regra pré-registrada.
+- Interface (Claude Code): página em branco no fim da impressão do plano de Programação (PA-2, 4ª página); impressão sem texto pesquisável
+  quando o usuário escolhe "Microsoft Print to PDF" (limitação do Windows, não do app).
+- Alerta determinístico de material fora dos recursos, campo sem acento e habilidade × recursos. Gerador de demonstração também usa cartões.
+
+---
+
 ## 2026-11-18 23:00 · Claude do chat · `feat/poc07-exportar-planos` (base: `poc06b-ui-tema-recursos`)
 
 **Feito**

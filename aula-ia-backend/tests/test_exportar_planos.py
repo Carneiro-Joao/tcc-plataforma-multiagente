@@ -84,6 +84,16 @@ class TestExportarPlanos(TestCase):
         self.assertEqual((len(exportados), len(pulados)), (0, 2))
         self.assertTrue(all("credencial" in p[2] for p in pulados))
 
+    def test_regex_propria_pega_chave_mesmo_sem_o_sanitizar_do_juiz(self):
+        # Segunda camada: se o sanitizar() do Juiz mudar, a regex do exportador continua barrando as chaves.
+        for i, segredo in enumerate(("AIzaSyA1234567890abcdefghijklmnopqrstuv", "gsk_abcdefghij1234567890")):
+            plano = json.loads(json.dumps(FIXTURE["plano_esperado"]))
+            plano["metodologia"] = f"texto {segredo} texto"
+            self.inserir(f"sem{i}", f"cz{i}", "Ordenação", plano=plano)
+        with patch("exportar_planos.sanitizar", lambda valor: valor):
+            exportados, pulados = exportar_todos(self.banco, self.raiz / "saida")
+        self.assertEqual((len(exportados), len(pulados)), (0, 2))
+
     def test_plano_que_viola_o_contrato_e_pulado_sem_derrubar_o_lote(self):
         ruim = json.loads(json.dumps(FIXTURE["plano_esperado"]))
         ruim["identificacao"]["tema"] = "Outro tema"  # difere do contexto: o contrato recusa

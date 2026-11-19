@@ -36,6 +36,8 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 5. `local/` não vai para o Git. Única exceção: `git add -f aula-ia-backend/local/ensaios_juiz`, **depois** de procurar chaves
    (`findstr /s /i /m "AIza gsk_ api_key" aula-ia-backend\local\ensaios_juiz\*`).
 6. Código novo vem com testes que falham quando o código é quebrado de propósito (teste de mutação manual). `python -S` tem que passar.
+   Rode os mutantes **sem bytecode** (`python -B` e `PYTHONDONTWRITEBYTECODE=1`): mutante do mesmo tamanho restaurado no mesmo segundo
+   deixa `.pyc` velho e produz resultado falso (aconteceu em 18/11).
 7. Uma branch por incremento (`feat/pocNN-...`), mensagens `feat|fix|docs|test|data(escopo): ...`, nunca `push --force`,
    nunca mexer em `main` sem o João pedir. Mostrar `git status` antes de `git add`; listar arquivos explicitamente.
 8. Resultado de LLM é evidência provisória: a classificação mecânica não substitui adjudicação humana. Não afirmar "estável",

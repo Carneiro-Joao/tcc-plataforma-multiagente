@@ -16,18 +16,34 @@ INSTRUCOES = {
 }
 
 
-ORIENTACAO_RECURSOS = (
+# 2.2 (preservada para reprodutibilidade): ao oferecer "cartões já preparados" como alternativa, induzia o modelo a citar
+# cartões mesmo quando o professor não os marcou (achado em 18/11/2026: 2 de 5 planos reais, ver docs/PoC07B_Prompt_2_3.md).
+ORIENTACAO_RECURSOS_2_2 = (
     ' Só exija registros escritos se os recursos confirmados incluírem explicitamente '
     'um instrumento ou dispositivo que permita escrever. Sem isso, use explicação e '
     'contagem oral ou manipulação de cartões já preparados, sem acrescentar recursos.'
 )
-INSTRUCOES = {nome: texto + ORIENTACAO_RECURSOS for nome, texto in INSTRUCOES.items()}
+# 2.3: proíbe materiais fora de contexto.recursos sem sugerir nenhum material, e pede acentuação (1 de 5 planos veio sem acentos).
+ORIENTACAO_RECURSOS_2_3 = (
+    ' Use somente os recursos listados em contexto.recursos. Não cite materiais, objetos ou dispositivos que não estejam '
+    'nessa lista, nem diga que algum material "já está preparado". Só exija registros escritos se os recursos confirmados '
+    'incluírem explicitamente algo que permita escrever. Sem isso, use explicação oral, perguntas e respostas e '
+    'demonstração com os recursos confirmados. Escreva em português do Brasil com acentuação correta.'
+)
+VERSOES_PROMPT = {
+    'especialistas-plano-2.2': {nome: texto + ORIENTACAO_RECURSOS_2_2 for nome, texto in INSTRUCOES.items()},
+    'especialistas-plano-2.3': {nome: texto + ORIENTACAO_RECURSOS_2_3 for nome, texto in INSTRUCOES.items()},
+}
+VERSAO_PROMPT = 'especialistas-plano-2.3'
+INSTRUCOES = VERSOES_PROMPT[VERSAO_PROMPT]
 
 
 class AgenteGeminiCompleto(AgenteGemini):
-    def __init__(self, modelo=MODELO_PADRAO, **kwargs):
-        super().__init__(modelo, esquema_saida=esquema_api, instrucoes=INSTRUCOES,
-                         versao_contrato=contrato.VERSAO, versao_prompt='especialistas-plano-2.2', **kwargs)
+    def __init__(self, modelo=MODELO_PADRAO, versao_prompt=VERSAO_PROMPT, **kwargs):
+        if versao_prompt not in VERSOES_PROMPT:
+            raise ValueError(f"Versão de prompt desconhecida: {versao_prompt}")
+        super().__init__(modelo, esquema_saida=esquema_api, instrucoes=VERSOES_PROMPT[versao_prompt],
+                         versao_contrato=contrato.VERSAO, versao_prompt=versao_prompt, **kwargs)
 
 
     def executar(self, nome, entrada, estado, revisao, *, registro, reparo=None):
