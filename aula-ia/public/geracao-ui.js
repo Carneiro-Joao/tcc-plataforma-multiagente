@@ -22,6 +22,9 @@
   // Título: o modelo de demonstração repete o tema digitado após o travessão ("Plano de aula — quero…").
   const tituloExibido = valor => escapar(inicialMaiuscula(valor).replace(/(—\s*)(\p{Ll})/u, (_, sep, letra) => sep + letra.toLocaleUpperCase("pt-BR")));
   const json = valor => escapar(JSON.stringify(valor, null, 2));
+  // JSON e rastreio técnico ficam fora da vista do professor; aparecem só com ?depuracao=1 na URL.
+  const depuracao = () => new URLSearchParams(globalThis.location?.search || "").get("depuracao") === "1";
+  const soDepuracao = html => depuracao() ? html : "";
 
   async function api(url, corpo) {
     const resposta = await fetch(url, corpo === undefined ? undefined : {
@@ -102,10 +105,10 @@
       <p><b>Uso dos resultados futuros:</b> ${texto(p.avaliacao_aprendizagem.uso_resultados)}</p>
       <h4>10. Adaptações inclusivas</h4><ul>${p.adaptacoes.map(a => `<li><b>${texto(a.id)}</b> — ${texto(a.descricao)}<p>Objetivos: ${ids(a.objetivos_ids)} · Etapas: ${ids(a.etapas_ids)}</p></li>`).join("")}</ul>
       <h4>11. Referências</h4><ul>${p.referencias.map(r => `<li>${texto(r.titulo)}. ${texto(r.arquivo)}. Páginas: ${ids(r.paginas)}. Catálogo: ${texto(r.versao_catalogo)}.</li>`).join("")}</ul>
-      <details class="geracao-rastreio"><summary>Inspecionar a construção do plano</summary>
+      ${soDepuracao(`<details class="geracao-rastreio"><summary>Inspecionar a construção do plano</summary>
       <p>Cinco especialidades em seis chamadas normais: a avaliação define evidências antes das atividades e instrumentos depois. Reparos e novas tentativas após indisponibilidade ficam registrados em cada etapa. O integrador compõe as 11 seções em Python. Na demonstração, todas as etapas usam regras locais.</p>
       ${(resultado.rastreio || []).map(a => `<details><summary>${texto(a.agente)} · ${texto(a.estado)} · tentativa ${texto(a.tentativa || "—")}</summary><pre>${json(a)}</pre></details>`).join("")}</details>
-      <details><summary>Ver plano completo (JSON)</summary><pre>${json(resultado)}</pre></details>
+      <details><summary>Ver plano completo (JSON)</summary><pre>${json(resultado)}</pre></details>`)}
     </article>`;
   }
 
@@ -122,11 +125,11 @@
       <h4>Sequência didática</h4><ol class="geracao-etapas">${(plano.etapas || []).map(etapaHtml).join("")}</ol>
       <h4>Avaliação da aprendizagem</h4><p>${texto(plano.avaliacao)}</p>
       <h4>Possíveis adaptações</h4><ul>${(plano.adaptacoes || []).map(a => `<li>${texto(a)}</li>`).join("")}</ul>
-      <details class="geracao-rastreio"><summary>Inspecionar agentes, entradas e saídas (${(resultado.rastreio || []).length})</summary>
+      ${soDepuracao(`<details class="geracao-rastreio"><summary>Inspecionar agentes, entradas e saídas (${(resultado.rastreio || []).length})</summary>
       <p>Os cinco especialistas são validados separadamente. O integrador monta o plano em Python. No modo demonstrativo, todas as etapas usam regras locais.</p>
       ${(resultado.rastreio || []).map(a => `<details><summary>${texto(a.agente)}</summary><b>Entrada</b><pre>${json(a.entrada)}</pre><b>Saída</b><pre>${json(a.saida)}</pre></details>`).join("")}
       </details>
-      <details><summary>Ver plano completo (JSON)</summary><pre>${json(resultado)}</pre></details>
+      <details><summary>Ver plano completo (JSON)</summary><pre>${json(resultado)}</pre></details>`)}
       </article>`;
   }
 
@@ -149,7 +152,7 @@
       <div class="geracao-alerta">${demo
         ? "<b>Demonstração por regras:</b> o plano é gerado automaticamente, mas não por um modelo de linguagem. Revise a adequação pedagógica antes de aprovar."
         : resultado ? `<b>Geração com IA:</b> cinco especialistas usam ${texto(resultado.modelo)}. O plano passou pela verificação automática e deve ser revisado pedagogicamente.` : "O plano será apresentado para sua revisão. A geração pode levar alguns minutos."}</div>
-      ${falha ? `<details><summary>Detalhes da tentativa que falhou</summary><pre>${json(falha)}</pre></details>` : ""}
+      ${falha ? soDepuracao(`<details><summary>Detalhes da tentativa que falhou</summary><pre>${json(falha)}</pre></details>`) : ""}
       ${resultado ? planoHtml(resultado.plano, resultado, geracao) : `<p class="geracao-vazio">Nenhum plano gerado ainda. A habilidade ${texto(dadosAtuais.entrada_geracao.habilidade.codigo)} está confirmada e pronta para iniciar o processo.</p>`}
       <div class="geracao-botoes">
         ${!aprovado ? `<button type="button" class="primario" data-geracao-acao="gerar" ${ocupado ? "disabled" : ""}>${ocupado ? "Processando agentes…" : resultado ? "Gerar outra versão" : "Gerar plano de aula"}</button>` : ""}

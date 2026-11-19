@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
+import { LIMITE_TEMA, RECURSOS, RECURSO_OUTRO, MENSAGEM_SEM_RECURSOS, MENSAGEM_SEM_RESULTADOS,
+  modoDepuracao, montarRecursos, lerRecursos, aplicarTipo, erroEhDoTema } from "./formulario.js";
 
 const INICIAL = { ano: "8º ano", duracao_min: "50", tema: "", recursos: "", tipo: "Computação desplugada" };
 const CHAVE = "aulaia.consulta.v1";
 const PDF = "/fonte/BNCCComputacao.pdf";
+const DEPURACAO = modoDepuracao(window.location.search);
 
 async function api(caminho, body, signal) {
   const resposta = await fetch(caminho, body ? {
@@ -13,7 +16,7 @@ async function api(caminho, body, signal) {
     throw new Error("A API está indisponível. Verifique se o servidor Python está em execução.");
   }
   const dados = await resposta.json();
-  if (!resposta.ok) throw new Error(dados.erro || "Falha ao processar o pedido.");
+  if (!resposta.ok) throw Object.assign(new Error(dados.erro || "Falha ao processar o pedido."), { status: resposta.status });
   return dados;
 }
 
@@ -59,9 +62,10 @@ function Resultados({ consulta, codigo, escolher, confirmar, ocupado }) {
   const hibrido = consulta.metodo === "hibrido";
   const manual = consulta.metodo === "catalogo";
   return <>
+    {!manual && <p className="tema-identificado">Tema identificado: <strong>{consulta.contexto.tema}</strong></p>}
     <p className="metodo">{manual ? "Catálogo completo" : hibrido ? "Busca híbrida · similaridade semântica e bônus curricular" : "Busca lexical · termos e bônus curricular"}</p>
     {consulta.resultados.length === 0
-      ? <p className="aviso">Nenhuma correspondência para este tema. Use “Escolher no catálogo” para ver as habilidades do 8º ano.</p>
+      ? <p className="aviso" role="status">{MENSAGEM_SEM_RESULTADOS} Se preferir, use “Escolher no catálogo” para ver as habilidades do 8º ano.</p>
       : <fieldset disabled={ocupado} className="resultados">
         <legend>Selecione uma habilidade</legend>
         {consulta.resultados.map(({ habilidade: h, pontuacao }) =>
@@ -99,7 +103,7 @@ function Confirmacao({ entrada }) {
     <dl>{[["Tema", c.tema], ["Turma", c.ano], ["Duração", c.duracao_min + " minutos"], ["Tipo de aula", c.tipo], ["Recursos", c.recursos]].map(([k,v]) =>
       <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
     )}</dl>
-    <details className="json-entrada"><summary>Ver entrada da geração (JSON)</summary><pre>{JSON.stringify(entrada, null, 2)}</pre></details>
+    {DEPURACAO && <details className="json-entrada"><summary>Ver entrada da geração (JSON)</summary><pre>{JSON.stringify(entrada, null, 2)}</pre></details>}
   </div>;
 }
 
@@ -124,7 +128,11 @@ export default function App() {
   const [aprovado, setAprovado] = useState(false);
   const [ocupacao, setOcupacao] = useState(() => sessionStorage.getItem(CHAVE) ? "restaurar" : "");
   const [erro, setErro] = useState("");
+  const [erroTema, setErroTema] = useState("");
+  const [recursos, setRecursos] = useState({ marcados: [], outro: "" });
+  const [erroRecursos, setErroRecursos] = useState("");
   const painel = useRef(null);
+  const campoTema = useRef(null);
   const entrada = consulta?.entrada_geracao;
   const ocupado = Boolean(ocupacao);
 
@@ -134,7 +142,8 @@ export default function App() {
     const controller = new AbortController();
     api("/api/consultas/" + id, null, controller.signal).then(dados => {
       setConsulta(dados);
-      setForm(dados.contexto);
+      setForm({ ...dados.contexto, tema: dados.pedido_original ?? dados.contexto.tema });
+      setRecursos(lerRecursos(dados.contexto.recursos));
       setCodigo(dados.entrada_geracao?.habilidade.codigo || "");
       setAprovado(dados.geracao_atual?.estado === "aprovado");
     }).catch(e => {
@@ -168,22 +177,41 @@ export default function App() {
 
   function alterar(e) {
     limparConsulta();
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "tema") setErroTema("");
+    if (name === "tipo") setRecursos(r => ({ ...r, marcados: aplicarTipo(value, r.marcados) }));
+    setForm({ ...form, [name]: value });
+  }
+
+  function alternarRecurso(e) {
+    limparConsulta();
+    setErroRecursos("");
+    const { value, checked } = e.target;
+    setRecursos(r => ({ ...r, marcados: checked ? [...r.marcados, value] : r.marcados.filter(m => m !== value) }));
+  }
+
+  function alterarOutro(e) {
+    limparConsulta();
+    setErroRecursos("");
+    setRecursos(r => ({ ...r, outro: e.target.value }));
   }
 
   async function consultar(e) {
     e.preventDefault();
     if (ocupado) return;
     const modo = e.nativeEvent.submitter?.value === "catalogo" ? "catalogo" : "tema";
+    const textoRecursos = montarRecursos(recursos.marcados, recursos.outro);
     limparConsulta();
+    setErroTema("");
+    if (!textoRecursos) { setErroRecursos(MENSAGEM_SEM_RECURSOS); return; }
     setOcupacao("consulta");
     try {
-      const dados = await api("/api/consultas", { consulta: modo, contexto: { ...form, duracao_min: Number(form.duracao_min) } });
+      const dados = await api("/api/consultas", { consulta: modo, contexto: { ...form, recursos: textoRecursos, duracao_min: Number(form.duracao_min) } });
       setConsulta(dados);
       sessionStorage.setItem(CHAVE, dados.id);
       painel.current?.focus();
     } catch (e) {
-      setErro(e.message);
+      if (erroEhDoTema(e)) { setErroTema(e.message); campoTema.current?.focus(); } else setErro(e.message);
     } finally {
       setOcupacao("");
     }
@@ -235,11 +263,24 @@ export default function App() {
                 <label>Ano escolar<select name="ano" value={form.ano} onChange={alterar}><option>8º ano</option></select></label>
                 <label>Duração (min)<input name="duracao_min" type="number" min="1" max="1440" step="1" required value={form.duracao_min} onChange={alterar}/></label>
               </div>
-              <label>Tema da aula<textarea name="tema" required maxLength={800} rows="2" placeholder="Ex.: quero ensinar ordenação" value={form.tema} onChange={alterar}/></label>
+              <label>Tema da aula<input ref={campoTema} name="tema" type="text" required maxLength={LIMITE_TEMA} placeholder="Ex.: ordenação"
+                value={form.tema} onChange={alterar} aria-invalid={erroTema ? true : undefined} aria-describedby={erroTema ? "erro-tema" : undefined}/>
+                {erroTema && <span id="erro-tema" className="campo-erro" role="alert">{erroTema}</span>}</label>
               <label>Tipo de aula<select name="tipo" value={form.tipo} onChange={alterar}>
                 {["Computação desplugada", "Aula prática", "Aula teórica", "Projeto"].map(t => <option key={t}>{t}</option>)}
               </select></label>
-              <label>Recursos disponíveis<input name="recursos" required maxLength={800} placeholder="Ex.: papel e cartões" value={form.recursos} onChange={alterar}/></label>
+              <fieldset className="recursos" aria-describedby={erroRecursos ? "erro-recursos" : undefined}>
+                <legend>Recursos disponíveis</legend>
+                <div className="recursos-lista">
+                  {[...RECURSOS, RECURSO_OUTRO].map(r => <label key={r} className="recurso">
+                    <input type="checkbox" name="recurso" value={r} checked={recursos.marcados.includes(r)} onChange={alternarRecurso}/>
+                    <span>{r[0].toLocaleUpperCase("pt-BR") + r.slice(1)}</span>
+                  </label>)}
+                </div>
+                {recursos.marcados.includes(RECURSO_OUTRO) && <label className="recurso-outro">Quais? <small>(opcional)</small>
+                  <input name="recurso_outro" maxLength={200} placeholder="Ex.: cartões numerados" value={recursos.outro} onChange={alterarOutro}/></label>}
+                {erroRecursos && <span id="erro-recursos" className="campo-erro" role="alert">{erroRecursos}</span>}
+              </fieldset>
               <div className="acoes">
                 <button className="primario" type="submit" value="tema"><Icon nome="search" tamanho={18}/>{ocupacao === "consulta" ? "Consultando…" : "Consultar habilidades"}<Icon nome="arrow" tamanho={18}/></button>
                 <button className="secundario" type="submit" value="catalogo"><Icon nome="book" tamanho={17}/> Escolher no catálogo</button>

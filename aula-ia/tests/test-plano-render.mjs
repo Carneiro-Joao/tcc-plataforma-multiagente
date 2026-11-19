@@ -5,7 +5,7 @@ import vm from 'node:vm';
 const ler = path => readFileSync(new URL(path, import.meta.url), 'utf8');
 const source = ler('../public/geracao-ui.js');
 assert.equal(source, ler('../dist/geracao-ui.js'));
-const context = {document:{getElementById:()=>null}, MutationObserver:class {observe(){}}, queueMicrotask:()=>{}};
+const context = {document:{getElementById:()=>null}, MutationObserver:class {observe(){}}, queueMicrotask:()=>{}, URLSearchParams};
 vm.createContext(context);
 vm.runInContext(source.replace(/\r\n/g, '\n').replace('  agendar();\n})();','  globalThis.renderPlano = planoHtml;\n})();'),context);
 const f = JSON.parse(ler('../../aula-ia-backend/tests/dados/plano_v2/fixture_ordenacao.json'));
@@ -15,6 +15,12 @@ let html = gerar();
 assert.equal((html.match(/<h4>/g)||[]).length,11);
 for (const campo of [f.plano_esperado.objetivo_geral,f.plano_esperado.habilidade_bncc.eixo,'Professor:','Estudantes:','Evidência esperada:','Uso dos resultados futuros:','Referências']) assert.ok(html.includes(campo),campo);
 assert.ok(html.includes('Aguardando aprovação'));
+// JSON e rastreio só com ?depuracao=1
+assert.ok(!html.includes('Ver plano completo (JSON)') && !html.includes('Inspecionar a construção do plano'), 'JSON visível sem depuração');
+context.location = {search: '?depuracao=1'};
+const htmlDepuracao = gerar();
+assert.ok(htmlDepuracao.includes('Ver plano completo (JSON)') && htmlDepuracao.includes('Inspecionar a construção do plano'));
+delete context.location;
 // Inicial maiúscula só na exibição do que o professor digitou; o dado do plano não muda.
 resultado.plano.identificacao.tema = 'quero ensinar ordenação';
 resultado.plano.recursos = 'ábaco, papel e <b>cartões</b>';
@@ -39,4 +45,5 @@ const legado = JSON.parse(ler('../../aula-ia-backend/tests/dados/poc04a/fixture_
 html = context.renderPlano(legado.plano_esperado,{contrato:'poc04a-0.1',rastreio:[]},{revisao:1,estado:'aprovado'});
 assert.ok(html.includes(legado.plano_esperado.titulo));
 assert.ok(html.includes('Aprovado pelo professor'));
+assert.ok(!html.includes('Ver plano completo (JSON)') && !html.includes('Inspecionar agentes'), 'JSON do legado visível sem depuração');
 console.log('Renderização OK: 11 seções, escape de HTML, legado e public/dist iguais.');
