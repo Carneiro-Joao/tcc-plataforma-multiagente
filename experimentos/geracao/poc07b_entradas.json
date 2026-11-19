@@ -1,0 +1,11 @@
+{
+  "protocolo": "docs/PoC07B_Prompt_2_3.md",
+  "observacao": "As 5 linhas exatas da tabela do protocolo (especialistas-plano-2.3). Não acrescentar temas.",
+  "entradas": [
+    {"tema": "Ordenação", "tipo": "Aula prática", "duracao_min": 50, "recursos": "quadro e pincel", "habilidade": "EF08CO03"},
+    {"tema": "Ordenação", "tipo": "Aula teórica", "duracao_min": 90, "recursos": "projetor, computadores", "habilidade": "EF08CO03"},
+    {"tema": "Listas", "tipo": "Aula teórica", "duracao_min": 30, "recursos": "projetor, computadores, internet", "habilidade": "EF08CO02"},
+    {"tema": "Estrutura de Dados", "tipo": "Computação desplugada", "duracao_min": 60, "recursos": "quadro e pincel, material impresso", "habilidade": "EF08CO04"},
+    {"tema": "Programação", "tipo": "Aula prática", "duracao_min": 50, "recursos": "material impresso", "habilidade": "EF08CO01"}
+  ]
+}
