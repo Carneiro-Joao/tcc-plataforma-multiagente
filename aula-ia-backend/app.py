@@ -115,7 +115,11 @@ def main(argv=None):
     parser.add_argument("--reparos", type=int, choices=(0, 1), default=1, help="Reparos de contrato por especialista (não repete erros HTTP).")
     parser.add_argument("--repeticoes-503", type=int, choices=(0, 1, 2), default=2,
                         help="Novas tentativas com espera somente para HTTP 503, por chamada (padrão: 2).")
+    parser.add_argument("--limite-diario", type=int, default=5,
+                        help="Máximo de planos com IA por dia, contando falhas (padrão: 5; 0 = sem limite).")
     args = parser.parse_args(argv)
+    if args.limite_diario < 0:
+        parser.error("--limite-diario não pode ser negativo.")
     try:
         busca = BuscaCurricular(args.modo)
     except (ImportError, OSError, ValueError) as erro:
@@ -142,9 +146,13 @@ def main(argv=None):
         parser.exit(1, f"Não foi possível abrir a porta {args.porta}: {erro}\n")
     temporario = TemporaryDirectory(prefix="aulaia-") if args.temporario else None
     banco = Path(temporario.name) / "sessao.sqlite3" if temporario else args.banco
-    servidor.servico = ServicoCurricular(busca, banco, gerador)
+    limite = (args.limite_diario or None) if args.gerador == "ia" else None
+    servidor.servico = ServicoCurricular(busca, banco, gerador, limite_diario_ia=limite)
     print("Dados: " + ("somente nesta sessão; ao reiniciar, consulte novamente." if temporario else str(banco)), flush=True)
     if args.gerador == "ia":
+        usados, _ = servidor.servico.uso_hoje()
+        print(f"Limite: {limite} planos com IA por dia; usados hoje: {usados}." if limite else
+              f"Limite diário DESLIGADO (--limite-diario 0); usados hoje: {usados}.", flush=True)
         print(f"Gemini: {args.modelo}; 6 chamadas normais, até {6 * (1 + args.reparos)} com reparos. Use projeto Free Tier no AI Studio.", flush=True)
         print("Conexão Gemini: " + ("IPv4" if args.ipv4 else "automática"), flush=True)
         print(f"HTTP 503: até {args.repeticoes_503} novas tentativas com espera por chamada. "

@@ -19,6 +19,7 @@ class TestInicializacao(TestCase):
         self.transporte = Mock()
         self.criar_transporte = self.contexto.enter_context(patch('app.transporte_ipv4', return_value=self.transporte))
         self.servico = self.contexto.enter_context(patch('app.ServicoCurricular'))
+        self.servico.return_value.uso_hoje.return_value = (0, 5)
         self.servidor = self.contexto.enter_context(patch('app.ThreadingHTTPServer')).return_value
         self.servidor.server_port = 8000
         self.servidor.serve_forever.side_effect = KeyboardInterrupt()

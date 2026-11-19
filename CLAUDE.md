@@ -21,6 +21,7 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 - App: `python app.py --modo lexical --gerador ia --ipv4 --abrir` (demo sem API: `--gerador demonstracao`).
 - Planos reais (Gemini): `python app.py --modo lexical --gerador ia --ipv4 --pedir-chave --abrir` e depois `python exportar_planos.py`
   (exporta os planos reais do SQLite para `local/planos_ia/`; guia em `docs/PoC07_Gerar_e_Exportar_Planos.md`).
+  Limite padrão: 5 gerações com IA por dia, contando falhas (`--limite-diario N`). **Não aumente nem desligue sem o João pedir.**
 - Juiz: `python ensaio_juiz.py avaliar --caso ../experimentos/juiz/casos/<caso>.json --versao-prompt juiz-v1.3 --reparos 1`
   (use `--somente-validar` para testar sem rede nem chave).
 - Adjudicação humana: `python adjudicacao.py` (gera páginas em `local/adjudicacao/`); guia em `docs/Guia_Adjudicacao_Humana.md`; `python concordancia.py a.json b.json`.

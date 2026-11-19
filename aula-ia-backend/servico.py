@@ -77,9 +77,11 @@ def visao(registro):
 
 
 class ServicoCurricular:
-    def __init__(self, busca, banco, gerador=None):
+    def __init__(self, busca, banco, gerador=None, limite_diario_ia=None):
         self.busca = busca
         self.gerador = gerador or GeradorDePlano()
+        # Máximo de gerações com IA por dia (data local), contando falhas: cada tentativa gasta chamadas pagas. None = sem limite.
+        self.limite_diario_ia = limite_diario_ia
         self.banco = Path(banco)
         self.banco.parent.mkdir(parents=True, exist_ok=True)
         with abrir_banco(self.banco) as db:
@@ -164,6 +166,17 @@ class ServicoCurricular:
             return self._ler(db, id_consulta)
 
 
+    @staticmethod
+    def _geracoes_ia_hoje(db):
+        return db.execute("""SELECT COUNT(*) FROM geracoes
+                             WHERE date(criado_em, 'localtime') = date('now', 'localtime')
+                               AND (estado = 'processando' OR json_extract(resultado, '$.modo') = 'ia')""").fetchone()[0]
+
+    def uso_hoje(self):
+        """(gerações com IA hoje, limite) — para o aviso ao iniciar o app."""
+        with abrir_banco(self.banco) as db:
+            return self._geracoes_ia_hoje(db), self.limite_diario_ia
+
     def gerar(self, id_consulta):
         """Reserva uma revisão antes da chamada ao provedor; uma por vez por consulta."""
         with abrir_banco(self.banco) as db:
@@ -177,6 +190,10 @@ class ServicoCurricular:
                 raise ErroConsulta(409, "Já existe uma geração em andamento para esta consulta.")
             if anterior and anterior["estado"] == "aprovado":
                 raise ErroConsulta(409, "Este plano foi aprovado. Faça uma nova consulta para gerar outro.")
+            usa_ia = getattr(self.gerador, "modo", None) == "ia"
+            if usa_ia and self.limite_diario_ia is not None and self._geracoes_ia_hoje(db) >= self.limite_diario_ia:
+                raise ErroConsulta(429, f"Limite de {self.limite_diario_ia} planos com IA por dia atingido (tentativas com falha "
+                                        "também contam). Volte amanhã ou reinicie o app com --limite-diario maior.")
             revisao = anterior["revisao"] + 1 if anterior else 1
             id_geracao = uuid4().hex
             db.execute("INSERT INTO geracoes (id, consulta_id, revisao, estado) VALUES (?, ?, ?, 'processando')",

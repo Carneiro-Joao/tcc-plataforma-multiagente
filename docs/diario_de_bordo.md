@@ -6,6 +6,20 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-18 23:20 · Claude do chat · `feat/poc07c-limite-diario` (base: `poc07b-prompt-2-3`)
+
+**Feito**
+- Chaves Gemini e Groq salvas pelo João como variáveis de ambiente do usuário no Windows (decisão dele, com limite de gasto na conta Google).
+- **Limite diário no app:** `ServicoCurricular(limite_diario_ia=...)` + `app.py --limite-diario` (padrão 5; 0 desliga). Conta gerações com IA
+  do dia (data local), incluindo falhas e regenerações; bloqueia com HTTP 429 **antes** de chamar a API. Demonstração não conta.
+  O terminal mostra o uso do dia ao iniciar.
+- 11 testes novos (`test_limite_diario.py`); mutação sem bytecode: 11 mutantes, 1 sobrevivente → teste novo, 0 ao final.
+
+**Pendências**
+- Rodada da 2.3 (5 planos) pelo João. Script de lote para o Claude Code: respeitará o mesmo limite.
+
+---
+
 ## 2026-11-18 22:40 · Claude do chat · `feat/poc07b-prompt-2-3` (base: `poc07-exportar-planos`)
 
 **Feito**
