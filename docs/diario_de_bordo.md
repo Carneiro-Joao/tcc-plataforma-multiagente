@@ -6,6 +6,30 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-19 12:40 · Claude Code · PoC 08 — IA Juiz integrada (`feat/poc08-juiz-integrado`)
+
+**Feito (um commit por fase, todos no GitHub)**
+- F1 `533a6c5` backend: pedido = gerar → Juiz (juiz-v1.3, rubrica 0.1, política prelim 0.1, reparos 1) → regenera o plano inteiro se não
+  favorável (`--ciclos-juiz`, padrão 1) → entrega a favorável ou a com menos falhas graves (empate: a mais recente), com aviso. Tabelas
+  `pedidos`/`pareceres`, migração sem perda; limites de geração e do Juiz; `--juiz groq|demonstracao|desligado`.
+- F2 `a2536ec` interface: progresso, painel "Avaliação da IA Juiz", Aprovar / Gerar novamente / Baixar PDF (parecer resumido na impressão).
+- F3 `c40ada6` testes: 46 mutantes sem bytecode, 0 vivos; E2E Playwright em modo demonstração OK.
+- F4 `fb59b32` real: Juiz nos 5 planos da 2.3 → 5 válidos (1 favorável, 4 em_correcao), 0 falhas; pedidos pela interface: Ordenação
+  favorável em 49 s; Programação: timeout do Gemini 2× (falha técnica). Uso de 19/11: geração 8/8, Juiz 1/8 no app + 5 no ensaio.
+- F5 `90d1a4c` acertos: demonstração sem cartões fora dos recursos; erro do tema com código; `tem_credencial` no `ensaio_juiz exportar`;
+  alerta EF08CO01/02 sem computadores. 11 mutantes, 0 vivos. Suíte 477 OK (também `-S`); 3 testes de front OK.
+- F6: `docs/Estado_Final_Sistema.md` (instalar, arquitetura, fluxo, versões congeladas, números, caminhos, limites).
+
+**Achados / limites (sem interpretação pedagógica)**
+- Regeneração com chamadas reais NÃO foi observada (limite de geração do dia acabou); coberta por testes e pelo modo demonstração.
+- 4 de 8 gerações de 19/11 em timeout do Gemini (90 s), em etapas diferentes. PA-2 não reproduzida no Chrome headless (preventivo).
+
+**Pendências**
+- Fase 7: merge na `main` aguarda o "ok" do João. Depois: CLAUDE.md dizendo que a `main` é a versão congelada.
+- Para o texto (trabalho futuro): correção dirigida por críticas, prompt 2.4, adjudicação humana, deploy.
+
+---
+
 ## 2026-11-19 11:30 · Claude Code · Feedback do orientador e início da PoC 08 (`feat/poc08-juiz-integrado`)
 
 **Feedback do orientador (reunião de 19/11):** o sistema já prova o conceito; é TCC, não produto. Na semana seguinte o João foca 100% na
