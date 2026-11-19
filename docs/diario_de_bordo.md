@@ -6,6 +6,20 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-18 23:00 · Claude do chat · `feat/poc07-exportar-planos` (base: `poc06b-ui-tema-recursos`)
+
+**Feito**
+- `exportar_planos.py`: exporta de uma vez os planos reais (IA) do SQLite local para `local/planos_ia/*.json` (formato de caso congelado), em leitura
+  e sem sobrescrever; pula com motivo demonstração, falha, plano fora do contrato e credencial. Guia: `docs/PoC07_Gerar_e_Exportar_Planos.md`.
+- Achado: `groq_juiz.sanitizar` só mascara chaves do Groq (`gsk_…`); o exportador ganhou checagem própria para `AIza…`/`gsk_…`/`sk-…`.
+  (O `ensaio_juiz.py exportar` continua só com o `sanitizar` — pendência pequena: reaproveitar `tem_credencial` ali.)
+- 12 testes novos (381 no total, também com `-S`); mutação manual: 14 mutantes na 1ª rodada, 3 sobreviventes (testes que faltavam), 0 ao final.
+
+**Pendências**
+- João gera ~4 planos reais, roda `python exportar_planos.py` e envia; Claude do chat revisa. Chamada real de API só quando o João roda.
+
+---
+
 ## 2026-11-18 22:30 · Claude do chat · `feat/poc06b-ui-tema-recursos` (revisão da PoC 06b)
 
 **Revisão:** testes OK (372 Python, `test-formulario.mjs`, `test-plano-render.mjs`); fluxo conferido no Chromium. Um defeito achado, de um prompt meu:
