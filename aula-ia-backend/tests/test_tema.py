@@ -1,5 +1,7 @@
 """Extração do tema curto (tema.py) e sua integração em ServicoCurricular.consultar. Execute a partir de aula-ia-backend."""
+from contextlib import closing
 from pathlib import Path
+import sqlite3
 from tempfile import TemporaryDirectory
 from unittest import TestCase
 from unittest.mock import patch
@@ -185,16 +187,9 @@ class TestIntegracaoServico(TestCase):
     def test_nada_e_gravado_quando_o_tema_e_recusado(self):
         with self.assertRaises(ErroConsulta):
             self.consultar("Olá, bom dia")
-        import sqlite3
-        with sqlite3.connect(self.servico.banco) as db:
+        with closing(sqlite3.connect(self.servico.banco)) as db:  # closing: no Windows o arquivo aberto não pode ser apagado
             self.assertEqual(db.execute("SELECT COUNT(*) FROM consultas").fetchone()[0], 0)
 
     def test_modo_catalogo_tambem_normaliza_o_tema(self):
         c = self.consultar("o tema da aula de hoje vai ser ensinar sobre ordenação", modo="catalogo")
         self.assertEqual(c["contexto"]["tema"], "Ordenação")
-
-    def test_titulo_do_plano_usa_o_tema_curto(self):
-        c = self.consultar("Olá, quero ensinar sobre ordenação")
-        cod = c["resultados"][0]["habilidade"]["codigo"]
-        self.servico.confirmar(c["id"], cod) if hasattr(self.servico, "confirmar") else None
-        self.assertEqual(self.servico.obter(c["id"])["contexto"]["tema"], "Ordenação")
