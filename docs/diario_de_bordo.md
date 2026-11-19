@@ -6,6 +6,21 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-19 14:50 · Claude Code · Correção: intervalo mínimo entre chamadas do Juiz (`feat/poc08c-intervalo-juiz`, autorizada pelo João)
+
+**Estado antes (pedido do João):** geração usada hoje = 16, Juiz = 3 (pela mesma consulta do app); nenhum pedido preso em andamento.
+O app aberto às 14:16 (PID 6556, aberto à mão) roda com os limites PADRÃO (8/8, ciclos 1): com 16 usadas, novas gerações são recusadas
+pelo limite diário até reiniciar com `--limite-diario` maior. As duas falhas depois das 13:44 foram do Gemini (timeout e 503).
+**Premissa conferida:** já havia 75 s entre avaliações em `servico._avaliar` (contados do FIM da anterior), mas sem lock, sem aviso na tela
+e sem contar o reparo. **Correção:** o intervalo passou para `juiz_servico.JuizGroq` (um lugar só): 75 s entre INÍCIOS de chamadas reais,
+120 s depois de 413, sob `threading.Lock`; o reparo segue com 60 s e vira a "última chamada"; durante a espera o pedido fica
+`aguardando_juiz` e a tela mostra "Aguardando a cota da IA Juiz…". A pausa antiga do `servico` foi removida (sem espera dupla).
+Prompt, modelo, rubrica, política e reparos inalterados; `ensaio_juiz.py` não muda.
+**Testes:** 10 novos (`tests/test_intervalo_juiz.py`, relógio e sono falsos; inclui duas threads ao mesmo tempo e relógio só lido com o lock)
++ front (`test-juiz-render.mjs`); 17 mutantes sem bytecode, 0 vivos; 493 OK (também `-S`); E2E Playwright OK. `dist/` rebuildado.
+
+---
+
 ## 2026-11-19 13:40 · Claude Code · Correção: pausa antes do reparo do Juiz (`feat/poc08b-pausa-reparo-juiz`, autorizada pelo João)
 
 **Problema (uso real do João):** Groq rejeitou o formato do parecer (400) e o reparo imediato estourou 8.000 tokens/min → 429 →

@@ -36,7 +36,7 @@ Bancos antigos são migrados ao abrir (colunas novas, sem perder dados).
 
 **Limites diários** (proteção de gasto): geração continua com `--limite-diario` (padrão 8; regenerações contam); Juiz com
 `--limite-diario-juiz` (padrão 8, contando falhas). Limite atingido no meio do pedido → entrega o que tiver, com aviso, sem nova chamada.
-Pausa de 75 s entre chamadas reais ao Groq (120 s depois de HTTP 413).
+Intervalo de 75 s entre os inícios de chamadas reais ao Groq (120 s depois de HTTP 413), em `JuizGroq`, com lock.
 
 ## Como rodar (Windows, pasta `aula-ia-backend`)
 ```
@@ -102,6 +102,12 @@ não mudaram; o `ensaio_juiz.py` (experimentos) continua com reparo imediato. 7 
 No mesmo uso, outro pedido (Ordenação · desplugada) teve a 1ª versão "Com ressalvas" (3 falhas graves) e a regeneração falhou por
 **Gemini 503**; o app entregou a 1ª versão com o aviso "A nova versão falhou tecnicamente" (o Juiz avaliou uma vez só).
 Geração em 19/11 até 13:22: 12, das quais 6 com falha técnica do Gemini (4 timeouts, 2× 503).
+
+## Correção: intervalo mínimo entre chamadas (19/11/2026) — `feat/poc08c-intervalo-juiz`
+O intervalo entre avaliações reais ficou em `juiz_servico.JuizGroq`: **75 s entre os inícios** de chamadas ao Groq no mesmo processo
+(120 s depois de HTTP 413), protegido por lock (o `ThreadingHTTPServer` atende pedidos em paralelo); o reparo mantém 60 s e conta como
+última chamada. Durante a espera o pedido fica `aguardando_juiz` e a tela mostra "Aguardando a cota da IA Juiz…". Substitui a pausa que
+estava em `servico._avaliar` (contada do fim da chamada, sem lock). Configuração do Juiz inalterada. Testes: `tests/test_intervalo_juiz.py`.
 
 ## Limites conhecidos
 - O Juiz avalia o plano inteiro e o fluxo regenera o plano inteiro: as críticas do Juiz **não** são usadas para corrigir componentes

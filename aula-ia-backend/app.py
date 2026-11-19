@@ -162,9 +162,7 @@ def main(argv=None):
     limite = (args.limite_diario or None) if args.gerador == "ia" else None
     limite_juiz = (args.limite_diario_juiz or None) if modo_juiz == "groq" else None
     servidor.servico = ServicoCurricular(busca, banco, gerador, limite_diario_ia=limite, juiz=juiz,
-                                         ciclos_juiz=args.ciclos_juiz, limite_diario_juiz=limite_juiz,
-                                         pausa_juiz_s=75 if modo_juiz == "groq" else 0,
-                                         pausa_juiz_413_s=120 if modo_juiz == "groq" else 0)
+                                         ciclos_juiz=args.ciclos_juiz, limite_diario_juiz=limite_juiz)
     print("Dados: " + ("somente nesta sessão; ao reiniciar, consulte novamente." if temporario else str(banco)), flush=True)
     if args.gerador == "ia":
         usados, _ = servidor.servico.uso_hoje()

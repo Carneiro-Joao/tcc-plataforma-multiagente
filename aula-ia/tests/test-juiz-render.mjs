@@ -74,4 +74,11 @@ assert.ok(html.includes('<li class="feito">IA Juiz avaliando…</li>') && html.i
 html = context.renderProgresso({estado: 'avaliando', ciclo: 1}, 0);
 assert.ok(html.includes('<li class="feito">Ajustando: gerando nova versão…</li>') && html.includes('<li class="atual">IA Juiz avaliando a nova versão…</li>'));
 assert.ok(context.renderProgresso(null, 0).includes('<li class="atual">Gerando plano…</li>'));
+// Esperando a cota do Groq: a etapa de avaliação mostra o texto da espera (1ª avaliação e avaliação da nova versão)
+html = context.renderProgresso({estado: 'aguardando_juiz', ciclo: 0}, 0);
+assert.ok(html.includes('<li class="feito">Gerando plano…</li>') && html.includes('<li class="atual">Aguardando a cota da IA Juiz…</li>'));
+assert.ok(!html.includes('IA Juiz avaliando…'));
+html = context.renderProgresso({estado: 'aguardando_juiz', ciclo: 1}, 0);
+assert.ok(html.includes('<li class="feito">Ajustando: gerando nova versão…</li>') && html.includes('<li class="atual">Aguardando a cota da IA Juiz…</li>'));
+assert.ok(html.includes('<li class="feito">IA Juiz avaliando…</li>'));
 console.log('Juiz OK: rótulos, 6 notas, críticas, histórico, indisponível, demonstração, escape, progresso e public/dist iguais.');

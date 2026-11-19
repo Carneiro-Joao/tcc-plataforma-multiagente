@@ -63,8 +63,8 @@ class JuizFalso:
         self.roteiro, self.modo, self.chamadas = list(roteiro), modo, []
         self.modelo, self.versao_prompt = "openai/gpt-oss-120b", "juiz-v1.3"
 
-    def avaliar(self, plano, entrada, *, modelo_gerador, revisao, ciclo):
-        self.chamadas.append(dict(revisao=revisao, ciclo=ciclo, modelo_gerador=modelo_gerador))
+    def avaliar(self, plano, entrada, *, modelo_gerador, revisao, ciclo, ao_esperar=None):
+        self.chamadas.append(dict(revisao=revisao, ciclo=ciclo, modelo_gerador=modelo_gerador, ao_esperar=ao_esperar))
         passo = self.roteiro.pop(0)
         if isinstance(passo, Exception):
             raise passo
@@ -78,13 +78,11 @@ class Base(TestCase):
         temp = TemporaryDirectory()
         self.addCleanup(temp.cleanup)
         self.banco = Path(temp.name) / "t.sqlite3"
-        self.pausas = []
 
     def servico(self, roteiro=(), *, gerador=None, ciclos=1, juiz="falso", **kw):
         self.gerador = gerador or GeradorFalso()
         self.juiz = JuizFalso(roteiro) if juiz == "falso" else juiz
-        return ServicoCurricular(BuscaCurricular(), self.banco, self.gerador, juiz=self.juiz, ciclos_juiz=ciclos,
-                                 dormir=self.pausas.append, **kw)
+        return ServicoCurricular(BuscaCurricular(), self.banco, self.gerador, juiz=self.juiz, ciclos_juiz=ciclos, **kw)
 
     def pedido(self, s):
         c = s.consultar({"contexto": CONTEXTO, "consulta": "tema"})
@@ -236,26 +234,14 @@ class TestFluxo(Base):
 
 
 class TestLimitesEPausa(Base):
-    def test_pausa_do_groq_antes_da_segunda_chamada_e_maior_depois_de_413(self):
-        s = self.servico([UMA_GRAVE, FAVORAVEL], pausa_juiz_s=75)
-        s.gerar(self.pedido(s))
-        self.assertEqual(len(self.pausas), 1)
-        self.assertTrue(70 < self.pausas[0] <= 75, self.pausas)
-        self.pausas.clear()
-        s2 = self.servico([ErroGeracao("Groq HTTP 413", tipo="http"), FAVORAVEL], pausa_juiz_s=75, pausa_juiz_413_s=120)
-        cid = self.pedido(s2)
-        s2.gerar(cid)
-        s2.gerar(cid)
-        self.assertTrue(115 < self.pausas[0] <= 120, self.pausas)
-
-    def test_juiz_de_demonstracao_nao_pausa(self):
+    def test_servico_passa_ao_esperar_para_o_juiz(self):
+        # O intervalo entre chamadas reais agora fica no JuizGroq (tests/test_intervalo_juiz.py); o serviço só repassa o aviso.
         s = self.servico([UMA_GRAVE, FAVORAVEL])
-        self.juiz.modo = "demonstracao"
         s.gerar(self.pedido(s))
-        self.assertEqual(self.pausas, [])
+        self.assertTrue(all(callable(c["ao_esperar"]) for c in self.juiz.chamadas))
 
     def test_limite_do_juiz_conta_falhas_e_entrega_sem_avaliar(self):
-        s = self.servico([ErroGeracao("Groq HTTP 400", tipo="http"), FAVORAVEL], limite_diario_juiz=1, pausa_juiz_s=0)
+        s = self.servico([ErroGeracao("Groq HTTP 400", tipo="http"), FAVORAVEL], limite_diario_juiz=1)
         cid = self.pedido(s)
         s.gerar(cid)  # 1 chamada (com falha) = limite
         r = s.gerar(cid)
@@ -265,7 +251,7 @@ class TestLimitesEPausa(Base):
         self.assertEqual(s.uso_juiz_hoje(), (1, 1))
 
     def test_limite_do_juiz_no_meio_do_fluxo_nao_chama_alem(self):
-        s = self.servico([UMA_GRAVE, FAVORAVEL], limite_diario_juiz=1, pausa_juiz_s=0)
+        s = self.servico([UMA_GRAVE, FAVORAVEL], limite_diario_juiz=1)
         r = s.gerar(self.pedido(s))
         self.assertEqual(len(self.juiz.chamadas), 1)
         self.assertEqual(r["geracao_atual"]["revisao"], 2)
@@ -280,12 +266,12 @@ class TestLimitesEPausa(Base):
         self.assertEqual((len(self.juiz.chamadas), s.uso_juiz_hoje()[0]), (2, 0))
 
     def test_limite_de_geracao_conta_regeneracoes_e_para_no_meio(self):
-        s = self.servico([UMA_GRAVE, FAVORAVEL], limite_diario_ia=1, pausa_juiz_s=0)
+        s = self.servico([UMA_GRAVE, FAVORAVEL], limite_diario_ia=1)
         r = s.gerar(self.pedido(s))
         self.assertEqual(self.gerador.chamadas, 1)
         self.assertIn("Limite diário de gerações", r["pedido_atual"]["aviso"])
         self.assertEqual(r["geracao_atual"]["avaliacao"]["rotulo"], "Com ressalvas")
-        s2 = self.servico([UMA_GRAVE, FAVORAVEL], limite_diario_ia=3, pausa_juiz_s=0)
+        s2 = self.servico([UMA_GRAVE, FAVORAVEL], limite_diario_ia=3)
         s2.gerar(self.pedido(s2))
         self.assertEqual(s2.uso_hoje()[0], 3)  # 1 do primeiro serviço + 2 (geração + regeneração)
 
@@ -398,18 +384,16 @@ class TestApp(TestCase):
 
     def test_demonstracao_mostra_modo_ciclos_e_nao_pausa(self):
         texto, servico = self.rodar(["--gerador", "demonstracao", "--juiz", "demonstracao", "--ciclos-juiz", "2"], {})
-        self.assertEqual((servico.juiz.modo, servico.ciclos_juiz, servico.pausa_juiz_s, servico.limite_diario_juiz),
-                         ("demonstracao", 2, 0, None))
+        self.assertEqual((servico.juiz.modo, servico.ciclos_juiz, servico.limite_diario_juiz), ("demonstracao", 2, None))
         self.assertIn("ciclos automáticos: 2", texto)
         self.assertIn("DEMONSTRAÇÃO", texto)
 
-    def test_padrao_com_chave_groq_liga_groq_com_limite_8_e_pausa_75(self):
+    def test_padrao_com_chave_groq_liga_groq_com_limite_8(self):
         falso = type("J", (), {"modo": "groq", "modelo": "openai/gpt-oss-120b", "versao_prompt": "juiz-v1.3"})()
         with patch.object(app, "criar_juiz", side_effect=lambda modo: falso if modo == "groq" else None) as fabrica:
             texto, servico = self.rodar(["--gerador", "demonstracao"], {"GROQ_API_KEY": "x"})
         fabrica.assert_called_once_with("groq")
-        self.assertEqual((servico.limite_diario_juiz, servico.pausa_juiz_s, servico.pausa_juiz_413_s, servico.ciclos_juiz),
-                         (8, 75, 120, 1))
+        self.assertEqual((servico.limite_diario_juiz, servico.ciclos_juiz), (8, 1))
         self.assertIn("Limite do Juiz: 8 avaliações por dia; usadas hoje: 0.", texto)
 
     def test_desligado_explicito_mesmo_com_chave(self):

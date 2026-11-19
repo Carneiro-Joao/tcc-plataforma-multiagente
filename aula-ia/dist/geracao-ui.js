@@ -189,9 +189,12 @@
     const ciclo = pedido?.ciclo || 0;
     const passos = [["gerando", 0, "Gerando plano…"], ["avaliando", 0, "IA Juiz avaliando…"]];
     for (let c = 1; c <= ciclo; c++) passos.push(["regenerando", c, "Ajustando: gerando nova versão…"], ["avaliando", c, "IA Juiz avaliando a nova versão…"]);
-    const atual = Math.max(0, passos.findIndex(([e, c]) => e === estado && c === ciclo));
+    // Esperando a cota do Groq: mesma etapa de avaliação, com o texto da espera.
+    const aguardando = estado === "aguardando_juiz";
+    const atual = Math.max(0, passos.findIndex(([e, c]) => e === (aguardando ? "avaliando" : estado) && c === ciclo));
     return `<div class="pedido-progresso" role="status" aria-live="polite"><ol>${
-      passos.map(([, , rotulo], i) => `<li class="${i < atual ? "feito" : i === atual ? "atual" : ""}">${texto(rotulo)}</li>`).join("")
+      passos.map(([, , rotulo], i) => `<li class="${i < atual ? "feito" : i === atual ? "atual" : ""}">${
+        texto(aguardando && i === atual ? "Aguardando a cota da IA Juiz…" : rotulo)}</li>`).join("")
     }</ol><p>Isso pode levar até 4 minutos. Você não precisa fazer nada: o plano chega já avaliado pela IA Juiz.${
       decorridoS ? ` Tempo decorrido: ${duracao(decorridoS)}.` : ""}</p></div>`;
   }

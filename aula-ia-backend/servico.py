@@ -4,7 +4,6 @@ import json
 from hashlib import sha256
 from pathlib import Path
 import sqlite3
-import time
 from uuid import uuid4
 from erros import ErroGeracao
 from juiz_servico import ROTULOS, NAO_FAVORAVEL, falhas_graves
@@ -33,7 +32,7 @@ TIPOS = ("Computação desplugada", "Aula prática", "Aula teórica", "Projeto")
 
 # Pedido em andamento parado há mais que isto é tratado como interrompido (ex.: o app foi fechado no meio).
 PEDIDO_ABANDONADO_S = 15 * 60
-ESTADOS_EM_ANDAMENTO = ("gerando", "avaliando", "regenerando")
+ESTADOS_EM_ANDAMENTO = ("gerando", "avaliando", "aguardando_juiz", "regenerando")
 AVISO_PROVISORIO = "Avaliação automática e provisória; a decisão final é do professor."
 
 
@@ -105,7 +104,7 @@ def visao(registro):
 
 class ServicoCurricular:
     def __init__(self, busca, banco, gerador=None, limite_diario_ia=None, juiz=None, ciclos_juiz=1,
-                 limite_diario_juiz=None, pausa_juiz_s=75, pausa_juiz_413_s=120, dormir=time.sleep):
+                 limite_diario_juiz=None):
         self.busca = busca
         self.gerador = gerador or GeradorDePlano()
         # Máximo de gerações com IA por dia (data local), contando falhas: cada tentativa gasta chamadas pagas. None = sem limite.
@@ -114,8 +113,7 @@ class ServicoCurricular:
         if type(ciclos_juiz) is not int or ciclos_juiz < 0:
             raise ValueError("ciclos_juiz deve ser inteiro >= 0.")
         self.juiz, self.ciclos_juiz, self.limite_diario_juiz = juiz, ciclos_juiz, limite_diario_juiz
-        self.pausa_juiz_s, self.pausa_juiz_413_s, self.dormir = pausa_juiz_s, pausa_juiz_413_s, dormir
-        self._ultimo_juiz = None  # (instante monotônico, foi_413) da última chamada real ao Juiz neste processo
+        # O intervalo mínimo entre chamadas reais ao Groq fica no próprio JuizGroq (juiz_servico.py), com lock.
         self.banco = Path(banco)
         self.banco.parent.mkdir(parents=True, exist_ok=True)
         with abrir_banco(self.banco) as db:
@@ -352,7 +350,8 @@ class ServicoCurricular:
                 historico.append(dict(ciclo=ciclo, geracao_id=gid, revisao=revisao, evento="limite_juiz"))
                 break
             self._atualizar_pedido(id_pedido, estado="avaliando", ciclo=ciclo, historico=historico)
-            avaliado = self._avaliar(gid, revisao, resultado, entrada, ciclo)
+            avaliado = self._avaliar(gid, revisao, resultado, entrada, ciclo, ao_esperar=lambda falta, c=ciclo: self._atualizar_pedido(
+                id_pedido, estado="aguardando_juiz" if falta > 0 else "avaliando", ciclo=c))
             if avaliado.get("falha"):
                 aviso = "Avaliação indisponível (falha técnica da IA Juiz); o plano foi entregue sem parecer."
                 historico.append(dict(ciclo=ciclo, geracao_id=gid, revisao=revisao, evento="falha_juiz",
@@ -410,27 +409,20 @@ class ServicoCurricular:
                        (json.dumps(resultado, ensure_ascii=False), id_geracao))
         return id_geracao, revisao, resultado
 
-    def _avaliar(self, id_geracao, revisao, resultado, entrada, ciclo):
-        """Chama o Juiz (com a pausa exigida pelo Groq entre chamadas) e grava o parecer ou a falha técnica."""
+    def _avaliar(self, id_geracao, revisao, resultado, entrada, ciclo, ao_esperar=None):
+        """Chama o Juiz e grava o parecer ou a falha técnica. Se o Juiz precisar esperar a cota, `ao_esperar` avisa a tela."""
         from contratos import juiz_v1
         from groq_juiz import sanitizar
-        real = getattr(self.juiz, "modo", None) == "groq"
-        if real and self._ultimo_juiz is not None:
-            instante, foi_413 = self._ultimo_juiz
-            espera = (self.pausa_juiz_413_s if foi_413 else self.pausa_juiz_s) - (time.monotonic() - instante)
-            if espera > 0:
-                self.dormir(espera)
         modelo_gerador = resultado.get("modelo") or getattr(self.gerador, "modelo", None) or "desconhecido"
         try:
-            dados = self.juiz.avaliar(resultado["plano"], entrada, modelo_gerador=modelo_gerador, revisao=revisao, ciclo=ciclo)
+            dados = self.juiz.avaliar(resultado["plano"], entrada, modelo_gerador=modelo_gerador, revisao=revisao, ciclo=ciclo,
+                                      ao_esperar=ao_esperar)
             estado, proximo = "ok", dados["decisao"]["proximo_estado"]
         except Exception as erro:  # falha técnica (HTTP 400/413/429, recusa, contrato após reparo): nunca vira parecer
             conhecido = isinstance(erro, ErroGeracao)
             dados = dict(falha=True, erro=str(erro) if conhecido else "Falha interna na avaliação.",
                          tipo_erro=getattr(erro, "tipo", "interno"), rastreio=getattr(erro, "rastreio", []))
             estado, proximo = "falha", None
-        if real:  # a próxima chamada respeita a pausa (maior depois de HTTP 413)
-            self._ultimo_juiz = (time.monotonic(), estado == "falha" and "413" in dados["erro"])
         dados.update(modo=getattr(self.juiz, "modo", None))
         dados = sanitizar(dados)
         with abrir_banco(self.banco) as db:
