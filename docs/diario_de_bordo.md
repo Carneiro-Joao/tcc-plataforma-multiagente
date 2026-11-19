@@ -6,6 +6,38 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-18 21:40 · Claude Code · `feat/poc06b-ui-tema-recursos` @ `ce8397b`
+
+**Base** (decisão do João): criada de `feat/poc06-tema-curto` + merge de `feat/ui-jsx-nativo` (`beb43fc`; conflito só neste diário).
+Originais intactas; `main` não tocada. `tema.py` e `servico.py` não foram alterados. Nenhuma chamada real de API.
+
+**Feito** (`aula-ia/src/App.jsx`, `src/formulario.js`, `src/App.css`, `public/geracao-ui.js`; `dist/` reconstruído)
+1. JSON e rastreio técnico (confirmação, plano 2.0, plano legado, tentativa com falha) só aparecem com `?depuracao=1`; código mantido.
+2. Tema: placeholder "Ex.: ordenação", `maxLength` 80. 422 cuja mensagem fala de tema aparece junto ao campo (`aria-invalid`),
+   o texto digitado é preservado; outros erros continuam no topo. Consulta restaurada mostra `pedido_original` no campo.
+3. "Tema identificado: …" (`consulta.contexto.tema`) acima dos resultados; sem botão nem etapa extra.
+4. Lista vazia: "Não encontramos habilidade da BNCC de Computação para este tema. Tente outro termo." (+ dica do catálogo).
+5. Recursos: checklist (quadro e pincel, projetor, computadores, celulares, internet, material impresso, outro) + "Quais?" opcional
+   quando "Outro" está marcado. Obrigatório: sem nada marcado, a consulta nem é enviada. Valor enviado = string
+   ("quadro e pincel, projetor, cartões numerados"). Aula teórica pré-marca "quadro e pincel" sem desmarcar os outros.
+
+**Verificação**
+- `tests/test-formulario.mjs` (novo) e `tests/test-plano-render.mjs` (depuração no plano 2.0 e legado). 12 mutações manuais
+  (recursos, aula teórica, depuração, 422, App.jsx, geracao-ui.js): 0 sobreviventes. Backend `python -S`: 372 testes OK.
+- Playwright (Chrome do sistema, `playwright-core` fora do repo) no servidor de demonstração: fluxo completo até aprovar em 1440 px,
+  422 com "quero preparar uma aula bem legal", lista vazia com "IA generativa", `?depuracao=1`, restauração do checklist e
+  formulário em 360 px. Sem erro de JS no console (só o log de rede do 422 esperado). Capturas ficaram fora do repositório.
+
+**Observações (sem interpretação pedagógica)**
+- Com o tema "Ordenação" a busca lexical também traz EF08CO11 (mídias digitais) em 2º lugar. É comportamento do backend, não mudado aqui.
+- Um servidor de demonstração antigo (outra branch) ainda ocupava a porta 8765 e respondia sem extrair o tema; foi encerrado.
+  Ao testar localmente, conferir que só há um `app.py` na porta.
+
+**Pendências**
+- Merge da cadeia para `main`.
+
+---
+
 ## 2026-11-18 18:00 · Claude do chat · `feat/poc06-tema-curto`
 
 **Feito**
