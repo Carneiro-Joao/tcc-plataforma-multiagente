@@ -47,7 +47,9 @@ def criar_agente_groq_juiz(**kwargs):
 
 
 def avaliar_plano(plano, entrada, agente, *, modelo_gerador, modelo_juiz, revisao=0,
-                  reparos=1, ciclos_usados=0, politica=None):
+                  reparos=1, ciclos_usados=0, politica=None, antes_do_reparo=None):
+    """`antes_do_reparo`: chamado logo antes da tentativa de reparo (ex.: esperar a cota por minuto do provedor).
+    Padrão None = comportamento dos experimentos (reparo imediato)."""
     if type(reparos) is not int or reparos not in (0, 1):
         raise ValueError("Limite de reparos inválido.")
     politica_usada = contrato.resolver_politica(politica, ciclos_usados=ciclos_usados)
@@ -62,6 +64,8 @@ def avaliar_plano(plano, entrada, agente, *, modelo_gerador, modelo_juiz, revisa
     plano_v2.validar("plano", plano, entrada)
     estado, rastreio, reparo, saida = {"plano": deepcopy(plano)}, [], None, None
     for tentativa in range(1, reparos + 2):
+        if tentativa > 1 and antes_do_reparo is not None:
+            antes_do_reparo()
         reg = {"agente": "juiz", "tentativa": tentativa, "estado": "processando",
                "revisao": revisao, "ciclos_usados": ciclos_usados,
                "versao_rubrica": contrato.rubrica.VERSAO, "politica": deepcopy(politica_usada),

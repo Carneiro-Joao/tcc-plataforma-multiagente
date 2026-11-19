@@ -91,6 +91,18 @@ e não vira plano nem parecer; a tela mostra a mensagem e mantém o pedido. O li
 regeneração com chamadas reais não foi observado**; ele está coberto pelos testes sem rede e pelo modo demonstração (que, com o parecer
 gravado `em_correcao`, regenera uma vez e entrega a versão com menos falhas graves).
 
+## Correção após uso real (19/11/2026, tarde) — `feat/poc08b-pausa-reparo-juiz`
+Uso do João com `--limite-diario 38 --limite-diario-juiz 31`: num pedido (Listas · teórica · projetor, computadores) o Groq rejeitou o
+parecer por formato (HTTP 400 `json_validate_failed`: `componente` fora da lista permitida) e o **reparo** foi enviado na mesma hora;
+como cada avaliação usa ~6 mil tokens e o plano gratuito do Groq permite 8.000 tokens/minuto, o reparo levou **HTTP 429** ("Used 4399,
+Requested 5918") e o plano saiu com "avaliação indisponível". **Correção:** no app, espera de 60 s antes do reparo
+(`juiz_servico.PAUSA_ANTES_DO_REPARO_S`, via `avaliar_plano(..., antes_do_reparo=...)`). Prompt, modelo, rubrica, política e `reparos 1`
+não mudaram; o `ensaio_juiz.py` (experimentos) continua com reparo imediato. 7 testes novos (`tests/test_pausa_reparo.py`), 7 mutantes,
+0 sobreviventes; suíte 484 OK (também `-S`).
+No mesmo uso, outro pedido (Ordenação · desplugada) teve a 1ª versão "Com ressalvas" (3 falhas graves) e a regeneração falhou por
+**Gemini 503**; o app entregou a 1ª versão com o aviso "A nova versão falhou tecnicamente" (o Juiz avaliou uma vez só).
+Geração em 19/11 até 13:22: 12, das quais 6 com falha técnica do Gemini (4 timeouts, 2× 503).
+
 ## Limites conhecidos
 - O Juiz avalia o plano inteiro e o fluxo regenera o plano inteiro: as críticas do Juiz **não** são usadas para corrigir componentes
   (trabalho futuro, exige prompt novo e pré-registro).

@@ -6,6 +6,14 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-19 13:40 · Claude Code · Correção: pausa antes do reparo do Juiz (`feat/poc08b-pausa-reparo-juiz`, autorizada pelo João)
+
+**Problema (uso real do João):** Groq rejeitou o formato do parecer (400) e o reparo imediato estourou 8.000 tokens/min → 429 →
+"avaliação indisponível". **Correção:** espera de 60 s antes do reparo, só no app; configuração do Juiz e experimentos inalterados.
+7 testes, 7 mutantes, 0 vivos; 484 OK (também `-S`). Detalhes em `docs/PoC08_Juiz_Integrado.md`. Levada à `main` (fast-forward).
+
+---
+
 ## 2026-11-19 12:40 · Claude Code · PoC 08 — IA Juiz integrada (`feat/poc08-juiz-integrado`)
 
 **Feito (um commit por fase, todos no GitHub)**

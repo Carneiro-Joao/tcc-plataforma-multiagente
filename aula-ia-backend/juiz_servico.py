@@ -9,6 +9,7 @@ O Juiz é consultivo: nunca aprova o plano; a decisão final é do professor.
 from copy import deepcopy
 import json
 from pathlib import Path
+import time
 
 from contratos import juiz_v1 as contrato
 from juiz import avaliar_plano, criar_agente_groq_juiz
@@ -16,6 +17,9 @@ from juiz import avaliar_plano, criar_agente_groq_juiz
 RAIZ = Path(__file__).resolve().parent.parent
 PARECER_DEMONSTRACAO = RAIZ / "experimentos" / "juiz" / "demonstracao" / "parecer_controle_v13.json"
 REPAROS = 1
+# Groq (plano gratuito): 8.000 tokens por minuto e ~6–7 mil por avaliação. O reparo logo após a 1ª chamada estourava a cota
+# (HTTP 429 em 19/11/2026, 13:18). No app, espera-se antes do reparo; prompt, modelo, rubrica e reparos não mudam.
+PAUSA_ANTES_DO_REPARO_S = 60
 PARAMETROS_EXPERIMENTOS = dict(timeout=90, temperature=0, max_completion_tokens=8192, reasoning_effort="medium", seed=42,
                                versao_prompt="juiz-v1.3")
 
@@ -32,14 +36,16 @@ def falhas_graves(parecer):
 class JuizGroq:
     modo = "groq"
 
-    def __init__(self, agente=None, **kwargs):
+    def __init__(self, agente=None, *, pausa_reparo_s=PAUSA_ANTES_DO_REPARO_S, dormir=time.sleep, **kwargs):
+        self.pausa_reparo_s, self.dormir = pausa_reparo_s, dormir
         self.agente = agente or criar_agente_groq_juiz(**{**PARAMETROS_EXPERIMENTOS, **kwargs})
         self.modelo = self.agente.modelo
         self.versao_prompt = getattr(self.agente, "versao_prompt", contrato.VERSAO_PROMPT)
 
     def avaliar(self, plano, entrada, *, modelo_gerador, revisao, ciclo):
         resultado = avaliar_plano(plano, entrada, self.agente, modelo_gerador=modelo_gerador, modelo_juiz=self.modelo,
-                                  revisao=revisao, reparos=REPAROS, ciclos_usados=ciclo)
+                                  revisao=revisao, reparos=REPAROS, ciclos_usados=ciclo,
+                                  antes_do_reparo=lambda: self.dormir(self.pausa_reparo_s))
         resultado.update(modo=self.modo, versao_prompt=self.versao_prompt, demonstracao=False)
         return resultado
 
