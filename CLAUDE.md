@@ -45,6 +45,10 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
    "validado" ou "o Juiz acerta" sem evidência (n pequeno, um plano, temperatura 0 não é determinístico).
 
 ## Estado em 19/11/2026 — CONGELAMENTO
+- **`main` = VERSÃO CONGELADA** (19/11/2026, fast-forward de `feat/poc08-juiz-integrado`, autorizado pelo João). Toda a cadeia
+  poc04a → poc08 está nela. Desenvolvimento encerrado: daqui em diante só escrita do TCC; qualquer mudança de código precisa do João.
+  Fora da `main` (de propósito): `origin/docs/diagramas-rascunho` (rascunhos históricos de requisitos/diagramas).
+- Para rodar e para os números do texto: `docs/Estado_Final_Sistema.md`; Juiz integrado: `docs/PoC08_Juiz_Integrado.md`.
 - **Feedback do orientador (reunião de 19/11):** o sistema já prova o conceito; é TCC, não produto, não precisa ser perfeito. A partir da
   semana seguinte o João foca 100% na escrita. **19/11 é o último dia de desenvolvimento:** fechar o sistema com a IA Juiz integrada e congelar.
 - **Decisão do João (pendente de ratificação):** o Juiz é uma ETAPA AUTOMÁTICA da geração (PoC 08, `feat/poc08-juiz-integrado`):
@@ -75,7 +79,7 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
   na V03 ele acha o defeito mas atribui ao componente `metodologia` em vez de `sequencia`.
 
 ## Pendências (ordem sugerida, atualizada em 18/11 23:50)
-**Branch mais recente:** `feat/poc07d-lote-2-3` (`54d2711`). Começar daqui; ver a entrada "Passagem para 19/11" no diário de bordo.
+**Versão congelada:** `main` (19/11). Pendências abaixo são para o TEXTO (trabalho futuro), não para código.
 1. **Adjudicar o lote 2.3** (`docs/PoC07D_Resultado_Lote_2_3.md`): os 2 H1 da 2.3 parecem falsos positivos da regra; a leitura por plano é opinião.
 2. **Decidir o próximo ciclo da geração** (cada item exige pré-registro commitado ANTES de chamar API): regra de medição v2 (negação /
    recurso confirmado), prompt 2.4 (fidelidade ao tipo de aula, exemplo concreto, evidência não só oral), alerta determinístico
