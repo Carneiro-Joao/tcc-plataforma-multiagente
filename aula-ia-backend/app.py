@@ -17,6 +17,7 @@ from geracao_v2 import AgenteGeminiCompleto, GeradorDePlanoCompleto as GeradorDe
 from gemini import MODELO_PADRAO
 from rede import transporte_ipv4
 from servico import ErroConsulta, ServicoCurricular
+from juiz_servico import criar_juiz
 
 DIST = BASE.parent / "aula-ia" / "dist"
 CONSULTA = re.compile(r"/api/consultas/([0-9a-f]{32})(?:/(confirmar|entrada-geracao|gerar))?")
@@ -117,9 +118,20 @@ def main(argv=None):
                         help="Novas tentativas com espera somente para HTTP 503, por chamada (padrão: 2).")
     parser.add_argument("--limite-diario", type=int, default=8,
                         help="Máximo de planos com IA por dia, contando falhas (padrão: 8; 0 = sem limite).")
+    parser.add_argument("--juiz", choices=("groq", "demonstracao", "desligado"), default=None,
+                        help="IA Juiz automática após cada geração. Padrão: groq se GROQ_API_KEY estiver definida, senão desligado. "
+                             "'demonstracao' usa um parecer real gravado, sem rede.")
+    parser.add_argument("--ciclos-juiz", type=int, default=1,
+                        help="Regenerações automáticas quando o Juiz não dá parecer favorável (padrão: 1; 0 = não regenera).")
+    parser.add_argument("--limite-diario-juiz", type=int, default=8,
+                        help="Máximo de avaliações reais do Juiz por dia, contando falhas (padrão: 8; 0 = sem limite).")
     args = parser.parse_args(argv)
     if args.limite_diario < 0:
         parser.error("--limite-diario não pode ser negativo.")
+    if args.ciclos_juiz < 0 or args.limite_diario_juiz < 0:
+        parser.error("--ciclos-juiz e --limite-diario-juiz não podem ser negativos.")
+    tem_chave_groq = bool(os.environ.get("GROQ_API_KEY", "").strip())
+    modo_juiz = args.juiz or ("groq" if tem_chave_groq else "desligado")
     try:
         busca = BuscaCurricular(args.modo)
     except (ImportError, OSError, ValueError) as erro:
@@ -136,10 +148,11 @@ def main(argv=None):
                                          transporte=transporte_ipv4() if args.ipv4 else None,
                                          repeticoes_503=args.repeticoes_503)
         gerador = GeradorDePlano(args.gerador, args.modelo, agente=agente, reparos=args.reparos)
+        juiz = criar_juiz(modo_juiz)
     except (EOFError, KeyboardInterrupt):
         parser.exit(1, "Inicialização cancelada.\n")
     except ErroGeracao as erro:
-        parser.exit(1, f"Não foi possível iniciar a geração: {erro}\n")
+        parser.exit(1, f"Não foi possível iniciar a geração ou a IA Juiz: {erro}\n")
     try:
         servidor = ThreadingHTTPServer(("127.0.0.1", args.porta), Rotas)
     except OSError as erro:
@@ -147,7 +160,11 @@ def main(argv=None):
     temporario = TemporaryDirectory(prefix="aulaia-") if args.temporario else None
     banco = Path(temporario.name) / "sessao.sqlite3" if temporario else args.banco
     limite = (args.limite_diario or None) if args.gerador == "ia" else None
-    servidor.servico = ServicoCurricular(busca, banco, gerador, limite_diario_ia=limite)
+    limite_juiz = (args.limite_diario_juiz or None) if modo_juiz == "groq" else None
+    servidor.servico = ServicoCurricular(busca, banco, gerador, limite_diario_ia=limite, juiz=juiz,
+                                         ciclos_juiz=args.ciclos_juiz, limite_diario_juiz=limite_juiz,
+                                         pausa_juiz_s=75 if modo_juiz == "groq" else 0,
+                                         pausa_juiz_413_s=120 if modo_juiz == "groq" else 0)
     print("Dados: " + ("somente nesta sessão; ao reiniciar, consulte novamente." if temporario else str(banco)), flush=True)
     if args.gerador == "ia":
         usados, _ = servidor.servico.uso_hoje()
@@ -157,6 +174,18 @@ def main(argv=None):
         print("Conexão Gemini: " + ("IPv4" if args.ipv4 else "automática"), flush=True)
         print(f"HTTP 503: até {args.repeticoes_503} novas tentativas com espera por chamada. "
               f"Limite total com reparos e repetições: {6 * (1 + args.reparos) * (1 + args.repeticoes_503)} requisições.", flush=True)
+    if modo_juiz == "desligado":
+        print("IA Juiz: DESLIGADA" + ("" if args.juiz else " (GROQ_API_KEY não definida)") +
+              "; os planos são entregues com 'avaliação não realizada'.", flush=True)
+    else:
+        usados_juiz, _ = servidor.servico.uso_juiz_hoje()
+        print(f"IA Juiz: {modo_juiz} ({juiz.modelo}, {juiz.versao_prompt}, rubrica 0.1, politica-juiz-prelim-0.1); "
+              f"ciclos automáticos: {args.ciclos_juiz}.", flush=True)
+        if modo_juiz == "groq":
+            print(f"Limite do Juiz: {limite_juiz} avaliações por dia; usadas hoje: {usados_juiz}." if limite_juiz else
+                  f"Limite do Juiz DESLIGADO (--limite-diario-juiz 0); usadas hoje: {usados_juiz}.", flush=True)
+        else:
+            print("IA Juiz em DEMONSTRAÇÃO: parecer real gravado de outro plano, sem rede.", flush=True)
     url = f"http://127.0.0.1:{servidor.server_port}"
     print(f"AulaIA | {url} | busca {args.modo} | geração {args.gerador}", flush=True)
     try:

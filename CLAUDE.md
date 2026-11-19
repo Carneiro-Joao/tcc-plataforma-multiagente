@@ -44,6 +44,16 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 8. Resultado de LLM é evidência provisória: a classificação mecânica não substitui adjudicação humana. Não afirmar "estável",
    "validado" ou "o Juiz acerta" sem evidência (n pequeno, um plano, temperatura 0 não é determinístico).
 
+## Estado em 19/11/2026 — CONGELAMENTO
+- **Feedback do orientador (reunião de 19/11):** o sistema já prova o conceito; é TCC, não produto, não precisa ser perfeito. A partir da
+  semana seguinte o João foca 100% na escrita. **19/11 é o último dia de desenvolvimento:** fechar o sistema com a IA Juiz integrada e congelar.
+- **Decisão do João (pendente de ratificação):** o Juiz é uma ETAPA AUTOMÁTICA da geração (PoC 08, `feat/poc08-juiz-integrado`):
+  gerar → Juiz avalia → favorável entrega; não favorável regenera o plano inteiro (até `--ciclos-juiz`, padrão 1) e entrega a melhor versão
+  com aviso; falha técnica do Juiz entrega com "avaliação indisponível" (nunca conta como parecer). O Juiz é consultivo; o professor aprova.
+- **Versões congeladas:** geração `especialistas-plano-2.3` (`gemini-3.5-flash-lite`); Juiz `juiz-v1.3` + `rubrica-juiz-0.1` +
+  `politica-juiz-prelim-0.1` (`openai/gpt-oss-120b` na Groq), mesma configuração dos experimentos.
+- **Fora do escopo (trabalho futuro no texto):** refazer só os componentes criticados usando as críticas do Juiz, prompt 2.4, deploy na internet.
+
 ## Estado em 18/11/2026
 - Cadeia de branches: `feat/poc04a-contratos` → `poc04a-gemini` → `poc04a-prototipo-local` → `poc05-juiz-contrato` → `poc05b-juiz-groq`
   → `poc05c-variantes` → `poc05d-analise-serie` → `poc05e-relatorio-testes` → `poc05f-filtro-baseline` → `claude-md-contexto`

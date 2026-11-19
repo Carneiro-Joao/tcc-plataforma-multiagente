@@ -6,6 +6,15 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-19 11:30 · Claude Code · Feedback do orientador e início da PoC 08 (`feat/poc08-juiz-integrado`)
+
+**Feedback do orientador (reunião de 19/11):** o sistema já prova o conceito; é TCC, não produto. Na semana seguinte o João foca 100% na
+escrita; **hoje é o último dia de desenvolvimento**: integrar a IA Juiz ao fluxo e congelar.
+**Decisão do João (pendente de ratificação):** Juiz como etapa automática da geração; o professor recebe o plano já avaliado e decide.
+**Reunião:** 1 geração real às 10:12 (61 s, ok); 2 timeouts do Gemini às 10:33 e 10:34 (falha técnica, contaram no limite); às 10:40, 58 s, ok.
+
+---
+
 ## 2026-11-18 23:50 · Claude Code · Passagem para 19/11 (João segue primeiro com o Claude do chat)
 
 **Onde parar/retomar:** branch `feat/poc07d-lote-2-3` @ `54d2711`, tudo commitado e no GitHub. `main` não tocada.

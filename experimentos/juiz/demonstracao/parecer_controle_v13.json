@@ -1,0 +1,70 @@
+{
+  "descricao": "Parecer REAL gravado (controle do plano original de ordenação, prompt juiz-v1.3, 17/11/2026). Usado só pelo modo --juiz demonstracao (plano B e testes): NÃO avalia o plano exibido.",
+  "fonte": "aula-ia-backend/local/ensaios_juiz/20261117T193100Z-60bc40e3bbad/resultado.json",
+  "versao_prompt": "juiz-v1.3",
+  "modelo_juiz": "openai/gpt-oss-120b",
+  "versao_rubrica": "rubrica-juiz-0.1",
+  "contrato": "parecer-juiz-1.0",
+  "politica": "politica-juiz-prelim-0.1",
+  "parecer": {
+    "avaliacoes": [
+      {
+        "criterio": "aderencia_curricular",
+        "nota": 3,
+        "justificativa": "O plano foca no algoritmo Bubble sort, que é um algoritmo clássico de ordenação, atendendo à habilidade EF08CO03 sem incluir conteúdos periféricos. (OBJ1, OBJ2, ET2)"
+      },
+      {
+        "criterio": "alinhamento_objetivos",
+        "nota": 3,
+        "justificativa": "Os objetivos OBJ1 e OBJ2 são observáveis e vinculados ao objetivo geral, embora apresentem certa sobreposição. (OBJ1, OBJ2)"
+      },
+      {
+        "criterio": "coerencia_metodologica",
+        "nota": 3,
+        "justificativa": "A metodologia descrita corresponde às atividades ET1 e ET2, mantendo sequência lógica de introdução e prática; falta apenas a etapa de discussão citada na metodologia. (ET1, ET2)"
+      },
+      {
+        "criterio": "viabilidade",
+        "nota": 3,
+        "justificativa": "Todas as atividades utilizam apenas papel, totalizando 50 minutos (15 + 35), compatível com a duração informada e com os recursos disponíveis. (recursos, desenvolvimento)"
+      },
+      {
+        "criterio": "avaliacao_aprendizagem",
+        "nota": 1,
+        "justificativa": "A evidência EVI1 não verifica o objetivo OBJ1 (identificar os passos do algoritmo), limitando-se à comparação de dois cartões, o que impede a avaliação completa dos objetivos. (EVI1, OBJ1)"
+      },
+      {
+        "criterio": "inclusao",
+        "nota": 3,
+        "justificativa": "As adaptações ADP1 e ADP2 oferecem alternativas concretas e viáveis com os mesmos recursos, mantendo os objetivos do plano. (ADP1, ADP2)"
+      }
+    ],
+    "falhas": [
+      {
+        "id": "F1",
+        "criterio": "avaliacao_aprendizagem",
+        "componente": "avaliacao_preliminar",
+        "gravidade": "maior",
+        "descricao": "EVIDENCIA EVI1 não cobre o objetivo OBJ1 (identificar passos do algoritmo), limitando-se a comparar dois cartões.",
+        "correcao_sugerida": "Incluir evidência que observe o aluno descrevendo sequencialmente os passos do Bubble sort ou criar instrumento que registre a lista de passos."
+      },
+      {
+        "id": "F2",
+        "criterio": "alinhamento_objetivos",
+        "componente": "objetivos",
+        "gravidade": "menor",
+        "descricao": "Objetivos OBJ1 e OBJ2 apresentam sobreposição, ambos tratam de identificar passos e simular o mesmo algoritmo.",
+        "correcao_sugerida": "Refinar OBJ1 para focar apenas na descrição dos passos ou combinar os dois objetivos em um único objetivo."
+      },
+      {
+        "id": "F3",
+        "criterio": "coerencia_metodologica",
+        "componente": "sequencia",
+        "gravidade": "menor",
+        "descricao": "A metodologia menciona discussões coletivas, mas não há etapa explícita de debate nas etapas ET1/ET2.",
+        "correcao_sugerida": "Adicionar uma breve etapa de discussão ao final da prática para que os alunos verbalizem os passos do algoritmo."
+      }
+    ],
+    "resumo": "O plano atende bem à habilidade e à maioria dos critérios, porém a avaliação da aprendizagem não cobre integralmente o objetivo de identificar os passos do algoritmo, e há pequenas sobreposições nos objetivos e ausência de etapa de discussão prevista na metodologia."
+  }
+}
