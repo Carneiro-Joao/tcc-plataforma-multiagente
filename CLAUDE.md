@@ -64,9 +64,15 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 - Achados a adjudicar: o Juiz repete "plano só trabalha Bubble sort" (possível falso positivo curricular) e "ET2 simula uma passagem só";
   na V03 ele acha o defeito mas atribui ao componente `metodologia` em vez de `sequencia`.
 
-## Pendências (ordem sugerida)
-1. ~~Completar V04 e V05~~ (feito em `f35ff84`, 18/11). Próximo: adjudicação humana das séries V03–V06.
-2. Adjudicação humana: ferramenta pronta (`feat/poc05h-adjudicacao`); falta escolher o 2º avaliador e rodar as Fases A e B.
-3. Registro de decisões + e-mail ao orientador (pendente de ratificação). Perguntar a data final do TCC.
-4. Juiz → pipeline (estados, tabela de pareceres no SQLite, UI); ciclo de correção entre agentes.
-5. Plano de merge para `main`; limpar menções residuais a DeepSeek na documentação.
+## Pendências (ordem sugerida, atualizada em 18/11 23:50)
+**Branch mais recente:** `feat/poc07d-lote-2-3` (`54d2711`). Começar daqui; ver a entrada "Passagem para 19/11" no diário de bordo.
+1. **Adjudicar o lote 2.3** (`docs/PoC07D_Resultado_Lote_2_3.md`): os 2 H1 da 2.3 parecem falsos positivos da regra; a leitura por plano é opinião.
+2. **Decidir o próximo ciclo da geração** (cada item exige pré-registro commitado ANTES de chamar API): regra de medição v2 (negação /
+   recurso confirmado), prompt 2.4 (fidelidade ao tipo de aula, exemplo concreto, evidência não só oral), alerta determinístico
+   habilidade × recursos (EF08CO01 sem computador) e checagem ortográfica simples.
+3. Adjudicação humana do Juiz (V03–V06): ferramenta pronta (`poc05h-adjudicacao`); falta o 2º avaliador e as Fases A e B.
+4. Registro de decisões + e-mail ao orientador (pendente de ratificação). Perguntar a data final do TCC.
+5. Juiz → pipeline (estados, tabela de pareceres no SQLite, UI); ciclo de correção entre agentes.
+6. Pequenas: página em branco no fim da impressão (PA-2); gerador de demonstração ainda usa "cartões já preparados";
+   `ensaio_juiz.py exportar` reaproveitar `tem_credencial`; `erroEhDoTema` depende do texto "tema".
+7. Plano de merge para `main` (cadeia longa; `main` em `3939dfd`); limpar menções residuais a DeepSeek.

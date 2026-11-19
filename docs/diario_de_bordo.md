@@ -6,6 +6,19 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-18 23:50 · Claude Code · Passagem para 19/11 (João segue primeiro com o Claude do chat)
+
+**Onde parar/retomar:** branch `feat/poc07d-lote-2-3` @ `54d2711`, tudo commitado e no GitHub. `main` não tocada.
+**Cota:** limite de IA de 18/11 esgotado (12/12). Em 19/11 o contador zera; qualquer chamada real continua exigindo pedido do João.
+**Para o Claude do chat (sugestão de pauta):**
+1. Adjudicar `docs/PoC07D_Resultado_Lote_2_3.md` (2 H1 da 2.3 e leitura por plano).
+2. Decidir o que pré-registrar a seguir: regra de medição v2, prompt 2.4 e/ou alerta habilidade × recursos (texto do pré-registro é com o chat;
+   implementação e testes podem voltar para o Claude Code).
+3. Se houver decisão nova, registrar aqui e no `CLAUDE.md` (pendências já atualizadas).
+**Para o Claude Code ao voltar:** ler este diário do topo, conferir `git status` e `git fetch`, e partir da branch que o chat indicar.
+
+---
+
 ## 2026-11-18 23:45 · Claude Code · `feat/poc07d-lote-2-3` (base: `poc07c-limite-diario`)
 
 **Feito**
