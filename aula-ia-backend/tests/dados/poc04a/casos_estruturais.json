@@ -86,11 +86,11 @@
     "caso": "fixture_valida_plano",
     "contrato": "plano",
     "entrada": {
-      "titulo": "Plano de aula — Quero ensinar ordenação",
+      "titulo": "Plano de aula — Ordenação",
       "habilidade_codigo": "EF08CO03",
       "habilidade_texto": "Utilizar algoritmos clássicos de manipulação sobre listas.",
       "ano": "8º ano",
-      "tema": "Quero ensinar ordenação",
+      "tema": "Ordenação",
       "duracao_min": 50,
       "tipo": "Computação desplugada",
       "objetivos": [
@@ -705,7 +705,7 @@
     "caso": "tema_alterado",
     "contrato": "plano",
     "entrada": {
-      "titulo": "Plano de aula — Quero ensinar ordenação",
+      "titulo": "Plano de aula — Ordenação",
       "habilidade_codigo": "EF08CO03",
       "habilidade_texto": "Utilizar algoritmos clássicos de manipulação sobre listas.",
       "ano": "8º ano",
@@ -764,11 +764,11 @@
     "caso": "habilidade_reescrita",
     "contrato": "plano",
     "entrada": {
-      "titulo": "Plano de aula — Quero ensinar ordenação",
+      "titulo": "Plano de aula — Ordenação",
       "habilidade_codigo": "EF08CO03",
       "habilidade_texto": "Texto reescrito",
       "ano": "8º ano",
-      "tema": "Quero ensinar ordenação",
+      "tema": "Ordenação",
       "duracao_min": 50,
       "tipo": "Computação desplugada",
       "objetivos": [
@@ -823,11 +823,11 @@
     "caso": "metodologia_objeto",
     "contrato": "plano",
     "entrada": {
-      "titulo": "Plano de aula — Quero ensinar ordenação",
+      "titulo": "Plano de aula — Ordenação",
       "habilidade_codigo": "EF08CO03",
       "habilidade_texto": "Utilizar algoritmos clássicos de manipulação sobre listas.",
       "ano": "8º ano",
-      "tema": "Quero ensinar ordenação",
+      "tema": "Ordenação",
       "duracao_min": 50,
       "tipo": "Computação desplugada",
       "objetivos": [

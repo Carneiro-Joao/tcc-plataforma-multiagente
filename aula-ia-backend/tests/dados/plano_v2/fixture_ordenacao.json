@@ -4,7 +4,7 @@
   "entrada": {
     "contexto": {
       "ano": "8º ano",
-      "tema": "Quero ensinar ordenação",
+      "tema": "Ordenação",
       "duracao_min": 50,
       "tipo": "Computação desplugada",
       "recursos": "papel e cartões"
@@ -193,10 +193,10 @@
   },
   "plano_esperado": {
     "identificacao": {
-      "titulo": "Plano de aula — Quero ensinar ordenação",
+      "titulo": "Plano de aula — Ordenação",
       "componente": "Computação",
       "ano": "8º ano",
-      "tema": "Quero ensinar ordenação",
+      "tema": "Ordenação",
       "tipo": "Computação desplugada",
       "duracao_min": 50
     },

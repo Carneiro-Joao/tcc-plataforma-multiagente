@@ -33,7 +33,7 @@ class TestFluxo(TestCase):
         self.assertIsNone(consulta["resultados"][0]["pontuacao"]["score_semantico"])
         id_ = consulta["id"]
         confirmado = self.servico.confirmar(id_, "EF08CO03")
-        self.assertEqual(confirmado["entrada_geracao"]["contexto"], CONTEXTO)
+        self.assertEqual(confirmado["entrada_geracao"]["contexto"], {**CONTEXTO, "tema": "Ordenação"})
         self.assertEqual(confirmado["entrada_geracao"]["habilidade"], primeiro)
         self.assertEqual(confirmado, ServicoCurricular(BuscaCurricular(), self.path).obter(id_))
 
@@ -84,7 +84,7 @@ class TestFluxo(TestCase):
         c2 = self.consultar(tema="privacidade", recursos="quadro")
         self.assertNotEqual(c1["id"], c2["id"])
         self.assertIsNone(c2["entrada_geracao"])
-        self.assertEqual(self.servico.obter(c1["id"])["entrada_geracao"]["contexto"], CONTEXTO)
+        self.assertEqual(self.servico.obter(c1["id"])["entrada_geracao"]["contexto"], {**CONTEXTO, "tema": "Ordenação"})
 
 
 @skipUnless(os.environ.get("TESTAR_HIBRIDO") == "1", "Ative TESTAR_HIBRIDO=1 para carregar o modelo.")

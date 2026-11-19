@@ -9,6 +9,8 @@ from erros import ErroGeracao
 from geracao_v2 import GeradorDePlanoCompleto as GeradorDePlano
 
 from rag.search import FONTE, BASE
+from rag.termos import TERMOS
+from tema import extrair_tema, TemaNaoIdentificado
 
 VERSAO_CATALOGO = "bncc-8ano-v1"
 HASH_CATALOGO = sha256((BASE / "data" / "bncc_8ano.json").read_bytes()).hexdigest()
@@ -90,13 +92,23 @@ class ServicoCurricular:
                            UNIQUE(consulta_id, revisao),
                            FOREIGN KEY (consulta_id) REFERENCES consultas(id))""")
 
+    def _vocabulario(self):
+        return [t for lista in TERMOS.values() for t in lista] + [d["objeto_conhecimento"] for d in self.busca.documentos]
+
     def consultar(self, pedido):
         contexto = validar_contexto(pedido.get("contexto"), self.busca.ano)
+        # O professor pode escrever uma frase inteira. A busca usa o texto dele; o plano e a tela usam só o tema.
+        pedido_original = contexto["tema"]
+        try:
+            achado = extrair_tema(pedido_original, self._vocabulario())
+        except TemaNaoIdentificado as erro:
+            raise ErroConsulta(422, str(erro))
+        contexto["tema"] = achado["tema"]
         modo = pedido.get("consulta", "tema")
         if modo == "catalogo":
             docs = self.busca.documentos
         elif modo == "tema":
-            docs = self.busca.buscar(contexto["tema"])
+            docs = self.busca.buscar(pedido_original)
         else:
             raise ErroConsulta(422, "Escolha a consulta por tema ou o catálogo completo.")
         resultados = []
@@ -105,7 +117,8 @@ class ServicoCurricular:
             if modo == "tema":
                 detalhe = {k: doc[k] for k in ("score_semantico", "bonus", "score_final")}
             resultados.append(dict(habilidade=habilidade_publica(doc), pontuacao=detalhe))
-        consulta = dict(id=uuid4().hex, contexto=contexto, consulta=modo,
+        consulta = dict(id=uuid4().hex, contexto=contexto, pedido_original=pedido_original,
+                        origem_tema=achado["origem"], consulta=modo,
                         metodo=self.busca.modo if modo == "tema" else "catalogo", resultados=resultados)
         dados = json.dumps(consulta, ensure_ascii=False)
         with abrir_banco(self.banco) as db:
