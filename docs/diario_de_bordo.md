@@ -10,7 +10,7 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 **Feito**
 - Chaves Gemini e Groq salvas pelo João como variáveis de ambiente do usuário no Windows (decisão dele, com limite de gasto na conta Google).
-- **Limite diário no app:** `ServicoCurricular(limite_diario_ia=...)` + `app.py --limite-diario` (padrão 5; 0 desliga). Conta gerações com IA
+- **Limite diário no app:** `ServicoCurricular(limite_diario_ia=...)` + `app.py --limite-diario` (padrão 8, decisão do João; 0 desliga). Conta gerações com IA
   do dia (data local), incluindo falhas e regenerações; bloqueia com HTTP 429 **antes** de chamar a API. Demonstração não conta.
   O terminal mostra o uso do dia ao iniciar.
 - 11 testes novos (`test_limite_diario.py`); mutação sem bytecode: 11 mutantes, 1 sobrevivente → teste novo, 0 ao final.

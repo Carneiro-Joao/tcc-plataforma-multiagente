@@ -110,7 +110,7 @@ class TestOpcaoDoApp(TestCase):
         self.ctx.enter_context(patch.dict(os.environ, {"GEMINI_API_KEY": "chave-ficticia-do-teste"}, clear=True))
         self.saida = self.ctx.enter_context(patch("sys.stdout", new_callable=io.StringIO))
         self.servico = self.ctx.enter_context(patch("app.ServicoCurricular"))
-        self.servico.return_value.uso_hoje.return_value = (3, 5)
+        self.servico.return_value.uso_hoje.return_value = (3, 8)
         servidor = self.ctx.enter_context(patch("app.ThreadingHTTPServer")).return_value
         servidor.server_port = 8000
         servidor.serve_forever.side_effect = KeyboardInterrupt()
@@ -119,9 +119,9 @@ class TestOpcaoDoApp(TestCase):
         app.main(argv)
         return self.servico.call_args.kwargs["limite_diario_ia"]
 
-    def test_padrao_5_com_ia_e_aviso_ao_iniciar(self):
-        self.assertEqual(self.limite_passado(["--gerador", "ia"]), 5)
-        self.assertIn("Limite: 5 planos com IA por dia; usados hoje: 3.", self.saida.getvalue())
+    def test_padrao_8_com_ia_e_aviso_ao_iniciar(self):
+        self.assertEqual(self.limite_passado(["--gerador", "ia"]), 8)
+        self.assertIn("Limite: 8 planos com IA por dia; usados hoje: 3.", self.saida.getvalue())
 
     def test_valor_escolhido_e_zero_desliga(self):
         self.assertEqual(self.limite_passado(["--gerador", "ia", "--limite-diario", "8"]), 8)

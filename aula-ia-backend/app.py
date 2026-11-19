@@ -115,8 +115,8 @@ def main(argv=None):
     parser.add_argument("--reparos", type=int, choices=(0, 1), default=1, help="Reparos de contrato por especialista (não repete erros HTTP).")
     parser.add_argument("--repeticoes-503", type=int, choices=(0, 1, 2), default=2,
                         help="Novas tentativas com espera somente para HTTP 503, por chamada (padrão: 2).")
-    parser.add_argument("--limite-diario", type=int, default=5,
-                        help="Máximo de planos com IA por dia, contando falhas (padrão: 5; 0 = sem limite).")
+    parser.add_argument("--limite-diario", type=int, default=8,
+                        help="Máximo de planos com IA por dia, contando falhas (padrão: 8; 0 = sem limite).")
     args = parser.parse_args(argv)
     if args.limite_diario < 0:
         parser.error("--limite-diario não pode ser negativo.")

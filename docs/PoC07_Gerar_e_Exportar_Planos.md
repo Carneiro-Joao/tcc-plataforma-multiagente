@@ -18,9 +18,9 @@ Modelo padrão: `gemini-3.5-flash-lite` (`--modelo` troca). Cada plano faz 6 cha
 alguns minutos; indisponibilidade 503 é repetida até 2 vezes (`--repeticoes-503`). Feche qualquer `app.py` antigo antes (porta ocupada = código velho).
 Os dados ficam em `local/consultas.sqlite3` (fora do Git).
 
-**Limite diário (proteção de gasto):** com `--gerador ia`, o app aceita no máximo **5 gerações por dia** (data local), contando
+**Limite diário (proteção de gasto):** com `--gerador ia`, o app aceita no máximo **8 gerações por dia** (data local), contando
 tentativas com falha e "Gerar outra versão", pois todas gastam chamadas. Ao atingir, a tela mostra o aviso e nenhuma chamada é feita.
-Ao iniciar, o terminal mostra `Limite: 5 planos com IA por dia; usados hoje: N.` Para mudar: `--limite-diario 8`; `--limite-diario 0`
+Ao iniciar, o terminal mostra `Limite: 8 planos com IA por dia; usados hoje: N.` Para mudar: `--limite-diario 8`; `--limite-diario 0`
 desliga (não recomendado). O modo demonstração não conta nem é limitado. Isso complementa, e não substitui, o limite de gasto na conta do Google.
 
 ## 3. Gerar os planos
