@@ -40,5 +40,5 @@ export function aplicarTipo(tipo, marcados) {
 
 /** Erro 422 da consulta é sobre o tema (não identificado/inválido): mostrar junto ao campo, não no topo. */
 export function erroEhDoTema(erro) {
-  return erro?.status === 422 && /tema/i.test(erro.message || "");
+  return erro?.status === 422 && typeof erro.codigo === "string" && erro.codigo.startsWith("tema_");
 }

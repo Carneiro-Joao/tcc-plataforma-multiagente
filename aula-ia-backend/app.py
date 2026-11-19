@@ -91,7 +91,7 @@ class Rotas(BaseHTTPRequestHandler):
         try:
             self.atender()
         except ErroConsulta as e:
-            self.json(e.status, {"erro": str(e)})
+            self.json(e.status, {"erro": str(e), **({"codigo": e.codigo} if getattr(e, "codigo", None) else {})})
         except (BrokenPipeError, ConnectionResetError):
             pass
         except Exception:

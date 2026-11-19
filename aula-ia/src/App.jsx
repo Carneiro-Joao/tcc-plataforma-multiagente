@@ -16,7 +16,7 @@ async function api(caminho, body, signal) {
     throw new Error("A API está indisponível. Verifique se o servidor Python está em execução.");
   }
   const dados = await resposta.json();
-  if (!resposta.ok) throw Object.assign(new Error(dados.erro || "Falha ao processar o pedido."), { status: resposta.status });
+  if (!resposta.ok) throw Object.assign(new Error(dados.erro || "Falha ao processar o pedido."), { status: resposta.status, codigo: dados.codigo });
   return dados;
 }
 
@@ -93,12 +93,13 @@ function Resultados({ consulta, codigo, escolher, confirmar, ocupado }) {
   </>;
 }
 
-function Confirmacao({ entrada }) {
+function Confirmacao({ entrada, alertas = [] }) {
   const { contexto: c, habilidade: h } = entrada;
   return <div className="confirmacao">
     <div className="selo"><Icon nome="check" tamanho={18}/> Habilidade confirmada</div>
     <h3>{h.codigo}</h3><p className="destaque">{h.habilidade}</p>
     <Referencia valor={h.referencia}/>
+    {alertas.map(a => <p key={a.codigo} className="aviso alerta-recursos" role="note">{a.mensagem}</p>)}
     <h4><Icon nome="layers" tamanho={20}/> Contexto para a geração</h4>
     <dl>{[["Tema", c.tema], ["Turma", c.ano], ["Duração", c.duracao_min + " minutos"], ["Tipo de aula", c.tipo], ["Recursos", c.recursos]].map(([k,v]) =>
       <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
@@ -289,7 +290,7 @@ export default function App() {
           </section>
           <section className="painel curricular" id="curriculo" aria-busy={ocupado}>
             <h2 ref={painel} tabIndex="-1"><span className="titulo-icone"><Icon nome="clipboard" tamanho={23}/></span>{entrada ? "Resumo da confirmação" : consulta ? "Habilidades encontradas" : "Base curricular"}</h2>
-            {entrada ? <Confirmacao entrada={entrada}/> : consulta
+            {entrada ? <Confirmacao entrada={entrada} alertas={consulta.alertas}/> : consulta
               ? <Resultados consulta={consulta} codigo={codigo} escolher={setCodigo} confirmar={confirmar} ocupado={ocupado}/>
               : <Fonte/>}
           </section>

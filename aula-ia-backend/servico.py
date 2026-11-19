@@ -38,14 +38,15 @@ AVISO_PROVISORIO = "Avaliação automática e provisória; a decisão final é d
 
 
 class ErroConsulta(Exception):
-    def __init__(self, status, mensagem):
+    def __init__(self, status, mensagem, codigo=None):
         super().__init__(mensagem)
         self.status = status
+        self.codigo = codigo  # identificador estável para a interface (ex.: "tema_nao_identificado")
 
 
-def texto_valido(valor, nome, limite):
+def texto_valido(valor, nome, limite, codigo=None):
     if not isinstance(valor, str) or not 0 < len(valor.strip()) <= limite:
-        raise ErroConsulta(422, f"Informe {nome} com até {limite} caracteres.")
+        raise ErroConsulta(422, f"Informe {nome} com até {limite} caracteres.", codigo)
     return valor.strip()
 
 
@@ -59,7 +60,7 @@ def validar_contexto(dados, ano):
         raise ErroConsulta(422, "Informe uma duração inteira de 1 a 1440 minutos.")
     if dados.get("tipo") not in TIPOS:
         raise ErroConsulta(422, "Selecione um tipo de aula válido.")
-    return dict(ano=ano, tema=texto_valido(dados.get("tema"), "o tema", 800),
+    return dict(ano=ano, tema=texto_valido(dados.get("tema"), "o tema", 800, "tema_invalido"),
                 duracao_min=minutos, recursos=texto_valido(dados.get("recursos"), "os recursos", 800),
                 tipo=dados["tipo"])
 
@@ -71,6 +72,24 @@ def habilidade_publica(doc):
         "pagina_habilidade": doc["pagina_habilidade"], "pagina_exemplos": doc["pagina_pdf"],
         "versao_catalogo": VERSAO_CATALOGO, "sha256_catalogo": HASH_CATALOGO,
     }}
+
+
+# Habilidades que pedem programação/automação em computador (texto da BNCC: "usando uma linguagem de programação").
+HABILIDADES_COM_COMPUTADOR = ("EF08CO01", "EF08CO02")
+
+
+def alertas_recursos(consulta):
+    """Avisos determinísticos (não bloqueiam): habilidade confirmada que pede computador sem computador nos recursos."""
+    entrada = consulta.get("entrada_geracao")
+    if not entrada:
+        return []
+    codigo = entrada["habilidade"]["codigo"]
+    recursos = entrada["contexto"]["recursos"].lower()
+    if codigo in HABILIDADES_COM_COMPUTADOR and "computador" not in recursos:
+        return [dict(codigo="habilidade_sem_computador",
+                     mensagem=f"A habilidade {codigo} pede automatizar soluções com uma linguagem de programação, mas "
+                              "“computadores” não está nos recursos marcados. O plano tende a ficar só no papel.")]
+    return []
 
 
 def visao(registro):
@@ -136,7 +155,7 @@ class ServicoCurricular:
         try:
             achado = extrair_tema(pedido_original, self._vocabulario())
         except TemaNaoIdentificado as erro:
-            raise ErroConsulta(422, str(erro))
+            raise ErroConsulta(422, str(erro), "tema_nao_identificado")
         contexto["tema"] = achado["tema"]
         modo = pedido.get("consulta", "tema")
         if modo == "catalogo":
@@ -215,6 +234,7 @@ class ServicoCurricular:
         consulta = visao(registro)
         consulta["geracao_atual"] = cls._geracao_atual(db, id_consulta)
         consulta["pedido_atual"] = cls._pedido_atual(db, id_consulta)
+        consulta["alertas"] = alertas_recursos(consulta)
         return consulta
 
     def obter(self, id_consulta):

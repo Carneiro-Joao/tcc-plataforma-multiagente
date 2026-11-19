@@ -18,6 +18,7 @@ from contratos.execucao import ler_json
 from erros import ErroGeracao
 from groq_juiz import MODELO_PADRAO, VERSAO_ADAPTADOR, VERSAO_ESQUEMA_API, sanitizar
 from juiz import avaliar_plano, criar_agente_groq_juiz
+from exportar_planos import tem_credencial
 
 BASE = Path(__file__).resolve().parent
 VERSAO_ENSAIO = "ensaio-juiz-0.1"
@@ -131,7 +132,7 @@ def main(argv=None):
     try:
         if args.acao == "exportar":
             caso = exportar_sqlite(args.banco, args.geracao_id)
-            if sanitizar(caso) != caso:
+            if sanitizar(caso) != caso or tem_credencial(caso):
                 raise ValueError("Exportação recusada por conter credencial.")
             salvar_novo(args.saida, caso)
             print("Caso exportado e validado:", args.saida)

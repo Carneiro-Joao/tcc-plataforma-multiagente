@@ -73,12 +73,15 @@ class AgenteDemonstrativoCompleto:
             registro.update(provedor='regras', versao_contrato=contrato.VERSAO, versao_prompt='demonstracao-plano-2.0')
         c, h = entrada['contexto'], entrada['habilidade']
         ordenacao = h['codigo'] == 'EF08CO03' and 'ordena' in c['tema'].lower()
+        # Só cita cartões se o professor marcou cartões nos recursos (achado PoC07B: material fora dos recursos).
+        cartoes = 'cart' in c['recursos'].lower().replace('õ', 'o').replace('ã', 'a')
         if nome == 'objetivos':
             if ordenacao:
                 return dict(conteudos=['Listas numéricas', 'Comparação de vizinhos e ordenação por bolha'],
                             objetivo_geral='Compreender e executar um procedimento de ordenação sobre listas.',
                             objetivos_especificos=[
-                                dict(id='OBJ1', descricao='Ordenar cartões numerados aplicando comparações e trocas entre vizinhos.'),
+                                dict(id='OBJ1', descricao='Ordenar cartões numerados aplicando comparações e trocas entre vizinhos.'
+                                     if cartoes else 'Ordenar uma lista de números aplicando comparações e trocas entre vizinhos.'),
                                 dict(id='OBJ2', descricao='Explicar quando realizar uma troca e como reconhecer que a lista está ordenada.')])
             return dict(conteudos=[h['objeto_conhecimento'], c['tema']],
                         objetivo_geral=f"Explorar {c['tema']} em atividades relacionadas à habilidade {h['codigo']}.",
@@ -98,9 +101,11 @@ class AgenteDemonstrativoCompleto:
             titulos = ['Problema inicial', 'Demonstração', 'Prática em duplas', 'Síntese']
             if revisao % 2: titulos = ['Desafio inicial', 'Investigação guiada', 'Teste em duplas', 'Socialização']
             atividades = ([
-                'Comparar oralmente os valores de uma lista de cartões numerados já preparada.',
+                'Comparar oralmente os valores de uma lista de cartões numerados já preparada.' if cartoes else
+                'Comparar oralmente os valores de uma lista de números apresentada com os recursos confirmados.',
                 'Comparar vizinhos, trocar os que estão fora de ordem e repetir passagens até não haver trocas.',
-                'Ordenar uma nova disposição de cartões pelo procedimento de bolha, alternando quem compara e quem movimenta.',
+                'Ordenar uma nova disposição de cartões pelo procedimento de bolha, alternando quem compara e quem movimenta.' if cartoes else
+                'Ordenar uma nova lista de números pelo procedimento de bolha, alternando quem compara e quem indica a troca.',
                 'Explicar uma troca e uma não troca e justificar o término do algoritmo.'
             ] if ordenacao else [f"Explorar oralmente {c['tema']} e levantar ideias prévias.",
                                 f"Acompanhar uma demonstração da habilidade {h['codigo']} com os recursos confirmados.",

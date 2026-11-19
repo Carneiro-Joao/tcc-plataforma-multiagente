@@ -35,12 +35,15 @@ assert.deepEqual(aplicarTipo('Aula teórica', ['quadro e pincel']), ['quadro e p
 assert.deepEqual(aplicarTipo('Aula prática', ['projetor']), ['projetor']);
 assert.deepEqual(aplicarTipo('Computação desplugada', []), []);
 
-// 422 do tema vai para junto do campo; outros erros não
-const erro = (status, message) => Object.assign(new Error(message), { status });
-assert.equal(erroEhDoTema(erro(422, 'Não consegui identificar o tema. Escreva-o em poucas palavras, por exemplo: ordenação.')), true);
-assert.equal(erroEhDoTema(erro(422, 'Informe o tema da aula.')), true);
+// 422 do tema vai para junto do campo; outros erros não. Decide pelo CÓDIGO do backend, não pelo texto da mensagem.
+const erro = (status, message, codigo) => Object.assign(new Error(message), { status, codigo });
+assert.equal(erroEhDoTema(erro(422, 'Não consegui identificar o tema.', 'tema_nao_identificado')), true);
+assert.equal(erroEhDoTema(erro(422, 'Informe o tema com até 800 caracteres.', 'tema_invalido')), true);
+assert.equal(erroEhDoTema(erro(422, 'Mensagem reescrita sem a palavra', 'tema_nao_identificado')), true);
+assert.equal(erroEhDoTema(erro(422, 'Falha no tema (texto cita tema, mas sem código)')), false);
 assert.equal(erroEhDoTema(erro(422, 'Selecione um tipo de aula válido.')), false);
-assert.equal(erroEhDoTema(erro(500, 'Falha no tema')), false);
+assert.equal(erroEhDoTema(erro(500, 'x', 'tema_nao_identificado')), false);
+assert.equal(erroEhDoTema(erro(422, 'x', 'recursos_invalidos')), false);
 assert.equal(erroEhDoTema(new Error('sem status')), false);
 
 assert.equal(LIMITE_TEMA, 300);
@@ -54,4 +57,5 @@ assert.ok(app.includes('placeholder="Ex.: ordenação"'));
 assert.ok(app.includes('maxLength={LIMITE_TEMA}'));
 assert.ok(!app.includes('name="recursos" required'), 'campo de texto livre de recursos voltou');
 assert.ok(/\{DEPURACAO && <details className="json-entrada">/.test(app), 'JSON da confirmação precisa ficar atrás de DEPURACAO');
-console.log('Formulário OK: depuração, recursos obrigatórios, aula teórica, erro 422 do tema.');
+assert.ok(app.includes('codigo: dados.codigo'), 'api() precisa guardar o código do erro do backend');
+console.log('Formulário OK: depuração, recursos obrigatórios, aula teórica, erro 422 do tema (por código).');
