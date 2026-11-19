@@ -1,6 +1,6 @@
 // Regras do formulário de contexto, sem React, para poderem ser testadas em Node (tests/test-formulario.mjs).
 
-export const LIMITE_TEMA = 80; // o backend aceita até 800 e extrai o tema curto; o campo orienta o professor a ser breve
+export const LIMITE_TEMA = 300; // o professor pode digitar uma frase inteira ("Olá, quero ensinar sobre…"); o backend aceita até 800 e extrai o tema curto. Com 80 o navegador cortava a frase antes da extração.
 export const RECURSOS = ["quadro e pincel", "projetor", "computadores", "celulares", "internet", "material impresso"];
 export const RECURSO_OUTRO = "outro";
 export const RECURSO_PADRAO_TEORICA = "quadro e pincel";

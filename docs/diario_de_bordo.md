@@ -6,6 +6,19 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-18 22:30 · Claude do chat · `feat/poc06b-ui-tema-recursos` (revisão da PoC 06b)
+
+**Revisão:** testes OK (372 Python, `test-formulario.mjs`, `test-plano-render.mjs`); fluxo conferido no Chromium. Um defeito achado, de um prompt meu:
+o campo de tema tinha `maxLength=80` e **cortava a frase antes da extração** (frase de 104 caracteres entrava como "…vai ser IA gen").
+**Correção:** `LIMITE_TEMA` 80 → 300 (backend aceita 800) + teste que exige que a frase do feedback caiba no campo; `dist/` rebuildado
+(build reprodutível: só o JS mudou). Conferido com 4 frases longas: tema correto em todas, JSON invisível sem `?depuracao=1`.
+**EF08CO11 em 2º para "Ordenação":** não é bug. O exemplo da BNCC dessa habilidade cita "critérios de ordenação e relevância" e a busca lexical
+dá bônus por palavra de exemplo (0,30 contra 0,35 da EF08CO03). Mantido.
+**Observações (sem ação agora):** (1) no botão "Escolher no catálogo" o backend ainda exige tema identificável (o tema é usado no título do plano);
+(2) `erroEhDoTema` usa a regex /tema/ na mensagem, frágil se o texto do backend mudar.
+
+---
+
 ## 2026-11-18 21:40 · Claude Code · `feat/poc06b-ui-tema-recursos` @ `ce8397b`
 
 **Base** (decisão do João): criada de `feat/poc06-tema-curto` + merge de `feat/ui-jsx-nativo` (`beb43fc`; conflito só neste diário).

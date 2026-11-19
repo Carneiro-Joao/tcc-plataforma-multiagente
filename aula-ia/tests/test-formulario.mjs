@@ -43,7 +43,9 @@ assert.equal(erroEhDoTema(erro(422, 'Selecione um tipo de aula válido.')), fals
 assert.equal(erroEhDoTema(erro(500, 'Falha no tema')), false);
 assert.equal(erroEhDoTema(new Error('sem status')), false);
 
-assert.equal(LIMITE_TEMA, 80);
+assert.equal(LIMITE_TEMA, 300);
+// a frase longa do feedback (104 caracteres) precisa caber inteira no campo
+assert.ok("Olá, eu quero ensinar sobre IA generativa. O tema da aula de hoje vai ser IA generativa. E não sei o que".length <= LIMITE_TEMA);
 assert.ok(MENSAGEM_SEM_RESULTADOS.startsWith('Não encontramos habilidade da BNCC de Computação para este tema.'));
 
 // App.jsx usa estas regras (evita regressão silenciosa para o campo antigo)
