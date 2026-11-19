@@ -1,0 +1,217 @@
+{
+  "plano": {
+    "identificacao": {
+      "titulo": "Plano de aula — Estrutura de Dados",
+      "componente": "Computação",
+      "ano": "8º ano",
+      "tema": "Estrutura de Dados",
+      "tipo": "Computação desplugada",
+      "duracao_min": 60
+    },
+    "habilidade_bncc": {
+      "codigo": "EF08CO04",
+      "descricao": "Construir soluções computacionais de problemas de diferentes áreas do conhecimento, de forma individual e colaborativa, selecionando as estruturas de dados e técnicas adequadas, aperfeiçoando e articulando saberes escolares.",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Projetos com programação",
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    },
+    "conteudos": [
+      "Conceito de Estrutura de Dados",
+      "Seleção de estruturas organizadas em material impresso",
+      "Resolução colaborativa de problemas sem uso de computador"
+    ],
+    "objetivo_geral": "Construir soluções computacionais desplugadas para problemas de diferentes áreas utilizando estruturas de dados adequadas a partir de material impresso e quadro.",
+    "objetivos_especificos": [
+      {
+        "id": "OBJ1",
+        "descricao": "Identificar no material impresso a estrutura de dados mais adequada para organizar os valores de um problema proposto."
+      },
+      {
+        "id": "OBJ2",
+        "descricao": "Demonstrar oralmente e no quadro o passo a passo da solução colaborativa utilizando a estrutura selecionada."
+      }
+    ],
+    "metodologia": "A aula será conduzida por meio de computação desplugada, iniciando com uma explicação oral pelo professor no quadro e pincel sobre o conceito de estrutura de dados e sua importância na organização de valores e operações. Em seguida, os estudantes receberão o material impresso contendo problemas de diferentes áreas do conhecimento. Organizados em duplas ou pequenos grupos, os alunos deverão analisar os problemas, debater e selecionar coletivamente a estrutura de dados mais adequada presente no material impresso. A estratégia prevê que cada grupo discuta sua solução e utilize o quadro e pincel para apresentar oralmente e demonstrar o passo a passo da solução computacional desenvolvida, promovendo a articulação de saberes escolares e a validação colaborativa das escolhas.",
+    "recursos": "quadro e pincel, material impresso",
+    "desenvolvimento": [
+      {
+        "id": "ET1",
+        "titulo": "Introdução ao Conceito de Estrutura de Dados",
+        "minutos": 15,
+        "acao_docente": "O docente utiliza o quadro e pincel para explicar oralmente o conceito de estrutura de dados, mostrando como coleções de valores e suas operações organizam informações.",
+        "acao_discente": "Os estudantes acompanham a explicação oral do professor, fazem perguntas e tiram dúvidas utilizando o quadro e pincel como referência visual.",
+        "atividade": "Explicação oral interativa sobre estruturas de dados no quadro e pincel.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "evidencias_ids": [
+          "EVI1"
+        ]
+      },
+      {
+        "id": "ET2",
+        "titulo": "Análise e Seleção de Estruturas no Material Impreso",
+        "minutos": 25,
+        "acao_docente": "O docente distribui o material impresso contendo os problemas e orienta os estudantes a analisarem e selecionarem a estrutura de dados mais adequada para cada caso.",
+        "acao_discente": "Os estudantes examinam o material impresso em pequenos grupos, debatem os problemas propostos e justificam qual estrutura de dados é adequada para organizar os valores.",
+        "atividade": "Análise em grupo e justificação da escolha da estrutura de dados presente no material impresso.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "evidencias_ids": [
+          "EVI1"
+        ]
+      },
+      {
+        "id": "ET3",
+        "titulo": "Demonstração e Validação Colaborativa da Solução",
+        "minutos": 20,
+        "acao_docente": "O docente convida os grupos a explicarem oralmente a solução desenvolvida e a utilizarem o quadro e pincel para demonstrar o passo a passo da manipulação dos dados.",
+        "acao_discente": "Os estudantes descrevem oralmente a sequência de operações da solução computacional e utilizam o quadro e pincel para demonstrar o passo a passo da solução colaborativa.",
+        "atividade": "Apresentação oral da solução e demonstração passo a passo no quadro e pincel.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI2"
+        ]
+      }
+    ],
+    "avaliacao_aprendizagem": {
+      "evidencias": [
+        {
+          "id": "EVI1",
+          "objetivo_id": "OBJ1",
+          "criterio": "Justificar a escolha da estrutura de dados presente no material impresso para o problema proposto.",
+          "evidencia_esperada": "O estudante aponta no material impresso a estrutura de dados escolhida e explica por que ela é adequada para organizar os valores do problema."
+        },
+        {
+          "id": "EVI2",
+          "objetivo_id": "OBJ2",
+          "criterio": "Explicar oralmente e registrar no quadro o passo a passo da solução colaborativa.",
+          "evidencia_esperada": "O estudante descreve oralmente a sequência de operações da solução computacional e utiliza o quadro e pincel para demonstrar como os dados são manipulados."
+        }
+      ],
+      "instrumentos": [
+        {
+          "id": "INS1",
+          "descricao": "Guia de observação da análise e justificativa da estrutura de dados no material impresso.",
+          "etapas_ids": [
+            "ET1",
+            "ET2"
+          ],
+          "evidencias_ids": [
+            "EVI1"
+          ],
+          "procedimento": "O professor observa durante a explicação oral e a leitura em grupo se o estudante aponta no material impresso a estrutura de dados escolhida e explica por que ela é adequada para organizar os valores do problema."
+        },
+        {
+          "id": "INS2",
+          "descricao": "Registro de acompanhamento da demonstração oral e manipulação no quadro.",
+          "etapas_ids": [
+            "ET3"
+          ],
+          "evidencias_ids": [
+            "EVI2"
+          ],
+          "procedimento": "O professor acompanha a apresentação dos grupos para verificar se o estudante descreve oralmente a sequência de operações da solução computacional e utiliza o quadro e pincel para demonstrar como os dados são manipulados."
+        }
+      ],
+      "uso_resultados": "O professor utilizará as evidências coletadas por meio da observação da explicação oral, do uso do material impresso e das demonstrações no quadro para verificar se os estudantes identificaram corretamente as estruturas de dados e conseguiram descrever o passo a passo da solução computacional. Com base nesses resultados, o docente poderá retomar conceitos que geraram dúvidas na explicação inicial ou propor novas discussões colaborativas para aprofundar a articulação entre os saberes escolares e as técnicas de organização de dados."
+    },
+    "adaptacoes": [
+      {
+        "id": "ADP1",
+        "descricao": "Para estudantes com dificuldades de leitura ou interpretação do material impresso, a mediação docente na etapa ET2 concentrar-se-á em perguntas e respostas orais em conjunto com o grupo, auxiliando a apontar e justificar a estrutura de dados mais adequada diretamente nos exemplos do material impresso.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "etapas_ids": [
+          "ET2"
+        ]
+      },
+      {
+        "id": "ADP2",
+        "descricao": "Para estudantes com limitações de expressão escrita ou motora na etapa ET3, a demonstração e validação colaborativa no quadro e pincel será realizada mediante explicação oral detalhada e respostas a perguntas do professor, com o docente ou outro colega do grupo registrando os traços e esquemas no quadro sob a orientação verbal do estudante.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "etapas_ids": [
+          "ET3"
+        ]
+      }
+    ],
+    "referencias": [
+      {
+        "id": "BNCC",
+        "titulo": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "paginas": [
+          52,
+          53
+        ],
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    ]
+  },
+  "entrada": {
+    "versao": "1.0",
+    "consulta_id": "1479da2e15824d7fb234f4ab0e3c3d5d",
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "Estrutura de Dados",
+      "duracao_min": 60,
+      "recursos": "quadro e pincel, material impresso",
+      "tipo": "Computação desplugada"
+    },
+    "habilidade": {
+      "codigo": "EF08CO04",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Projetos com programação",
+      "habilidade": "Construir soluções computacionais de problemas de diferentes áreas do conhecimento, de forma individual e colaborativa, selecionando as estruturas de dados e técnicas adequadas, aperfeiçoando e articulando saberes escolares.",
+      "explicacao": "Uma estrutura de dados é uma coleção de valores, seus relacionamentos e operações. A habilidade envolve analisar a proposição e os requisitos de um programa e identificar a estrutura de dados adequada.",
+      "exemplos": [
+        "Um programa que manipula imagens pode trabalhar pixels a partir de vetor ou matriz.",
+        "Um jogo no Scratch pode armazenar a pontuação dos usuários em uma lista e salvar esses dados na nuvem."
+      ],
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    }
+  },
+  "modelo_gerador": "gemini-3.5-flash-lite",
+  "revisao": 1,
+  "origem": {
+    "tipo": "sqlite_real",
+    "geracao_id": "a3b450f3bf734faeadaee29db75c4245",
+    "consulta_id": "1479da2e15824d7fb234f4ab0e3c3d5d",
+    "estado_original": "rascunho",
+    "criado_em_sqlite_utc": "2026-11-19 02:34:39",
+    "resultado_sqlite_sha256": "e1bc3dcccf7fcc2f9d51b334fa3fdc70ed3da805c9a31d79b0cebe9b3184f9f8",
+    "consulta_sqlite_sha256": "9c3f6966623bbf1efd9d1a23fa7f33b085fb19d43c0823a08b57de46753743c7",
+    "plano_sha256": "55ca7702c03df197b374f962f8a46a39837b6c3d969f821d67b4591e76fad64e",
+    "entrada_sha256": "0f5ea067d63d2a13ec3408054feb760d123903c52b6e7e8b73e7a5bc78be2ee7",
+    "contrato_gerador": "plano-aula-2.0",
+    "provedor_gerador": "gemini",
+    "prompts_gerador": [
+      "especialistas-plano-2.3"
+    ],
+    "modelos_respondidos": [
+      "gemini-3.5-flash-lite"
+    ],
+    "tempo_geracao_s": 23.951
+  }
+}
