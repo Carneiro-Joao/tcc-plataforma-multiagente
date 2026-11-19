@@ -6,6 +6,27 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-18 23:45 · Claude Code · `feat/poc07d-lote-2-3` (base: `poc07c-limite-diario`)
+
+**Feito**
+- `e5fa6d4` (antes de qualquer chamada): `gerar_lote.py` (mesmo caminho e mesmo limite diário do app; pausa 30 s; falha técnica → 60 s e
+  1 nova tentativa com consulta nova, revisão 1; 2 cotas seguidas ou limite → para; `--somente-validar` com banco temporário),
+  `medir_planos.py` (regra fixa do PoC07B + minutos + contrato) e `experimentos/geracao/poc07b_entradas.json` (5 linhas do protocolo;
+  teste compara com a tabela do documento). 35 testes; mutação sem bytecode: 37 mutantes, 3 vivos na 1ª rodada → testes novos, 0 ao final.
+  Suíte 435 OK, também com `-S`.
+- Lote real (autorizado pelo João, 23:29–23:35): 5/5 planos com `especialistas-plano-2.3`; 1 falha técnica (503, Listas), refeita uma vez.
+  Limite de 18/11: 12/12. `49f9631d` (23:01, fora do protocolo) não entra na medição.
+- Medição pré-registrada (n = 5 cada): H1 2.2 = 2/5, 2.3 = 2/5; H2 1/5 → 0/5; minutos 5/5 e contrato 5/5 nas duas.
+  Os 2 H1 da 2.3 ("sem uso de computador"; "tátil com o material impresso") parecem falsos positivos da regra — **a adjudicar**.
+- Casos da 2.3 em `experimentos/geracao/poc07b_planos_2_3/` (busca de chaves: nada). Relatório: `docs/PoC07D_Resultado_Lote_2_3.md`.
+
+**Pendências**
+- Adjudicar os 2 H1 da 2.3 e a leitura por plano do relatório (Claude do chat + João).
+- Possíveis próximos passos (não feitos, exigem pré-registro): regra de medição v2 (negação), prompt 2.4 (fidelidade ao tipo de aula,
+  exemplo concreto, evidência não só oral), alerta habilidade × recursos.
+
+---
+
 ## 2026-11-18 23:20 · Claude do chat · `feat/poc07c-limite-diario` (base: `poc07b-prompt-2-3`)
 
 **Feito**

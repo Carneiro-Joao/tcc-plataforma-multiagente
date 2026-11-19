@@ -54,6 +54,7 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
   e commitar `dist/`. Testes: `node aula-ia/tests/test-plano-render.mjs` e `node aula-ia/tests/test-formulario.mjs`.
   JSON/rastreio técnico na tela só com `?depuracao=1` na URL. Recursos: checklist obrigatório (string no backend).
 - Registro entre Claude Code, Codex e Claude do chat: `docs/diario_de_bordo.md` (mais novas no topo; escrever uma entrada ao terminar algo).
+- Geração: prompt `especialistas-plano-2.3` (PoC07B). Lote do protocolo: `python gerar_lote.py --entradas ../experimentos/geracao/poc07b_entradas.json --limite-diario N` (mesmo limite do app; teste sem rede: `--somente-validar`); medição: `python medir_planos.py --entradas ...`. Resultado 2.2 × 2.3 (n=5): `docs/PoC07D_Resultado_Lote_2_3.md` (branch `poc07d-lote-2-3`).
 - Juiz: prompt `juiz-v1.3`, rubrica 0.1, política preliminar. **Não está integrado** ao pipeline, à UI nem ao SQLite.
 - Séries com v1.3 **completas** (3 válidos cada; falhas técnicas à parte): controle do plano original = 3; V03 = 3; V04 = 3 (+2 falhas 413);
   V05 = 3 (+1 falha 413); V06 = 3. Níveis mecânicos: V03 parcial 2/ausente 1; V04 parcial 1/ausente 2; V05 plena 3;

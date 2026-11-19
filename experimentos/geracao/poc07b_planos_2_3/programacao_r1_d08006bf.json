@@ -1,0 +1,222 @@
+{
+  "plano": {
+    "identificacao": {
+      "titulo": "Plano de aula — Programação",
+      "componente": "Computação",
+      "ano": "8º ano",
+      "tema": "Programação",
+      "tipo": "Aula prática",
+      "duracao_min": 50
+    },
+    "habilidade_bncc": {
+      "codigo": "EF08CO01",
+      "descricao": "Construir soluções de problemas usando a técnica de recursão e automatizar tais soluções usando uma linguagem de programação.",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Programação com listas e recursão",
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    },
+    "conteudos": [
+      "Conceito de recursão no pensamento computacional",
+      "Identificação de caso base e caso recursivo em problemas práticos",
+      "Análise de algoritmos baseados em recursão por meio de material impresso"
+    ],
+    "objetivo_geral": "Compreender o conceito de recursão e sua aplicação na resolução de problemas computacionais através de análise de estruturas no material impresso.",
+    "objetivos_especificos": [
+      {
+        "id": "OBJ1",
+        "descricao": "Identificar o caso base e o passo recursivo em algoritmos apresentados no material impresso."
+      },
+      {
+        "id": "OBJ2",
+        "descricao": "Explicar oralmente como uma solução recursiva resolve problemas repetitivos de forma decrescente."
+      }
+    ],
+    "metodologia": "A estratégia pedagógica utiliza a explicação oral interativa e perguntas e respostas, guiando os estudantes na análise do material impresso. Inicialmente, o professor apresenta o conceito de recursão destacando a importância do caso base e do passo recursivo, utilizando os exemplos impressos. Em seguida, os alunos realizam uma leitura dirigida do material impresso para identificar e apontar com o dedo o caso base e a chamada recursiva nos algoritmos descritos. Por fim, promove-se uma discussão coletiva onde os estudantes explicam oralmente, com o auxílio do material impresso, como a função se reduz progressivamente até atingir a condição de parada.",
+    "recursos": "material impresso",
+    "desenvolvimento": [
+      {
+        "id": "ET1",
+        "titulo": "Introdução ao Conceito de Recursão",
+        "minutos": 15,
+        "acao_docente": "Explicar oralmente o conceito de recursão utilizando o material impresso, destacando o papel fundamental do caso base e do passo recursivo na resolução de problemas computacionais.",
+        "acao_discente": "Ouvir a explicação do professor e acompanhar a leitura inicial dos exemplos presentes no material impresso.",
+        "atividade": "Exposição oral interativa sobre recursão e análise coletiva dos exemplos impressos.",
+        "objetivos_ids": [
+          "OBJ1",
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI1",
+          "EVI2"
+        ]
+      },
+      {
+        "id": "ET2",
+        "titulo": "Identificação do Caso Base e Passo Recursivo",
+        "minutos": 20,
+        "acao_docente": "Orientar os estudantes durante a leitura dirigida do material impresso, solicitando que localizem e apontem com o dedo a condição de parada e a chamada recursiva.",
+        "acao_discente": "Ler o material impresso e apontar com o dedo o trecho correspondente ao caso base e ao passo recursivo nos algoritmos apresentados quando solicitado.",
+        "atividade": "Leitura dirigida e localização física de elementos em algoritmos impressos.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "evidencias_ids": [
+          "EVI1"
+        ]
+      },
+      {
+        "id": "ET3",
+        "titulo": "Explicação Oral da Redução Progressiva",
+        "minutos": 15,
+        "acao_docente": "Conduzir uma sessão de perguntas e respostas, estimulando os estudantes a explicarem em voz alta como a solução recursiva resolve problemas de forma decrescente.",
+        "acao_discente": "Responder às perguntas e explicar em voz alta, utilizando os exemplos do material impresso, como a função chama a si mesma com parâmetros menores até o término.",
+        "atividade": "Discussão coletiva com perguntas e respostas sobre o funcionamento dos algoritmos recursivos.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI2"
+        ]
+      }
+    ],
+    "avaliacao_aprendizagem": {
+      "evidencias": [
+        {
+          "id": "EVI1",
+          "objetivo_id": "OBJ1",
+          "criterio": "Indicar corretamente no material impresso qual é a condição de parada (caso base) e qual é o passo recursivo.",
+          "evidencia_esperada": "Apontar com o dedo o trecho correspondente ao caso base e ao passo recursivo no material impresso quando solicitado."
+        },
+        {
+          "id": "EVI2",
+          "objetivo_id": "OBJ2",
+          "criterio": "Descrever com clareza oralmente a redução progressiva do problema até atingir o caso base.",
+          "evidencia_esperada": "Explicar em voz alta, utilizando os exemplos do material impresso, como a função chama a si mesma com parâmetros menores até o término."
+        }
+      ],
+      "instrumentos": [
+        {
+          "id": "INS1",
+          "descricao": "Guia de observação para verificação da localização física de elementos em algoritmos impressos.",
+          "etapas_ids": [
+            "ET1",
+            "ET2"
+          ],
+          "evidencias_ids": [
+            "EVI1"
+          ],
+          "procedimento": "O professor observa durante a explicação interativa e a leitura dirigida se os alunos apontam com o dedo o trecho correspondente ao caso base e ao passo recursivo no material impresso quando solicitado."
+        },
+        {
+          "id": "INS2",
+          "descricao": "Registro de participação oral sobre a redução progressiva em algoritmos recursivos.",
+          "etapas_ids": [
+            "ET1",
+            "ET3"
+          ],
+          "evidencias_ids": [
+            "EVI2"
+          ],
+          "procedimento": "O professor conduz perguntas e respostas ouvindo as explicações em voz alta dos estudantes, avaliando se utilizam os exemplos do material impresso para descrever como a função chama a si mesma com parâmetros menores até o término."
+        }
+      ],
+      "uso_resultados": "O professor utilizará os resultados da observação e das explicações orais para verificar se os estudantes compreenderam a distinção entre o caso base e o passo recursivo, bem como a lógica da redução progressiva. Com base nessas evidências coletadas em aula, o professor poderá retomar conceitos que geraram dúvidas através de novas explicações orais e perguntas direcionadas no mesmo formato interativo."
+    },
+    "adaptacoes": [
+      {
+        "id": "ADP1",
+        "descricao": "Adequação de apoio visual e tátil com o material impresso para facilitar a identificação do caso base e do passo recursivo através de leitura dirigida em duplas.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "etapas_ids": [
+          "ET1",
+          "ET2"
+        ]
+      },
+      {
+        "id": "ADP2",
+        "descricao": "Suporte oral estruturado com perguntas norteadoras graduadas para auxiliar na explicação verbal da redução progressiva utilizando o material impresso.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "etapas_ids": [
+          "ET1",
+          "ET3"
+        ]
+      }
+    ],
+    "referencias": [
+      {
+        "id": "BNCC",
+        "titulo": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "paginas": [
+          52,
+          53
+        ],
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    ]
+  },
+  "entrada": {
+    "versao": "1.0",
+    "consulta_id": "8cdf83b1b7dd48aa916804b56f626e93",
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "Programação",
+      "duracao_min": 50,
+      "recursos": "material impresso",
+      "tipo": "Aula prática"
+    },
+    "habilidade": {
+      "codigo": "EF08CO01",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Programação com listas e recursão",
+      "habilidade": "Construir soluções de problemas usando a técnica de recursão e automatizar tais soluções usando uma linguagem de programação.",
+      "explicacao": "O conceito de recursão permite exercitar o pensamento indutivo na resolução de problemas, devendo ser entendido como uma forma de resolver problemas e não apenas como uma questão sintática. A abordagem recursiva pode elevar o nível de abstração e facilitar a compreensão de determinados algoritmos.",
+      "exemplos": [
+        "Solução recursiva para definir o tamanho de uma lista.",
+        "Solução recursiva para encontrar o número de ascendentes de olhos azuis em uma árvore genealógica."
+      ],
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    }
+  },
+  "modelo_gerador": "gemini-3.5-flash-lite",
+  "revisao": 1,
+  "origem": {
+    "tipo": "sqlite_real",
+    "geracao_id": "d08006bf5b5f4c2296931eb12b518b4e",
+    "consulta_id": "8cdf83b1b7dd48aa916804b56f626e93",
+    "estado_original": "rascunho",
+    "criado_em_sqlite_utc": "2026-11-19 02:35:33",
+    "resultado_sqlite_sha256": "972c0bc7986934f5b929207c2754a1254364f00370d9fda92adc7df5fd95554e",
+    "consulta_sqlite_sha256": "77de89e6061d0dabeefa7b7261bfb432e1e7e4f178ab6f9e74e2bc287a35ec3e",
+    "plano_sha256": "869796d218dfd65d276a1408f5e0077f65bd3a77f1e788c4ebf90c1a387b9564",
+    "entrada_sha256": "e43f4480cd319b51692b9bb59ef5d1b1c1d57dd6a8ff680f23da5f269ae41482",
+    "contrato_gerador": "plano-aula-2.0",
+    "provedor_gerador": "gemini",
+    "prompts_gerador": [
+      "especialistas-plano-2.3"
+    ],
+    "modelos_respondidos": [
+      "gemini-3.5-flash-lite"
+    ],
+    "tempo_geracao_s": 16.949
+  }
+}

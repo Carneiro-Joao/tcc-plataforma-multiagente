@@ -1,0 +1,206 @@
+{
+  "plano": {
+    "identificacao": {
+      "titulo": "Plano de aula — Ordenação",
+      "componente": "Computação",
+      "ano": "8º ano",
+      "tema": "Ordenação",
+      "tipo": "Aula teórica",
+      "duracao_min": 90
+    },
+    "habilidade_bncc": {
+      "codigo": "EF08CO03",
+      "descricao": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    },
+    "conteudos": [
+      "Conceito de algoritmos de ordenação em listas",
+      "Funcionamento do algoritmo Bubblesort",
+      "Funcionamento do algoritmo Quicksort",
+      "Simulação prática de ordenação de dados"
+    ],
+    "objetivo_geral": "Compreender e simular algoritmos clássicos de ordenação de listas utilizando os computadores e o projetor.",
+    "objetivos_especificos": [
+      {
+        "id": "OBJ1",
+        "descricao": "Identificar os passos fundamentais de algoritmos de ordenação clássicos na apresentação com o projetor."
+      },
+      {
+        "id": "OBJ2",
+        "descricao": "Simular a execução de algoritmos de ordenação utilizando os computadores disponíveis."
+      }
+    ],
+    "metodologia": "A estratégia pedagógica baseia-se em uma aula teórica e demonstrativa sobre algoritmos de ordenação de listas. Inicialmente, o professor utiliza o projetor para introduzir os conceitos de algoritmos clássicos, explicando o funcionamento lógico e os passos de algoritmos como Bubblesort e Quicksort por meio de exemplos visuais e explicações orais. Em seguida, os alunos utilizam os computadores para realizar simulações práticas da execução desses algoritmos, acompanhando o comportamento da manipulação de dados passo a passo. A consolidação da aprendizagem ocorre por meio de perguntas e respostas conduzidas pelo professor e de explicações orais coletivas para verificar a compreensão da lógica de ordenação.",
+    "recursos": "projetor, computadores",
+    "desenvolvimento": [
+      {
+        "id": "ET1",
+        "titulo": "Introdução aos Algoritmos de Ordenação",
+        "minutos": 40,
+        "acao_docente": "Exibir no projetor os conceitos fundamentais de algoritmos de ordenação clássicos, explicando o funcionamento lógico e os passos de algoritmos como Bubblesort e Quicksort com exemplos visuais e explicações orais.",
+        "acao_discente": "Observar a apresentação no projetor, acompanhar as explicações orais e responder oralmente às perguntas formuladas pelo professor sobre a lógica dos algoritmos exibidos.",
+        "atividade": "Acompanhamento da apresentação expositiva e participação em sessão de perguntas e respostas sobre o funcionamento dos algoritmos clássicos de ordenação.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "evidencias_ids": [
+          "EVI1"
+        ]
+      },
+      {
+        "id": "ET2",
+        "titulo": "Simulação Prática de Ordenação",
+        "minutos": 50,
+        "acao_docente": "Orientar os alunos na utilização dos computadores para a realização de simulações práticas da execução dos algoritmos de ordenação estudados, acompanhando a manipulação de dados passo a passo.",
+        "acao_discente": "Utilizar os computadores para executar as simulações práticas de ordenação de dados, demonstrando a compreensão do comportamento passo a passo do algoritmo.",
+        "atividade": "Interação prática nos computadores para simular o funcionamento dos algoritmos de ordenação e consolidar a aprendizagem por meio de explicações orais coletivas.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI2"
+        ]
+      }
+    ],
+    "avaliacao_aprendizagem": {
+      "evidencias": [
+        {
+          "id": "EVI1",
+          "objetivo_id": "OBJ1",
+          "criterio": "Reconhecer os passos e a lógica dos algoritmos apresentados.",
+          "evidencia_esperada": "Os alunos respondem oralmente às perguntas sobre o funcionamento dos algoritmos exibidos no projetor."
+        },
+        {
+          "id": "EVI2",
+          "objetivo_id": "OBJ2",
+          "criterio": "Executar a simulação de ordenação nos computadores.",
+          "evidencia_esperada": "Os alunos demonstram, através da interação prática nos computadores, a ordenação de uma lista de dados seguindo o algoritmo estudado."
+        }
+      ],
+      "instrumentos": [
+        {
+          "id": "INS1",
+          "descricao": "Questionário oral e observação da participação na demonstração",
+          "etapas_ids": [
+            "ET1"
+          ],
+          "evidencias_ids": [
+            "EVI1"
+          ],
+          "procedimento": "O professor conduz perguntas orais durante a apresentação no projetor para verificar se os alunos respondem oralmente sobre o funcionamento lógico e os passos dos algoritmos exibidos."
+        },
+        {
+          "id": "INS2",
+          "descricao": "Observação direta da interação prática nos computadores",
+          "etapas_ids": [
+            "ET2"
+          ],
+          "evidencias_ids": [
+            "EVI2"
+          ],
+          "procedimento": "O professor observa diretamente a execução das simulações práticas nos computadores, verificando se os alunos demonstram a ordenação de uma lista de dados passo a passo."
+        }
+      ],
+      "uso_resultados": "O professor utilizará os resultados das observações da participação oral e da interação prática nos computadores para identificar eventuais dificuldades dos alunos na compreensão dos algoritmos de ordenação, realizando explicações orais complementares e ajustando a condução de futuras atividades práticas de manipulação de listas."
+    },
+    "adaptacoes": [
+      {
+        "id": "ADP1",
+        "descricao": "Para alunos com dificuldades de visualização ou acompanhamento do projetor, realizar explicações orais complementares e detalhadas durante a exibição, garantindo a compreensão dos conceitos fundamentais de algoritmos de ordenação clássicos.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "etapas_ids": [
+          "ET1"
+        ]
+      },
+      {
+        "id": "ADP2",
+        "descricao": "Para alunos que apresentem barreiras na interação prática nos computadores, fornecer suporte individualizado com explicações orais e perguntas direcionadas para orientar passo a passo a simulação da execução dos algoritmos.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "etapas_ids": [
+          "ET2"
+        ]
+      }
+    ],
+    "referencias": [
+      {
+        "id": "BNCC",
+        "titulo": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "paginas": [
+          52,
+          53
+        ],
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    ]
+  },
+  "entrada": {
+    "versao": "1.0",
+    "consulta_id": "caa8f320ad1944298e05291df3bfe369",
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "Ordenação",
+      "duracao_min": 90,
+      "recursos": "projetor, computadores",
+      "tipo": "Aula teórica"
+    },
+    "habilidade": {
+      "codigo": "EF08CO03",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+      "exemplos": [
+        "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+        "Algoritmos de inserção.",
+        "Algoritmos de remoção.",
+        "Algoritmos de busca linear.",
+        "Algoritmos de busca binária."
+      ],
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    }
+  },
+  "modelo_gerador": "gemini-3.5-flash-lite",
+  "revisao": 1,
+  "origem": {
+    "tipo": "sqlite_real",
+    "geracao_id": "f67ad3b5ac704238b89d5556c9afec6b",
+    "consulta_id": "caa8f320ad1944298e05291df3bfe369",
+    "estado_original": "rascunho",
+    "criado_em_sqlite_utc": "2026-11-19 02:31:09",
+    "resultado_sqlite_sha256": "84a00018d6e97f53ed64858a5cb536f91583c9059ac388c39567236b90c3d55b",
+    "consulta_sqlite_sha256": "dcbb6814df43858bc22b6ba19118b273a003feb78a2044ed34df8b5ebf7583f1",
+    "plano_sha256": "9090840fc425783e3be758a2806cf69093716a45a8b544209ceed21e38a80228",
+    "entrada_sha256": "c1f0103fa6c523452fdb9e2c200ad23664e871598a94cc7abcc1a9679c000388",
+    "contrato_gerador": "plano-aula-2.0",
+    "provedor_gerador": "gemini",
+    "prompts_gerador": [
+      "especialistas-plano-2.3"
+    ],
+    "modelos_respondidos": [
+      "gemini-3.5-flash-lite"
+    ],
+    "tempo_geracao_s": 32.397
+  }
+}

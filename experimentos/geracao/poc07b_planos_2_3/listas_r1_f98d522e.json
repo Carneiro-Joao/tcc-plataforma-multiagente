@@ -1,0 +1,201 @@
+{
+  "plano": {
+    "identificacao": {
+      "titulo": "Plano de aula — Listas",
+      "componente": "Computação",
+      "ano": "8º ano",
+      "tema": "Listas",
+      "tipo": "Aula teórica",
+      "duracao_min": 30
+    },
+    "habilidade_bncc": {
+      "codigo": "EF08CO02",
+      "descricao": "Criar soluções de problemas para os quais seja adequado o uso de listas para descrever suas informações e automatizá-las usando uma linguagem de programação, empregando ou não a recursão como uma técnica de resolver o problema.",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Programação com listas e recursão",
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    },
+    "conteudos": [
+      "Conceito de listas na programação",
+      "Estruturação de dados sequenciais",
+      "Automatização de problemas com listas"
+    ],
+    "objetivo_geral": "Compreender a utilização de listas para armazenar e organizar informações, automatizando soluções computacionais por meio de explanação teórica e demonstração.",
+    "objetivos_especificos": [
+      {
+        "id": "OBJ1",
+        "descricao": "Identificar a utilidade das listas na estruturação e organização de dados."
+      },
+      {
+        "id": "OBJ2",
+        "descricao": "Explicar o processo de automatização de problemas utilizando coleções de dados."
+      }
+    ],
+    "metodologia": "A estratégia pedagógica baseia-se em uma aula teórica expositiva e demonstrativa para introduzir o conceito de listas e sua aplicação na estruturação e organização de dados. O professor utilizará o projetor para exibir a sintaxe, exemplos práticos e códigos em computadores conectados à internet, demonstrando passo a passo como as listas automatizam o armazenamento e o processamento de coleções de informações. A metodologia emprega explicação oral detalhada e momentos de perguntas e respostas para engajar os estudantes. Durante a demonstração com os recursos confirmados, o professor conduzirá análises críticas de trechos de código que utilizam listas, verificando a compreensão dos alunos por meio de interações verbais e discussões coletivas sobre a lógica de programação aplicada.",
+    "recursos": "projetor, computadores, internet",
+    "desenvolvimento": [
+      {
+        "id": "ET1",
+        "titulo": "Introdução às Listas e Organização de Dados",
+        "minutos": 15,
+        "acao_docente": "Explicar oralmente o conceito de listas na programação utilizando o projetor conectado à internet para exibir exemplos de estruturação de dados sequenciais, fazendo perguntas diretas aos estudantes.",
+        "acao_discente": "Ouir a explicação do professor e responder verbalmente aos questionamentos sobre a utilidade das listas na organização de informações.",
+        "atividade": "Sessão de explicação oral e perguntas e respostas sobre a estruturação de dados sequenciais com o auxílio do projetor.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "evidencias_ids": [
+          "EVI1"
+        ]
+      },
+      {
+        "id": "ET2",
+        "titulo": "Demonstração de Automatização com Listas",
+        "minutos": 15,
+        "acao_docente": "Demonstrar nos computadores, com projeção para a turma via projetor, códigos que utilizam coleções de dados da internet para automatizar problemas, explicando a lógica aplicada e questionando os alunos sobre os passos.",
+        "acao_discente": "Acompanhar a demonstração prática nos computadores e responder oralmente às perguntas do professor sobre a lógica de automatização de problemas com listas.",
+        "atividade": "Demonstração prática comentada pelo professor e interação via perguntas e respostas coletivas.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI2"
+        ]
+      }
+    ],
+    "avaliacao_aprendizagem": {
+      "evidencias": [
+        {
+          "id": "EVI1",
+          "objetivo_id": "OBJ1",
+          "criterio": "O estudante demonstra compreensão da utilidade das listas respondendo verbalmente às perguntas do professor sobre a organização de dados sequenciais.",
+          "evidencia_esperada": "Explicação oral do estudante sobre como as listas auxiliam na estruturação e organização de informações durante a demonstração teórica com o projetor."
+        },
+        {
+          "id": "EVI2",
+          "objetivo_id": "OBJ2",
+          "criterio": "O estudante relata corretamente a lógica de automatização de problemas apresentada nos exemplos baseados em coleções de dados.",
+          "evidencia_esperada": "Respostas orais corretas dadas pelos estudantes aos questionamentos do professor sobre os passos para automatizar o processamento de listas na linguagem de programação."
+        }
+      ],
+      "instrumentos": [
+        {
+          "id": "INS1",
+          "descricao": "Guia de observação da participação oral na introdução ao conceito de listas.",
+          "etapas_ids": [
+            "ET1"
+          ],
+          "evidencias_ids": [
+            "EVI1"
+          ],
+          "procedimento": "O professor fará perguntas oralmente aos estudantes durante a explanação teórica exibida no projetor sobre a estruturação de dados sequenciais e observará a explicação oral dada pelos alunos em resposta aos questionamentos."
+        },
+        {
+          "id": "INS2",
+          "descricao": "Registro de verificação de respostas orais sobre a automatização de problemas com coleções de dados.",
+          "etapas_ids": [
+            "ET2"
+          ],
+          "evidencias_ids": [
+            "EVI2"
+          ],
+          "procedimento": "O professor conduzirá uma sessão de perguntas e respostas coletivas durante a demonstração prática nos computadores e projetor, avaliando verbalmente a precisão das explicações dos estudantes sobre a lógica de automatização."
+        }
+      ],
+      "uso_resultados": "O professor utilizará os dados coletados por meio das interações orais, perguntas e respostas e demonstrações para verificar se os estudantes compreenderam o conceito e a utilidade das listas na programação. Caso sejam identificadas dificuldades na explicação oral ou na compreensão da lógica de automatização, o professor retomará os pontos conceituais durante explicações futuras usando o projetor e os computadores."
+    },
+    "adaptacoes": [
+      {
+        "id": "ADP1",
+        "descricao": "Adaptação para alunos com dificuldades de atenção auditiva na introdução teórica: o professor utilizará o projetor para destacar visualmente os trechos principais da sintaxe de listas, complementando a explicação oral com perguntas direcionadas e checagens verbais frequentes.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "etapas_ids": [
+          "ET1"
+        ]
+      },
+      {
+        "id": "ADP2",
+        "descricao": "Adaptação para engajamento em turmas heterogêneas durante a demonstração prática: divisão visual no projetor dos blocos de código de automatização com listas, pausando a execução para validação oral passo a passo com a turma.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "etapas_ids": [
+          "ET2"
+        ]
+      }
+    ],
+    "referencias": [
+      {
+        "id": "BNCC",
+        "titulo": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "paginas": [
+          52,
+          53
+        ],
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    ]
+  },
+  "entrada": {
+    "versao": "1.0",
+    "consulta_id": "93b4291a8fac4878878203d36a80eaaa",
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "Listas",
+      "duracao_min": 30,
+      "recursos": "projetor, computadores, internet",
+      "tipo": "Aula teórica"
+    },
+    "habilidade": {
+      "codigo": "EF08CO02",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Programação com listas e recursão",
+      "habilidade": "Criar soluções de problemas para os quais seja adequado o uso de listas para descrever suas informações e automatizá-las usando uma linguagem de programação, empregando ou não a recursão como uma técnica de resolver o problema.",
+      "explicacao": "Fazer projetos e construir soluções usando listas e recursão. É importante realizar análise crítica de programas recursivos, identificando a existência de um caso base e de chamadas recursivas que façam o programa convergir para o fim.",
+      "exemplos": [
+        "Fazer um programa que junte duas pilhas de cartas ordenadas de forma que o baralho todo continue ordenado."
+      ],
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    }
+  },
+  "modelo_gerador": "gemini-3.5-flash-lite",
+  "revisao": 1,
+  "origem": {
+    "tipo": "sqlite_real",
+    "geracao_id": "f98d522efb83489a889da0c9a5e4a901",
+    "consulta_id": "93b4291a8fac4878878203d36a80eaaa",
+    "estado_original": "rascunho",
+    "criado_em_sqlite_utc": "2026-11-19 02:33:48",
+    "resultado_sqlite_sha256": "891543940e1d57543e3e52ec6be763f53080fb6df3cea73327a4149e19754804",
+    "consulta_sqlite_sha256": "f7ede86fdda907f58892bbb99831d258f22a7190651140a75e0ae584ae095f35",
+    "plano_sha256": "1d86160789687f5b5e10c410db4a7245bb9a4ecc573dfe7cfd115b34fa8c4cf7",
+    "entrada_sha256": "c4c3026f695855bc4e4d45ac57fee003eaa0fabb7db4f3f5fa25f0618a6cff19",
+    "contrato_gerador": "plano-aula-2.0",
+    "provedor_gerador": "gemini",
+    "prompts_gerador": [
+      "especialistas-plano-2.3"
+    ],
+    "modelos_respondidos": [
+      "gemini-3.5-flash-lite"
+    ],
+    "tempo_geracao_s": 21.332
+  }
+}
