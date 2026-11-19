@@ -35,6 +35,50 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-18 02:00 · Claude Code · `feat/ui-jsx-nativo` (a partir de `feat/ui-identidade-cores` @ `a734cca`)
+
+**Feito** (decisão do João: usar a versão nova do JSX)
+- `a734cca` (em `ui-identidade-cores`): título do plano com inicial maiúscula na exibição, inclusive após o travessão
+  ("Plano de aula — Quero ensinar…"). Teste + mutação manual.
+- `npm ci` + `npm run build`: `dist/` agora vem de `src/App.jsx` (antes: React da PoC 02 compilado + camada `tema-compat`).
+  Mesma API, mesma chave de sessão `aulaia.consulta.v1`, mesmos campos. Ganhos: menu lateral, trilha e etapas nativos no React,
+  ícones SVG, indicador de progresso que escuta `aulaia:geracao-atualizada` (aprovação marca a etapa 3).
+- Removidos `public/tema-compat.css/js` (e cópias em `dist/`), sem uso com o JSX novo.
+- `geracao-ui.css`: `.primario.geracao-aprovar` (mais específica), porque no build novo o CSS do app carrega depois e deixaria o botão
+  Aprovar marinho em vez de verde.
+- Verificação: fluxo real na UI via CDP (preencher → consultar → escolher → confirmar → gerar → aprovar) em 1440 e 360 px:
+  sem erro no console, sem estouro horizontal, Aprovar verde, 3 etapas concluídas após aprovar. Front test OK; backend 309 OK.
+
+**Pendências**
+- `npm audit`: 0 vulnerabilidades nas dependências de produção; avisos só nas de desenvolvimento (não afetam o `dist/`).
+- Merge da cadeia para `main` continua pendente.
+
+---
+
+## 2026-11-18 01:10 · Claude Code · `feat/ui-identidade-cores` @ `bb94f16`, `9ff2b29`
+
+**Feito** (branch criada a partir de `feat/poc05g-completar-series`; pedido do João, só visual)
+- `bb94f16` identidade visual: marinho `#0b1f3a` (dominante), gelo `#e6f4f6` (secundária), turquesa `#14b8b0` (destaque; texto
+  marinho sobre ele). Fonte Sora (títulos/menu/botões) + Inter (texto). Variáveis `--marinho`, `--gelo`, `--turquesa`.
+  Primeira tentativa (marinho/creme `#FBE8CF`/laranja `#FDAC2F`) foi descartada pelo João: o creme dominou.
+- `9ff2b29` Tema e Recursos aparecem com inicial maiúscula **só na exibição** do plano (`geracao-ui.js`). O dado salvo não muda,
+  porque o contrato exige `recursos` idêntico à entrada. Teste em `aula-ia/tests/test-plano-render.mjs` (mutação manual: tirar a
+  maiúscula ou o escape faz o teste falhar). Backend: 309 testes OK.
+
+**Atenção para quem mexer no front**
+- O app serve `aula-ia/dist/` = React **antigo** compilado + `tema-compat.css` + `geracao-ui.css/js` por cima. Editar em `public/` e
+  copiar para `dist/`. **Não rodar `npm run build`** sem decisão do João: troca o app pela versão nova de `src/App.jsx`.
+- `src/App.css` e o início de `public/tema-compat.css` são cópias; manter iguais.
+
+**Pendências**
+- ~~Overflow no celular~~: era artefato da captura (`--window-size` do Chrome headless tem largura mínima). Medido com emulação
+  real (CDP) em 360/390/430/768 px, inclusive confirmação e plano gerado: nenhum elemento passa da largura da tela.
+- ~~Tema/Recursos minúsculos na confirmação~~: resolvido só com CSS (`::first-letter` nas linhas 1 e 5 do `dl`), ver commit seguinte.
+- O título do plano de demonstração repete o tema como digitado ("Plano de aula — quero ensinar…"); não alterado.
+- Branch não mesclada; `main` não tocada.
+
+---
+
 ## 2026-11-18 00:35 · Claude Code · `feat/poc05g-completar-series` @ `f35ff84`
 
 **Feito**

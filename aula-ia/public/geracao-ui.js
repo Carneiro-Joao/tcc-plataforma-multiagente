@@ -15,6 +15,12 @@
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
   })[caractere]);
   const texto = valor => escapar(valor);
+  // Só na exibição: inicial maiúscula no que o professor digitou (ex.: "papel" -> "Papel").
+  // O dado salvo não muda, pois o contrato exige recursos idênticos à entrada.
+  const inicialMaiuscula = valor => String(valor ?? "").trim().replace(/^\p{Ll}/u, letra => letra.toLocaleUpperCase("pt-BR"));
+  const textoDigitado = valor => escapar(inicialMaiuscula(valor));
+  // Título: o modelo de demonstração repete o tema digitado após o travessão ("Plano de aula — quero…").
+  const tituloExibido = valor => escapar(inicialMaiuscula(valor).replace(/(—\s*)(\p{Ll})/u, (_, sep, letra) => sep + letra.toLocaleUpperCase("pt-BR")));
   const json = valor => escapar(JSON.stringify(valor, null, 2));
 
   async function api(url, corpo) {
@@ -75,10 +81,10 @@
     const ids = valores => valores.map(texto).join(", ");
     return `<article class="geracao-documento">
       <div class="geracao-cabecalho"><div><span class="geracao-rotulo">Plano candidato · revisão ${texto(geracao.revisao)}</span>
-      <h3>${texto(i.titulo)}</h3></div><span class="geracao-status ${geracao.estado === "aprovado" ? "aprovado" : ""}">${geracao.estado === "aprovado" ? "Aprovado pelo professor" : "Aguardando aprovação"}</span></div>
+      <h3>${tituloExibido(i.titulo)}</h3></div><span class="geracao-status ${geracao.estado === "aprovado" ? "aprovado" : ""}">${geracao.estado === "aprovado" ? "Aprovado pelo professor" : "Aguardando aprovação"}</span></div>
       <h4>1. Identificação</h4>
       <div class="geracao-resumo"><span><b>Componente</b> ${texto(i.componente)}</span><span><b>Ano</b> ${texto(i.ano)}</span><span><b>Duração</b> ${texto(i.duracao_min)} min</span><span><b>Tipo</b> ${texto(i.tipo)}</span></div>
-      <p><b>Tema:</b> ${texto(i.tema)}</p>
+      <p><b>Tema:</b> ${textoDigitado(i.tema)}</p>
       <h4>2. Habilidade BNCC</h4><div class="geracao-habilidade"><b>${texto(h.codigo)}</b><p>${texto(h.descricao)}</p>
       <p><b>Eixo:</b> ${texto(h.eixo)}<br><b>Objeto de conhecimento:</b> ${texto(h.objeto_conhecimento)}</p>
       <p>${texto(h.referencia.documento)} · habilidade na página ${texto(h.referencia.pagina_habilidade)}, exemplos na página ${texto(h.referencia.pagina_exemplos)}.</p></div>
@@ -86,7 +92,7 @@
       <h4>4. Objetivo geral</h4><p>${texto(p.objetivo_geral)}</p>
       <h4>5. Objetivos específicos</h4><ul>${p.objetivos_especificos.map(o => `<li><b>${texto(o.id)}</b> — ${texto(o.descricao)}</li>`).join("")}</ul>
       <h4>6. Metodologia</h4><p>${texto(p.metodologia)}</p>
-      <h4>7. Recursos disponíveis</h4><p>${texto(p.recursos)}</p>
+      <h4>7. Recursos disponíveis</h4><p>${textoDigitado(p.recursos)}</p>
       <h4>8. Desenvolvimento</h4><ol class="geracao-etapas">${p.desenvolvimento.map(e => `<li><span class="geracao-numero">${texto(e.id)}</span><div><b>${texto(e.titulo)}</b><small>${texto(e.minutos)} min</small>
       <p><b>Atividade:</b> ${texto(e.atividade)}</p><p><b>Professor:</b> ${texto(e.acao_docente)}</p><p><b>Estudantes:</b> ${texto(e.acao_discente)}</p>
       <p>Objetivos: ${ids(e.objetivos_ids)} · Evidências: ${ids(e.evidencias_ids)}</p></div></li>`).join("")}</ol>
@@ -107,12 +113,12 @@
     if (resultado.contrato === "plano-aula-2.0") return planoCompletoHtml(plano, resultado, geracao);
     return `<article class="geracao-documento">
       <div class="geracao-cabecalho"><div><span class="geracao-rotulo">Plano candidato · revisão ${geracao.revisao}</span>
-      <h3>${texto(plano.titulo)}</h3></div><span class="geracao-status ${geracao.estado === "aprovado" ? "aprovado" : ""}">${geracao.estado === "aprovado" ? "Aprovado pelo professor" : "Aguardando aprovação"}</span></div>
+      <h3>${tituloExibido(plano.titulo)}</h3></div><span class="geracao-status ${geracao.estado === "aprovado" ? "aprovado" : ""}">${geracao.estado === "aprovado" ? "Aprovado pelo professor" : "Aguardando aprovação"}</span></div>
       <div class="geracao-resumo"><span><b>Ano</b> ${texto(plano.ano)}</span><span><b>Duração</b> ${texto(plano.duracao_min)} min</span><span><b>Tipo</b> ${texto(plano.tipo)}</span></div>
       <div class="geracao-habilidade"><b>Habilidade BNCC · ${texto(plano.habilidade_codigo)}</b><p>${texto(plano.habilidade_texto)}</p></div>
       <h4>Objetivos de aprendizagem</h4><ul>${(plano.objetivos || []).map(o => `<li>${texto(o)}</li>`).join("")}</ul>
       <h4>Metodologia</h4><p>${texto(plano.metodologia)}</p>
-      <h4>Recursos disponíveis</h4><p>${texto(plano.recursos)}</p>
+      <h4>Recursos disponíveis</h4><p>${textoDigitado(plano.recursos)}</p>
       <h4>Sequência didática</h4><ol class="geracao-etapas">${(plano.etapas || []).map(etapaHtml).join("")}</ol>
       <h4>Avaliação da aprendizagem</h4><p>${texto(plano.avaliacao)}</p>
       <h4>Possíveis adaptações</h4><ul>${(plano.adaptacoes || []).map(a => `<li>${texto(a)}</li>`).join("")}</ul>

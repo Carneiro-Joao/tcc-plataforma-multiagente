@@ -42,7 +42,11 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 ## Estado em 18/11/2026
 - Cadeia de branches: `feat/poc04a-contratos` → `poc04a-gemini` → `poc04a-prototipo-local` → `poc05-juiz-contrato` → `poc05b-juiz-groq`
   → `poc05c-variantes` → `poc05d-analise-serie` → `poc05e-relatorio-testes` → `poc05f-filtro-baseline` → `claude-md-contexto`
-  → `poc05g-completar-series`. `main` está defasada (`3939dfd`).
+  → `poc05g-completar-series` → `ui-identidade-cores` (paleta marinho/gelo/turquesa, fonte Sora + Inter) → `ui-jsx-nativo`.
+  `main` está defasada (`3939dfd`).
+- Front: o app serve `aula-ia/dist/`, gerado por `npm run build` a partir de `src/App.jsx` + `src/App.css` (camada `tema-compat` removida
+  em `ui-jsx-nativo`). `public/geracao-ui.*` (painel de geração) é copiado para `dist/` pelo build. Mudou o front? `cd aula-ia && npm run build`
+  e commitar `dist/`. Teste: `node aula-ia/tests/test-plano-render.mjs`.
 - Registro entre Claude Code, Codex e Claude do chat: `docs/diario_de_bordo.md` (mais novas no topo; escrever uma entrada ao terminar algo).
 - Juiz: prompt `juiz-v1.3`, rubrica 0.1, política preliminar. **Não está integrado** ao pipeline, à UI nem ao SQLite.
 - Séries com v1.3 **completas** (3 válidos cada; falhas técnicas à parte): controle do plano original = 3; V03 = 3; V04 = 3 (+2 falhas 413);
