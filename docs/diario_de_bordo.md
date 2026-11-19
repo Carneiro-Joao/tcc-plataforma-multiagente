@@ -10,10 +10,10 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 **Feito**
 - Feedback externo (tema = input completo no plano): `aula-ia-backend/tema.py` extrai o **tema curto automaticamente, sem confirmação**
-  (catálogo → marcador → texto curto; recusa com 422 se não achar). Integrado em `servico.consultar`; a busca segue usando o texto original,
-  que fica em `consulta.pedido_original`. Detalhes e limites em `docs/PoC06_Tema_Curto.md`.
+  (catálogo → marcador → texto curto; recusa com 422 se não achar). Integrado em `servico.consultar`; a busca também usa o tema curto (a frase
+  inteira trazia habilidades erradas por palavras de ruído); a frase fica em `consulta.pedido_original`. Detalhes e limites em `docs/PoC06_Tema_Curto.md`.
 - Fixtures de ordenação atualizadas para o tema curto ("Ordenação"); caso real gravado `resposta_real_integrador` mantido.
-- 372 testes OK (com e sem `-S`); mutação manual (>35 mutantes, 2 rodadas), 0 sobreviventes ao final. Frases usadas na sondagem viraram regressão, não avaliação.
+- 373 testes OK (com e sem `-S`); mutação manual (>35 mutantes, 2 rodadas), 0 sobreviventes ao final. Frases usadas na sondagem viraram regressão, não avaliação.
 
 **Pendências**
 - UI (Claude Code): esconder JSON (`?depuracao=1`), placeholder/limite do tema, checklist de recursos. Recursos obrigatório mantido (decisão de João).

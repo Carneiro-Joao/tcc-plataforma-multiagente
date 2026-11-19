@@ -97,7 +97,8 @@ class ServicoCurricular:
 
     def consultar(self, pedido):
         contexto = validar_contexto(pedido.get("contexto"), self.busca.ano)
-        # O professor pode escrever uma frase inteira. A busca usa o texto dele; o plano e a tela usam só o tema.
+        # O professor pode escrever uma frase inteira. Busca, plano e tela usam só o tema; a frase fica em pedido_original.
+        # (Buscar com a frase inteira trazia habilidades erradas por palavras de ruído como "quero" e "ensinar".)
         pedido_original = contexto["tema"]
         try:
             achado = extrair_tema(pedido_original, self._vocabulario())
@@ -108,7 +109,7 @@ class ServicoCurricular:
         if modo == "catalogo":
             docs = self.busca.documentos
         elif modo == "tema":
-            docs = self.busca.buscar(pedido_original)
+            docs = self.busca.buscar(contexto["tema"])
         else:
             raise ErroConsulta(422, "Escolha a consulta por tema ou o catálogo completo.")
         resultados = []

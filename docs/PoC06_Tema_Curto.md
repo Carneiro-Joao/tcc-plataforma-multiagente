@@ -17,8 +17,10 @@ Se nada funciona, a consulta falha com **422** e a mensagem *"Não consegui iden
 Nada é gravado no banco nesse caso. O resultado é sempre um trecho do que o professor escreveu (nada inventado), com a primeira letra maiúscula.
 
 ## Onde entra
-`ServicoCurricular.consultar`: a **busca curricular continua usando o texto original** (mais pistas, melhor ranking); `contexto.tema`
-passa a ser o tema curto, então o título do plano, a tela e a validação `plano.tema == contexto.tema` usam só o tema.
+`ServicoCurricular.consultar`: `contexto.tema` passa a ser o tema curto e **a busca curricular também usa o tema curto**, não a frase.
+Motivo medido em 18/11: com a frase "Olá, eu quero ensinar sobre IA generativa…" a busca devolvia 2 habilidades por palavras de ruído
+("quero", "ensinar"…); com o tema "IA generativa" devolve vazio, que é o correto (a BNCC do 8º ano não tem IA). Título do plano, tela e a
+validação `plano.tema == contexto.tema` também usam só o tema.
 O texto original fica em `consulta.pedido_original` e a camada usada em `consulta.origem_tema` (`catalogo`/`marcador`/`texto`), fora do
 `contexto`, que mantém o esquema fechado.
 

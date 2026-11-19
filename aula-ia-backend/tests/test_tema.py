@@ -153,15 +153,22 @@ class TestIntegracaoServico(TestCase):
         self.assertEqual(c["origem_tema"], "catalogo")
         self.assertEqual(set(c["contexto"]), {"ano", "tema", "duracao_min", "recursos", "tipo"})
 
-    def test_busca_continua_usando_a_frase_inteira(self):
+    def test_frase_com_termo_traz_a_habilidade_certa(self):
         c = self.consultar("gostaria de uma aula sobre bubble sort com cartões")
         self.assertEqual(c["resultados"][0]["habilidade"]["codigo"], "EF08CO03")
 
-    def test_busca_recebe_o_texto_original_e_nao_o_tema_curto(self):
-        frase = "Olá, bom dia, quero ensinar sobre ordenação"
+    def test_busca_recebe_o_tema_curto_e_nao_a_frase_inteira(self):
         with patch.object(self.servico.busca, "buscar", wraps=self.servico.busca.buscar) as busca:
-            self.consultar(frase)
-        busca.assert_called_once_with(frase)
+            self.consultar("Olá, bom dia, quero ensinar sobre ordenação")
+        busca.assert_called_once_with("Ordenação")
+
+    def test_frase_com_ruido_nao_traz_habilidade_errada(self):
+        # Fora do catálogo (a BNCC do 8º ano não tem IA generativa): resultado vazio, e não habilidades por acaso.
+        frase = "Olá, eu quero ensinar sobre IA generativa. O tema da aula de hoje vai ser IA generativa. E não sei o que"
+        self.assertEqual(BUSCA.buscar(frase) != [], True)  # a frase inteira, como era antes, trazia falsos positivos
+        c = self.consultar(frase)
+        self.assertEqual(c["contexto"]["tema"], "IA generativa")
+        self.assertEqual(c["resultados"], [])
 
     def test_objeto_de_conhecimento_da_bncc_entra_no_vocabulario(self):
         objeto = BUSCA.documentos[0]["objeto_conhecimento"]
