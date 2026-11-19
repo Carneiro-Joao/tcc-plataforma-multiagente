@@ -37,3 +37,42 @@
 .geracao-nota{color:#5f6a80;font-size:12px;margin:13px 0 0}
 @media(max-width:760px){.geracao-painel{padding:21px 18px;border-radius:17px}.geracao-intro,.geracao-cabecalho{flex-direction:column}.geracao-documento{padding:16px}.geracao-status{white-space:normal}}
 @media print{.geracao-intro,.geracao-alerta,.geracao-botoes,.geracao-nota,.geracao-rastreio,.geracao-documento details{display:none!important}.geracao-painel,.geracao-documento{border:none;margin:0;padding:0;box-shadow:none}.geracao-documento{display:block!important}.geracao-habilidade{background:#f2f2f2}body{background:#fff}}
+
+/* PoC 08: IA Juiz integrada (painel da avaliação e progresso do pedido). */
+.juiz-painel{border:1px solid #d6e3ea;border-left:5px solid #9fb3c4;border-radius:14px;padding:18px 20px;margin:21px 0 0;background:#fcfdfe}
+.juiz-cabecalho{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.juiz-cabecalho h4{margin:0;font:850 18px/1.3 var(--rounded-font,'Sora',sans-serif);color:#0b1f3a}
+.juiz-decisao{font-weight:800;font-size:13px;padding:6px 12px;border-radius:100px;background:#eef3f6;color:#0b1f3a}
+.juiz-favoravel{border-left-color:#168754}.juiz-favoravel .juiz-decisao{background:#dcf8e9;color:#117442}
+.juiz-ressalvas{border-left-color:#e0a545}.juiz-ressalvas .juiz-decisao{background:#fff4e1;color:#94622c}
+.juiz-revisao{border-left-color:#c2452d}.juiz-revisao .juiz-decisao{background:#fde8e3;color:#a1361f}
+.juiz-indisponivel .juiz-decisao{background:#eef3f6;color:#4a5670}
+.juiz-painel p{font-size:14px;line-height:1.6;margin:10px 0}
+.juiz-aviso{font-size:12px!important;color:#4a5670;border-top:1px solid #e3ecf1;padding-top:10px;margin-bottom:0!important}
+.juiz-aviso-pedido{background:#fff8ec;border:1px solid #e8c4a4;color:#81502e;border-radius:9px;padding:10px 12px}
+.juiz-demo{background:#eef7f9;border-radius:9px;padding:10px 12px;color:#0b1f3a}
+.juiz-historico{color:#4a5670;font-size:13px!important;border-left:2px solid #cddbe4;padding-left:10px}
+.juiz-notas{border-collapse:collapse;margin:12px 0;font-size:13px;min-width:min(100%,360px)}
+.juiz-notas th,.juiz-notas td{text-align:left;padding:6px 12px 6px 0;border-bottom:1px solid #e3ecf1}
+.juiz-notas td:last-child,.juiz-notas th:last-child{text-align:center}
+.juiz-painel h5{font:800 14px var(--rounded-font,'Sora',sans-serif);margin:14px 0 6px;color:#0b1f3a}
+.juiz-criticas{padding-left:18px;margin:0}
+.juiz-criticas li{margin:8px 0;font-size:14px}
+.juiz-criticas p{margin:4px 0!important}
+.juiz-gravidade{display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:6px;background:#eef3f6;color:#4a5670;margin-right:4px}
+.juiz-grav-critica .juiz-gravidade{background:#fde8e3;color:#a1361f}.juiz-grav-maior .juiz-gravidade{background:#fff4e1;color:#94622c}
+.juiz-sugestao{color:#4a5670}
+.pedido-progresso{border:1px solid #d6e3ea;border-radius:14px;padding:18px 20px;margin:17px 0;background:#f7fbfc}
+.pedido-progresso ol{list-style:none;padding:0;margin:0 0 10px;display:grid;gap:8px}
+.pedido-progresso li{display:flex;align-items:center;gap:10px;color:#5f6a80;font-weight:700;font-size:14px}
+.pedido-progresso li::before{content:'';width:12px;height:12px;border-radius:50%;border:2px solid #b9cad6;flex:0 0 auto}
+.pedido-progresso li.feito{color:#117442}.pedido-progresso li.feito::before{background:#168754;border-color:#168754}
+.pedido-progresso li.atual{color:#0b1f3a}.pedido-progresso li.atual::before{border-color:#14b8b0;background:#14b8b0;animation:pulso-juiz 1.2s ease-in-out infinite}
+.pedido-progresso p{margin:0;font-size:13px;color:#4a5670}
+@keyframes pulso-juiz{50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.pedido-progresso li.atual::before{animation:none}}
+@media print{.juiz-criticas,.juiz-historico,.juiz-painel h5,.juiz-painel details,.pedido-progresso,.juiz-demo{display:none!important}
+.juiz-painel{break-inside:avoid;border:1px solid #999;border-left-width:4px;margin:0 0 14px;padding:10px 14px}
+.juiz-notas tr{break-inside:avoid}
+.geracao-painel,.geracao-documento,.geracao-documento>:last-child{margin-bottom:0!important;padding-bottom:0!important}
+.geracao-documento ul:last-of-type,.geracao-documento ul:last-of-type>li:last-child{margin-bottom:0!important}}

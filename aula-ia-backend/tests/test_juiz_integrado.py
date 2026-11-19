@@ -116,6 +116,8 @@ class TestFluxo(Base):
         self.assertEqual((g["revisao"], g["avaliacao"]["rotulo"], p["ciclo"], p["aviso"]), (2, "Favorável", 1, None))
         self.assertEqual([(h["ciclo"], h["rotulo"]) for h in p["historico"]], [(0, "Com ressalvas"), (1, "Favorável")])
         self.assertIn("F1", p["historico"][0]["motivos"][0])
+        self.assertEqual(p["historico"][0]["criticas"], [UMA_GRAVE["falhas"][0]["descricao"]])
+        self.assertEqual(p["historico"][1]["criticas"], [])
         self.assertEqual([c["ciclo"] for c in self.juiz.chamadas], [0, 1])
         self.assertEqual(self.linhas("SELECT revisao, entregue, pedido_id IS NOT NULL FROM geracoes ORDER BY revisao"),
                          [(1, 0, 1), (2, 1, 1)])

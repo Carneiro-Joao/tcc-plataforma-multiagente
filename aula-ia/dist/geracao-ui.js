@@ -10,6 +10,9 @@
   let ocupado = false;
   let erroAtual = "";
   let atualizacaoAgendada = false;
+  let timerProgresso = null;
+  let inicioPedido = 0;
+  let acaoAtual = "";
 
   const escapar = valor => String(valor ?? "").replace(/[&<>"']/g, caractere => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
@@ -65,7 +68,11 @@
     erroAtual = "";
     host.innerHTML = '<h2>Geração do plano de aula</h2><p aria-live="polite">Carregando consulta confirmada…</p>';
     api("/api/consultas/" + consultaId).then(resposta => {
-      if (idAtual === consultaId) { dadosAtuais = resposta; renderizar(); }
+      if (idAtual === consultaId) {
+        dadosAtuais = resposta;
+        if (resposta.pedido_atual?.em_andamento) iniciarAcompanhamento(consultaId);
+        renderizar();
+      }
     }).catch(erro => {
       if (idAtual === consultaId && painel()) {
         painel().innerHTML = '<h2>Geração do plano de aula</h2><p role="alert" class="erro">' + texto(erro.message) + '</p>';
@@ -133,10 +140,90 @@
       </article>`;
   }
 
+  // ---- IA Juiz: painel da avaliação e progresso do pedido (PoC 08) ----
+  const AVISO_JUIZ = "Avaliação automática e provisória; a decisão final é do professor.";
+  const CRITERIOS = { aderencia_curricular: "Aderência curricular", alinhamento_objetivos: "Alinhamento dos objetivos",
+    coerencia_metodologica: "Coerência metodológica", viabilidade: "Viabilidade",
+    avaliacao_aprendizagem: "Avaliação da aprendizagem", inclusao: "Inclusão" };
+  const COMPONENTES = { objetivos: "Objetivos", avaliacao_preliminar: "Evidências de avaliação", metodologia: "Metodologia",
+    sequencia: "Sequência didática", avaliacao_final: "Instrumentos de avaliação", adaptacao: "Adaptações" };
+  const GRAVIDADES = { critica: "Crítica", maior: "Maior", menor: "Menor" };
+  const CLASSES = { aguardando_decisao: "favoravel", em_correcao: "ressalvas", revisao_necessaria: "revisao" };
+
+  function avaliacaoHtml(avaliacao, pedido, geracaoId) {
+    if (!avaliacao) return "";
+    const parecer = avaliacao.parecer;
+    const classe = CLASSES[avaliacao.status] || "indisponivel";
+    const notas = parecer ? `<table class="juiz-notas"><thead><tr><th>Critério</th><th>Nota (0–3)</th></tr></thead><tbody>${
+      parecer.avaliacoes.map(a => `<tr><td>${texto(CRITERIOS[a.criterio] || a.criterio)}</td><td><b>${texto(a.nota)}</b></td></tr>`).join("")
+    }</tbody></table>` : "";
+    const criticas = !parecer ? "" : parecer.falhas.length
+      ? `<h5>Críticas do Juiz</h5><ul class="juiz-criticas">${parecer.falhas.map(f => `<li class="juiz-grav-${texto(f.gravidade)}">
+          <span class="juiz-gravidade">${texto(GRAVIDADES[f.gravidade] || f.gravidade)}</span>
+          <b>${texto(COMPONENTES[f.componente] || f.componente)}</b> · ${texto(CRITERIOS[f.criterio] || f.criterio)}
+          <p>${texto(f.descricao)}</p>${f.correcao_sugerida ? `<p class="juiz-sugestao"><b>Sugestão:</b> ${texto(f.correcao_sugerida)}</p>` : ""}</li>`).join("")}</ul>`
+      : "<p>Nenhuma crítica registrada.</p>";
+    const anteriores = (pedido?.historico || []).filter(h => h.evento === "avaliado" && h.geracao_id !== geracaoId);
+    const historico = anteriores.map(h => `<p class="juiz-historico">${texto(h.ciclo + 1)}ª versão não aprovada pelo Juiz
+      (${texto(h.rotulo)}): ${texto((h.criticas && h.criticas.length ? h.criticas : h.motivos || []).join(" · "))}</p>`).join("");
+    const semParecer = avaliacao.status === "indisponivel"
+      ? "<p>A IA Juiz não conseguiu avaliar este plano (falha técnica). Isso não é um parecer.</p>"
+      : avaliacao.status === "nao_realizada" ? "<p>A avaliação automática não foi realizada para este plano.</p>" : "";
+    return `<section class="juiz-painel juiz-${classe}" aria-label="Avaliação da IA Juiz">
+      <div class="juiz-cabecalho"><h4>Avaliação da IA Juiz</h4><span class="juiz-decisao">${texto(avaliacao.rotulo)}</span></div>
+      ${avaliacao.demonstracao ? `<p class="juiz-demo"><b>Demonstração:</b> ${texto(avaliacao.aviso_demonstracao || "parecer gravado")}</p>` : ""}
+      ${pedido?.aviso ? `<p class="juiz-aviso-pedido">${texto(pedido.aviso)}</p>` : ""}
+      ${historico}${parecer?.resumo ? `<p class="juiz-resumo">${texto(parecer.resumo)}</p>` : ""}${semParecer}${notas}${criticas}
+      <p class="juiz-aviso">${AVISO_JUIZ}</p>
+      ${parecer ? soDepuracao(`<details><summary>Ver parecer completo (JSON)</summary><pre>${json(avaliacao)}</pre></details>`) : ""}
+    </section>`;
+  }
+
+  function duracao(segundos) {
+    const m = Math.floor(segundos / 60), s = segundos % 60;
+    return m ? `${m} min ${String(s).padStart(2, "0")} s` : `${s} s`;
+  }
+
+  function progressoHtml(pedido, decorridoS) {
+    const estado = pedido?.estado || "gerando";
+    const ciclo = pedido?.ciclo || 0;
+    const passos = [["gerando", 0, "Gerando plano…"], ["avaliando", 0, "IA Juiz avaliando…"]];
+    for (let c = 1; c <= ciclo; c++) passos.push(["regenerando", c, "Ajustando: gerando nova versão…"], ["avaliando", c, "IA Juiz avaliando a nova versão…"]);
+    const atual = Math.max(0, passos.findIndex(([e, c]) => e === estado && c === ciclo));
+    return `<div class="pedido-progresso" role="status" aria-live="polite"><ol>${
+      passos.map(([, , rotulo], i) => `<li class="${i < atual ? "feito" : i === atual ? "atual" : ""}">${texto(rotulo)}</li>`).join("")
+    }</ol><p>Isso pode levar até 4 minutos. Você não precisa fazer nada: o plano chega já avaliado pela IA Juiz.${
+      decorridoS ? ` Tempo decorrido: ${duracao(decorridoS)}.` : ""}</p></div>`;
+  }
+
+  function iniciarAcompanhamento(consultaId) {
+    pararAcompanhamento();
+    if (!inicioPedido) inicioPedido = Date.now();
+    timerProgresso = setInterval(async () => {
+      try {
+        const consulta = await api("/api/consultas/" + consultaId);
+        if (idAtual !== consultaId) return;
+        if (ocupado) dadosAtuais = { ...dadosAtuais, pedido_atual: consulta.pedido_atual };
+        else {
+          dadosAtuais = consulta;
+          if (!consulta.pedido_atual?.em_andamento) { pararAcompanhamento(); inicioPedido = 0; }
+        }
+        renderizar();
+      } catch (_) { /* tenta de novo no próximo intervalo */ }
+    }, 2000);
+  }
+
+  function pararAcompanhamento() {
+    if (timerProgresso) clearInterval(timerProgresso);
+    timerProgresso = null;
+  }
+
   function renderizar() {
     const host = painel();
     if (!host || !dadosAtuais) return;
     const geracao = dadosAtuais.geracao_atual;
+    const pedido = dadosAtuais.pedido_atual;
+    const emAndamento = (ocupado && acaoAtual === "gerar") || Boolean(pedido?.em_andamento);
     const resultado = geracao?.resultado?.plano ? geracao.resultado : null;
     const falha = geracao?.estado === "falha" ? geracao.resultado : null;
     const aprovado = geracao?.estado === "aprovado";
@@ -144,22 +231,25 @@
       detail: { consultaId: idAtual, estado: geracao?.estado || "nao_gerado" }
     }));
     const demo = resultado?.modo === "demonstracao";
+    const decorrido = inicioPedido ? Math.round((Date.now() - inicioPedido) / 1000) : 0;
     host.innerHTML = `<div class="geracao-intro">
-      <div><span class="geracao-rotulo">Novo incremento da prova de conceito</span><h2>Geração do plano de aula</h2>
-      <p>Com a habilidade curricular confirmada, o sistema prepara um plano, mostra as etapas de construção e permite a sua aprovação pedagógica.</p></div>
-      <span class="geracao-identidade">${resultado?.modo === "ia" ? "Gemini" : demo ? "Modo demonstrativo" : "Planejamento"}</span></div>
-      ${erroAtual || falha ? `<p role="alert" class="erro">${texto(erroAtual || falha.erro)}</p>` : ""}
-      <div class="geracao-alerta">${demo
+      <div><span class="geracao-rotulo">Planejamento com avaliação automática</span><h2>Geração do plano de aula</h2>
+      <p>Com a habilidade curricular confirmada, cinco especialistas geram o plano e a IA Juiz o avalia automaticamente antes da entrega. Você revisa, aprova e baixa.</p></div>
+      <span class="geracao-identidade">${resultado?.modo === "ia" ? "Gemini + IA Juiz" : demo ? "Modo demonstrativo" : "Planejamento"}</span></div>
+      ${erroAtual || (falha && !emAndamento) ? `<p role="alert" class="erro">${texto(erroAtual || falha.erro)}</p>` : ""}
+      ${emAndamento ? progressoHtml(pedido, decorrido) : `<div class="geracao-alerta">${demo
         ? "<b>Demonstração por regras:</b> o plano é gerado automaticamente, mas não por um modelo de linguagem. Revise a adequação pedagógica antes de aprovar."
-        : resultado ? `<b>Geração com IA:</b> cinco especialistas usam ${texto(resultado.modelo)}. O plano passou pela verificação automática e deve ser revisado pedagogicamente.` : "O plano será apresentado para sua revisão. A geração pode levar alguns minutos."}</div>
-      ${falha ? soDepuracao(`<details><summary>Detalhes da tentativa que falhou</summary><pre>${json(falha)}</pre></details>`) : ""}
-      ${resultado ? planoHtml(resultado.plano, resultado, geracao) : `<p class="geracao-vazio">Nenhum plano gerado ainda. A habilidade ${texto(dadosAtuais.entrada_geracao.habilidade.codigo)} está confirmada e pronta para iniciar o processo.</p>`}
+        : resultado ? `<b>Geração com IA:</b> cinco especialistas usam ${texto(resultado.modelo)}. O plano passou pelo validador de contrato e pela IA Juiz e deve ser revisado pedagogicamente.` : "O plano será gerado, avaliado pela IA Juiz e apresentado para sua revisão. Isso pode levar até 4 minutos."}</div>`}
+      ${falha && !emAndamento ? soDepuracao(`<details><summary>Detalhes da tentativa que falhou</summary><pre>${json(falha)}</pre></details>`) : ""}
+      ${emAndamento ? "" : resultado ? avaliacaoHtml(geracao.avaliacao, pedido, geracao.id) + planoHtml(resultado.plano, resultado, geracao)
+        : `<p class="geracao-vazio">Nenhum plano gerado ainda. A habilidade ${texto(dadosAtuais.entrada_geracao.habilidade.codigo)} está confirmada e pronta para iniciar o processo.</p>`}
       <div class="geracao-botoes">
-        ${!aprovado ? `<button type="button" class="primario" data-geracao-acao="gerar" ${ocupado ? "disabled" : ""}>${ocupado ? "Processando agentes…" : resultado ? "Gerar outra versão" : "Gerar plano de aula"}</button>` : ""}
-        ${resultado && !aprovado ? `<button type="button" class="primario geracao-aprovar" data-geracao-acao="aprovar" ${ocupado ? "disabled" : ""}>Aprovar este plano</button>` : ""}
-        ${resultado ? `<button type="button" class="secundario" data-geracao-acao="imprimir">Imprimir plano</button>` : ""}
+        ${emAndamento ? `<button type="button" class="primario" disabled>Gerando e avaliando…</button>` : ""}
+        ${!emAndamento && resultado && !aprovado ? `<button type="button" class="primario geracao-aprovar" data-geracao-acao="aprovar" ${ocupado ? "disabled" : ""}>Aprovar plano</button>` : ""}
+        ${!emAndamento && !aprovado ? `<button type="button" class="${resultado ? "secundario" : "primario"}" data-geracao-acao="gerar" ${ocupado ? "disabled" : ""}>${resultado ? "Gerar novamente" : "Gerar plano de aula"}</button>` : ""}
+        ${aprovado ? `<button type="button" class="primario" data-geracao-acao="imprimir">Baixar PDF</button>` : ""}
       </div>
-      <p class="geracao-nota">${aprovado ? "A aprovação foi registrada. Para iniciar outro planejamento, altere o contexto e consulte novamente." : "A decisão final é sua. A verificação automática da IA Juiz será acrescentada no próximo incremento."}</p>`;
+      <p class="geracao-nota">${aprovado ? "A aprovação foi registrada. Use “Baixar PDF” para salvar ou imprimir o plano com o parecer resumido da IA Juiz." : "A decisão final é sua: o parecer da IA Juiz é consultivo. “Gerar novamente” repete a geração e a avaliação."}</p>`;
   }
 
   async function clicar(evento) {
@@ -169,9 +259,15 @@
     if (acao === "imprimir") { window.print(); return; }
     if (!dadosAtuais?.entrada_geracao) return;
     ocupado = true;
+    acaoAtual = acao;
     erroAtual = "";
-    renderizar();
     const consultaId = idAtual;
+    if (acao === "gerar") {
+      inicioPedido = Date.now();
+      dadosAtuais = { ...dadosAtuais, pedido_atual: { estado: "gerando", ciclo: 0, em_andamento: true, historico: [] } };
+      iniciarAcompanhamento(consultaId);
+    }
+    renderizar();
     try {
       let dados;
       if (acao === "gerar") dados = await api(`/api/consultas/${consultaId}/gerar`, {});
@@ -188,7 +284,12 @@
         if (idAtual === consultaId) dadosAtuais = consulta;
       } catch (_) { /* preserva a mensagem da ação original */ }
     }
-    finally { ocupado = false; renderizar(); }
+    finally {
+      ocupado = false;
+      acaoAtual = "";
+      if (!dadosAtuais?.pedido_atual?.em_andamento) { pararAcompanhamento(); inicioPedido = 0; }
+      renderizar();
+    }
   }
 
   function agendar() {

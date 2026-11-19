@@ -197,4 +197,6 @@ pre { max-height: 360px; overflow: auto; white-space: pre-wrap; overflow-wrap: a
   .lateral,.topo,.cabecalho,.etapas,.colunas { display: none !important; }
   .app { display: block; }
   .area-principal,main { background: white; padding: 0; }
+  /* PA-2: nada de altura mínima de tela nem margem final na impressão (evita página em branco no fim). */
+  html, body, #root, .app, .area-principal, main { min-height: 0 !important; height: auto !important; margin: 0 !important; }
 }

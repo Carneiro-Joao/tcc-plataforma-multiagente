@@ -342,7 +342,9 @@ class ServicoCurricular:
             item.update(avaliado=True, proximo_estado=decisao["proximo_estado"], graves=falhas_graves(avaliado["parecer"]))
             historico.append(dict(ciclo=ciclo, geracao_id=gid, revisao=revisao, evento="avaliado",
                                   proximo_estado=decisao["proximo_estado"], rotulo=ROTULOS[decisao["proximo_estado"]],
-                                  motivos=decisao["motivos"], falhas_graves=item["graves"]))
+                                  motivos=decisao["motivos"], falhas_graves=item["graves"],
+                                  criticas=[f["descricao"] for f in avaliado["parecer"]["falhas"]
+                                            if f["gravidade"] in ("maior", "critica")][:3]))
             if decisao["proximo_estado"] not in NAO_FAVORAVEL:
                 break
 
