@@ -418,6 +418,9 @@ class TestApp(TestCase):
         self.assertNotIn("GROQ_API_KEY não definida", texto)
 
     def test_valores_negativos_recusados(self):
+        class NaoAbre:  # se a validação falhar, o teste falha na hora em vez de abrir um servidor e travar
+            def __init__(self, *a):
+                raise AssertionError("valor negativo aceito: o app tentou abrir o servidor")
         for opcao in ("--ciclos-juiz", "--limite-diario-juiz"):
-            with self.subTest(opcao=opcao), self.assertRaises(SystemExit), redirect_stderr(io.StringIO()):
+            with self.subTest(opcao=opcao), patch.object(app, "ThreadingHTTPServer", NaoAbre),                     self.assertRaises(SystemExit), redirect_stderr(io.StringIO()), redirect_stdout(io.StringIO()):
                 app.main(["--gerador", "demonstracao", opcao, "-1"])
