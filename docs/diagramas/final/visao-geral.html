@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>AulaIA — visão geral</title>
+<!-- Fonte da figura "Visão geral do AulaIA". Gerar PNG: ver docs/diagramas/diagramas-finais.md (Playwright, 1800 px, escala 2). -->
+<style>
+  :root{--ink:#16242b;--muted:#5a6a72;--line:#cfd9de;--ia:#0f6b84;--ia-bg:#e3f1f5;--regra:#5a6a72;--regra-bg:#f2f5f6;--hum:#a2561b;--hum-bg:#fbeee2}
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--ink);font-family:Inter,"DejaVu Sans",sans-serif}
+  .fig{width:1800px;padding:44px 48px 36px;display:flex;flex-direction:column;gap:26px}
+  h1{margin:0;font-size:34px;font-weight:700;letter-spacing:-.01em}
+  .sub{margin:0;font-size:19px;color:var(--muted)}
+  .row{display:grid;grid-template-columns:1fr 40px 1fr 40px 1.25fr 40px 1fr 40px 1fr;align-items:stretch}
+  .card{border:2px solid var(--line);border-radius:16px;padding:22px 20px 20px;display:flex;flex-direction:column;gap:12px;background:#fff;position:relative}
+  .card.hum{border-color:var(--hum);background:var(--hum-bg)}
+  .card.regra{border-color:var(--regra);background:var(--regra-bg)}
+  .card.ia{border-color:var(--ia);background:var(--ia-bg)}
+  .num{position:absolute;top:-17px;left:18px;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;font-weight:700;
+       display:flex;align-items:center;justify-content:center;font-size:17px}
+  .ico{height:72px;display:flex;align-items:center}
+  .card h2{margin:0;font-size:22px;line-height:1.2}
+  .card p{margin:0;font-size:17px;line-height:1.45;color:#2c3b42}
+  .quote{font-style:italic;color:var(--hum)}
+  .tag{align-self:flex-start;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+  .hum .tag{background:#fff;color:var(--hum)} .regra .tag{background:#fff;color:var(--regra)} .ia .tag{background:#fff;color:var(--ia)}
+  .arrow{display:flex;align-items:center;justify-content:center}
+  .agents{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .agents span{font-size:13.5px;background:#fff;border:1px solid #b9d9e3;border-radius:8px;padding:5px 6px;text-align:center;line-height:1.25}
+  .loop{display:grid;grid-template-columns:1fr 40px 1fr 40px 1.25fr 40px 1fr 40px 1fr;height:58px}
+  .loop svg{grid-column:5 / 8;width:100%;height:58px;overflow:visible}
+  .legend{display:flex;gap:30px;font-size:16px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px;align-items:center;flex-wrap:wrap}
+  .sw{display:inline-block;width:18px;height:18px;border-radius:5px;vertical-align:-3px;margin-right:8px;border:2px solid}
+</style></head><body>
+<div class="fig">
+  <div>
+    <h1>AulaIA: do pedido do professor ao plano de aula pronto</h1>
+    <p class="sub">Planos de aula de Computação do 8º ano, alinhados à BNCC, escritos por agentes de IA e revisados por uma IA Juiz</p>
+  </div>
+
+  <div class="row">
+    <div class="card hum"><div class="num">1</div>
+      <div class="ico"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#a2561b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="20" r="10"/><path d="M12 56c2-12 10-18 20-18s18 6 20 18"/></svg></div>
+      <span class="tag">Professor</span>
+      <h2>Diz o que quer ensinar</h2>
+      <p><span class="quote">"Bom dia, quero ensinar ordenação"</span>, além da duração, do tipo de aula e dos recursos que tem na sala.</p>
+    </div>
+    <div class="arrow"><svg width="34" height="24" viewBox="0 0 34 24"><path d="M2 12h26M20 4l9 8-9 8" fill="none" stroke="#16242b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="card regra"><div class="num">2</div>
+      <div class="ico"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#5a6a72" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14c8-4 16-4 22 2 6-6 14-6 22-2v36c-8-4-16-4-22 2-6-6-14-6-22-2z"/><path d="M32 16v36"/></svg></div>
+      <span class="tag">Regras fixas</span>
+      <h2>Encontra a habilidade da BNCC</h2>
+      <p>O sistema extrai o tema ("Ordenação"), busca no catálogo oficial e o professor <b>confirma</b> a habilidade (ex.: EF08CO03).</p>
+    </div>
+    <div class="arrow"><svg width="34" height="24" viewBox="0 0 34 24"><path d="M2 12h26M20 4l9 8-9 8" fill="none" stroke="#16242b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="card ia"><div class="num">3</div>
+      <div class="ico"><svg width="132" height="64" viewBox="0 0 132 64" fill="none" stroke="#0f6b84" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><g><rect x="6" y="20" width="34" height="28" rx="7"/><circle cx="17" cy="33" r="3"/><circle cx="29" cy="33" r="3"/><path d="M23 20v-8"/><circle cx="23" cy="10" r="3"/></g><g transform="translate(46 0)"><rect x="6" y="20" width="34" height="28" rx="7"/><circle cx="17" cy="33" r="3"/><circle cx="29" cy="33" r="3"/><path d="M23 20v-8"/><circle cx="23" cy="10" r="3"/></g><g transform="translate(92 0)"><rect x="0" y="20" width="34" height="28" rx="7"/><circle cx="11" cy="33" r="3"/><circle cx="23" cy="33" r="3"/><path d="M17 20v-8"/><circle cx="17" cy="10" r="3"/></g></svg></div>
+      <span class="tag">IA · Gemini</span>
+      <h2>5 especialistas escrevem o plano</h2>
+      <div class="agents"><span>Objetivos</span><span>Avaliação</span><span>Metodologia e recursos</span><span>Sequência da aula</span><span>Adaptações</span><span style="background:#f2f5f6;border-color:#cfd9de;color:#5a6a72">Integração (regras)</span></div>
+      <p>Cada um escreve uma parte, usando o que os anteriores fizeram. O sistema confere a estrutura a cada passo.</p>
+    </div>
+    <div class="arrow"><svg width="34" height="24" viewBox="0 0 34 24"><path d="M2 12h26M20 4l9 8-9 8" fill="none" stroke="#16242b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="card ia"><div class="num">4</div>
+      <div class="ico"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#0f6b84" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h22l10 10v38H18z"/><path d="M40 8v10h10"/><path d="M25 38l6 6 12-14"/></svg></div>
+      <span class="tag">IA · Juiz (Groq)</span>
+      <h2>A IA Juiz revisa</h2>
+      <p>Dá nota de 0 a 3 em 6 critérios (currículo, objetivos, método, viabilidade, avaliação, inclusão) e aponta problemas.</p>
+    </div>
+    <div class="arrow"><svg width="34" height="24" viewBox="0 0 34 24"><path d="M2 12h26M20 4l9 8-9 8" fill="none" stroke="#16242b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="card hum"><div class="num">5</div>
+      <div class="ico"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#a2561b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8h22l10 10v38H16z"/><path d="M38 8v10h10"/><path d="M32 28v18M24 38l8 8 8-8"/></svg></div>
+      <span class="tag">Professor</span>
+      <h2>Aprova e baixa o PDF</h2>
+      <p>Lê o plano e o parecer do Juiz. Se gostar, aprova e baixa. Se não, pede para gerar de novo. <b>A decisão final é sempre dele.</b></p>
+    </div>
+  </div>
+
+  <div class="loop"><svg viewBox="0 0 640 58" preserveAspectRatio="none"><path d="M560 0 V30 H80 V4" fill="none" stroke="#0f6b84" stroke-width="2.6" stroke-dasharray="7 6"/><path d="M72 12 L80 2 L88 12" fill="none" stroke="#0f6b84" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <p style="margin:-18px 0 0;font-size:16.5px;color:#0f6b84;text-align:center">Se o parecer não for favorável, o plano é escrito de novo uma vez; sem aprovação do Juiz, o professor recebe a melhor versão, com um aviso.</p>
+
+  <div class="legend">
+    <span><i class="sw" style="background:var(--hum-bg);border-color:var(--hum)"></i>Pessoa (o professor decide)</span>
+    <span><i class="sw" style="background:var(--regra-bg);border-color:var(--regra)"></i>Regras fixas, sem IA (busca na BNCC, conferência da estrutura)</span>
+    <span><i class="sw" style="background:var(--ia-bg);border-color:var(--ia)"></i>Inteligência artificial (modelos de linguagem)</span>
+  </div>
+</div>
+</body></html>

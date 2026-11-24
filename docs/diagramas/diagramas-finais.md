@@ -6,16 +6,22 @@ Substituem os diagramas v2.1-R2 (D1–D6, branch `docs/diagramas-rascunho`, comm
 
 **Arquivos:** fontes e imagens em [`final/`](final/) (`.mmd` Mermaid, `.puml` PlantUML, `.png` para o texto, `.svg` para ampliar).
 Para regenerar: `mmdc -i final/<nome>.mmd -o final/<nome>.png -s 2 -b white` (Mermaid CLI) e
-`java -jar plantuml.jar -tpng final/casos-de-uso.puml` (PlantUML + Graphviz).
+`java -jar plantuml.jar -tpng final/casos-de-uso.puml` (PlantUML + Graphviz). As figuras 1 e 6 têm fonte em HTML
+(`final/visao-geral.html`, `final/estrutura-plano.html`): abrir no Chromium a 1800 px e capturar o elemento `.fig` com escala 2 (Playwright).
 
-| Diagrama | Onde entra no TCC | Arquivo |
-|---|---|---|
-| Sequência | 4.2 Navegação (o único de sequência) | `final/sequencia.png` |
-| Componentes | 4.3 Modelagem (principal: estrutura dos agentes) | `final/componentes.png` |
-| Casos de uso (UML) | 4.3 Modelagem | `final/casos-de-uso.png` |
-| Entidade-relacionamento | 4.3 Modelagem | `final/er.png` |
-| Atividades | Opcional (4.2 ou 4.3) | `final/atividades.png` |
-| Estados do pedido | Opcional (4.3) | `final/estados.png` |
+**Seleção para o texto (decisão de 23/11):** seis figuras, cada uma respondendo a uma pergunta do leitor, na ordem de leitura do Cap. 4.
+
+| Ordem | Figura | Pergunta que responde | Onde entra no TCC | Arquivo |
+|---|---|---|---|---|
+| 1 | Visão geral (ilustrativa, sem UML) | O que é e por que importa? | Abertura do Cap. 4 | `final/visao-geral.png` |
+| 2 | Casos de uso (UML) | O que o professor pode fazer? | 4.3 (ou abrindo a 4.2) | `final/casos-de-uso.png` |
+| 3 | Sequência + prints das telas | Como é usar, passo a passo? | 4.2 (o único de sequência) | `final/sequencia.png` |
+| 4 | Componentes + um parágrafo por agente | Do que o sistema é feito? | 4.3 (principal) | `final/componentes.png` |
+| 5 | Atividades de "Gerar plano" | O que acontece quando algo não sai bem? | 4.3 | `final/atividades.png` |
+| 6 | Estrutura do plano | O que exatamente o sistema entrega? | 4.3 | `final/estrutura-plano.png` |
+| — | Entidade-relacionamento | Como os dados são guardados? | Apêndice (opcional) | `final/er.png` |
+| — | Estados do pedido | Quais estados um pedido percorre? | Apêndice (opcional) | `final/estados.png` |
+| — | Classes | — | Não usar: o plano é um documento JSON validado por contrato, não um modelo de objetos | — |
 
 ## 1. Componentes
 
@@ -222,6 +228,20 @@ erDiagram
 
 O plano e o rastreio ficam em JSON em `geracoes.resultado`; o parecer, em `pareceres.resultado`. A versão entregue de cada pedido tem
 `geracoes.entregue = 1` (e `pedidos.geracao_entregue`).
+
+## 7. Visão geral (figura ilustrativa)
+
+![Visão geral](final/visao-geral.png)
+
+Para leitores sem formação técnica: cinco passos, com a separação entre pessoa, regras fixas e IA. Fonte: [`final/visao-geral.html`](final/visao-geral.html).
+
+## 8. Estrutura do plano de aula
+
+![Estrutura do plano](final/estrutura-plano.png)
+
+As 11 seções do PlanoDeAula 2.0, quem preenche cada uma e a corrente objetivo → etapa → evidência → instrumento, com trechos
+**literais** de um plano real (`experimentos/geracao/poc07b_planos_2_3/ordenacao_r1_917c3ba9.json`; o texto da etapa ET1 é resumido, só o
+título está entre aspas). Fonte: [`final/estrutura-plano.html`](final/estrutura-plano.html).
 
 ## Manutenção
 

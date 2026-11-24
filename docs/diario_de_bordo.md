@@ -6,6 +6,14 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-23 22:45 · Claude do chat · Figuras para leigos (`main`)
+
+**Feito:** seleção das figuras do Cap. 4 por pergunta do leitor (visão geral, casos de uso, sequência + prints, componentes, atividades,
+estrutura do plano; ER e estados no apêndice; sem diagrama de classes). Criadas `final/visao-geral` e `final/estrutura-plano` (fonte HTML
++ PNG; exemplo real do plano `ordenacao_r1_917c3ba9`). Sequência corrigida: quem chama a IA Juiz é o serviço, não o orquestrador.
+
+---
+
 ## 2026-11-23 22:30 · Claude do chat · Documentação final (`docs/especificacao-final`)
 
 **Feito (só documentação; código congelado não mudou)**
