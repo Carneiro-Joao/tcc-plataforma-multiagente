@@ -240,8 +240,9 @@ Para leitores sem formação técnica: cinco passos, com a separação entre pes
 ![Estrutura do plano](final/estrutura-plano.png)
 
 As 11 seções do PlanoDeAula 2.0, quem preenche cada uma e a corrente objetivo → etapa → evidência → instrumento, com trechos
-**literais** de um plano real (`experimentos/geracao/poc07b_planos_2_3/ordenacao_r1_917c3ba9.json`; o texto da etapa ET1 é resumido, só o
-título está entre aspas). Fonte: [`final/estrutura-plano.html`](final/estrutura-plano.html).
+**literais** do plano aprovado na execução de 23/11/2026 pela interface (Gemini + Groq; Ordenação, aula prática, 50 min, projetor e
+computadores; revisão 1, parecer "Com ressalvas"), a mesma usada nas telas do Cap. 4 do TCC. O texto da etapa ET1 é resumido; os demais
+estão entre aspas. Fonte: [`final/estrutura-plano.html`](final/estrutura-plano.html).
 
 ## Manutenção
 
