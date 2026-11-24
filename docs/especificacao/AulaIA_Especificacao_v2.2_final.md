@@ -154,10 +154,10 @@ Todos estão **implementados** na versão congelada; RF06 é o único sem teste 
 | RNF01 | Segurança e privacidade | Execução local; chaves só em variáveis de ambiente, nunca em arquivo; nenhum dado de estudante; exportação de planos recusa arquivo com credencial |
 | RNF02 | Rastreabilidade curricular | Código, descrição, páginas, versão e hash do catálogo ligados a cada plano |
 | RNF03 | Observabilidade | Modelo, versão do prompt, estado, latência, tokens e erros por chamada; pareceres com versões de prompt, rubrica e política |
-| RNF04 | Resiliência | Timeout de 90 s; até 2 novas tentativas em HTTP 503; 1 reparo de formato por chamada; intervalo de 75 s entre avaliações do Juiz e 60 s antes do reparo (cota do Groq); falha registrada, nunca convertida em plano ou parecer |
+| RNF04 | Resiliência | Timeout de 90 s; até 2 novas tentativas em HTTP 503; 1 reparo de formato por chamada; intervalo de 75 s entre avaliações do Juiz (120 s depois de HTTP 413) e 60 s antes do reparo (cota do Groq); falha registrada, nunca convertida em plano ou parecer |
 | RNF05 | Integridade | Gravações transacionais; versões imutáveis; invariantes curriculares e soma exata dos minutos |
 | RNF06 | Portabilidade e manutenibilidade | Backend só com a biblioteca padrão do Python; adaptadores de LLM substituíveis; contratos JSON versionados; modos de demonstração para geração e Juiz |
-| RNF07 | Usabilidade | Progresso visível, mensagens claras, layout responsivo testado a 390 px. Acessibilidade **não foi auditada** formalmente |
+| RNF07 | Usabilidade | Progresso visível, mensagens claras, layout responsivo (verificado a 390 px no Incremento 03; a interface final não foi reauditada). Acessibilidade **não foi auditada** formalmente |
 | RNF08 | Desempenho e custo | Latência e tokens medidos por chamada; limite diário de 8 gerações e 8 avaliações, contando falhas; sem metas de tempo |
 | RNF09 | Transparência | Distingue demonstração, LLM, validação determinística, parecer do Juiz e aprovação humana; JSON técnico só em depuração |
 | RNF10 | Testabilidade | Testes offline com transporte simulado, regressão, mutação manual e cenários reproduzíveis |
