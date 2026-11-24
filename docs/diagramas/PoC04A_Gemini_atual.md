@@ -1,3 +1,6 @@
+> **HISTÓRICO — não usar como diagrama vigente.** Registro de 16/11 (antes da IA Juiz integrada). Superado pelos
+> [Diagramas finais](diagramas-finais.md) de 23/11/2026.
+
 # Componentes implementados — PlanoDeAula 2.0 e Gemini
 
 Registro: 16/11/2026, branch `feat/poc04a-gemini`. Descreve a implementação atual, com contrato completo e validação mecânica, sem reivindicar conclusão da arquitetura-alvo R2.

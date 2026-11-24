@@ -1,0 +1,31 @@
+@startuml casos-de-uso
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName Arial
+actor "Professor" as P
+actor "Serviço Gemini\n(geração)" as GEM
+actor "Serviço Groq\n(IA Juiz)" as GROQ
+rectangle "AulaIA" {
+  usecase "UC01\nGerar plano de aula" as UC01
+  usecase "Informar contexto\nda aula" as CTX
+  usecase "Confirmar\nhabilidade BNCC" as CONF
+  usecase "Escolher habilidade\nno catálogo" as CAT
+  usecase "Abrir documento-fonte\nda BNCC" as FONTE
+  usecase "Gerar novamente" as NOVA
+  usecase "UC02\nVisualizar plano e parecer" as UC02
+  usecase "UC03\nAprovar plano" as UC03
+  usecase "UC04\nBaixar plano em PDF" as UC04
+}
+P --> UC01
+P --> UC02
+P --> UC03
+P --> UC04
+UC01 .> CTX : <<include>>
+UC01 .> CONF : <<include>>
+CAT .> UC01 : <<extend>>
+FONTE .> UC01 : <<extend>>
+NOVA .> UC01 : <<extend>>
+UC01 --> GEM
+UC01 --> GROQ
+@enduml

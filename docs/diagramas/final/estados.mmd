@@ -1,0 +1,17 @@
+stateDiagram-v2
+    direction LR
+    state "Em andamento" as andamento {
+        [*] --> gerando
+        gerando --> avaliando: plano válido
+        avaliando --> aguardando_juiz: espera a cota do Groq
+        aguardando_juiz --> avaliando
+        avaliando --> regenerando: não favorável e há ciclo
+        regenerando --> avaliando: nova versão válida
+    }
+    [*] --> andamento: professor pede o plano
+    andamento --> pronto: plano entregue (com parecer, sem parecer ou melhor versão)
+    andamento --> falha: a primeira geração falhou
+    andamento --> interrompido: parado mais de 15 min
+    pronto --> [*]
+    falha --> [*]
+    interrompido --> [*]

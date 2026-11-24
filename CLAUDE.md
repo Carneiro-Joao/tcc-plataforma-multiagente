@@ -49,6 +49,9 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
   poc04a → poc08 está nela. Desenvolvimento encerrado: daqui em diante só escrita do TCC; qualquer mudança de código precisa do João.
   Fora da `main` (de propósito): `origin/docs/diagramas-rascunho` (rascunhos históricos de requisitos/diagramas).
 - Para rodar e para os números do texto: `docs/Estado_Final_Sistema.md`; Juiz integrado: `docs/PoC08_Juiz_Integrado.md`.
+- **Documentação final (23/11, aprovada pelo João):** `docs/especificacao/AulaIA_Especificacao_v2.2_final.md` (RF01–RF22, RNF01–RNF10,
+  RN01–RN15, UC01–UC04, renumerados), correspondência com a R2 em `docs/especificacao/Correspondencia_IDs_v2.1R2_v2.2.md`, diagramas em
+  `docs/diagramas/diagramas-finais.md` (fontes e imagens em `docs/diagramas/final/`). A R2 e os diagramas v2.1 são históricos.
 - **Feedback do orientador (reunião de 19/11):** o sistema já prova o conceito; é TCC, não produto, não precisa ser perfeito. A partir da
   semana seguinte o João foca 100% na escrita. **19/11 é o último dia de desenvolvimento:** fechar o sistema com a IA Juiz integrada e congelar.
 - **Decisão do João (pendente de ratificação):** o Juiz é uma ETAPA AUTOMÁTICA da geração (PoC 08, `feat/poc08-juiz-integrado`):

@@ -1,7 +1,7 @@
 # Estado final do sistema AulaIA (congelado em 19/11/2026)
 
-Inventário técnico para a escrita do TCC. Só fatos verificáveis; cada número indica de onde vem. Branch de referência:
-`feat/poc08-juiz-integrado` (a versão congelada vai para `main` na Fase 7, com o "ok" do João).
+Inventário técnico para a escrita do TCC. Só fatos verificáveis; cada número indica de onde vem. Referência: `main` (versão congelada).
+Requisitos, regras e diagramas finais: `docs/especificacao/AulaIA_Especificacao_v2.2_final.md` e `docs/diagramas/diagramas-finais.md`.
 
 ## 1. Instalar e rodar (Windows)
 Requisitos: Python 3.12 ou superior (testado em 3.14.0) — o backend usa **somente a biblioteca padrão** (`aula-ia-backend/requirements.txt`
@@ -74,7 +74,7 @@ Detalhes e testes: `docs/PoC08_Juiz_Integrado.md`.
 ## 5. Números atuais (19/11/2026)
 | Número | Valor | Como conferir |
 |---|---|---|
-| Testes Python | 477 (476 passam, 1 ignorado), também com `python -S` | `python relatorio_testes.py --sem-abrir`; arquivos em `aula-ia-backend/tests/` (32 `.py`) |
+| Testes Python | 493 (492 passam, 1 ignorado), também com `python -S` — conferido em 23/11 na `main` `694c07c` | `python relatorio_testes.py --sem-abrir`; arquivos em `aula-ia-backend/tests/` (32 `.py`) |
 | Testes de interface | 3 scripts | `aula-ia/tests/test-plano-render.mjs`, `test-formulario.mjs`, `test-juiz-render.mjs` |
 | Habilidades no catálogo | 11 (EF08CO01–EF08CO11) | `aula-ia-backend/data/bncc_8ano.json` |
 | Especialistas | 5 (6 chamadas; a avaliação tem duas passagens) + integrador em Python | `geracao_v2.py`, `contratos/plano_v2.py` (`ETAPAS`) |

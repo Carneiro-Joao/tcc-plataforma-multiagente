@@ -1,0 +1,45 @@
+erDiagram
+    CONSULTAS ||--o{ PEDIDOS : origina
+    CONSULTAS ||--o{ GERACOES : possui
+    PEDIDOS ||--o{ GERACOES : "agrupa por ciclo"
+    GERACOES ||--o{ PARECERES : recebe
+    CONSULTAS {
+        text id PK
+        text dados "contexto, tema e candidatas (JSON)"
+        text codigo_confirmado
+    }
+    PEDIDOS {
+        text id PK
+        text consulta_id FK
+        text estado
+        int ciclo
+        text geracao_entregue
+        text aviso
+        text historico "JSON"
+        text criado_em
+        text atualizado_em
+    }
+    GERACOES {
+        text id PK
+        text consulta_id FK
+        int revisao
+        text estado "processando, rascunho, aprovado, falha"
+        text resultado "plano e rastreio (JSON)"
+        text criado_em
+        text pedido_id FK
+        int ciclo
+        int entregue
+    }
+    PARECERES {
+        text id PK
+        text geracao_id FK
+        int ciclo
+        text criado_em
+        text estado "ok ou falha"
+        text proximo_estado
+        text versao_prompt
+        text modelo
+        text versao_rubrica
+        text politica
+        text resultado "parecer (JSON)"
+    }

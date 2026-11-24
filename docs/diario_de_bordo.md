@@ -6,6 +6,18 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-23 22:30 · Claude do chat · Documentação final (`docs/especificacao-final`)
+
+**Feito (só documentação; código congelado não mudou)**
+- Revisão de requisitos, regras e diagramas da R2 contra o sistema congelado (projeto do TCC: `claude/revisao-documentacao.md`).
+- Decisões do João (23/11): RF25 vira "aprovar ou gerar novamente" (sem rejeição); "depois de aprovar, nova consulta" é o comportamento
+  final; renumerar IDs a partir de RF01, com tabela de correspondência; Cap. 5 com participantes não entra; levar a documentação final à `main`.
+- `docs/especificacao/AulaIA_Especificacao_v2.2_final.md` (22 RF, 10 RNF, 15 RN, 4 UC, todos implementados; RF06 sem teste automatizado),
+  `Correspondencia_IDs_v2.1R2_v2.2.md`, `docs/diagramas/diagramas-finais.md` + `final/` (componentes, casos de uso UML, sequência,
+  atividades, estados, ER, com fontes e imagens). `PoC04A_Gemini_atual.md` marcado como histórico; testes atualizados para 493.
+
+---
+
 ## 2026-11-19 14:50 · Claude Code · Correção: intervalo mínimo entre chamadas do Juiz (`feat/poc08c-intervalo-juiz`, autorizada pelo João)
 
 **Estado antes (pedido do João):** geração usada hoje = 16, Juiz = 3 (pela mesma consulta do app); nenhum pedido preso em andamento.

@@ -1,0 +1,22 @@
+flowchart TB
+    P(["Professor"]) --> UI["Interface web<br/>(React + Vite)"]
+    UI -->|"HTTP/JSON"| API["Servidor HTTP<br/>app.py"]
+    API --> SV["Serviço de aplicação<br/>servico.py"]
+    SV --> TEMA["Extração de tema<br/>tema.py (regras)"]
+    SV --> RAG["Busca curricular<br/>rag/search.py"]
+    RAG --> CAT[("Catálogo BNCC 8º ano<br/>+ PDF oficial")]
+    SV --> ORQ["Orquestrador da geração<br/>geracao_v2.py"]
+    subgraph ESP["Agentes especialistas (LLM) — 6 chamadas encadeadas"]
+        direction LR
+        A1["Objetivos"] --> A2["Avaliação<br/>(preliminar)"] --> A3["Metodologia<br/>e Recursos"] --> A4["Sequência<br/>Didática"] --> A5["Avaliação<br/>(final)"] --> A6["Adaptação"]
+    end
+    ORQ --> ESP
+    ESP -.-> GEM["Adaptador Gemini<br/>gemini.py"]
+    GEM -.-> GAPI(("API Gemini<br/>gemini-3.5-flash-lite"))
+    ORQ --> INT["Integrador<br/>(Python, sem LLM)"]
+    INT --> VAL["Validador<br/>contrato plano-aula-2.0"]
+    SV --> JUIZ["IA Juiz<br/>juiz_servico.py / juiz.py"]
+    JUIZ -.-> GROQ["Adaptador Groq<br/>groq_juiz.py"]
+    GROQ -.-> GRAPI(("API Groq<br/>gpt-oss-120b"))
+    JUIZ --> POL["Política de decisão<br/>(determinística)"]
+    SV <--> DB[("SQLite<br/>consultas · pedidos<br/>geracoes · pareceres")]

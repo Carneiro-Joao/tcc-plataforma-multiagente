@@ -1,0 +1,29 @@
+flowchart TD
+    I(["Início"]) --> C["Informar contexto da aula"]
+    C --> V{"Contexto válido?"}
+    V -->|"Não"| C
+    V -->|"Sim"| T["Extrair tema e buscar habilidades"]
+    T --> H["Escolher habilidade<br/>(candidatas ou catálogo)"]
+    H --> CF["Confirmar habilidade"]
+    CF --> G["Especialistas geram o plano<br/>(6 chamadas, validação a cada etapa)"]
+    G --> OK{"Geração concluída?"}
+    OK -->|"Não"| FG["Registrar falha e avisar"]
+    OK -->|"Sim"| J["IA Juiz avalia"]
+    J --> FJ{"Avaliação concluída?"}
+    FJ -->|"Não"| SP["Entregar sem parecer<br/>(avaliação indisponível)"]
+    FJ -->|"Sim"| FAV{"Parecer favorável?"}
+    FAV -->|"Sim"| EN["Entregar plano com parecer"]
+    FAV -->|"Não"| CI{"Ainda há ciclo<br/>de regeneração?"}
+    CI -->|"Sim"| RG["Gerar o plano inteiro de novo"]
+    RG --> RV{"Nova versão válida?"}
+    RV -->|"Sim"| J
+    RV -->|"Não"| MV
+    CI -->|"Não"| MV["Entregar a versão com menos<br/>falhas graves, com aviso"]
+    EN --> D{"Professor aprova?"}
+    SP --> D
+    MV --> D
+    D -->|"Sim"| AP["Registrar aprovação e baixar PDF"]
+    D -->|"Não"| NV["Gerar novamente"]
+    NV --> G
+    FG --> F(["Fim"])
+    AP --> F

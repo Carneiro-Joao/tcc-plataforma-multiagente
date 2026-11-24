@@ -1,0 +1,40 @@
+sequenceDiagram
+    actor P as Professor
+    participant UI as Interface
+    participant API as Servidor
+    participant BUS as Tema e busca BNCC
+    participant ORQ as Orquestrador
+    participant ESP as Especialistas (Gemini)
+    participant VAL as Integrador e validador
+    participant J as IA Juiz (Groq)
+    participant DB as SQLite
+    P->>UI: Informar contexto da aula
+    UI->>API: POST /api/consultas
+    API->>BUS: Extrair tema curto e buscar habilidades
+    BUS-->>API: Habilidades candidatas e fonte
+    API->>DB: Registrar consulta
+    API-->>UI: Tema identificado e candidatas
+    P->>UI: Confirmar habilidade
+    UI->>API: POST /api/consultas/{id}/confirmar
+    API->>DB: Gravar confirmação
+    P->>UI: Gerar plano de aula
+    UI->>API: POST /api/consultas/{id}/gerar
+    API->>ORQ: Criar pedido
+    loop 6 chamadas encadeadas
+        ORQ->>ESP: Próxima etapa com as saídas anteriores
+        ESP-->>ORQ: Saída JSON validada
+    end
+    ORQ->>VAL: Integrar 11 seções e validar contrato
+    VAL-->>ORQ: Plano válido (rascunho)
+    ORQ->>J: Avaliar plano (rubrica de 6 critérios)
+    J-->>ORQ: Parecer e decisão da política
+    opt Parecer não favorável (até 1 vez)
+        ORQ->>ESP: Gerar o plano inteiro de novo
+        ORQ->>J: Avaliar a nova versão
+    end
+    ORQ->>DB: Gravar versões, pareceres e versão entregue
+    API-->>UI: Plano e parecer
+    P->>UI: Aprovar plano
+    UI->>API: POST /api/geracoes/{id}/aprovar
+    API->>DB: Estado "aprovado"
+    P->>UI: Baixar PDF
