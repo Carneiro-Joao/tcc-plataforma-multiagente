@@ -6,6 +6,16 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-25 20:00 · Claude do chat · auditoria documentação × código (`docs/auditoria-25-11`, a partir de `fed4a81`; código em `main` `4558b4a`)
+
+Relatório: `docs/Auditoria_Documentacao_e_Codigo_25-11.md`. Com aprovação do João: especificação **v2.3** (regeneração informada pelas
+críticas da IA Juiz e verificação de acentuação; RN16, RN17; v2.2 vira histórico) e `Correspondencia_IDs_v2.1R2_v2.3.md`; diagrama de
+componentes atualizado e PNG/SVG regenerados; SVGs de atividades e sequência regenerados; versões Mermaid (`.mmd`) de casos de uso,
+visão geral e estrutura do plano (fontes PlantUML/HTML mantidas); Estado_Final, contrato do plano, README e CLAUDE.md atualizados,
+**sem marcar nada como congelado**. Código: C2, C3, C6, C7, C8 (um commit e teste cada, `tests/test_auditoria_25_11.py`).
+Testes: 521 (520 ok, 1 ignorado), com e sem `-S`; 3 scripts de interface ok. Sem chamadas de API. Nada na `main`.
+Pendente: exemplo da figura `estrutura-plano` (espera nova execução do João); C1, C4, C5, C9 só registrados.
+
 ## 2026-11-25 17:30 · Claude Code · PoC 10: verificação real + `main` (`feat/poc10-regeneracao-informada` → `main`)
 
 Com o ok do João: app reiniciado com o código novo (porta 8000, limites padrão) e 1 pedido real pela API (caso 5 da sondagem,
