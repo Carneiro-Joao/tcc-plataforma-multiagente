@@ -11,6 +11,8 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
   - `geracao_v2.py` + `gemini.py` geradores (Gemini); `juiz.py` + `groq_juiz.py` Juiz (Groq, `openai/gpt-oss-120b`).
   - `ensaio_juiz.py` roda o Juiz sobre casos congelados; `variantes_juiz.py` cria variantes controladas;
     `analisar_serie.py` pontua séries; `relatorio_testes.py` roda os testes e gera HTML.
+  - `revisao_informada.py` (regeneração com as críticas do Juiz) e `acentuacao.py` (reescrita de saída sem acento), PoC 10.
+  - `legado/` scripts quebrados das sondagens OpenAI/OpenRouter da PoC 03 (fora do fluxo).
   - `local/` é **ignorado pelo Git** (bancos, relatórios, resultados brutos).
 - `experimentos/juiz/` — casos congelados, variantes, protocolos pré-registrados (V03–V06) e regras de pontuação.
 - `docs/` — documentação e diagramas.
@@ -18,7 +20,10 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 ## Comandos (rodar dentro de `aula-ia-backend`; no Windows `python` ou `py`)
 - Testes com relatório visual: `python relatorio_testes.py` (abre HTML; `--sem-abrir`, `--filtro juiz`).
 - Testes simples: `python -m unittest discover -s tests -v`.
-- App: `python app.py --modo lexical --gerador ia --ipv4 --abrir` (demo sem API: `--gerador demonstracao`).
+- App: `python app.py --modo lexical --gerador ia --ipv4 --abrir` (demo sem API: `--gerador demonstracao --juiz demonstracao`).
+  Juiz: `--juiz groq|demonstracao|desligado` (padrão groq se houver `GROQ_API_KEY`), `--ciclos-juiz 1`,
+  `--regeneracao informada|cega` (padrão informada), `--limite-diario-juiz 8`. Não misture `--gerador ia` com `--juiz demonstracao`
+  fora de teste: a regeneração recebe críticas do parecer gravado de outro plano.
 - Planos reais (Gemini): `python app.py --modo lexical --gerador ia --ipv4 --pedir-chave --abrir` e depois `python exportar_planos.py`
   (exporta os planos reais do SQLite para `local/planos_ia/`; guia em `docs/PoC07_Gerar_e_Exportar_Planos.md`).
   Limite padrão: 8 gerações com IA por dia (decisão do João, 18/11), contando falhas (`--limite-diario N`). **Não aumente nem desligue sem o João pedir.**
@@ -44,6 +49,18 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 8. Resultado de LLM é evidência provisória: a classificação mecânica não substitui adjudicação humana. Não afirmar "estável",
    "validado" ou "o Juiz acerta" sem evidência (n pequeno, um plano, temperatura 0 não é determinístico).
 
+## Estado em 25/11/2026 (noite) — auditoria documentação × código (`docs/auditoria-25-11`, NÃO congelado)
+- Relatório: `docs/Auditoria_Documentacao_e_Codigo_25-11.md`. **O sistema não está congelado**: o congelamento de 19/11 foi reaberto
+  em 25/11 para a PoC 10; novo congelamento só depois dos testes finais, quando o João pedir.
+- Especificação vigente: `docs/especificacao/AulaIA_Especificacao_v2.3.md` (+ RN16, RN17) e `Correspondencia_IDs_v2.1R2_v2.3.md`;
+  a v2.2 virou histórico. Nome oficial: "regeneração informada pelas críticas da IA Juiz" (não "correção dirigida", que segue futuro).
+  "Gerar novamente" do professor = novo pedido do zero, sem as críticas anteriores (documentado; código não mudou).
+- Diagramas: `componentes` com revisão informada e acentuação; versões Mermaid de casos de uso, visão geral e estrutura do plano.
+  `estrutura-plano` (exemplo de 23/11) espera a nova execução do João.
+- Código (aprovado item a item): C2 recursos não disparam reescrita de acento; C3 mensagem de limite (18 chamadas/54 requisições);
+  C6 chaves falsas montadas em tempo de execução; C7 scripts OpenAI/OpenRouter → `legado/`; C8 docstring da herança em `geracao.py`.
+  Só registrados: C1, C4, C5, C9. 521 testes (1 ignorado). Nada levado à `main`.
+
 ## Estado em 25/11/2026 — PoC 09 e PoC 10 (mudança de código autorizada pelo João depois do congelamento)
 - **PoC 09** (`feat/poc09-sondagem-regeneracao-informada`): sondagem pré-registrada cega × informada, n = 5 → informada 5 graves e 2/5
   favoráveis contra cega 8 e 1/5 (exploratório; o próprio Juiz mede). `docs/PoC09_Resultado_Sondagem.md`.
@@ -55,10 +72,11 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
   3 reescritas de acento aceitas, plano sem texto sem acento; regeneração informada resolveu a crítica, mas o Juiz levantou outra
   ("só Bubble sort") → 1 grave → 1 grave. Bruto em `experimentos/geracao/poc10_verificacao_real/`. Levada à `main` (fast-forward, 25/11).
 - Lista de ajustes na escrita (especificação, correspondência, diagramas, capítulos): `docs/PoC10_Regeneracao_Informada_e_Acentuacao.md` §8.
-  Especificação v2.2 e diagramas **não** foram editados (o João ajusta o texto).
+  Especificação e diagramas foram atualizados depois, na auditoria (v2.3, branch `docs/auditoria-25-11`); o texto do TCC é do João.
 - Viés: o Juiz não vê críticas nem versão anterior (sem vazamento), mas a medida é circular e há risco de "ensinar para a prova".
 
 ## Estado em 19/11/2026 — CONGELAMENTO
+> Reaberto em 25/11 para a PoC 10 (decisão do João). As linhas abaixo são o registro de 19/11; novo congelamento após os testes finais.
 - **`main` = VERSÃO CONGELADA** (19/11/2026, fast-forward de `feat/poc08-juiz-integrado`, autorizado pelo João). Toda a cadeia
   poc04a → poc08 está nela. Desenvolvimento encerrado: daqui em diante só escrita do TCC; qualquer mudança de código precisa do João.
   Fora da `main` (de propósito): `origin/docs/diagramas-rascunho` (rascunhos históricos de requisitos/diagramas).
@@ -96,15 +114,16 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 - Achados a adjudicar: o Juiz repete "plano só trabalha Bubble sort" (possível falso positivo curricular) e "ET2 simula uma passagem só";
   na V03 ele acha o defeito mas atribui ao componente `metodologia` em vez de `sequencia`.
 
-## Pendências (ordem sugerida, atualizada em 18/11 23:50)
-**Versão congelada:** `main` (19/11). Pendências abaixo são para o TEXTO (trabalho futuro), não para código.
+## Pendências (ordem sugerida, revista em 25/11 na auditoria)
+**Sem congelamento vigente** (o de 19/11 foi reaberto em 25/11). Mudança de código só com aprovação do João, item a item.
 1. **Adjudicar o lote 2.3** (`docs/PoC07D_Resultado_Lote_2_3.md`): os 2 H1 da 2.3 parecem falsos positivos da regra; a leitura por plano é opinião.
 2. **Decidir o próximo ciclo da geração** (cada item exige pré-registro commitado ANTES de chamar API): regra de medição v2 (negação /
-   recurso confirmado), prompt 2.4 (fidelidade ao tipo de aula, exemplo concreto, evidência não só oral), alerta determinístico
-   habilidade × recursos (EF08CO01 sem computador) e checagem ortográfica simples.
+   recurso confirmado) e prompt 2.4 (fidelidade ao tipo de aula, exemplo concreto, evidência não só oral). Feitos: alerta
+   habilidade × recursos (PoC 08, RF08) e verificação de acentuação (PoC 10; heurística, não é checagem ortográfica geral).
 3. Adjudicação humana do Juiz (V03–V06): ferramenta pronta (`poc05h-adjudicacao`); falta o 2º avaliador e as Fases A e B.
 4. Registro de decisões + e-mail ao orientador (pendente de ratificação). Perguntar a data final do TCC.
-5. Juiz → pipeline (estados, tabela de pareceres no SQLite, UI); ciclo de correção entre agentes.
-6. Pequenas: página em branco no fim da impressão (PA-2); gerador de demonstração ainda usa "cartões já preparados";
-   `ensaio_juiz.py exportar` reaproveitar `tem_credencial`; `erroEhDoTema` depende do texto "tema".
-7. Plano de merge para `main` (cadeia longa; `main` em `3939dfd`); limpar menções residuais a DeepSeek.
+5. Nova execução real do João para trocar o exemplo da figura `estrutura-plano` (e telas do Cap. 4, se ele quiser).
+6. Achados registrados na auditoria e não corrigidos: C1 (reescrita de acento não compara IDs/minutos com a original além do
+   validador), C4 (`interrompido` após 15 min), C5 (`--gerador ia` + `--juiz demonstracao`), C9 (503 padrão 0 na classe, 2 no app).
+7. Levar `docs/auditoria-25-11` à `main` quando o João pedir. Feitos e retirados da lista: Juiz no pipeline (PoC 08), regeneração com
+   as críticas (PoC 10), merge da cadeia na `main` (19/11 e 25/11).
