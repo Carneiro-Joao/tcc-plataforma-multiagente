@@ -102,7 +102,8 @@ mas o plano chega ao professor com aparência de erro.
   Aumenta o tempo da geração quando dispara.
 - Rastreio: um registro com `tentativa: "acentuacao"`, estado `validado` ou `descartado`, e os campos sem acento antes e depois.
 - **Limites:** é heurística. Não pega texto curto, texto sem palavra-guia, nem texto com um único acento solto; pode reescrever um
-  pseudocódigo sem acento (ex.: "se ... entao troca"). Ainda **não foi verificado com chamadas reais** (ver §7).
+  pseudocódigo sem acento (ex.: "se ... entao troca"). Verificado em **um** pedido real (§7.1): 3 reescritas, todas aceitas, plano final sem
+  texto sem acento.
 
 ---
 
@@ -166,8 +167,31 @@ mede, e a melhora observada é melhora segundo esse Juiz, o que exige verificaç
 - Mutação manual sem bytecode (`python -B`, `PYTHONDONTWRITEBYTECODE=1`): **22 mutantes**, 21 mortos na 1ª rodada. O sobrevivente
   ("`saidas_do_rastreio` pega saída rejeitada/descartada") revelou um caso real sem teste: reescrita de acento descartada fica por último
   no rastreio, e a regeneração tem de usar a versão que entrou no plano. Dois testes acrescentados → morto. **0 sobreviventes.**
-- **Chamadas reais: ainda não feitas** para a PoC 10. Pendente o ok do João para 1–2 pedidos reais que mostrem (a) a reescrita de acento
-  em ação e (b) uma regeneração informada no app.
+### 7.1 Verificação com chamadas reais (25/11/2026, 17:18, autorizada pelo João)
+Um pedido no app reiniciado com o commit `7a04bd7` (limites padrão), pela API local, com o caso 5 da sondagem (Ordenação · 8º ano ·
+50 min · desplugada · "quadro e pincel" · EF08CO03). Bruto: `experimentos/geracao/poc10_verificacao_real/pedido_54aca4c2.json`
+(busca de chaves sem achados). Tempo total do pedido: 188 s.
+
+| | Versão 1 (geração normal) | Versão 2 (regeneração informada) |
+|---|---|---|
+| Chamadas ao Gemini | 9 (6 + 3 reescritas de acento) | 6 (todas com `revisao_pedagogica`) |
+| Reescritas de acento | 3, todas aceitas: `objetivos` (3 campos → 0), `metodologia` (1 → 0), `adaptacao` (2 → 0) | nenhuma necessária |
+| Campos de texto sem acento no plano final | 0 (os únicos campos longos sem acento são os hashes `sha256_catalogo`) | 0 |
+| Parecer | Com ressalvas · 1 grave: F1 [maior] `avaliacao_preliminar` — instrumentos sem rubrica/critérios de desempenho | Com ressalvas · 1 grave: F1 [maior] `objetivos` — "só trabalha Bubble sort" (+ 2 menores) |
+| Entregue | não | sim (empate em graves → a mais recente), com aviso |
+
+Exemplo de reescrita (objetivo geral): "Compreender e simular algoritmos classicos de ordenacao de listas utilizando computacao
+desplugada." → "Compreender e simular algoritmos clássicos de ordenação de listas utilizando computação desplugada."
+
+**Leitura (provisória, n = 1):**
+- Acentuação: o gatilho apareceu já no 1º especialista (`objetivos`) e em mais dois; depois da reescrita de `objetivos`, os especialistas
+  seguintes vieram acentuados — compatível com a cascata interrompida. O plano entregue não tem texto sem acento.
+- Regeneração informada: o histórico registrou `regenerando` com `modo: informada`, `revisao-informada-1.0` e `criticas_usadas: ["F1"]`;
+  a falha F1 foi entregue só ao especialista `avaliacao_preliminar` (os outros 5 a receberam como contexto). A crítica da 1ª versão
+  **foi resolvida** (a 2ª versão tem rubrica; a nova falha menor F3 já comenta "a rubrica avalia…"), mas o Juiz levantou uma falha maior
+  **nova**: "só Bubble sort" — a mesma crítica recorrente já listada como possível falso positivo curricular a adjudicar (`CLAUDE.md`).
+  Resultado: 1 grave → 1 grave, sem parecer favorável. Ilustra o limite do §4: o Juiz reavalia do zero e a variância dele pesa tanto
+  quanto a correção.
 
 ---
 

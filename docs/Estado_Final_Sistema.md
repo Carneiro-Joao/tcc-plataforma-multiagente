@@ -111,7 +111,8 @@ Detalhes e testes: `docs/PoC08_Juiz_Integrado.md`.
   repetição. Nenhum resultado mostra que "o Juiz acerta"; a adjudicação humana das séries V03–V06 não foi feita.
 - A política do Juiz é preliminar. A regeneração usa as críticas do Juiz, mas refaz o plano inteiro (também os componentes sem
   crítica); o ganho foi visto só numa sondagem exploratória (n = 5) medida pelo próprio Juiz (circularidade).
-- A verificação de acentuação é heurística (texto curto ou sem palavra-guia escapa); PoC 10 ainda sem verificação com chamadas reais.
+- A verificação de acentuação é heurística (texto curto ou sem palavra-guia escapa); PoC 10 verificada com chamadas reais em um único
+  pedido (25/11: 3 reescritas aceitas; regeneração informada resolveu a crítica, mas o Juiz levantou outra — 1 grave → 1 grave).
 - Timeout de 90 s por chamada ao Gemini: em 19/11, 4 de 8 gerações terminaram em timeout (`docs/PoC08_Juiz_Integrado.md`).
 - Só o 8º ano; busca lexical por padrão; tema por regras (falso positivo conhecido: "lista de compras" → "Lista", `docs/PoC06_Tema_Curto.md`).
 - Gerador de demonstração é por regras e não representa a qualidade do Gemini.

@@ -6,6 +6,18 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-25 17:30 · Claude Code · PoC 10: verificação real + `main` (`feat/poc10-regeneracao-informada` → `main`)
+
+Com o ok do João: app reiniciado com o código novo (porta 8000, limites padrão) e 1 pedido real pela API (caso 5 da sondagem,
+Ordenação desplugada, EF08CO03), 188 s. Versão 1: 3 reescritas de acento aceitas (`objetivos` 3→0, `metodologia` 1→0, `adaptacao`
+2→0), Com ressalvas, F1 maior (instrumentos sem rubrica). Versão 2 (informada, 6/6 chamadas com `revisao_pedagogica`, F1 só para
+`avaliacao_preliminar`): nenhuma reescrita necessária; a crítica foi resolvida, mas o Juiz levantou F1 maior nova ("só Bubble sort",
+crítica recorrente a adjudicar) → 1 grave → 1 grave, entregue a mais recente com aviso. Planos finais sem texto sem acento.
+Bruto: `experimentos/geracao/poc10_verificacao_real/`. Uso do dia depois do teste: 6/8 gerações, 3/8 avaliações. n = 1, provisório.
+Branch levada à `main` por fast-forward (inclui a PoC 09).
+
+---
+
 ## 2026-11-25 · Claude Code · PoC 10: regeneração informada + acentuação (`feat/poc10-regeneracao-informada`)
 
 Pedido do João depois da sondagem: implementar a opção C, corrigir a perda de acentuação e registrar tudo para ajustar o texto.

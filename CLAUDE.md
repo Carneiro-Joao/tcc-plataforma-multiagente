@@ -51,7 +51,9 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
   de novo, cada especialista recebe `revisao_pedagogica` (versão anterior + críticas do Juiz) nos dados da chamada; prompt de sistema e
   1ª geração inalterados; `revisao-informada-1.0` (`revisao_informada.py`); `--regeneracao cega` = PoC 08. (2) **Acentuação**: saída de
   especialista sem acento → 1 reescrita pelo `reparo_estrutural` (`acentuacao.py`; só modo IA; nunca derruba a geração). Causa: gatilho
-  no Gemini + cascata entre especialistas encadeados. 513 testes; 22 mutantes, 0 vivos. **Sem chamadas reais ainda.**
+  no Gemini + cascata entre especialistas encadeados. 513 testes; 22 mutantes, 0 vivos. Verificação real (1 pedido, 25/11 17:18):
+  3 reescritas de acento aceitas, plano sem texto sem acento; regeneração informada resolveu a crítica, mas o Juiz levantou outra
+  ("só Bubble sort") → 1 grave → 1 grave. Bruto em `experimentos/geracao/poc10_verificacao_real/`. Levada à `main` (fast-forward, 25/11).
 - Lista de ajustes na escrita (especificação, correspondência, diagramas, capítulos): `docs/PoC10_Regeneracao_Informada_e_Acentuacao.md` §8.
   Especificação v2.2 e diagramas **não** foram editados (o João ajusta o texto).
 - Viés: o Juiz não vê críticas nem versão anterior (sem vazamento), mas a medida é circular e há risco de "ensinar para a prova".
