@@ -102,6 +102,13 @@ class Rotas(BaseHTTPRequestHandler):
     do_GET = do_POST = responder
 
 
+def limites_de_requisicoes(reparos, repeticoes_503):
+    """(chamadas, requisições) no pior caso de UMA versão do plano: por especialista, 1 chamada normal + até `reparos` reparos
+    + 1 reescrita de acentuação (PoC 10); cada chamada pode repetir até `repeticoes_503` vezes em HTTP 503 (auditoria 25/11, C3)."""
+    chamadas = 6 * (1 + reparos + 1)
+    return chamadas, chamadas * (1 + repeticoes_503)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--modo", choices=("lexical", "hibrido"), default="lexical")
@@ -172,10 +179,12 @@ def main(argv=None):
         usados, _ = servidor.servico.uso_hoje()
         print(f"Limite: {limite} planos com IA por dia; usados hoje: {usados}." if limite else
               f"Limite diário DESLIGADO (--limite-diario 0); usados hoje: {usados}.", flush=True)
-        print(f"Gemini: {args.modelo}; 6 chamadas normais, até {6 * (1 + args.reparos)} com reparos. Use projeto Free Tier no AI Studio.", flush=True)
+        chamadas, requisicoes = limites_de_requisicoes(args.reparos, args.repeticoes_503)
+        print(f"Gemini: {args.modelo}; 6 chamadas normais, até {chamadas} com reparos e reescritas de acentuação. "
+              "Use projeto Free Tier no AI Studio.", flush=True)
         print("Conexão Gemini: " + ("IPv4" if args.ipv4 else "automática"), flush=True)
         print(f"HTTP 503: até {args.repeticoes_503} novas tentativas com espera por chamada. "
-              f"Limite total com reparos e repetições: {6 * (1 + args.reparos) * (1 + args.repeticoes_503)} requisições.", flush=True)
+              f"Limite total por versão, com reparos, reescritas e repetições: {requisicoes} requisições.", flush=True)
     if modo_juiz == "desligado":
         print("IA Juiz: DESLIGADA" + ("" if args.juiz else " (GROQ_API_KEY não definida)") +
               "; os planos são entregues com 'avaliação não realizada'.", flush=True)

@@ -1,10 +1,15 @@
 """Correções da auditoria de 25/11/2026 (C2, C3, C6, C7, C8). Sem rede. Execute a partir de aula-ia-backend."""
+from contextlib import ExitStack
 from copy import deepcopy
+import io
+import os
 import json
 from pathlib import Path
 from unittest import TestCase
+from unittest.mock import patch
 
 import acentuacao
+import app
 from geracao_v2 import AgenteGeminiCompleto, GeradorDePlanoCompleto
 from test_gemini import CHAVE, Transporte, envelope
 from contratos import plano_v2
@@ -36,3 +41,33 @@ class TestC2RecursosNaoDisparamReescrita(TestCase):
         self.assertEqual(len(transporte.pedidos), 6)
         self.assertEqual(resultado["plano"]["recursos"], RECURSOS_SEM_ACENTO)
         self.assertFalse([r for r in resultado["rastreio"] if r.get("tentativa") == "acentuacao"])
+
+
+class TestC3MensagemDoLimiteDeRequisicoes(TestCase):
+    """C3: o teto mostrado ao iniciar tem de contar a reescrita de acentuação (1 chamada por especialista, com as mesmas repetições)."""
+
+    def test_conta_reparo_e_reescrita_por_especialista(self):
+        self.assertEqual(app.limites_de_requisicoes(reparos=1, repeticoes_503=2), (18, 54))
+        self.assertEqual(app.limites_de_requisicoes(reparos=0, repeticoes_503=0), (12, 12))
+        self.assertEqual(app.limites_de_requisicoes(reparos=1, repeticoes_503=0), (18, 18))
+        self.assertEqual(app.limites_de_requisicoes(reparos=0, repeticoes_503=2), (12, 36))
+
+    def _iniciar(self, argv):
+        with ExitStack() as ctx:
+            ctx.enter_context(patch.dict(os.environ, {"GEMINI_API_KEY": "chave-ficticia-do-teste"}, clear=True))
+            saida = ctx.enter_context(patch("sys.stdout", new_callable=io.StringIO))
+            servico = ctx.enter_context(patch("app.ServicoCurricular"))
+            servico.return_value.uso_hoje.return_value = (0, 8)
+            servidor = ctx.enter_context(patch("app.ThreadingHTTPServer")).return_value
+            servidor.server_port = 8000
+            servidor.serve_forever.side_effect = KeyboardInterrupt()
+            app.main(argv)
+            return saida.getvalue()
+
+    def test_mensagem_ao_iniciar_usa_o_teto_com_acentuacao(self):
+        texto = self._iniciar(["--gerador", "ia"])
+        self.assertIn("até 18 com reparos e reescritas de acentuação", texto)
+        self.assertIn("54 requisições", texto)
+        texto = self._iniciar(["--gerador", "ia", "--reparos", "0", "--repeticoes-503", "0"])
+        self.assertIn("até 12 com reparos e reescritas de acentuação", texto)
+        self.assertIn("12 requisições", texto)
