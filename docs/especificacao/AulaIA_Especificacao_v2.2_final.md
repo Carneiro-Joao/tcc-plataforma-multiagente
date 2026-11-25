@@ -1,5 +1,8 @@
 # AulaIA — Especificação v2.2 (final, conforme implementado)
 
+> **Histórico.** Substituída pela [v2.3](AulaIA_Especificacao_v2.3.md) em 25/11/2026 (regeneração informada pelas críticas da IA Juiz e
+> verificação de acentuação, PoC 10). Mantida sem alterações abaixo desta nota.
+
 **Data:** 23/11/2026 · **Situação:** versão final, **aprovada pelo João em 23/11/2026**; pendente de ratificação do orientador.
 **Base:** Especificação v2.1-R2 (10/11/2026, branch `docs/diagramas-rascunho`, commit `33e8025`), revisada contra o sistema congelado na
 `main` (`694c07c`, 19/11/2026). Revisão item a item: projeto do TCC, `claude/revisao-documentacao.md`.

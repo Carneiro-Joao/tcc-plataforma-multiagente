@@ -1,5 +1,7 @@
 # Correspondência de identificadores: v2.1-R2 → v2.2 final
 
+> **Histórico.** Substituída por [`Correspondencia_IDs_v2.1R2_v2.3.md`](Correspondencia_IDs_v2.1R2_v2.3.md) em 25/11/2026.
+
 Decisão do João (23/11/2026): renumerar a partir de RF01 no texto do TCC e guardar aqui a correspondência, para rastrear decisões
 antigas, commits e documentos de PoC que citam os IDs da R2. Especificação final:
 [`AulaIA_Especificacao_v2.2_final.md`](AulaIA_Especificacao_v2.2_final.md).
