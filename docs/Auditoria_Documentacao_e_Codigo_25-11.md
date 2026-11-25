@@ -12,10 +12,10 @@
 
 | Grupo | ✅ | ⚠️ | ❌ | ➕ |
 |---|---|---|---|---|
-| Especificação v2.2 (seções e itens) | 29 | 16 | 0 | 4 |
-| Correspondência de IDs | 1 | 2 | 0 | 1 |
-| Outros documentos (Estado_Final, README, CLAUDE.md, Contrato, PoCs, diagramas-finais) | 4 | 6 | 2 | 1 |
-| Diagramas (fonte, PNG, SVG, cópia) | 6 | 3 | 0 | 4 |
+| Especificação v2.2 (itens: 22 RF, 10 RNF, 15 RN e as seções) | 45 | 17 | 0 | 4 |
+| Correspondência de IDs | 1 | 3 | 0 | 1 |
+| Outros documentos (Estado_Final, README, CLAUDE.md, Contrato, PoCs, diagramas-finais) | 4 | 4 | 2 | 1 |
+| Diagramas (8 figuras: fonte, PNG, SVG, cópia) | 4 | 4 | 0 | 4 |
 | Achados de código | — | — | — | 9 (0 alta, 1 média, 8 baixa) |
 
 Nada está "errado" no código em relação ao que ele promete fazer. Os dois ❌ são documentos que descrevem o sistema de antes da PoC 08
