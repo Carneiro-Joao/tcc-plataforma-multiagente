@@ -1,0 +1,40 @@
+%% Versão Mermaid da figura "Estrutura do plano de aula gerado" (a fonte principal continua sendo estrutura-plano.html).
+%% Exemplo: execução de 23/11/2026 (Ordenação, 8º ano, aula prática, 50 min). Aguarda a nova execução do João para trocar o exemplo.
+flowchart TB
+    subgraph G1["Identificação e currículo"]
+        direction TB
+        S1["1. Identificação<br/>tema, ano, tipo, duração · <i>Sistema</i>"]
+        S2["2. Habilidade da BNCC<br/>EF08CO03, copiada do documento oficial · <i>Sistema</i>"]
+        S11["11. Referências<br/>só a fonte oficial · <i>Sistema</i>"]
+    end
+    subgraph G2["O que ensinar e como"]
+        direction TB
+        S3["3. Conteúdos · <i>Objetivos</i>"]
+        S4["4. Objetivo geral · <i>Objetivos</i>"]
+        S5["5. Objetivos específicos (OBJ1…) · <i>Objetivos</i>"]
+        S6["6. Metodologia · <i>Metodologia</i>"]
+        S7["7. Recursos<br/>cópia exata do que o professor marcou · <i>Sistema</i>"]
+        S8["8. Desenvolvimento (ET1…)<br/>minutos, ação docente e discente · <i>Sequência</i>"]
+    end
+    subgraph G3["Avaliar e incluir"]
+        direction TB
+        S9["9. Avaliação da aprendizagem<br/>evidências (EVI) e instrumentos (INS) · <i>Avaliação</i>"]
+        S10["10. Adaptações (ADP) · <i>Adaptação</i>"]
+    end
+    subgraph CAD["A corrente que garante a coerência (falta um elo ou minutos ≠ duração → o sistema recusa)"]
+        direction LR
+        OBJ1["<b>OBJ1 · objetivo</b><br/>“Explicar o funcionamento<br/>do algoritmo Bubblesort.”"]
+        ET1["<b>ET1 · etapa (20 min)</b><br/>Introdução ao Bubblesort,<br/>explicação com o projetor"]
+        EVI1["<b>EVI1 · evidência</b><br/>“O aluno explica oralmente como<br/>os elementos adjacentes são<br/>comparados e trocados.”"]
+        INS1["<b>INS1 · instrumento</b><br/>“Arguição oral sobre a lógica<br/>de trocas sucessivas.”"]
+        OBJ1 --> ET1 --> EVI1 --> INS1
+    end
+    G1 ~~~ G2 ~~~ G3
+    G2 ~~~ CAD
+    classDef regra fill:#f2f5f6,stroke:#5a6a72,color:#16242b
+    classDef ia fill:#e3f1f5,stroke:#0f6b84,color:#16242b
+    classDef elo fill:#ffffff,stroke:#1f7a4d,stroke-width:2px,color:#16242b
+    class S1,S2,S11,S7 regra
+    class S3,S4,S5,S6,S8,S9,S10 ia
+    class OBJ1,ET1,EVI1,INS1 elo
+    style CAD fill:#e6f4ec,stroke:#1f7a4d,stroke-width:2px

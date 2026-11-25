@@ -1,0 +1,19 @@
+%% Versão Mermaid da figura "Visão geral do AulaIA" (a fonte principal continua sendo visao-geral.html).
+flowchart LR
+    P1["<b>1. Professor</b><br/>Diz o que quer ensinar<br/><i>“Bom dia, quero ensinar ordenação”</i><br/>+ duração, tipo de aula e recursos"]
+    R2["<b>2. Regras fixas</b><br/>Encontra a habilidade da BNCC<br/>extrai o tema (“Ordenação”), busca no catálogo<br/>e o professor <b>confirma</b> (ex.: EF08CO03)"]
+    subgraph IA3["3. IA · Gemini: 5 especialistas escrevem o plano"]
+        direction TB
+        E1["Objetivos"] --> E2["Avaliação"] --> E3["Metodologia e recursos"] --> E4["Sequência da aula"] --> E5["Adaptações"] --> E6["Integração (regras)"]
+    end
+    J4["<b>4. IA · Juiz (Groq)</b><br/>A IA Juiz revisa<br/>nota de 0 a 3 em 6 critérios<br/>e aponta problemas"]
+    P5["<b>5. Professor</b><br/>Aprova e baixa o PDF<br/>ou pede para gerar de novo<br/><b>A decisão final é sempre dele</b>"]
+    P1 --> R2 --> IA3 --> J4 --> P5
+    J4 -.->|"parecer não favorável: o plano é escrito de novo uma vez,<br/>usando as críticas do Juiz; sem versão favorável,<br/>o professor recebe a com menos falhas graves, com aviso"| IA3
+    classDef hum fill:#fbeee2,stroke:#a2561b,stroke-width:2px,color:#16242b
+    classDef regra fill:#f2f5f6,stroke:#5a6a72,stroke-width:2px,color:#16242b
+    classDef ia fill:#e3f1f5,stroke:#0f6b84,stroke-width:2px,color:#16242b
+    class P1,P5 hum
+    class R2,E6 regra
+    class J4,E1,E2,E3,E4,E5 ia
+    style IA3 fill:#e3f1f5,stroke:#0f6b84,stroke-width:2px
