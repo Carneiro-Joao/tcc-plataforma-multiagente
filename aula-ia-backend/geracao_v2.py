@@ -46,10 +46,11 @@ class AgenteGeminiCompleto(AgenteGemini):
                          versao_contrato=contrato.VERSAO, versao_prompt=versao_prompt, **kwargs)
 
 
-    def executar(self, nome, entrada, estado, revisao, *, registro, reparo=None):
+    def executar(self, nome, entrada, estado, revisao, *, registro, reparo=None, revisao_pedagogica=None):
         registro['versao_esquema_api'] = VERSAO_ESQUEMA_API
         try:
-            return super().executar(nome, entrada, estado, revisao, registro=registro, reparo=reparo)
+            return super().executar(nome, entrada, estado, revisao, registro=registro, reparo=reparo,
+                                    revisao_pedagogica=revisao_pedagogica)
         except ErroGeracao:
             # O corpo já foi sanitizado pelo transporte. Não repete HTTP 400.
             if registro.get('http_status') == 400:
@@ -68,7 +69,8 @@ class AgenteGeminiCompleto(AgenteGemini):
 
 class AgenteDemonstrativoCompleto:
     """Saída sintética por regras; não representa avaliação pedagógica nem LLM."""
-    def executar(self, nome, entrada, estado, revisao, *, registro=None, reparo=None):
+    def executar(self, nome, entrada, estado, revisao, *, registro=None, reparo=None, revisao_pedagogica=None):
+        # Regras locais: ignora reparos e revisões pedagógicas (não há modelo para receber as críticas).
         if registro is not None:
             registro.update(provedor='regras', versao_contrato=contrato.VERSAO, versao_prompt='demonstracao-plano-2.0')
         c, h = entrada['contexto'], entrada['habilidade']
@@ -135,11 +137,11 @@ class GeradorDePlanoCompleto(GeradorDePlano):
     integrar = staticmethod(contrato.integrar)
     validar_etapa = staticmethod(contrato.validar)
 
-    def __init__(self, modo='demonstracao', modelo=MODELO_PADRAO, agente=None, reparos=1):
+    def __init__(self, modo='demonstracao', modelo=MODELO_PADRAO, agente=None, reparos=1, corrigir_acentuacao=True):
         if agente is None:
             agente = AgenteGeminiCompleto(modelo) if modo == 'ia' else AgenteDemonstrativoCompleto()
-        super().__init__(modo, modelo, agente, reparos)
+        super().__init__(modo, modelo, agente, reparos, corrigir_acentuacao)
 
-    def gerar(self, entrada, revisao, progresso=None):
+    def gerar(self, entrada, revisao, progresso=None, revisoes=None):
         contrato.validar_entrada(entrada)
-        return super().gerar(entrada, revisao, progresso)
+        return super().gerar(entrada, revisao, progresso, revisoes=revisoes)

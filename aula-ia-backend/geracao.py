@@ -5,6 +5,7 @@ import re
 from contratos.execucao import VERSAO, validar, integrar
 from erros import ErroGeracao, ErroContrato
 from gemini import AgenteGemini, MODELO_PADRAO
+from acentuacao import campos_sem_acentuacao, INSTRUCAO_REESCRITA
 
 
 def validar_saida(plano, entrada):
@@ -26,7 +27,7 @@ def distribuicao_tempo(total):
 
 class AgenteDemonstrativo:
     """Estratégias por regras, para conferir o fluxo sem rede nem chave de IA."""
-    def executar(self, nome, entrada, estado, revisao, *, registro=None, reparo=None):
+    def executar(self, nome, entrada, estado, revisao, *, registro=None, reparo=None, revisao_pedagogica=None):
         c, h = entrada["contexto"], entrada["habilidade"]
         tema = re.sub(r"^(?:quero ensinar|gostaria de ensinar|quero uma aula sobre)\s+", "", c["tema"].strip(), flags=re.IGNORECASE).rstrip(". ")
         descricao = h["habilidade"].rstrip(". ")
@@ -111,21 +112,55 @@ class GeradorDePlano:
         "adaptacao": ("objetivos", "metodologia", "sequencia"),
     }
 
-    def __init__(self, modo="demonstracao", modelo=MODELO_PADRAO, agente=None, reparos=1):
+    def __init__(self, modo="demonstracao", modelo=MODELO_PADRAO, agente=None, reparos=1, corrigir_acentuacao=True):
         if modo not in ("demonstracao", "ia") or type(reparos) is not int or reparos not in (0, 1):
             raise ValueError("Modo ou limite de reparos inválido.")
         self.modo = modo
+        # Só no modo IA: saída de especialista sem acentuação recebe UMA reescrita antes de seguir (evita o efeito cascata).
+        self.corrigir_acentuacao = corrigir_acentuacao and modo == "ia"
         self.modelo = modelo if modo == "ia" else None
         self.reparos = reparos if modo == "ia" else 0
         self.agente = agente or (AgenteGemini(modelo) if modo == "ia" else AgenteDemonstrativo())
 
-    def gerar(self, entrada, revisao, progresso=None):
+    def _reescrever_sem_acento(self, nome, entrada, dependencias, revisao, saida, rastreio, progresso=None):
+        """Se a saída veio sem acentuação, pede UMA reescrita. Nunca derruba a geração: falha ou piora → fica a saída original."""
+        campos = campos_sem_acentuacao(saida)
+        if not campos:
+            return saida
+        reparo = {"erro": "Texto sem acentuação.", "diagnosticos": [{"caminho": c, "regra": "sem_acentuacao"} for c in campos],
+                  "resposta_anterior": deepcopy(saida), "instrucao": INSTRUCAO_REESCRITA}
+        reg = {"agente": nome, "tentativa": "acentuacao", "estado": "processando", "reparo": deepcopy(reparo),
+               "entrada": {"contexto": deepcopy(entrada["contexto"]), "habilidade": deepcopy(entrada["habilidade"]),
+                           "saidas_anteriores": deepcopy(dependencias)}}
+        rastreio.append(reg)
+        if progresso:
+            progresso(reg)
+        try:
+            nova = self.agente.executar(nome, deepcopy(entrada), deepcopy(dependencias), revisao, registro=reg,
+                                        reparo=deepcopy(reparo))
+            reg["saida"] = deepcopy(nova)
+            self.validar_etapa(nome, nova, entrada, dependencias)
+        except (ErroContrato, ErroGeracao) as erro:
+            reg.update(estado="descartado", erro=str(erro), motivo="reescrita de acentuação falhou; mantida a saída original")
+            return saida
+        restantes = campos_sem_acentuacao(nova)
+        if len(restantes) >= len(campos):
+            reg.update(estado="descartado", motivo="reescrita não melhorou a acentuação; mantida a saída original",
+                       campos_sem_acentuacao=restantes)
+            return saida
+        reg.update(estado="validado", campos_sem_acentuacao_antes=campos, campos_sem_acentuacao_depois=restantes)
+        return nova
+
+    def gerar(self, entrada, revisao, progresso=None, revisoes=None):
+        """`revisoes`: {especialista: revisao_pedagogica} na regeneração informada pelas críticas do Juiz (None = geração normal)."""
         estado, rastreio = {}, []
+        revisoes = revisoes or {}
         inicio = time.perf_counter()
         try:
             for nome in self.ESPECIALISTAS:
                 dependencias = {k: deepcopy(estado[k]) for k in self.DEPENDENCIAS[nome]}
                 reparo = None
+                extra = {"revisao_pedagogica": deepcopy(revisoes[nome])} if revisoes.get(nome) is not None else {}
                 for tentativa in range(1, self.reparos + 2):
                     reg = {"agente": nome, "tentativa": tentativa,
                            "entrada": {"contexto": deepcopy(entrada["contexto"]),
@@ -134,12 +169,14 @@ class GeradorDePlano:
                            "estado": "processando"}
                     if reparo:
                         reg["reparo"] = deepcopy(reparo)
+                    if extra:
+                        reg["revisao_pedagogica"] = deepcopy(extra["revisao_pedagogica"])
                     rastreio.append(reg)
                     if progresso:
                         progresso(reg)
                     try:
                         saida = self.agente.executar(nome, deepcopy(entrada), deepcopy(dependencias),
-                                                     revisao, registro=reg, reparo=deepcopy(reparo))
+                                                     revisao, registro=reg, reparo=deepcopy(reparo), **deepcopy(extra))
                         reg["saida"] = deepcopy(saida)
                         self.validar_etapa(nome, saida, entrada, dependencias)
                     except ErroContrato as erro:
@@ -154,6 +191,8 @@ class GeradorDePlano:
                         reg.update(estado="falha", erro=str(erro), tipo_erro=erro.tipo)
                         raise
                     reg["estado"] = "validado"
+                    if self.corrigir_acentuacao:
+                        saida = self._reescrever_sem_acento(nome, entrada, dependencias, revisao, saida, rastreio, progresso)
                     estado[nome] = deepcopy(saida)
                     break
             plano = self.integrar(entrada, estado)

@@ -7,6 +7,7 @@ import sqlite3
 from uuid import uuid4
 from erros import ErroGeracao
 from juiz_servico import ROTULOS, NAO_FAVORAVEL, falhas_graves
+import revisao_informada
 from geracao_v2 import GeradorDePlanoCompleto as GeradorDePlano
 
 from rag.search import FONTE, BASE
@@ -104,8 +105,13 @@ def visao(registro):
 
 class ServicoCurricular:
     def __init__(self, busca, banco, gerador=None, limite_diario_ia=None, juiz=None, ciclos_juiz=1,
-                 limite_diario_juiz=None):
+                 limite_diario_juiz=None, regeneracao="informada"):
         self.busca = busca
+        # PoC 10: na regeneração, cada especialista recebe a sua versão anterior e as críticas do Juiz ("informada");
+        # "cega" = comportamento da PoC 08 (gera de novo sem as críticas), mantido para comparação.
+        if regeneracao not in ("informada", "cega"):
+            raise ValueError("regeneracao deve ser 'informada' ou 'cega'.")
+        self.regeneracao = regeneracao
         self.gerador = gerador or GeradorDePlano()
         # Máximo de gerações com IA por dia (data local), contando falhas: cada tentativa gasta chamadas pagas. None = sem limite.
         self.limite_diario_ia = limite_diario_ia
@@ -318,6 +324,7 @@ class ServicoCurricular:
             db.execute("INSERT INTO pedidos (id, consulta_id, estado) VALUES (?, ?, 'gerando')", (id_pedido, id_consulta))
 
         candidatos, historico, aviso = [], [], None
+        anterior = None  # (resultado, parecer) da última versão avaliada: base da regeneração informada
         ciclos = self.ciclos_juiz if self.juiz else 0
         for ciclo in range(ciclos + 1):
             if ciclo > 0:
@@ -327,9 +334,17 @@ class ServicoCurricular:
                     aviso = "Limite diário de gerações atingido antes da nova versão; entregue a melhor versão já avaliada."
                     historico.append(dict(ciclo=ciclo, evento="limite_geracao"))
                     break
+                revisoes = None
+                if self.regeneracao == "informada" and anterior is not None:
+                    revisoes = revisao_informada.montar_revisoes(anterior[0].get("rastreio"), anterior[1])
+                historico.append(dict(ciclo=ciclo, evento="regenerando", modo="informada" if revisoes else "cega",
+                                      versao_revisao=revisao_informada.VERSAO if revisoes else None,
+                                      criticas_usadas=[f["id"] for f in anterior[1]["falhas"]] if revisoes else []))
                 self._atualizar_pedido(id_pedido, estado="regenerando", ciclo=ciclo, historico=historico)
+            else:
+                revisoes = None
             try:
-                gid, revisao, resultado = self._gerar_uma(id_consulta, entrada, id_pedido, ciclo)
+                gid, revisao, resultado = self._gerar_uma(id_consulta, entrada, id_pedido, ciclo, revisoes=revisoes)
             except ErroConsulta as erro:
                 historico.append(dict(ciclo=ciclo, evento="falha_geracao", erro=str(erro)))
                 if not candidatos:
@@ -359,6 +374,7 @@ class ServicoCurricular:
                 break
             decisao = avaliado["decisao"]
             item.update(avaliado=True, proximo_estado=decisao["proximo_estado"], graves=falhas_graves(avaliado["parecer"]))
+            anterior = (resultado, avaliado["parecer"])
             historico.append(dict(ciclo=ciclo, geracao_id=gid, revisao=revisao, evento="avaliado",
                                   proximo_estado=decisao["proximo_estado"], rotulo=ROTULOS[decisao["proximo_estado"]],
                                   motivos=decisao["motivos"], falhas_graves=item["graves"],
@@ -380,7 +396,7 @@ class ServicoCurricular:
                                historico=historico)
         return self.obter(id_consulta)
 
-    def _gerar_uma(self, id_consulta, entrada, id_pedido, ciclo):
+    def _gerar_uma(self, id_consulta, entrada, id_pedido, ciclo, revisoes=None):
         """Uma geração completa (5 especialistas + integrador), em nova revisão. Falha → ErroConsulta(502)."""
         with abrir_banco(self.banco) as db:
             db.execute("BEGIN IMMEDIATE")
@@ -390,7 +406,8 @@ class ServicoCurricular:
             db.execute("INSERT INTO geracoes (id, consulta_id, revisao, estado, pedido_id, ciclo) "
                        "VALUES (?, ?, ?, 'processando', ?, ?)", (id_geracao, id_consulta, revisao, id_pedido, ciclo))
         try:
-            resultado = self.gerador.gerar(entrada, revisao)
+            # Na regeneração informada o gerador recebe as revisões pedagógicas; na geração normal, a chamada de sempre.
+            resultado = self.gerador.gerar(entrada, revisao, revisoes=revisoes) if revisoes else self.gerador.gerar(entrada, revisao)
         except Exception as erro:
             conhecido = isinstance(erro, ErroGeracao)
             mensagem = str(erro) if conhecido else "Falha interna na geração."

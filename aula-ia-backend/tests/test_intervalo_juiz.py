@@ -163,7 +163,7 @@ class GeradorFalso:
     def __init__(self, relogio):
         self.relogio = relogio
 
-    def gerar(self, entrada, revisao):
+    def gerar(self, entrada, revisao, revisoes=None):
         self.relogio.t += 40
         return dict(plano=deepcopy(FIXTURE["plano_esperado"]), modo="ia", modelo=self.modelo, contrato="plano-aula-2.0", rastreio=[])
 
