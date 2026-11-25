@@ -1,9 +1,11 @@
-# Estado final do sistema AulaIA (congelado em 19/11/2026; atualizado em 25/11 com a PoC 10)
+# Estado do sistema AulaIA (atualizado em 25/11/2026, depois da PoC 10)
 
-Inventário técnico para a escrita do TCC. Só fatos verificáveis; cada número indica de onde vem. Referência: `main` (versão congelada).
+Inventário técnico para a escrita do TCC. Só fatos verificáveis; cada número indica de onde vem. Referência: `main` (`4558b4a`, 25/11/2026). O congelamento de 19/11 foi reaberto em 25/11 para a PoC 10; um novo congelamento
+fica para depois dos testes finais (decisão do João).
 **25/11/2026 (PoC 10, autorizada pelo João):** a regeneração passou a usar as críticas do Juiz e a geração ganhou verificação de
 acentuação. O que mudou e a lista de ajustes no texto: `docs/PoC10_Regeneracao_Informada_e_Acentuacao.md`.
-Requisitos, regras e diagramas finais: `docs/especificacao/AulaIA_Especificacao_v2.2_final.md` e `docs/diagramas/diagramas-finais.md`.
+Requisitos, regras e diagramas finais: `docs/especificacao/AulaIA_Especificacao_v2.3.md` (a v2.2 de 23/11 é histórico) e `docs/diagramas/diagramas-finais.md`.
+Auditoria de 25/11 (documentação × código): `docs/Auditoria_Documentacao_e_Codigo_25-11.md`.
 
 ## 1. Instalar e rodar (Windows)
 Requisitos: Python 3.12 ou superior (testado em 3.14.0) — o backend usa **somente a biblioteca padrão** (`aula-ia-backend/requirements.txt`
@@ -61,10 +63,11 @@ Opções do app (`aula-ia-backend/app.py`): `--gerador demonstracao|ia`, `--mode
 5. Favorável → entrega. Não favorável → gera o plano inteiro de novo (até `--ciclos-juiz`), e cada especialista recebe a sua versão
    anterior e as críticas do Juiz (`revisao-informada-1.0`); a nova versão é avaliada do zero. Sem favorável, entrega a versão com menos
    falhas graves, com aviso. Falha técnica do Juiz → entrega com "avaliação indisponível".
-6. Professor vê o parecer ("Avaliação automática e provisória; a decisão final é do professor."), aprova e baixa o PDF, ou gera novamente.
+6. Professor vê o parecer ("Avaliação automática e provisória; a decisão final é do professor."), aprova e baixa o PDF, ou gera novamente
+   (novo pedido, do zero, sem as críticas do pedido anterior).
 Detalhes e testes: `docs/PoC08_Juiz_Integrado.md`.
 
-## 4. Versões congeladas
+## 4. Versões vigentes
 | Item | Valor | Fonte |
 |---|---|---|
 | Modelo gerador | `gemini-3.5-flash-lite` | `aula-ia-backend/gemini.py` (`MODELO_PADRAO`) |
@@ -83,7 +86,7 @@ Detalhes e testes: `docs/PoC08_Juiz_Integrado.md`.
 ## 5. Números atuais (25/11/2026)
 | Número | Valor | Como conferir |
 |---|---|---|
-| Testes Python | 513 (512 passam, 1 ignorado), também com `python -S` — conferido em 25/11 na `feat/poc10-regeneracao-informada` (eram 493 em 23/11) | `python relatorio_testes.py --sem-abrir`; arquivos em `aula-ia-backend/tests/` (36 `.py`) |
+| Testes Python | 521 (520 passam, 1 ignorado), também com `python -S` — conferido em 25/11 na `docs/auditoria-25-11` (513 na `main` `4558b4a`, +8 da auditoria; eram 493 em 23/11) | `python relatorio_testes.py --sem-abrir`; arquivos em `aula-ia-backend/tests/` (37 `.py`) |
 | Testes de interface | 3 scripts | `aula-ia/tests/test-plano-render.mjs`, `test-formulario.mjs`, `test-juiz-render.mjs` |
 | Habilidades no catálogo | 11 (EF08CO01–EF08CO11) | `aula-ia-backend/data/bncc_8ano.json` |
 | Especialistas | 5 (6 chamadas; a avaliação tem duas passagens) + integrador em Python | `geracao_v2.py`, `contratos/plano_v2.py` (`ETAPAS`) |
@@ -115,11 +118,15 @@ Detalhes e testes: `docs/PoC08_Juiz_Integrado.md`.
   pedido (25/11: 3 reescritas aceitas; regeneração informada resolveu a crítica, mas o Juiz levantou outra — 1 grave → 1 grave).
 - Timeout de 90 s por chamada ao Gemini: em 19/11, 4 de 8 gerações terminaram em timeout (`docs/PoC08_Juiz_Integrado.md`).
 - Só o 8º ano; busca lexical por padrão; tema por regras (falso positivo conhecido: "lista de compras" → "Lista", `docs/PoC06_Tema_Curto.md`).
-- Gerador de demonstração é por regras e não representa a qualidade do Gemini.
+- Gerador de demonstração é por regras e não representa a qualidade do Gemini. Misturar `--gerador ia` com `--juiz demonstracao`
+  faz a regeneração informada receber as críticas do parecer gravado de outro plano (combinação só para teste).
+- A reescrita de acentuação é aceita se o contrato continuar válido e o número de campos sem acento cair; não há comparação explícita
+  de IDs, minutos e vínculos com a versão original além do que o validador já exige.
+- Pedido em andamento parado mais de 15 min aparece como `interrompido` (por exemplo, servidor fechado no meio da geração).
 - Execução local (sem deploy); sem contas de usuário; impressão "página em branco no fim" (PA-2) não reproduzida, correção preventiva.
 
-## 8. Trabalho futuro (fora do escopo congelado)
+## 8. Trabalho futuro
 Correção dirigida só dos componentes criticados pelo Juiz, com grafo de invalidação (hoje a regeneração usa as críticas, mas refaz
-todos os componentes); verificação humana cega do ganho da regeneração informada; prompt 2.4 (fidelidade ao tipo de aula, exemplo
+todos os componentes); verificação humana cega do ganho da regeneração informada; "Gerar novamente" com as críticas do pedido anterior; prompt 2.4 (fidelidade ao tipo de aula, exemplo
 concreto, evidência não só oral); regra de medição v2 (negação/recurso confirmado); adjudicação humana e calibração da política; mais
 anos escolares; deploy na internet com autenticação.
