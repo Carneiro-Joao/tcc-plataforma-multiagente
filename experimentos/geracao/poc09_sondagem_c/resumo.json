@@ -1,0 +1,311 @@
+{
+  "protocolo": "docs/PoC09_Sondagem_Regeneracao_Informada.md",
+  "versao_revisao": "revisao-informada-sondagem-0.1",
+  "somente_validar": false,
+  "modelo_gerador": "gemini-3.5-flash-lite",
+  "juiz": {
+    "modo": "groq",
+    "modelo": "openai/gpt-oss-120b",
+    "versao_prompt": "juiz-v1.3"
+  },
+  "geracoes": 11,
+  "avaliacoes": 11,
+  "codigo": "1e1c096311ff351503a3040588de4f8e3b317837",
+  "linhas": [
+    {
+      "caso": 1,
+      "braco": "cego",
+      "erros_geracao": [],
+      "segundos_geracao": 13.5,
+      "erros_juiz": [],
+      "graves": 3,
+      "decisao": "em_correcao",
+      "graves_repetidas": 1,
+      "h1_material_ausente": [],
+      "h2_sem_acentos": [
+        "metodologia",
+        "desenvolvimento[0].acao_discente",
+        "adaptacoes[1].descricao"
+      ],
+      "contrato_ok": true,
+      "minutos_ok": true,
+      "notas": {
+        "aderencia_curricular": 2,
+        "alinhamento_objetivos": 2,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 2,
+        "inclusao": 3
+      }
+    },
+    {
+      "caso": 1,
+      "braco": "informado",
+      "erros_geracao": [],
+      "segundos_geracao": 24.7,
+      "erros_juiz": [],
+      "graves": 0,
+      "decisao": "aguardando_decisao",
+      "graves_repetidas": 0,
+      "h1_material_ausente": [
+        "computador"
+      ],
+      "h2_sem_acentos": [
+        "desenvolvimento[0].acao_discente",
+        "desenvolvimento[0].atividade"
+      ],
+      "contrato_ok": true,
+      "minutos_ok": true,
+      "notas": {
+        "aderencia_curricular": 3,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 3,
+        "inclusao": 3
+      }
+    },
+    {
+      "caso": 2,
+      "braco": "cego",
+      "erros_geracao": [],
+      "segundos_geracao": 13.7,
+      "erros_juiz": [],
+      "graves": 2,
+      "decisao": "revisao_necessaria",
+      "graves_repetidas": 1,
+      "h1_material_ausente": [],
+      "h2_sem_acentos": [
+        "desenvolvimento[0].acao_discente",
+        "desenvolvimento[0].atividade",
+        "desenvolvimento[1].atividade",
+        "avaliacao_aprendizagem.evidencias[0].criterio",
+        "avaliacao_aprendizagem.instrumentos[0].procedimento",
+        "avaliacao_aprendizagem.instrumentos[1].descricao",
+        "avaliacao_aprendizagem.uso_resultados",
+        "adaptacoes[0].descricao"
+      ],
+      "contrato_ok": true,
+      "minutos_ok": true,
+      "notas": {
+        "aderencia_curricular": 1,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 2,
+        "inclusao": 3
+      }
+    },
+    {
+      "caso": 2,
+      "braco": "informado",
+      "erros_geracao": [],
+      "segundos_geracao": 26.1,
+      "erros_juiz": [
+        "Groq HTTP 413: Provedor indisponível ou redirecionamento recusado. Sem repetição automática."
+      ],
+      "graves": 3,
+      "decisao": "em_correcao",
+      "graves_repetidas": 1,
+      "h1_material_ausente": [],
+      "h2_sem_acentos": [],
+      "contrato_ok": true,
+      "minutos_ok": true,
+      "notas": {
+        "aderencia_curricular": 2,
+        "alinhamento_objetivos": 2,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 2,
+        "inclusao": 3
+      }
+    },
+    {
+      "caso": 3,
+      "braco": "cego",
+      "erros_geracao": [],
+      "segundos_geracao": 24.8,
+      "erros_juiz": [],
+      "graves": 0,
+      "decisao": "aguardando_decisao",
+      "graves_repetidas": 0,
+      "h1_material_ausente": [],
+      "h2_sem_acentos": [
+        "metodologia",
+        "desenvolvimento[0].acao_docente",
+        "desenvolvimento[0].acao_discente",
+        "desenvolvimento[0].atividade",
+        "desenvolvimento[1].acao_docente",
+        "desenvolvimento[1].acao_discente",
+        "desenvolvimento[1].atividade",
+        "avaliacao_aprendizagem.instrumentos[0].descricao",
+        "avaliacao_aprendizagem.instrumentos[0].procedimento",
+        "avaliacao_aprendizagem.instrumentos[1].procedimento",
+        "avaliacao_aprendizagem.uso_resultados",
+        "adaptacoes[0].descricao",
+        "adaptacoes[1].descricao"
+      ],
+      "contrato_ok": true,
+      "minutos_ok": true,
+      "notas": {
+        "aderencia_curricular": 3,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 3,
+        "inclusao": 3
+      }
+    },
+    {
+      "caso": 3,
+      "braco": "informado",
+      "erros_geracao": [],
+      "segundos_geracao": 14.0,
+      "erros_juiz": [],
+      "graves": 1,
+      "decisao": "em_correcao",
+      "graves_repetidas": 0,
+      "h1_material_ausente": [],
+      "h2_sem_acentos": [
+        "desenvolvimento[0].acao_docente",
+        "desenvolvimento[0].acao_discente",
+        "desenvolvimento[0].atividade",
+        "desenvolvimento[1].acao_discente",
+        "avaliacao_aprendizagem.instrumentos[0].descricao",
+        "avaliacao_aprendizagem.uso_resultados",
+        "adaptacoes[0].descricao"
+      ],
+      "contrato_ok": true,
+      "minutos_ok": true,
+      "notas": {
+        "aderencia_curricular": 3,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 3,
+        "viabilidade": 2,
+        "avaliacao_aprendizagem": 3,
+        "inclusao": 3
+      }
+    },
+    {
+      "caso": 4,
+      "braco": "cego",
+      "erros_geracao": [],
+      "segundos_geracao": 40.8,
+      "erros_juiz": [],
+      "graves": 2,
+      "decisao": "revisao_necessaria",
+      "graves_repetidas": 1,
+      "h1_material_ausente": [],
+      "h2_sem_acentos": [
+        "desenvolvimento[0].acao_discente",
+        "desenvolvimento[0].atividade",
+        "desenvolvimento[1].atividade",
+        "avaliacao_aprendizagem.instrumentos[0].descricao",
+        "avaliacao_aprendizagem.uso_resultados",
+        "adaptacoes[0].descricao"
+      ],
+      "contrato_ok": true,
+      "minutos_ok": true,
+      "notas": {
+        "aderencia_curricular": 1,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 2,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 3,
+        "inclusao": 3
+      }
+    },
+    {
+      "caso": 4,
+      "braco": "informado",
+      "erros_geracao": [],
+      "segundos_geracao": 31.7,
+      "erros_juiz": [],
+      "graves": 1,
+      "decisao": "em_correcao",
+      "graves_repetidas": 1,
+      "h1_material_ausente": [],
+      "h2_sem_acentos": [
+        "metodologia",
+        "desenvolvimento[0].acao_discente"
+      ],
+      "contrato_ok": true,
+      "minutos_ok": true,
+      "notas": {
+        "aderencia_curricular": 2,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 3,
+        "inclusao": 3
+      }
+    },
+    {
+      "caso": 5,
+      "braco": "cego",
+      "erros_geracao": [
+        "Gemini HTTP 503: Modelo Gemini sobrecarregado por alta demanda. Tente novamente mais tarde. Foram feitas 3 tentativas nesta etapa."
+      ],
+      "segundos_geracao": 109.3,
+      "erros_juiz": [],
+      "graves": 1,
+      "decisao": "em_correcao",
+      "graves_repetidas": 1,
+      "h1_material_ausente": [],
+      "h2_sem_acentos": [
+        "objetivo_geral",
+        "objetivos_especificos[1].descricao",
+        "desenvolvimento[0].acao_docente",
+        "desenvolvimento[0].acao_discente",
+        "desenvolvimento[1].acao_docente",
+        "desenvolvimento[1].atividade",
+        "avaliacao_aprendizagem.evidencias[0].evidencia_esperada",
+        "avaliacao_aprendizagem.instrumentos[0].descricao",
+        "avaliacao_aprendizagem.instrumentos[0].procedimento",
+        "avaliacao_aprendizagem.instrumentos[1].descricao",
+        "avaliacao_aprendizagem.uso_resultados",
+        "adaptacoes[0].descricao",
+        "adaptacoes[1].descricao"
+      ],
+      "contrato_ok": true,
+      "minutos_ok": true,
+      "notas": {
+        "aderencia_curricular": 3,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 2,
+        "inclusao": 3
+      }
+    },
+    {
+      "caso": 5,
+      "braco": "informado",
+      "erros_geracao": [],
+      "segundos_geracao": 38.0,
+      "erros_juiz": [],
+      "graves": 0,
+      "decisao": "aguardando_decisao",
+      "graves_repetidas": 0,
+      "h1_material_ausente": [],
+      "h2_sem_acentos": [
+        "desenvolvimento[0].acao_docente",
+        "desenvolvimento[0].acao_discente",
+        "desenvolvimento[0].atividade",
+        "desenvolvimento[1].acao_docente",
+        "desenvolvimento[1].acao_discente",
+        "desenvolvimento[1].atividade"
+      ],
+      "contrato_ok": true,
+      "minutos_ok": true,
+      "notas": {
+        "aderencia_curricular": 3,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 3,
+        "inclusao": 3
+      }
+    }
+  ]
+}

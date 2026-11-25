@@ -6,6 +6,18 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-25 17:00 · Claude Code · Sondagem PoC 09: regeneração cega × informada (`feat/poc09-sondagem-regeneracao-informada`)
+
+Pedido do João: testar a opção C (regenerar o plano inteiro passando a cada especialista a sua versão anterior e as críticas do Juiz)
+antes de implementar. Pré-registro + script + testes commitados ANTES das chamadas (`1e1c096`; 6 testes, 9 mutantes, 0 vivos; 499 OK).
+Rodada real 16:20–16:55: 11 gerações, 11 avaliações; 5 primeiras versões reais não favoráveis (9 graves) → **cego: 8 graves, 1/5 favorável,
+4 repetidas; informado: 5 graves, 2/5 favoráveis, 2 repetidas**; contrato 5/5 nos dois; o único H1 do informado é o falso positivo de
+negação. Os graves restantes do informado vêm de conflitos de entrada (Listas teórica; Programação só com material impresso).
+**Achado à parte:** Gemini sem acentuação desde 23/11 (plano do app de 25/11: 16/19 campos longos sem acento), nos dois braços.
+Exploratório (n = 5; Juiz circular). Detalhes: `docs/PoC09_Resultado_Sondagem.md`. App e `main` não alterados.
+
+---
+
 ## 2026-11-23 22:45 · Claude do chat · Figuras para leigos (`main`)
 
 **Feito:** seleção das figuras do Cap. 4 por pergunta do leitor (visão geral, casos de uso, sequência + prints, componentes, atividades,
