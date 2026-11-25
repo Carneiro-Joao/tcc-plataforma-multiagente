@@ -44,6 +44,20 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 8. Resultado de LLM é evidência provisória: a classificação mecânica não substitui adjudicação humana. Não afirmar "estável",
    "validado" ou "o Juiz acerta" sem evidência (n pequeno, um plano, temperatura 0 não é determinístico).
 
+## Estado em 25/11/2026 — PoC 09 e PoC 10 (mudança de código autorizada pelo João depois do congelamento)
+- **PoC 09** (`feat/poc09-sondagem-regeneracao-informada`): sondagem pré-registrada cega × informada, n = 5 → informada 5 graves e 2/5
+  favoráveis contra cega 8 e 1/5 (exploratório; o próprio Juiz mede). `docs/PoC09_Resultado_Sondagem.md`.
+- **PoC 10** (`feat/poc10-regeneracao-informada`): (1) **regeneração informada** é o padrão: parecer não favorável → plano inteiro gerado
+  de novo, cada especialista recebe `revisao_pedagogica` (versão anterior + críticas do Juiz) nos dados da chamada; prompt de sistema e
+  1ª geração inalterados; `revisao-informada-1.0` (`revisao_informada.py`); `--regeneracao cega` = PoC 08. (2) **Acentuação**: saída de
+  especialista sem acento → 1 reescrita pelo `reparo_estrutural` (`acentuacao.py`; só modo IA; nunca derruba a geração). Causa: gatilho
+  no Gemini + cascata entre especialistas encadeados. 513 testes; 22 mutantes, 0 vivos. Verificação real (1 pedido, 25/11 17:18):
+  3 reescritas de acento aceitas, plano sem texto sem acento; regeneração informada resolveu a crítica, mas o Juiz levantou outra
+  ("só Bubble sort") → 1 grave → 1 grave. Bruto em `experimentos/geracao/poc10_verificacao_real/`. Levada à `main` (fast-forward, 25/11).
+- Lista de ajustes na escrita (especificação, correspondência, diagramas, capítulos): `docs/PoC10_Regeneracao_Informada_e_Acentuacao.md` §8.
+  Especificação v2.2 e diagramas **não** foram editados (o João ajusta o texto).
+- Viés: o Juiz não vê críticas nem versão anterior (sem vazamento), mas a medida é circular e há risco de "ensinar para a prova".
+
 ## Estado em 19/11/2026 — CONGELAMENTO
 - **`main` = VERSÃO CONGELADA** (19/11/2026, fast-forward de `feat/poc08-juiz-integrado`, autorizado pelo João). Toda a cadeia
   poc04a → poc08 está nela. Desenvolvimento encerrado: daqui em diante só escrita do TCC; qualquer mudança de código precisa do João.
@@ -59,7 +73,8 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
   com aviso; falha técnica do Juiz entrega com "avaliação indisponível" (nunca conta como parecer). O Juiz é consultivo; o professor aprova.
 - **Versões congeladas:** geração `especialistas-plano-2.3` (`gemini-3.5-flash-lite`); Juiz `juiz-v1.3` + `rubrica-juiz-0.1` +
   `politica-juiz-prelim-0.1` (`openai/gpt-oss-120b` na Groq), mesma configuração dos experimentos.
-- **Fora do escopo (trabalho futuro no texto):** refazer só os componentes criticados usando as críticas do Juiz, prompt 2.4, deploy na internet.
+- **Fora do escopo (trabalho futuro no texto):** refazer só os componentes criticados (correção dirigida com grafo de invalidação; desde a
+  PoC 10 a regeneração usa as críticas, mas refaz o plano inteiro), prompt 2.4, deploy na internet.
 
 ## Estado em 18/11/2026
 - Cadeia de branches: `feat/poc04a-contratos` → `poc04a-gemini` → `poc04a-prototipo-local` → `poc05-juiz-contrato` → `poc05b-juiz-groq`

@@ -49,8 +49,9 @@ class GeradorFalso:
         self.modo, self.modelo, self.falhas, self.chamadas = modo, "gemini-falso", set(falhas), 0
         self.VERSAO_CONTRATO = "plano-aula-2.0"
 
-    def gerar(self, entrada, revisao):
+    def gerar(self, entrada, revisao, revisoes=None):
         self.chamadas += 1
+        self.revisoes_recebidas = getattr(self, "revisoes_recebidas", []) + [revisoes]
         if self.chamadas in self.falhas:
             raise ErroGeracao("Gemini HTTP 503 (teste)", tipo="http")
         return dict(plano=deepcopy(FIXTURE["plano_esperado"]), modo=self.modo, modelo=self.modelo,
@@ -112,10 +113,15 @@ class TestFluxo(Base):
         r = s.gerar(self.pedido(s))
         g, p = r["geracao_atual"], r["pedido_atual"]
         self.assertEqual((g["revisao"], g["avaliacao"]["rotulo"], p["ciclo"], p["aviso"]), (2, "Favorável", 1, None))
-        self.assertEqual([(h["ciclo"], h["rotulo"]) for h in p["historico"]], [(0, "Com ressalvas"), (1, "Favorável")])
+        self.assertEqual([(h["ciclo"], h["rotulo"]) for h in p["historico"] if h["evento"] == "avaliado"],
+                         [(0, "Com ressalvas"), (1, "Favorável")])
+        self.assertEqual([h["evento"] for h in p["historico"]], ["avaliado", "regenerando", "avaliado"])
         self.assertIn("F1", p["historico"][0]["motivos"][0])
         self.assertEqual(p["historico"][0]["criticas"], [UMA_GRAVE["falhas"][0]["descricao"]])
-        self.assertEqual(p["historico"][1]["criticas"], [])
+        self.assertEqual(p["historico"][2]["criticas"], [])
+        # PoC 10: a regeneração foi informada pelas críticas da 1ª versão
+        self.assertEqual({k: p["historico"][1][k] for k in ("modo", "versao_revisao", "criticas_usadas")},
+                         {"modo": "informada", "versao_revisao": "revisao-informada-1.0", "criticas_usadas": ["F1"]})
         self.assertEqual([c["ciclo"] for c in self.juiz.chamadas], [0, 1])
         self.assertEqual(self.linhas("SELECT revisao, entregue, pedido_id IS NOT NULL FROM geracoes ORDER BY revisao"),
                          [(1, 0, 1), (2, 1, 1)])
@@ -174,7 +180,7 @@ class TestFluxo(Base):
         s = self.servico([UMA_GRAVE, ErroGeracao("Groq HTTP 429", tipo="http")])
         r = s.gerar(self.pedido(s))
         self.assertEqual((r["geracao_atual"]["revisao"], r["geracao_atual"]["avaliacao"]["status"]), (2, "indisponivel"))
-        self.assertEqual([h["evento"] for h in r["pedido_atual"]["historico"]], ["avaliado", "falha_juiz"])
+        self.assertEqual([h["evento"] for h in r["pedido_atual"]["historico"]], ["avaliado", "regenerando", "falha_juiz"])
 
     def test_juiz_desligado_entrega_com_avaliacao_nao_realizada(self):
         s = self.servico(juiz=None)

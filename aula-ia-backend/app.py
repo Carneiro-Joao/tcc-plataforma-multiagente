@@ -123,6 +123,9 @@ def main(argv=None):
                              "'demonstracao' usa um parecer real gravado, sem rede.")
     parser.add_argument("--ciclos-juiz", type=int, default=1,
                         help="Regenerações automáticas quando o Juiz não dá parecer favorável (padrão: 1; 0 = não regenera).")
+    parser.add_argument("--regeneracao", choices=("informada", "cega"), default="informada",
+                        help="Regeneração quando o Juiz não dá parecer favorável: 'informada' (padrão; cada especialista recebe a "
+                             "sua versão anterior e as críticas do Juiz) ou 'cega' (gera de novo sem as críticas, como na PoC 08).")
     parser.add_argument("--limite-diario-juiz", type=int, default=8,
                         help="Máximo de avaliações reais do Juiz por dia, contando falhas (padrão: 8; 0 = sem limite).")
     args = parser.parse_args(argv)
@@ -162,7 +165,8 @@ def main(argv=None):
     limite = (args.limite_diario or None) if args.gerador == "ia" else None
     limite_juiz = (args.limite_diario_juiz or None) if modo_juiz == "groq" else None
     servidor.servico = ServicoCurricular(busca, banco, gerador, limite_diario_ia=limite, juiz=juiz,
-                                         ciclos_juiz=args.ciclos_juiz, limite_diario_juiz=limite_juiz)
+                                         ciclos_juiz=args.ciclos_juiz, limite_diario_juiz=limite_juiz,
+                                         regeneracao=args.regeneracao)
     print("Dados: " + ("somente nesta sessão; ao reiniciar, consulte novamente." if temporario else str(banco)), flush=True)
     if args.gerador == "ia":
         usados, _ = servidor.servico.uso_hoje()
@@ -178,7 +182,9 @@ def main(argv=None):
     else:
         usados_juiz, _ = servidor.servico.uso_juiz_hoje()
         print(f"IA Juiz: {modo_juiz} ({juiz.modelo}, {juiz.versao_prompt}, rubrica 0.1, politica-juiz-prelim-0.1); "
-              f"ciclos automáticos: {args.ciclos_juiz}.", flush=True)
+              f"ciclos automáticos: {args.ciclos_juiz}; regeneração "
+              f"{'informada pelas críticas do Juiz (revisao-informada-1.0)' if args.regeneracao == 'informada' else 'cega'}.",
+              flush=True)
         if modo_juiz == "groq":
             print(f"Limite do Juiz: {limite_juiz} avaliações por dia; usadas hoje: {usados_juiz}." if limite_juiz else
                   f"Limite do Juiz DESLIGADO (--limite-diario-juiz 0); usadas hoje: {usados_juiz}.", flush=True)

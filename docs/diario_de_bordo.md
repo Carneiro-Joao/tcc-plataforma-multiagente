@@ -6,6 +6,45 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-25 17:30 · Claude Code · PoC 10: verificação real + `main` (`feat/poc10-regeneracao-informada` → `main`)
+
+Com o ok do João: app reiniciado com o código novo (porta 8000, limites padrão) e 1 pedido real pela API (caso 5 da sondagem,
+Ordenação desplugada, EF08CO03), 188 s. Versão 1: 3 reescritas de acento aceitas (`objetivos` 3→0, `metodologia` 1→0, `adaptacao`
+2→0), Com ressalvas, F1 maior (instrumentos sem rubrica). Versão 2 (informada, 6/6 chamadas com `revisao_pedagogica`, F1 só para
+`avaliacao_preliminar`): nenhuma reescrita necessária; a crítica foi resolvida, mas o Juiz levantou F1 maior nova ("só Bubble sort",
+crítica recorrente a adjudicar) → 1 grave → 1 grave, entregue a mais recente com aviso. Planos finais sem texto sem acento.
+Bruto: `experimentos/geracao/poc10_verificacao_real/`. Uso do dia depois do teste: 6/8 gerações, 3/8 avaliações. n = 1, provisório.
+Branch levada à `main` por fast-forward (inclui a PoC 09).
+
+---
+
+## 2026-11-25 · Claude Code · PoC 10: regeneração informada + acentuação (`feat/poc10-regeneracao-informada`)
+
+Pedido do João depois da sondagem: implementar a opção C, corrigir a perda de acentuação e registrar tudo para ajustar o texto.
+**Regeneração informada (padrão):** parecer não favorável → plano inteiro gerado de novo; cada especialista recebe `revisao_pedagogica`
+(versão anterior, falhas próprias com correção sugerida, demais falhas como contexto, instrução que proíbe recursos fora do contexto).
+Prompt de sistema, 1ª geração, Juiz, política, ciclos, limites, estados e entrega inalterados. Histórico do pedido ganha o evento
+`regenerando` (modo, versão, críticas usadas); `--regeneracao cega` mantém a PoC 08. **Acentuação:** saída sem acento (campo > 60 car.,
+nenhum acento, palavra-guia) → 1 reescrita; aceita só se validar e melhorar; senão fica a original. Causa: gatilho no Gemini + cascata.
+Testes: 513 (512 OK, 1 ignorado), também com `-S`; front 3/3; mutação 22 mutantes, 1 sobrevivente na 1ª rodada (saída descartada no
+rastreio) → 2 testes novos → 0 vivos. **Sem chamadas reais.** Especificação e diagramas não editados: lista de ajustes em
+`docs/PoC10_Regeneracao_Informada_e_Acentuacao.md` §8. `Estado_Final_Sistema.md`, nota na PoC 08 e `CLAUDE.md` atualizados.
+Pendente: ok do João para 1–2 pedidos reais de verificação, levar à `main`, reiniciar o app.
+
+---
+
+## 2026-11-25 17:00 · Claude Code · Sondagem PoC 09: regeneração cega × informada (`feat/poc09-sondagem-regeneracao-informada`)
+
+Pedido do João: testar a opção C (regenerar o plano inteiro passando a cada especialista a sua versão anterior e as críticas do Juiz)
+antes de implementar. Pré-registro + script + testes commitados ANTES das chamadas (`1e1c096`; 6 testes, 9 mutantes, 0 vivos; 499 OK).
+Rodada real 16:20–16:55: 11 gerações, 11 avaliações; 5 primeiras versões reais não favoráveis (9 graves) → **cego: 8 graves, 1/5 favorável,
+4 repetidas; informado: 5 graves, 2/5 favoráveis, 2 repetidas**; contrato 5/5 nos dois; o único H1 do informado é o falso positivo de
+negação. Os graves restantes do informado vêm de conflitos de entrada (Listas teórica; Programação só com material impresso).
+**Achado à parte:** Gemini sem acentuação desde 23/11 (plano do app de 25/11: 16/19 campos longos sem acento), nos dois braços.
+Exploratório (n = 5; Juiz circular). Detalhes: `docs/PoC09_Resultado_Sondagem.md`. App e `main` não alterados.
+
+---
+
 ## 2026-11-23 22:45 · Claude do chat · Figuras para leigos (`main`)
 
 **Feito:** seleção das figuras do Cap. 4 por pergunta do leitor (visão geral, casos de uso, sequência + prints, componentes, atividades,

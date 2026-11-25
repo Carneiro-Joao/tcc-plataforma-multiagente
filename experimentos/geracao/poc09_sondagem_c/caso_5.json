@@ -1,0 +1,3295 @@
+{
+  "n": 5,
+  "geracao_origem": "a1ddae3ec8cf4887a743fc2455c128f1",
+  "contexto": {
+    "ano": "8º ano",
+    "tema": "Ordenação",
+    "duracao_min": 50,
+    "recursos": "quadro e pincel",
+    "tipo": "Computação desplugada"
+  },
+  "habilidade": "EF08CO03",
+  "primeira": {
+    "graves": 3,
+    "decisao": "em_correcao",
+    "pares_graves": [
+      [
+        "avaliacao_preliminar",
+        "avaliacao_aprendizagem"
+      ],
+      [
+        "sequencia",
+        "aderencia_curricular"
+      ],
+      [
+        "sequencia",
+        "alinhamento_objetivos"
+      ]
+    ]
+  },
+  "bracos": {
+    "cego": {
+      "plano": {
+        "identificacao": {
+          "titulo": "Plano de aula — Ordenação",
+          "componente": "Computação",
+          "ano": "8º ano",
+          "tema": "Ordenação",
+          "tipo": "Computação desplugada",
+          "duracao_min": 50
+        },
+        "habilidade_bncc": {
+          "codigo": "EF08CO03",
+          "descricao": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+          "eixo": "Pensamento Computacional",
+          "objeto_conhecimento": "Algoritmos clássicos",
+          "referencia": {
+            "documento": "Computação na Educação Básica – Complemento à BNCC",
+            "arquivo": "BNCCComputacao.pdf",
+            "pagina_habilidade": 52,
+            "pagina_exemplos": 53,
+            "versao_catalogo": "bncc-8ano-v1",
+            "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+          }
+        },
+        "conteudos": [
+          "Conceito de ordenacao de listas",
+          "Algoritmo de ordenacao por trocas",
+          "Simulacao pratica de algoritmos classicos"
+        ],
+        "objetivo_geral": "Compreender e simular algoritmos classicos de ordenacao de listas utilizando abordagem desplugada.",
+        "objetivos_especificos": [
+          {
+            "id": "OBJ1",
+            "descricao": "Identificar a importancia da ordenacao de dados em listas."
+          },
+          {
+            "id": "OBJ2",
+            "descricao": "Simular o funcionamento de um algoritmo de ordenacao utilizando o quadro."
+          }
+        ],
+        "metodologia": "A aula inicia com uma introdução oral guiada pelo professor sobre o conceito de ordenação de listas, contextualizando a importância de organizar dados para facilitar buscas e manipulações. Em seguida, o professor utiliza o quadro para demonstrar visualmente um algoritmo clássico de ordenação por trocas, explicando passo a passo como os elementos são comparados e reorganizados. Os alunos participam ativamente respondendo a perguntas e sugerindo as próximas trocas com base nas regras apresentadas. Para consolidar a aprendizagem, realiza-se uma simulação coletiva onde o professor registra diferentes sequências numéricas no quadro e conduz a turma através de perguntas e respostas para executar o processo de ordenação até que a lista esteja totalmente organizada.",
+        "recursos": "quadro e pincel",
+        "desenvolvimento": [
+          {
+            "id": "ET1",
+            "titulo": "Introducao a Ordenacao",
+            "minutos": 15,
+            "acao_docente": "Explicar oralmente o conceito de ordenacao de listas e sua importancia para a organizacao de dados utilizando o quadro e pincel.",
+            "acao_discente": "Ouir a explicacao e responder oralmente as perguntas do professor sobre a utilidade de dados organizados.",
+            "atividade": "Discussao oral guiada sobre o conceito e a necessidade de ordenar listas no cotidiano e na computacao.",
+            "objetivos_ids": [
+              "OBJ1"
+            ],
+            "evidencias_ids": [
+              "EVI1"
+            ]
+          },
+          {
+            "id": "ET2",
+            "titulo": "Simulacao de Algoritmo de Ordenacao",
+            "minutos": 35,
+            "acao_docente": "Escrever uma sequencia de numeros no quadro e demonstrar passo a passo um algoritmo de ordenacao por trocas, conduzindo a turma por meio de perguntas e respostas.",
+            "acao_discente": "Participar da demonstracao sugerindo quais elementos devem ser comparados e trocados no quadro.",
+            "atividade": "Simulacao coletiva no quadro de um algoritmo de ordenacao passo a passo.",
+            "objetivos_ids": [
+              "OBJ2"
+            ],
+            "evidencias_ids": [
+              "EVI2"
+            ]
+          }
+        ],
+        "avaliacao_aprendizagem": {
+          "evidencias": [
+            {
+              "id": "EVI1",
+              "objetivo_id": "OBJ1",
+              "criterio": "Participacao na discussao oral sobre a organizacao de dados.",
+              "evidencia_esperada": "Explicacao oral correta sobre a utilidade de listas ordenadas."
+            },
+            {
+              "id": "EVI2",
+              "objetivo_id": "OBJ2",
+              "criterio": "Demonstracao correta das trocas no quadro.",
+              "evidencia_esperada": "Execucao oral e visual da simulacao do algoritmo no quadro."
+            }
+          ],
+          "instrumentos": [
+            {
+              "id": "INS1",
+              "descricao": "Observacao da participacao oral na discussao sobre ordenacao de listas.",
+              "etapas_ids": [
+                "ET1"
+              ],
+              "evidencias_ids": [
+                "EVI1"
+              ],
+              "procedimento": "O professor observa as respostas orais dos alunos durante a discussao guiada no quadro e pincel para verificar a explicacao sobre a utilidade de listas ordenadas."
+            },
+            {
+              "id": "INS2",
+              "descricao": "Observacao da simulacao coletiva do algoritmo de ordenacao no quadro.",
+              "etapas_ids": [
+                "ET2"
+              ],
+              "evidencias_ids": [
+                "EVI2"
+              ],
+              "procedimento": "O professor conduz perguntas e observa a execucao visual e oral dos alunos ao sugerir comparacoes e trocas de numeros no quadro e pincel."
+            }
+          ],
+          "uso_resultados": "O professor usara os resultados das observacoes orais e da simulacao visual no quadro e pincel para identificar se os alunos compreenderam o conceito de ordenacao de listas e conseguem simular o algoritmo classico apresentado, ajustando explicacoes futuras se necessario."
+        },
+        "adaptacoes": [
+          {
+            "id": "ADP1",
+            "descricao": "Adaptacao para alunos com dificuldades de compreensao conceitual na etapa de introducao, utilizando explicacao oral adicional e perguntas direcionadas com o auxilio do quadro e pincel.",
+            "objetivos_ids": [
+              "OBJ1"
+            ],
+            "etapas_ids": [
+              "ET1"
+            ]
+          },
+          {
+            "id": "ADP2",
+            "descricao": "Adaptacao para suporte visual reforcado durante a simulacao no quadro, dividindo o algoritmo de ordenacao em passos menores e utilizando o quadro e pincel para destacar as comparacoes entre elementos.",
+            "objetivos_ids": [
+              "OBJ2"
+            ],
+            "etapas_ids": [
+              "ET2"
+            ]
+          }
+        ],
+        "referencias": [
+          {
+            "id": "BNCC",
+            "titulo": "Computação na Educação Básica – Complemento à BNCC",
+            "arquivo": "BNCCComputacao.pdf",
+            "paginas": [
+              52,
+              53
+            ],
+            "versao_catalogo": "bncc-8ano-v1",
+            "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+          }
+        ]
+      },
+      "rastreio": [
+        {
+          "agente": "objetivos",
+          "tentativa": 1,
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {}
+          },
+          "estado": "validado",
+          "versao_esquema_api": "plano-2.0-estrutura-v1",
+          "provedor": "gemini",
+          "modelo_pedido": "gemini-3.5-flash-lite",
+          "versao_contrato": "plano-aula-2.0",
+          "versao_prompt": "especialistas-plano-2.3",
+          "repeticoes_503": 2,
+          "chamadas_http": 1,
+          "http_status": 200,
+          "resposta_api": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\"conteudos\": [\"Conceito de ordenacao de listas\", \"Algoritmo de ordenacao por trocas\", \"Simulacao pratica de algoritmos classicos\"], \"objetivo_geral\": \"Compreender e simular algoritmos classicos de ordenacao de listas utilizando abordagem desplugada.\", \"objetivos_especificos\": [{\"id\": \"OBJ1\", \"descricao\": \"Identificar a importancia da ordenacao de dados em listas.\"}, {\"id\": \"OBJ2\", \"descricao\": \"Simular o funcionamento de um algoritmo de ordenacao utilizando o quadro.\"}]}",
+                      "thoughtSignature": "EpYBCpMBAWkUfRPRmW3NBTSGMnymi0qpUDcZCQmQ4/3BLT7+oKwg9dH4BviMjjXGe4GJiiuw0A9p2N8yixyMa2N3SJtVGh4XrkjBgCMjmOy9R8itrqDauEuM/yDvLQ5rGg4x0UawuNkBjunpGxnHfNxXvrs8eX437hAuEb7wMaQnvyDFAu/pBKTpjNDvTiUulUsc29aGfZM5"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 583,
+              "candidatesTokenCount": 122,
+              "totalTokenCount": 705,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 583
+                }
+              ],
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.5-flash-lite",
+            "responseId": "_jcHa7PbEbLuiLMPnJyOgAI"
+          },
+          "usage": {
+            "promptTokenCount": 583,
+            "candidatesTokenCount": 122,
+            "totalTokenCount": 705,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 583
+              }
+            ],
+            "serviceTier": "standard"
+          },
+          "modelo_respondeu": "gemini-3.5-flash-lite",
+          "finish_reason": "STOP",
+          "conteudo_bruto": "{\"conteudos\": [\"Conceito de ordenacao de listas\", \"Algoritmo de ordenacao por trocas\", \"Simulacao pratica de algoritmos classicos\"], \"objetivo_geral\": \"Compreender e simular algoritmos classicos de ordenacao de listas utilizando abordagem desplugada.\", \"objetivos_especificos\": [{\"id\": \"OBJ1\", \"descricao\": \"Identificar a importancia da ordenacao de dados em listas.\"}, {\"id\": \"OBJ2\", \"descricao\": \"Simular o funcionamento de um algoritmo de ordenacao utilizando o quadro.\"}]}",
+          "latencia_s": 7.895,
+          "saida": {
+            "conteudos": [
+              "Conceito de ordenacao de listas",
+              "Algoritmo de ordenacao por trocas",
+              "Simulacao pratica de algoritmos classicos"
+            ],
+            "objetivo_geral": "Compreender e simular algoritmos classicos de ordenacao de listas utilizando abordagem desplugada.",
+            "objetivos_especificos": [
+              {
+                "id": "OBJ1",
+                "descricao": "Identificar a importancia da ordenacao de dados em listas."
+              },
+              {
+                "id": "OBJ2",
+                "descricao": "Simular o funcionamento de um algoritmo de ordenacao utilizando o quadro."
+              }
+            ]
+          }
+        },
+        {
+          "agente": "avaliacao_preliminar",
+          "tentativa": 1,
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {
+              "objetivos": {
+                "conteudos": [
+                  "Conceito de ordenacao de listas",
+                  "Algoritmo de ordenacao por trocas",
+                  "Simulacao pratica de algoritmos classicos"
+                ],
+                "objetivo_geral": "Compreender e simular algoritmos classicos de ordenacao de listas utilizando abordagem desplugada.",
+                "objetivos_especificos": [
+                  {
+                    "id": "OBJ1",
+                    "descricao": "Identificar a importancia da ordenacao de dados em listas."
+                  },
+                  {
+                    "id": "OBJ2",
+                    "descricao": "Simular o funcionamento de um algoritmo de ordenacao utilizando o quadro."
+                  }
+                ]
+              }
+            }
+          },
+          "estado": "validado",
+          "versao_esquema_api": "plano-2.0-estrutura-v1",
+          "provedor": "gemini",
+          "modelo_pedido": "gemini-3.5-flash-lite",
+          "versao_contrato": "plano-aula-2.0",
+          "versao_prompt": "especialistas-plano-2.3",
+          "repeticoes_503": 2,
+          "chamadas_http": 1,
+          "http_status": 200,
+          "resposta_api": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\"evidencias\": [{\"id\": \"EVI1\", \"objetivo_id\": \"OBJ1\", \"criterio\": \"Participacao na discussao oral sobre a organizacao de dados.\", \"evidencia_esperada\": \"Explicacao oral correta sobre a utilidade de listas ordenadas.\"}, {\"id\": \"EVI2\", \"objetivo_id\": \"OBJ2\", \"criterio\": \"Demonstracao correta das trocas no quadro.\", \"evidencia_esperada\": \"Execucao oral e visual da simulacao do algoritmo no quadro.\"}]}",
+                      "thoughtSignature": "EpYBCpMBAWkUfRPQwjeIuSKNPpjCdt5CMNNC6e1aBxSGcMFR0Ik0TUEJQv6KO3b4B7FXlA3Y7It/4nICPRSZWvDLb3QrJL6fgXW8moX9XHPBJ5GPIgjWoR3O2Pf1AGQl88NPy5/KWjBAEw5rohbnsh3nSc/podldoerRz2+YDEzI0SyA4AwtZ35F+f8W5jQHa7QpQtB0Z+Nf"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 711,
+              "candidatesTokenCount": 123,
+              "totalTokenCount": 834,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 711
+                }
+              ],
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.5-flash-lite",
+            "responseId": "BjgHa-eLCo_NytMPg8yHQQ"
+          },
+          "usage": {
+            "promptTokenCount": 711,
+            "candidatesTokenCount": 123,
+            "totalTokenCount": 834,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 711
+              }
+            ],
+            "serviceTier": "standard"
+          },
+          "modelo_respondeu": "gemini-3.5-flash-lite",
+          "finish_reason": "STOP",
+          "conteudo_bruto": "{\"evidencias\": [{\"id\": \"EVI1\", \"objetivo_id\": \"OBJ1\", \"criterio\": \"Participacao na discussao oral sobre a organizacao de dados.\", \"evidencia_esperada\": \"Explicacao oral correta sobre a utilidade de listas ordenadas.\"}, {\"id\": \"EVI2\", \"objetivo_id\": \"OBJ2\", \"criterio\": \"Demonstracao correta das trocas no quadro.\", \"evidencia_esperada\": \"Execucao oral e visual da simulacao do algoritmo no quadro.\"}]}",
+          "latencia_s": 3.48,
+          "saida": {
+            "evidencias": [
+              {
+                "id": "EVI1",
+                "objetivo_id": "OBJ1",
+                "criterio": "Participacao na discussao oral sobre a organizacao de dados.",
+                "evidencia_esperada": "Explicacao oral correta sobre a utilidade de listas ordenadas."
+              },
+              {
+                "id": "EVI2",
+                "objetivo_id": "OBJ2",
+                "criterio": "Demonstracao correta das trocas no quadro.",
+                "evidencia_esperada": "Execucao oral e visual da simulacao do algoritmo no quadro."
+              }
+            ]
+          }
+        },
+        {
+          "agente": "metodologia",
+          "tentativa": 1,
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {
+              "objetivos": {
+                "conteudos": [
+                  "Conceito de ordenacao de listas",
+                  "Algoritmo de ordenacao por trocas",
+                  "Simulacao pratica de algoritmos classicos"
+                ],
+                "objetivo_geral": "Compreender e simular algoritmos classicos de ordenacao de listas utilizando abordagem desplugada.",
+                "objetivos_especificos": [
+                  {
+                    "id": "OBJ1",
+                    "descricao": "Identificar a importancia da ordenacao de dados em listas."
+                  },
+                  {
+                    "id": "OBJ2",
+                    "descricao": "Simular o funcionamento de um algoritmo de ordenacao utilizando o quadro."
+                  }
+                ]
+              },
+              "avaliacao_preliminar": {
+                "evidencias": [
+                  {
+                    "id": "EVI1",
+                    "objetivo_id": "OBJ1",
+                    "criterio": "Participacao na discussao oral sobre a organizacao de dados.",
+                    "evidencia_esperada": "Explicacao oral correta sobre a utilidade de listas ordenadas."
+                  },
+                  {
+                    "id": "EVI2",
+                    "objetivo_id": "OBJ2",
+                    "criterio": "Demonstracao correta das trocas no quadro.",
+                    "evidencia_esperada": "Execucao oral e visual da simulacao do algoritmo no quadro."
+                  }
+                ]
+              }
+            }
+          },
+          "estado": "validado",
+          "versao_esquema_api": "plano-2.0-estrutura-v1",
+          "provedor": "gemini",
+          "modelo_pedido": "gemini-3.5-flash-lite",
+          "versao_contrato": "plano-aula-2.0",
+          "versao_prompt": "especialistas-plano-2.3",
+          "repeticoes_503": 2,
+          "chamadas_http": 1,
+          "http_status": 200,
+          "resposta_api": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"metodologia\": \"A aula inicia com uma introdução oral guiada pelo professor sobre o conceito de ordenação de listas, contextualizando a importância de organizar dados para facilitar buscas e manipulações. Em seguida, o professor utiliza o quadro para demonstrar visualmente um algoritmo clássico de ordenação por trocas, explicando passo a passo como os elementos são comparados e reorganizados. Os alunos participam ativamente respondendo a perguntas e sugerindo as próximas trocas com base nas regras apresentadas. Para consolidar a aprendizagem, realiza-se uma simulação coletiva onde o professor registra diferentes sequências numéricas no quadro e conduz a turma através de perguntas e respostas para executar o processo de ordenação até que a lista esteja totalmente organizada.\",\n  \"recursos\": \"quadro e pincel\"\n}",
+                      "thoughtSignature": "EpYBCpMBAWkUfRPZ3nSqtEXlSOiHodDoVGm8aBULp1E0CbKnp5+jm6Q9qg88lO1v1dyYgCV06XjyX7IZNGVx5yUhi82z/oz/59Wy7fG8+2nif9byYRTTKvEyHVTI2G5N/5F/rDdzmGmrkFblMmsU4/AsIjMZNYGGL0YhxAz56IDVGjOL1R+0CnIr/ryHiTVVCSWiNUMEq7rY"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 835,
+              "candidatesTokenCount": 172,
+              "totalTokenCount": 1007,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 835
+                }
+              ],
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.5-flash-lite",
+            "responseId": "CjgHa4qUEIqekPIPh63KoAk"
+          },
+          "usage": {
+            "promptTokenCount": 835,
+            "candidatesTokenCount": 172,
+            "totalTokenCount": 1007,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 835
+              }
+            ],
+            "serviceTier": "standard"
+          },
+          "modelo_respondeu": "gemini-3.5-flash-lite",
+          "finish_reason": "STOP",
+          "conteudo_bruto": "{\n  \"metodologia\": \"A aula inicia com uma introdução oral guiada pelo professor sobre o conceito de ordenação de listas, contextualizando a importância de organizar dados para facilitar buscas e manipulações. Em seguida, o professor utiliza o quadro para demonstrar visualmente um algoritmo clássico de ordenação por trocas, explicando passo a passo como os elementos são comparados e reorganizados. Os alunos participam ativamente respondendo a perguntas e sugerindo as próximas trocas com base nas regras apresentadas. Para consolidar a aprendizagem, realiza-se uma simulação coletiva onde o professor registra diferentes sequências numéricas no quadro e conduz a turma através de perguntas e respostas para executar o processo de ordenação até que a lista esteja totalmente organizada.\",\n  \"recursos\": \"quadro e pincel\"\n}",
+          "latencia_s": 2.477,
+          "saida": {
+            "metodologia": "A aula inicia com uma introdução oral guiada pelo professor sobre o conceito de ordenação de listas, contextualizando a importância de organizar dados para facilitar buscas e manipulações. Em seguida, o professor utiliza o quadro para demonstrar visualmente um algoritmo clássico de ordenação por trocas, explicando passo a passo como os elementos são comparados e reorganizados. Os alunos participam ativamente respondendo a perguntas e sugerindo as próximas trocas com base nas regras apresentadas. Para consolidar a aprendizagem, realiza-se uma simulação coletiva onde o professor registra diferentes sequências numéricas no quadro e conduz a turma através de perguntas e respostas para executar o processo de ordenação até que a lista esteja totalmente organizada.",
+            "recursos": "quadro e pincel"
+          }
+        },
+        {
+          "agente": "sequencia",
+          "tentativa": 1,
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {
+              "objetivos": {
+                "conteudos": [
+                  "Conceito de ordenacao de listas",
+                  "Algoritmo de ordenacao por trocas",
+                  "Simulacao pratica de algoritmos classicos"
+                ],
+                "objetivo_geral": "Compreender e simular algoritmos classicos de ordenacao de listas utilizando abordagem desplugada.",
+                "objetivos_especificos": [
+                  {
+                    "id": "OBJ1",
+                    "descricao": "Identificar a importancia da ordenacao de dados em listas."
+                  },
+                  {
+                    "id": "OBJ2",
+                    "descricao": "Simular o funcionamento de um algoritmo de ordenacao utilizando o quadro."
+                  }
+                ]
+              },
+              "avaliacao_preliminar": {
+                "evidencias": [
+                  {
+                    "id": "EVI1",
+                    "objetivo_id": "OBJ1",
+                    "criterio": "Participacao na discussao oral sobre a organizacao de dados.",
+                    "evidencia_esperada": "Explicacao oral correta sobre a utilidade de listas ordenadas."
+                  },
+                  {
+                    "id": "EVI2",
+                    "objetivo_id": "OBJ2",
+                    "criterio": "Demonstracao correta das trocas no quadro.",
+                    "evidencia_esperada": "Execucao oral e visual da simulacao do algoritmo no quadro."
+                  }
+                ]
+              },
+              "metodologia": {
+                "metodologia": "A aula inicia com uma introdução oral guiada pelo professor sobre o conceito de ordenação de listas, contextualizando a importância de organizar dados para facilitar buscas e manipulações. Em seguida, o professor utiliza o quadro para demonstrar visualmente um algoritmo clássico de ordenação por trocas, explicando passo a passo como os elementos são comparados e reorganizados. Os alunos participam ativamente respondendo a perguntas e sugerindo as próximas trocas com base nas regras apresentadas. Para consolidar a aprendizagem, realiza-se uma simulação coletiva onde o professor registra diferentes sequências numéricas no quadro e conduz a turma através de perguntas e respostas para executar o processo de ordenação até que a lista esteja totalmente organizada.",
+                "recursos": "quadro e pincel"
+              }
+            }
+          },
+          "estado": "validado",
+          "versao_esquema_api": "plano-2.0-estrutura-v1",
+          "provedor": "gemini",
+          "modelo_pedido": "gemini-3.5-flash-lite",
+          "versao_contrato": "plano-aula-2.0",
+          "versao_prompt": "especialistas-plano-2.3",
+          "repeticoes_503": 2,
+          "chamadas_http": 1,
+          "http_status": 200,
+          "resposta_api": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"etapas\": [\n    {\n      \"id\": \"ET1\",\n      \"titulo\": \"Introducao a Ordenacao\",\n      \"minutos\": 15,\n      \"acao_docente\": \"Explicar oralmente o conceito de ordenacao de listas e sua importancia para a organizacao de dados utilizando o quadro e pincel.\",\n      \"acao_discente\": \"Ouir a explicacao e responder oralmente as perguntas do professor sobre a utilidade de dados organizados.\",\n      \"atividade\": \"Discussao oral guiada sobre o conceito e a necessidade de ordenar listas no cotidiano e na computacao.\",\n      \"objetivos_ids\": [\n        \"OBJ1\"\n      ],\n      \"evidencias_ids\": [\n        \"EVI1\"\n      ]\n    },\n    {\n      \"id\": \"ET2\",\n      \"titulo\": \"Simulacao de Algoritmo de Ordenacao\",\n      \"minutos\": 35,\n      \"acao_docente\": \"Escrever uma sequencia de numeros no quadro e demonstrar passo a passo um algoritmo de ordenacao por trocas, conduzindo a turma por meio de perguntas e respostas.\",\n      \"acao_discente\": \"Participar da demonstracao sugerindo quais elementos devem ser comparados e trocados no quadro.\",\n      \"atividade\": \"Simulacao coletiva no quadro de um algoritmo de ordenacao passo a passo.\",\n      \"objetivos_ids\": [\n        \"OBJ2\"\n      ],\n      \"evidencias_ids\": [\n        \"EVI2\"\n      ]\n    }\n  ]\n}",
+                      "thoughtSignature": "EpYBCpMBAWkUfRO6FOy7zYttuc2mNiEM5rK4RfAdfNJgvSyG6K8t+vrSVXjlgVPTSBLCj49D5dBsob3tN+ophEYI/h1Ml+rP21BsAS0weRKhO5sJw9JUOOAyczgOqdz3JfCyDqJdA54fgjbY98JPAwKAdArioWnJ/Pfa9JAF+PzWCLFipdv7DTY6AMx9J2mPiXLsAmu6KVWY"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 1045,
+              "candidatesTokenCount": 360,
+              "totalTokenCount": 1405,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 1045
+                }
+              ],
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.5-flash-lite",
+            "responseId": "DDgHa_LeBKamiLMPx8GG8A4"
+          },
+          "usage": {
+            "promptTokenCount": 1045,
+            "candidatesTokenCount": 360,
+            "totalTokenCount": 1405,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 1045
+              }
+            ],
+            "serviceTier": "standard"
+          },
+          "modelo_respondeu": "gemini-3.5-flash-lite",
+          "finish_reason": "STOP",
+          "conteudo_bruto": "{\n  \"etapas\": [\n    {\n      \"id\": \"ET1\",\n      \"titulo\": \"Introducao a Ordenacao\",\n      \"minutos\": 15,\n      \"acao_docente\": \"Explicar oralmente o conceito de ordenacao de listas e sua importancia para a organizacao de dados utilizando o quadro e pincel.\",\n      \"acao_discente\": \"Ouir a explicacao e responder oralmente as perguntas do professor sobre a utilidade de dados organizados.\",\n      \"atividade\": \"Discussao oral guiada sobre o conceito e a necessidade de ordenar listas no cotidiano e na computacao.\",\n      \"objetivos_ids\": [\n        \"OBJ1\"\n      ],\n      \"evidencias_ids\": [\n        \"EVI1\"\n      ]\n    },\n    {\n      \"id\": \"ET2\",\n      \"titulo\": \"Simulacao de Algoritmo de Ordenacao\",\n      \"minutos\": 35,\n      \"acao_docente\": \"Escrever uma sequencia de numeros no quadro e demonstrar passo a passo um algoritmo de ordenacao por trocas, conduzindo a turma por meio de perguntas e respostas.\",\n      \"acao_discente\": \"Participar da demonstracao sugerindo quais elementos devem ser comparados e trocados no quadro.\",\n      \"atividade\": \"Simulacao coletiva no quadro de um algoritmo de ordenacao passo a passo.\",\n      \"objetivos_ids\": [\n        \"OBJ2\"\n      ],\n      \"evidencias_ids\": [\n        \"EVI2\"\n      ]\n    }\n  ]\n}",
+          "latencia_s": 2.062,
+          "saida": {
+            "etapas": [
+              {
+                "id": "ET1",
+                "titulo": "Introducao a Ordenacao",
+                "minutos": 15,
+                "acao_docente": "Explicar oralmente o conceito de ordenacao de listas e sua importancia para a organizacao de dados utilizando o quadro e pincel.",
+                "acao_discente": "Ouir a explicacao e responder oralmente as perguntas do professor sobre a utilidade de dados organizados.",
+                "atividade": "Discussao oral guiada sobre o conceito e a necessidade de ordenar listas no cotidiano e na computacao.",
+                "objetivos_ids": [
+                  "OBJ1"
+                ],
+                "evidencias_ids": [
+                  "EVI1"
+                ]
+              },
+              {
+                "id": "ET2",
+                "titulo": "Simulacao de Algoritmo de Ordenacao",
+                "minutos": 35,
+                "acao_docente": "Escrever uma sequencia de numeros no quadro e demonstrar passo a passo um algoritmo de ordenacao por trocas, conduzindo a turma por meio de perguntas e respostas.",
+                "acao_discente": "Participar da demonstracao sugerindo quais elementos devem ser comparados e trocados no quadro.",
+                "atividade": "Simulacao coletiva no quadro de um algoritmo de ordenacao passo a passo.",
+                "objetivos_ids": [
+                  "OBJ2"
+                ],
+                "evidencias_ids": [
+                  "EVI2"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "agente": "avaliacao_final",
+          "tentativa": 1,
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {
+              "objetivos": {
+                "conteudos": [
+                  "Conceito de ordenacao de listas",
+                  "Algoritmo de ordenacao por trocas",
+                  "Simulacao pratica de algoritmos classicos"
+                ],
+                "objetivo_geral": "Compreender e simular algoritmos classicos de ordenacao de listas utilizando abordagem desplugada.",
+                "objetivos_especificos": [
+                  {
+                    "id": "OBJ1",
+                    "descricao": "Identificar a importancia da ordenacao de dados em listas."
+                  },
+                  {
+                    "id": "OBJ2",
+                    "descricao": "Simular o funcionamento de um algoritmo de ordenacao utilizando o quadro."
+                  }
+                ]
+              },
+              "avaliacao_preliminar": {
+                "evidencias": [
+                  {
+                    "id": "EVI1",
+                    "objetivo_id": "OBJ1",
+                    "criterio": "Participacao na discussao oral sobre a organizacao de dados.",
+                    "evidencia_esperada": "Explicacao oral correta sobre a utilidade de listas ordenadas."
+                  },
+                  {
+                    "id": "EVI2",
+                    "objetivo_id": "OBJ2",
+                    "criterio": "Demonstracao correta das trocas no quadro.",
+                    "evidencia_esperada": "Execucao oral e visual da simulacao do algoritmo no quadro."
+                  }
+                ]
+              },
+              "metodologia": {
+                "metodologia": "A aula inicia com uma introdução oral guiada pelo professor sobre o conceito de ordenação de listas, contextualizando a importância de organizar dados para facilitar buscas e manipulações. Em seguida, o professor utiliza o quadro para demonstrar visualmente um algoritmo clássico de ordenação por trocas, explicando passo a passo como os elementos são comparados e reorganizados. Os alunos participam ativamente respondendo a perguntas e sugerindo as próximas trocas com base nas regras apresentadas. Para consolidar a aprendizagem, realiza-se uma simulação coletiva onde o professor registra diferentes sequências numéricas no quadro e conduz a turma através de perguntas e respostas para executar o processo de ordenação até que a lista esteja totalmente organizada.",
+                "recursos": "quadro e pincel"
+              },
+              "sequencia": {
+                "etapas": [
+                  {
+                    "id": "ET1",
+                    "titulo": "Introducao a Ordenacao",
+                    "minutos": 15,
+                    "acao_docente": "Explicar oralmente o conceito de ordenacao de listas e sua importancia para a organizacao de dados utilizando o quadro e pincel.",
+                    "acao_discente": "Ouir a explicacao e responder oralmente as perguntas do professor sobre a utilidade de dados organizados.",
+                    "atividade": "Discussao oral guiada sobre o conceito e a necessidade de ordenar listas no cotidiano e na computacao.",
+                    "objetivos_ids": [
+                      "OBJ1"
+                    ],
+                    "evidencias_ids": [
+                      "EVI1"
+                    ]
+                  },
+                  {
+                    "id": "ET2",
+                    "titulo": "Simulacao de Algoritmo de Ordenacao",
+                    "minutos": 35,
+                    "acao_docente": "Escrever uma sequencia de numeros no quadro e demonstrar passo a passo um algoritmo de ordenacao por trocas, conduzindo a turma por meio de perguntas e respostas.",
+                    "acao_discente": "Participar da demonstracao sugerindo quais elementos devem ser comparados e trocados no quadro.",
+                    "atividade": "Simulacao coletiva no quadro de um algoritmo de ordenacao passo a passo.",
+                    "objetivos_ids": [
+                      "OBJ2"
+                    ],
+                    "evidencias_ids": [
+                      "EVI2"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "estado": "validado",
+          "versao_esquema_api": "plano-2.0-estrutura-v1",
+          "provedor": "gemini",
+          "modelo_pedido": "gemini-3.5-flash-lite",
+          "versao_contrato": "plano-aula-2.0",
+          "versao_prompt": "especialistas-plano-2.3",
+          "repeticoes_503": 2,
+          "chamadas_http": 1,
+          "http_status": 200,
+          "resposta_api": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"instrumentos\": [\n    {\n      \"id\": \"INS1\",\n      \"descricao\": \"Observacao da participacao oral na discussao sobre ordenacao de listas.\",\n      \"etapas_ids\": [\"ET1\"],\n      \"evidencias_ids\": [\"EVI1\"],\n      \"procedimento\": \"O professor observa as respostas orais dos alunos durante a discussao guiada no quadro e pincel para verificar a explicacao sobre a utilidade de listas ordenadas.\"\n    },\n    {\n      \"id\": \"INS2\",\n      \"descricao\": \"Observacao da simulacao coletiva do algoritmo de ordenacao no quadro.\",\n      \"etapas_ids\": [\"ET2\"],\n      \"evidencias_ids\": [\"EVI2\"],\n      \"procedimento\": \"O professor conduz perguntas e observa a execucao visual e oral dos alunos ao sugerir comparacoes e trocas de numeros no quadro e pincel.\"\n    }\n  ],\n  \"uso_resultados\": \"O professor usara os resultados das observacoes orais e da simulacao visual no quadro e pincel para identificar se os alunos compreenderam o conceito de ordenacao de listas e conseguem simular o algoritmo classico apresentado, ajustando explicacoes futuras se necessario.\"\n}",
+                      "thoughtSignature": "EpYBCpMBAWkUfRM0IHkXDDLxvJjKJ0rzB5XFR05UoE+kZx5r+3K76x5NpzJD4T+3KbR6lw7blxfdg7bkGZ+lf7tFSv/A//UI8qccZvcS7KP0cj98j1uGhBVRQ4gNgkN7VC+M38P13HlZcfgs1XRPNCtxXzFpXIQOnMCT8X2RPZ1Qp22MdVfx2E4VkF/iHORy9smJpSIpQVAM"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 1347,
+              "candidatesTokenCount": 279,
+              "totalTokenCount": 1626,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 1347
+                }
+              ],
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.5-flash-lite",
+            "responseId": "DjgHa_ieB_GpxdIPqZ2qqQk"
+          },
+          "usage": {
+            "promptTokenCount": 1347,
+            "candidatesTokenCount": 279,
+            "totalTokenCount": 1626,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 1347
+              }
+            ],
+            "serviceTier": "standard"
+          },
+          "modelo_respondeu": "gemini-3.5-flash-lite",
+          "finish_reason": "STOP",
+          "conteudo_bruto": "{\n  \"instrumentos\": [\n    {\n      \"id\": \"INS1\",\n      \"descricao\": \"Observacao da participacao oral na discussao sobre ordenacao de listas.\",\n      \"etapas_ids\": [\"ET1\"],\n      \"evidencias_ids\": [\"EVI1\"],\n      \"procedimento\": \"O professor observa as respostas orais dos alunos durante a discussao guiada no quadro e pincel para verificar a explicacao sobre a utilidade de listas ordenadas.\"\n    },\n    {\n      \"id\": \"INS2\",\n      \"descricao\": \"Observacao da simulacao coletiva do algoritmo de ordenacao no quadro.\",\n      \"etapas_ids\": [\"ET2\"],\n      \"evidencias_ids\": [\"EVI2\"],\n      \"procedimento\": \"O professor conduz perguntas e observa a execucao visual e oral dos alunos ao sugerir comparacoes e trocas de numeros no quadro e pincel.\"\n    }\n  ],\n  \"uso_resultados\": \"O professor usara os resultados das observacoes orais e da simulacao visual no quadro e pincel para identificar se os alunos compreenderam o conceito de ordenacao de listas e conseguem simular o algoritmo classico apresentado, ajustando explicacoes futuras se necessario.\"\n}",
+          "latencia_s": 1.82,
+          "saida": {
+            "instrumentos": [
+              {
+                "id": "INS1",
+                "descricao": "Observacao da participacao oral na discussao sobre ordenacao de listas.",
+                "etapas_ids": [
+                  "ET1"
+                ],
+                "evidencias_ids": [
+                  "EVI1"
+                ],
+                "procedimento": "O professor observa as respostas orais dos alunos durante a discussao guiada no quadro e pincel para verificar a explicacao sobre a utilidade de listas ordenadas."
+              },
+              {
+                "id": "INS2",
+                "descricao": "Observacao da simulacao coletiva do algoritmo de ordenacao no quadro.",
+                "etapas_ids": [
+                  "ET2"
+                ],
+                "evidencias_ids": [
+                  "EVI2"
+                ],
+                "procedimento": "O professor conduz perguntas e observa a execucao visual e oral dos alunos ao sugerir comparacoes e trocas de numeros no quadro e pincel."
+              }
+            ],
+            "uso_resultados": "O professor usara os resultados das observacoes orais e da simulacao visual no quadro e pincel para identificar se os alunos compreenderam o conceito de ordenacao de listas e conseguem simular o algoritmo classico apresentado, ajustando explicacoes futuras se necessario."
+          }
+        },
+        {
+          "agente": "adaptacao",
+          "tentativa": 1,
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {
+              "objetivos": {
+                "conteudos": [
+                  "Conceito de ordenacao de listas",
+                  "Algoritmo de ordenacao por trocas",
+                  "Simulacao pratica de algoritmos classicos"
+                ],
+                "objetivo_geral": "Compreender e simular algoritmos classicos de ordenacao de listas utilizando abordagem desplugada.",
+                "objetivos_especificos": [
+                  {
+                    "id": "OBJ1",
+                    "descricao": "Identificar a importancia da ordenacao de dados em listas."
+                  },
+                  {
+                    "id": "OBJ2",
+                    "descricao": "Simular o funcionamento de um algoritmo de ordenacao utilizando o quadro."
+                  }
+                ]
+              },
+              "avaliacao_preliminar": {
+                "evidencias": [
+                  {
+                    "id": "EVI1",
+                    "objetivo_id": "OBJ1",
+                    "criterio": "Participacao na discussao oral sobre a organizacao de dados.",
+                    "evidencia_esperada": "Explicacao oral correta sobre a utilidade de listas ordenadas."
+                  },
+                  {
+                    "id": "EVI2",
+                    "objetivo_id": "OBJ2",
+                    "criterio": "Demonstracao correta das trocas no quadro.",
+                    "evidencia_esperada": "Execucao oral e visual da simulacao do algoritmo no quadro."
+                  }
+                ]
+              },
+              "metodologia": {
+                "metodologia": "A aula inicia com uma introdução oral guiada pelo professor sobre o conceito de ordenação de listas, contextualizando a importância de organizar dados para facilitar buscas e manipulações. Em seguida, o professor utiliza o quadro para demonstrar visualmente um algoritmo clássico de ordenação por trocas, explicando passo a passo como os elementos são comparados e reorganizados. Os alunos participam ativamente respondendo a perguntas e sugerindo as próximas trocas com base nas regras apresentadas. Para consolidar a aprendizagem, realiza-se uma simulação coletiva onde o professor registra diferentes sequências numéricas no quadro e conduz a turma através de perguntas e respostas para executar o processo de ordenação até que a lista esteja totalmente organizada.",
+                "recursos": "quadro e pincel"
+              },
+              "sequencia": {
+                "etapas": [
+                  {
+                    "id": "ET1",
+                    "titulo": "Introducao a Ordenacao",
+                    "minutos": 15,
+                    "acao_docente": "Explicar oralmente o conceito de ordenacao de listas e sua importancia para a organizacao de dados utilizando o quadro e pincel.",
+                    "acao_discente": "Ouir a explicacao e responder oralmente as perguntas do professor sobre a utilidade de dados organizados.",
+                    "atividade": "Discussao oral guiada sobre o conceito e a necessidade de ordenar listas no cotidiano e na computacao.",
+                    "objetivos_ids": [
+                      "OBJ1"
+                    ],
+                    "evidencias_ids": [
+                      "EVI1"
+                    ]
+                  },
+                  {
+                    "id": "ET2",
+                    "titulo": "Simulacao de Algoritmo de Ordenacao",
+                    "minutos": 35,
+                    "acao_docente": "Escrever uma sequencia de numeros no quadro e demonstrar passo a passo um algoritmo de ordenacao por trocas, conduzindo a turma por meio de perguntas e respostas.",
+                    "acao_discente": "Participar da demonstracao sugerindo quais elementos devem ser comparados e trocados no quadro.",
+                    "atividade": "Simulacao coletiva no quadro de um algoritmo de ordenacao passo a passo.",
+                    "objetivos_ids": [
+                      "OBJ2"
+                    ],
+                    "evidencias_ids": [
+                      "EVI2"
+                    ]
+                  }
+                ]
+              },
+              "avaliacao_final": {
+                "instrumentos": [
+                  {
+                    "id": "INS1",
+                    "descricao": "Observacao da participacao oral na discussao sobre ordenacao de listas.",
+                    "etapas_ids": [
+                      "ET1"
+                    ],
+                    "evidencias_ids": [
+                      "EVI1"
+                    ],
+                    "procedimento": "O professor observa as respostas orais dos alunos durante a discussao guiada no quadro e pincel para verificar a explicacao sobre a utilidade de listas ordenadas."
+                  },
+                  {
+                    "id": "INS2",
+                    "descricao": "Observacao da simulacao coletiva do algoritmo de ordenacao no quadro.",
+                    "etapas_ids": [
+                      "ET2"
+                    ],
+                    "evidencias_ids": [
+                      "EVI2"
+                    ],
+                    "procedimento": "O professor conduz perguntas e observa a execucao visual e oral dos alunos ao sugerir comparacoes e trocas de numeros no quadro e pincel."
+                  }
+                ],
+                "uso_resultados": "O professor usara os resultados das observacoes orais e da simulacao visual no quadro e pincel para identificar se os alunos compreenderam o conceito de ordenacao de listas e conseguem simular o algoritmo classico apresentado, ajustando explicacoes futuras se necessario."
+              }
+            }
+          },
+          "estado": "validado",
+          "versao_esquema_api": "plano-2.0-estrutura-v1",
+          "provedor": "gemini",
+          "modelo_pedido": "gemini-3.5-flash-lite",
+          "versao_contrato": "plano-aula-2.0",
+          "versao_prompt": "especialistas-plano-2.3",
+          "repeticoes_503": 2,
+          "chamadas_http": 1,
+          "http_status": 200,
+          "resposta_api": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"adaptacoes\": [\n    {\n      \"id\": \"ADP1\",\n      \"descricao\": \"Adaptacao para alunos com dificuldades de compreensao conceitual na etapa de introducao, utilizando explicacao oral adicional e perguntas direcionadas com o auxilio do quadro e pincel.\",\n      \"objetivos_ids\": [\"OBJ1\"],\n      \"etapas_ids\": [\"ET1\"]\n    },\n    {\n      \"id\": \"ADP2\",\n      \"descricao\": \"Adaptacao para suporte visual reforcado durante a simulacao no quadro, dividindo o algoritmo de ordenacao em passos menores e utilizando o quadro e pincel para destacar as comparacoes entre elementos.\",\n      \"objetivos_ids\": [\"OBJ2\"],\n      \"etapas_ids\": [\"ET2\"]\n    }\n  ]\n}",
+                      "thoughtSignature": "EpYBCpMBAWkUfRNLdatZViBHWTASggvPCINGe4RHTneZZsbpCql9bcn6XcsyfC81WInbzPc0d/cCRcd+wnKw9QGzlw21lvueHMtD+EsFmvgeqEV9DXhogMITwuqlTrOuBAdaP2xfEm+1VhkhDy/8oqlwkZISIikBemDyCp1xZ57cLKwNwcueKSB3lcknB1jf5gO+QPhOw4zT"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 1544,
+              "candidatesTokenCount": 180,
+              "totalTokenCount": 1724,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 1544
+                }
+              ],
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.5-flash-lite",
+            "responseId": "DzgHa-z-Ovago_UPxICQwA4"
+          },
+          "usage": {
+            "promptTokenCount": 1544,
+            "candidatesTokenCount": 180,
+            "totalTokenCount": 1724,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 1544
+              }
+            ],
+            "serviceTier": "standard"
+          },
+          "modelo_respondeu": "gemini-3.5-flash-lite",
+          "finish_reason": "STOP",
+          "conteudo_bruto": "{\n  \"adaptacoes\": [\n    {\n      \"id\": \"ADP1\",\n      \"descricao\": \"Adaptacao para alunos com dificuldades de compreensao conceitual na etapa de introducao, utilizando explicacao oral adicional e perguntas direcionadas com o auxilio do quadro e pincel.\",\n      \"objetivos_ids\": [\"OBJ1\"],\n      \"etapas_ids\": [\"ET1\"]\n    },\n    {\n      \"id\": \"ADP2\",\n      \"descricao\": \"Adaptacao para suporte visual reforcado durante a simulacao no quadro, dividindo o algoritmo de ordenacao em passos menores e utilizando o quadro e pincel para destacar as comparacoes entre elementos.\",\n      \"objetivos_ids\": [\"OBJ2\"],\n      \"etapas_ids\": [\"ET2\"]\n    }\n  ]\n}",
+          "latencia_s": 6.063,
+          "saida": {
+            "adaptacoes": [
+              {
+                "id": "ADP1",
+                "descricao": "Adaptacao para alunos com dificuldades de compreensao conceitual na etapa de introducao, utilizando explicacao oral adicional e perguntas direcionadas com o auxilio do quadro e pincel.",
+                "objetivos_ids": [
+                  "OBJ1"
+                ],
+                "etapas_ids": [
+                  "ET1"
+                ]
+              },
+              {
+                "id": "ADP2",
+                "descricao": "Adaptacao para suporte visual reforcado durante a simulacao no quadro, dividindo o algoritmo de ordenacao em passos menores e utilizando o quadro e pincel para destacar as comparacoes entre elementos.",
+                "objetivos_ids": [
+                  "OBJ2"
+                ],
+                "etapas_ids": [
+                  "ET2"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "agente": "integrador",
+          "tipo": "deterministico",
+          "estado": "validado",
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {
+              "objetivos": {
+                "conteudos": [
+                  "Conceito de ordenacao de listas",
+                  "Algoritmo de ordenacao por trocas",
+                  "Simulacao pratica de algoritmos classicos"
+                ],
+                "objetivo_geral": "Compreender e simular algoritmos classicos de ordenacao de listas utilizando abordagem desplugada.",
+                "objetivos_especificos": [
+                  {
+                    "id": "OBJ1",
+                    "descricao": "Identificar a importancia da ordenacao de dados em listas."
+                  },
+                  {
+                    "id": "OBJ2",
+                    "descricao": "Simular o funcionamento de um algoritmo de ordenacao utilizando o quadro."
+                  }
+                ]
+              },
+              "avaliacao_preliminar": {
+                "evidencias": [
+                  {
+                    "id": "EVI1",
+                    "objetivo_id": "OBJ1",
+                    "criterio": "Participacao na discussao oral sobre a organizacao de dados.",
+                    "evidencia_esperada": "Explicacao oral correta sobre a utilidade de listas ordenadas."
+                  },
+                  {
+                    "id": "EVI2",
+                    "objetivo_id": "OBJ2",
+                    "criterio": "Demonstracao correta das trocas no quadro.",
+                    "evidencia_esperada": "Execucao oral e visual da simulacao do algoritmo no quadro."
+                  }
+                ]
+              },
+              "metodologia": {
+                "metodologia": "A aula inicia com uma introdução oral guiada pelo professor sobre o conceito de ordenação de listas, contextualizando a importância de organizar dados para facilitar buscas e manipulações. Em seguida, o professor utiliza o quadro para demonstrar visualmente um algoritmo clássico de ordenação por trocas, explicando passo a passo como os elementos são comparados e reorganizados. Os alunos participam ativamente respondendo a perguntas e sugerindo as próximas trocas com base nas regras apresentadas. Para consolidar a aprendizagem, realiza-se uma simulação coletiva onde o professor registra diferentes sequências numéricas no quadro e conduz a turma através de perguntas e respostas para executar o processo de ordenação até que a lista esteja totalmente organizada.",
+                "recursos": "quadro e pincel"
+              },
+              "sequencia": {
+                "etapas": [
+                  {
+                    "id": "ET1",
+                    "titulo": "Introducao a Ordenacao",
+                    "minutos": 15,
+                    "acao_docente": "Explicar oralmente o conceito de ordenacao de listas e sua importancia para a organizacao de dados utilizando o quadro e pincel.",
+                    "acao_discente": "Ouir a explicacao e responder oralmente as perguntas do professor sobre a utilidade de dados organizados.",
+                    "atividade": "Discussao oral guiada sobre o conceito e a necessidade de ordenar listas no cotidiano e na computacao.",
+                    "objetivos_ids": [
+                      "OBJ1"
+                    ],
+                    "evidencias_ids": [
+                      "EVI1"
+                    ]
+                  },
+                  {
+                    "id": "ET2",
+                    "titulo": "Simulacao de Algoritmo de Ordenacao",
+                    "minutos": 35,
+                    "acao_docente": "Escrever uma sequencia de numeros no quadro e demonstrar passo a passo um algoritmo de ordenacao por trocas, conduzindo a turma por meio de perguntas e respostas.",
+                    "acao_discente": "Participar da demonstracao sugerindo quais elementos devem ser comparados e trocados no quadro.",
+                    "atividade": "Simulacao coletiva no quadro de um algoritmo de ordenacao passo a passo.",
+                    "objetivos_ids": [
+                      "OBJ2"
+                    ],
+                    "evidencias_ids": [
+                      "EVI2"
+                    ]
+                  }
+                ]
+              },
+              "avaliacao_final": {
+                "instrumentos": [
+                  {
+                    "id": "INS1",
+                    "descricao": "Observacao da participacao oral na discussao sobre ordenacao de listas.",
+                    "etapas_ids": [
+                      "ET1"
+                    ],
+                    "evidencias_ids": [
+                      "EVI1"
+                    ],
+                    "procedimento": "O professor observa as respostas orais dos alunos durante a discussao guiada no quadro e pincel para verificar a explicacao sobre a utilidade de listas ordenadas."
+                  },
+                  {
+                    "id": "INS2",
+                    "descricao": "Observacao da simulacao coletiva do algoritmo de ordenacao no quadro.",
+                    "etapas_ids": [
+                      "ET2"
+                    ],
+                    "evidencias_ids": [
+                      "EVI2"
+                    ],
+                    "procedimento": "O professor conduz perguntas e observa a execucao visual e oral dos alunos ao sugerir comparacoes e trocas de numeros no quadro e pincel."
+                  }
+                ],
+                "uso_resultados": "O professor usara os resultados das observacoes orais e da simulacao visual no quadro e pincel para identificar se os alunos compreenderam o conceito de ordenacao de listas e conseguem simular o algoritmo classico apresentado, ajustando explicacoes futuras se necessario."
+              },
+              "adaptacao": {
+                "adaptacoes": [
+                  {
+                    "id": "ADP1",
+                    "descricao": "Adaptacao para alunos com dificuldades de compreensao conceitual na etapa de introducao, utilizando explicacao oral adicional e perguntas direcionadas com o auxilio do quadro e pincel.",
+                    "objetivos_ids": [
+                      "OBJ1"
+                    ],
+                    "etapas_ids": [
+                      "ET1"
+                    ]
+                  },
+                  {
+                    "id": "ADP2",
+                    "descricao": "Adaptacao para suporte visual reforcado durante a simulacao no quadro, dividindo o algoritmo de ordenacao em passos menores e utilizando o quadro e pincel para destacar as comparacoes entre elementos.",
+                    "objetivos_ids": [
+                      "OBJ2"
+                    ],
+                    "etapas_ids": [
+                      "ET2"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "saida": {
+            "identificacao": {
+              "titulo": "Plano de aula — Ordenação",
+              "componente": "Computação",
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "tipo": "Computação desplugada",
+              "duracao_min": 50
+            },
+            "habilidade_bncc": {
+              "codigo": "EF08CO03",
+              "descricao": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "conteudos": [
+              "Conceito de ordenacao de listas",
+              "Algoritmo de ordenacao por trocas",
+              "Simulacao pratica de algoritmos classicos"
+            ],
+            "objetivo_geral": "Compreender e simular algoritmos classicos de ordenacao de listas utilizando abordagem desplugada.",
+            "objetivos_especificos": [
+              {
+                "id": "OBJ1",
+                "descricao": "Identificar a importancia da ordenacao de dados em listas."
+              },
+              {
+                "id": "OBJ2",
+                "descricao": "Simular o funcionamento de um algoritmo de ordenacao utilizando o quadro."
+              }
+            ],
+            "metodologia": "A aula inicia com uma introdução oral guiada pelo professor sobre o conceito de ordenação de listas, contextualizando a importância de organizar dados para facilitar buscas e manipulações. Em seguida, o professor utiliza o quadro para demonstrar visualmente um algoritmo clássico de ordenação por trocas, explicando passo a passo como os elementos são comparados e reorganizados. Os alunos participam ativamente respondendo a perguntas e sugerindo as próximas trocas com base nas regras apresentadas. Para consolidar a aprendizagem, realiza-se uma simulação coletiva onde o professor registra diferentes sequências numéricas no quadro e conduz a turma através de perguntas e respostas para executar o processo de ordenação até que a lista esteja totalmente organizada.",
+            "recursos": "quadro e pincel",
+            "desenvolvimento": [
+              {
+                "id": "ET1",
+                "titulo": "Introducao a Ordenacao",
+                "minutos": 15,
+                "acao_docente": "Explicar oralmente o conceito de ordenacao de listas e sua importancia para a organizacao de dados utilizando o quadro e pincel.",
+                "acao_discente": "Ouir a explicacao e responder oralmente as perguntas do professor sobre a utilidade de dados organizados.",
+                "atividade": "Discussao oral guiada sobre o conceito e a necessidade de ordenar listas no cotidiano e na computacao.",
+                "objetivos_ids": [
+                  "OBJ1"
+                ],
+                "evidencias_ids": [
+                  "EVI1"
+                ]
+              },
+              {
+                "id": "ET2",
+                "titulo": "Simulacao de Algoritmo de Ordenacao",
+                "minutos": 35,
+                "acao_docente": "Escrever uma sequencia de numeros no quadro e demonstrar passo a passo um algoritmo de ordenacao por trocas, conduzindo a turma por meio de perguntas e respostas.",
+                "acao_discente": "Participar da demonstracao sugerindo quais elementos devem ser comparados e trocados no quadro.",
+                "atividade": "Simulacao coletiva no quadro de um algoritmo de ordenacao passo a passo.",
+                "objetivos_ids": [
+                  "OBJ2"
+                ],
+                "evidencias_ids": [
+                  "EVI2"
+                ]
+              }
+            ],
+            "avaliacao_aprendizagem": {
+              "evidencias": [
+                {
+                  "id": "EVI1",
+                  "objetivo_id": "OBJ1",
+                  "criterio": "Participacao na discussao oral sobre a organizacao de dados.",
+                  "evidencia_esperada": "Explicacao oral correta sobre a utilidade de listas ordenadas."
+                },
+                {
+                  "id": "EVI2",
+                  "objetivo_id": "OBJ2",
+                  "criterio": "Demonstracao correta das trocas no quadro.",
+                  "evidencia_esperada": "Execucao oral e visual da simulacao do algoritmo no quadro."
+                }
+              ],
+              "instrumentos": [
+                {
+                  "id": "INS1",
+                  "descricao": "Observacao da participacao oral na discussao sobre ordenacao de listas.",
+                  "etapas_ids": [
+                    "ET1"
+                  ],
+                  "evidencias_ids": [
+                    "EVI1"
+                  ],
+                  "procedimento": "O professor observa as respostas orais dos alunos durante a discussao guiada no quadro e pincel para verificar a explicacao sobre a utilidade de listas ordenadas."
+                },
+                {
+                  "id": "INS2",
+                  "descricao": "Observacao da simulacao coletiva do algoritmo de ordenacao no quadro.",
+                  "etapas_ids": [
+                    "ET2"
+                  ],
+                  "evidencias_ids": [
+                    "EVI2"
+                  ],
+                  "procedimento": "O professor conduz perguntas e observa a execucao visual e oral dos alunos ao sugerir comparacoes e trocas de numeros no quadro e pincel."
+                }
+              ],
+              "uso_resultados": "O professor usara os resultados das observacoes orais e da simulacao visual no quadro e pincel para identificar se os alunos compreenderam o conceito de ordenacao de listas e conseguem simular o algoritmo classico apresentado, ajustando explicacoes futuras se necessario."
+            },
+            "adaptacoes": [
+              {
+                "id": "ADP1",
+                "descricao": "Adaptacao para alunos com dificuldades de compreensao conceitual na etapa de introducao, utilizando explicacao oral adicional e perguntas direcionadas com o auxilio do quadro e pincel.",
+                "objetivos_ids": [
+                  "OBJ1"
+                ],
+                "etapas_ids": [
+                  "ET1"
+                ]
+              },
+              {
+                "id": "ADP2",
+                "descricao": "Adaptacao para suporte visual reforcado durante a simulacao no quadro, dividindo o algoritmo de ordenacao em passos menores e utilizando o quadro e pincel para destacar as comparacoes entre elementos.",
+                "objetivos_ids": [
+                  "OBJ2"
+                ],
+                "etapas_ids": [
+                  "ET2"
+                ]
+              }
+            ],
+            "referencias": [
+              {
+                "id": "BNCC",
+                "titulo": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "paginas": [
+                  52,
+                  53
+                ],
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            ]
+          }
+        }
+      ],
+      "parecer": {
+        "avaliacoes": [
+          {
+            "criterio": "aderencia_curricular",
+            "nota": 3,
+            "justificativa": "O plano trabalha diretamente a habilidade EF08CO03 ao focar em um algoritmo clássico de ordenação por trocas, simulando seu funcionamento de forma desplugada, sem incluir conteúdos periféricos."
+          },
+          {
+            "criterio": "alinhamento_objetivos",
+            "nota": 3,
+            "justificativa": "Os objetivos específicos (OBJ1 e OBJ2) são observáveis, distintos e coerentes com o objetivo geral e a habilidade; são viáveis dentro dos 50 minutos previstos."
+          },
+          {
+            "criterio": "coerencia_metodologica",
+            "nota": 3,
+            "justificativa": "A metodologia descrita (introdução, demonstração e simulação) está refletida nas etapas ET1 e ET2, com sequência lógica e respeitando o tipo de aula desplugada."
+          },
+          {
+            "criterio": "viabilidade",
+            "nota": 3,
+            "justificativa": "Todas as atividades utilizam apenas quadro e pincel, recursos informados, e os tempos (15 min + 35 min) são realistas para as ações propostas."
+          },
+          {
+            "criterio": "avaliacao_aprendizagem",
+            "nota": 2,
+            "justificativa": "Embora existam evidências e instrumentos para cada objetivo, o critério de avaliação para OBJ1 (EVI1) é vago – 'Participação na discussão oral' não permite distinguir explicação correta de incorreta."
+          },
+          {
+            "criterio": "inclusao",
+            "nota": 3,
+            "justificativa": "As adaptações ADP1 e ADP2 oferecem suporte adicional (explicação oral extra e divisão em passos menores) usando os mesmos recursos e mantendo os objetivos."
+          }
+        ],
+        "falhas": [
+          {
+            "id": "F1",
+            "criterio": "avaliacao_aprendizagem",
+            "componente": "avaliacao_preliminar",
+            "gravidade": "maior",
+            "descricao": "O critério de avaliação para o OBJ1 (EVI1) se resume a 'Participação na discussão oral', não permite distinguir entre explicação correta e incorreta, limitando a capacidade de avaliar o objetivo de identificar a importância da ordenação.",
+            "correcao_sugerida": "Definir critérios mais específicos ou rubricas que avaliem a qualidade da explicação oral, por exemplo, listar pontos que a explicação deve conter e usar uma escala de avaliação."
+          }
+        ],
+        "resumo": "O plano atende bem à habilidade, aos objetivos e à metodologia, sendo viável e inclusivo. Apenas a avaliação do OBJ1 carece de critérios mais detalhados para diferenciar desempenho adequado de inadequado."
+      },
+      "linha": {
+        "caso": 5,
+        "braco": "cego",
+        "erros_geracao": [
+          "Gemini HTTP 503: Modelo Gemini sobrecarregado por alta demanda. Tente novamente mais tarde. Foram feitas 3 tentativas nesta etapa."
+        ],
+        "segundos_geracao": 109.3,
+        "erros_juiz": [],
+        "graves": 1,
+        "decisao": "em_correcao",
+        "graves_repetidas": 1,
+        "h1_material_ausente": [],
+        "h2_sem_acentos": [
+          "objetivo_geral",
+          "objetivos_especificos[1].descricao",
+          "desenvolvimento[0].acao_docente",
+          "desenvolvimento[0].acao_discente",
+          "desenvolvimento[1].acao_docente",
+          "desenvolvimento[1].atividade",
+          "avaliacao_aprendizagem.evidencias[0].evidencia_esperada",
+          "avaliacao_aprendizagem.instrumentos[0].descricao",
+          "avaliacao_aprendizagem.instrumentos[0].procedimento",
+          "avaliacao_aprendizagem.instrumentos[1].descricao",
+          "avaliacao_aprendizagem.uso_resultados",
+          "adaptacoes[0].descricao",
+          "adaptacoes[1].descricao"
+        ],
+        "contrato_ok": true,
+        "minutos_ok": true,
+        "notas": {
+          "aderencia_curricular": 3,
+          "alinhamento_objetivos": 3,
+          "coerencia_metodologica": 3,
+          "viabilidade": 3,
+          "avaliacao_aprendizagem": 2,
+          "inclusao": 3
+        }
+      }
+    },
+    "informado": {
+      "plano": {
+        "identificacao": {
+          "titulo": "Plano de aula — Ordenação",
+          "componente": "Computação",
+          "ano": "8º ano",
+          "tema": "Ordenação",
+          "tipo": "Computação desplugada",
+          "duracao_min": 50
+        },
+        "habilidade_bncc": {
+          "codigo": "EF08CO03",
+          "descricao": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+          "eixo": "Pensamento Computacional",
+          "objeto_conhecimento": "Algoritmos clássicos",
+          "referencia": {
+            "documento": "Computação na Educação Básica – Complemento à BNCC",
+            "arquivo": "BNCCComputacao.pdf",
+            "pagina_habilidade": 52,
+            "pagina_exemplos": 53,
+            "versao_catalogo": "bncc-8ano-v1",
+            "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+          }
+        },
+        "conteudos": [
+          "Conceito de algoritmos de ordenação",
+          "Simulação física de ordenação de listas",
+          "Critérios de comparação de elementos"
+        ],
+        "objetivo_geral": "Compreender e simular algoritmos clássicos de ordenação de listas por meio de computação desplugada usando quadro e pincel.",
+        "objetivos_especificos": [
+          {
+            "id": "OBJ1",
+            "descricao": "Explicar oralmente o funcionamento básico de um algoritmo de ordenação clássico."
+          },
+          {
+            "id": "OBJ2",
+            "descricao": "Demonstrar no quadro a ordenação sequencial de uma lista de valores com base em comparações."
+          }
+        ],
+        "metodologia": "A aula será conduzida por meio de explicação oral interativa e demonstração prática no quadro e pincel. O professor introduzirá o conceito de ordenação de listas de forma desplugada, utilizando perguntas e respostas para engajar os alunos sobre a importância de organizar dados. Em seguida, os alunos serão convidados a ir até o quadro para demonstrar e executar a ordenação passo a passo de uma lista de valores, escrevendo as trocas e comparações. Os demais alunos participarão ativamente respondendo a indagações e avaliando cada etapa executada no quadro, enquanto o professor registra as observações.",
+        "recursos": "quadro e pincel",
+        "desenvolvimento": [
+          {
+            "id": "ET1",
+            "titulo": "Introducao aos Algoritmos de Ordenacao",
+            "minutos": 15,
+            "acao_docente": "Explicar oralmente o conceito de algoritmos de ordenacao e a importancia de organizar dados, utilizando o quadro e pincel para ilustrar uma lista desordenada e fazendo perguntas interativas aos alunos.",
+            "acao_discente": "Responder oralmente as perguntas do professor, participando da discussao sobre a logica de comparacao de elementos.",
+            "atividade": "Discussao interativa e explicacao oral sobre a logica de ordenacao classica.",
+            "objetivos_ids": [
+              "OBJ1"
+            ],
+            "evidencias_ids": [
+              "EVI1"
+            ]
+          },
+          {
+            "id": "ET2",
+            "titulo": "Demonstracao Pratica de Ordenacao no Quadro pelos Alunos",
+            "minutos": 35,
+            "acao_docente": "Conduzir a atividade chamando os alunos ate o quadro para demonstrar e executar passo a passo a ordenacao de uma lista de valores, escrevendo as trocas e comparacoes com o pincel, com o auxilio e participacao da turma.",
+            "acao_discente": "Ir ate o quadro para executar a ordenacao passo a passo, escrevendo as comparacoes e trocas solicitadas, enquanto os demais colegas respondem as indagoes e avaliam cada etapa executada.",
+            "atividade": "Simulacao e demonstracao pratica no quadro da ordenacao sequencial de uma lista realizada diretamente pelos alunos.",
+            "objetivos_ids": [
+              "OBJ2"
+            ],
+            "evidencias_ids": [
+              "EVI2"
+            ]
+          }
+        ],
+        "avaliacao_aprendizagem": {
+          "evidencias": [
+            {
+              "id": "EVI1",
+              "objetivo_id": "OBJ1",
+              "criterio": "Clareza e precisão na explicação oral sobre a lógica de comparação e troca de elementos.",
+              "evidencia_esperada": "O aluno explica oralmente, utilizando os conceitos corretos, como o algoritmo organiza os elementos da lista passo a passo."
+            },
+            {
+              "id": "EVI2",
+              "objetivo_id": "OBJ2",
+              "criterio": "Corretude na execução e representação da ordenação sequencial desenhada e escrita no quadro.",
+              "evidencia_esperada": "O aluno demonstra corretamente no quadro a disposição ordenada dos valores após realizar as comparações passo a passo."
+            }
+          ],
+          "instrumentos": [
+            {
+              "id": "INS1",
+              "descricao": "Instrumento de observação oral da explicação e lógica de comparação",
+              "etapas_ids": [
+                "ET1"
+              ],
+              "evidencias_ids": [
+                "EVI1"
+              ],
+              "procedimento": "O professor observa a participação oral dos alunos durante a discussão interativa, avaliando com base na clareza e precisão da explicação oral sobre a lógica de comparação e troca de elementos."
+            },
+            {
+              "id": "INS2",
+              "descricao": "Instrumento de verificação da execução da demonstração prática no quadro",
+              "etapas_ids": [
+                "ET2"
+              ],
+              "evidencias_ids": [
+                "EVI2"
+              ],
+              "procedimento": "O professor acompanha e avalia a demonstração realizada no quadro e pincel, verificando a corretude na execução e representação da ordenação sequencial dos valores."
+            }
+          ],
+          "uso_resultados": "O professor usará os dados coletados por meio da observação oral e da demonstração prática no quadro para verificar se os alunos compreenderam a lógica dos algoritmos clássicos de ordenação. Com base nas respostas e na participação durante a atividade com quadro e pincel, o professor poderá retomar conceitos essenciais, esclarecer dúvidas e ajustar explicações futuras sobre a manipulação de listas."
+        },
+        "adaptacoes": [
+          {
+            "id": "ADP1",
+            "descricao": "Simplificar a explana&ccedil;&atilde;o oral dividindo o conceito em partes menores, com perguntas e respostas mais direcionadas para alunos com dificuldades de compreens&atilde;o na introdu&ccedil;&atilde;o.",
+            "objetivos_ids": [
+              "OBJ1"
+            ],
+            "etapas_ids": [
+              "ET1"
+            ]
+          },
+          {
+            "id": "ADP2",
+            "descricao": "Utilizar uma lista com menos elementos no quadro e demonstra&ccedil;&atilde;o passo a passo redobrada, destacando visualmente as compara&ccedil;&otilde;es com o pincel.",
+            "objetivos_ids": [
+              "OBJ2"
+            ],
+            "etapas_ids": [
+              "ET2"
+            ]
+          }
+        ],
+        "referencias": [
+          {
+            "id": "BNCC",
+            "titulo": "Computação na Educação Básica – Complemento à BNCC",
+            "arquivo": "BNCCComputacao.pdf",
+            "paginas": [
+              52,
+              53
+            ],
+            "versao_catalogo": "bncc-8ano-v1",
+            "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+          }
+        ]
+      },
+      "rastreio": [
+        {
+          "agente": "objetivos",
+          "tentativa": 1,
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {}
+          },
+          "estado": "validado",
+          "revisao_pedagogica": {
+            "versao": "revisao-informada-sondagem-0.1",
+            "instrucao": "A versão anterior deste componente foi avaliada por uma IA Juiz. Em revisao_pedagogica estão a sua versão anterior (versao_anterior), as falhas atribuídas a este componente (falhas_deste_componente, com descrição, gravidade, critério e correção sugerida) e as falhas de outros componentes (outras_falhas, só como contexto). Produza uma nova versão que corrija as falhas deste componente, priorizando as de gravidade maior ou crítica. Siga as correções sugeridas apenas quando forem compatíveis com o contexto confirmado (recursos, tipo de aula, duração e habilidade): nunca acrescente recursos, materiais ou dispositivos fora de contexto.recursos. Mantenha o contrato e a coerência com as saídas anteriores recebidas nesta chamada.",
+            "versao_anterior": {
+              "conteudos": [
+                "Conceito de algoritmos de ordenação",
+                "Simulação física de ordenação de listas",
+                "Critérios de comparação de elementos"
+              ],
+              "objetivo_geral": "Compreender e simular algoritmos clássicos de ordenação de listas por meio de computação desplugada usando quadro e pincel.",
+              "objetivos_especificos": [
+                {
+                  "id": "OBJ1",
+                  "descricao": "Explicar oralmente o funcionamento básico de um algoritmo de ordenação clássico."
+                },
+                {
+                  "id": "OBJ2",
+                  "descricao": "Demonstrar no quadro a ordenação sequencial de uma lista de valores com base em comparações."
+                }
+              ]
+            },
+            "falhas_deste_componente": [],
+            "outras_falhas": [
+              {
+                "id": "F1",
+                "componente": "sequencia",
+                "gravidade": "maior",
+                "criterio": "aderencia_curricular",
+                "descricao": "ET2 limita-se à observação da demonstração, não permitindo que os alunos manipulem a lista, impedindo a prática de \"utilizar\" algoritmos de ordenação.",
+                "correcao_sugerida": "Incluir uma etapa em que os alunos, em grupos, reorganizem fisicamente cartões representando os elementos da lista seguindo o algoritmo escolhido."
+              },
+              {
+                "id": "F2",
+                "componente": "sequencia",
+                "gravidade": "maior",
+                "criterio": "alinhamento_objetivos",
+                "descricao": "OBJ2 afirma que o aluno deve demonstrar a ordenação no quadro, porém a atividade ET2 descreve apenas observação, não proporcionando a oportunidade de demonstração pelo aluno.",
+                "correcao_sugerida": "Alterar a atividade para que cada aluno ou grupos executem a ordenação no quadro, escrevendo as trocas passo a passo."
+              },
+              {
+                "id": "F3",
+                "componente": "avaliacao_preliminar",
+                "gravidade": "maior",
+                "criterio": "avaliacao_aprendizagem",
+                "descricao": "Os instrumentos INS1 e INS2 mencionam registro mental e avaliação informal, sem rubricas ou critérios mensuráveis, comprometendo a confiabilidade da avaliação.",
+                "correcao_sugerida": "Desenvolver uma rubrica com indicadores claros (ex.: identifica corretamente pares comparados, descreve troca correta) e registrar as observações em planilha."
+              }
+            ]
+          },
+          "versao_esquema_api": "plano-2.0-estrutura-v1",
+          "provedor": "gemini",
+          "modelo_pedido": "gemini-3.5-flash-lite",
+          "versao_contrato": "plano-aula-2.0",
+          "versao_prompt": "especialistas-plano-2.3",
+          "repeticoes_503": 2,
+          "chamadas_http": 1,
+          "http_status": 200,
+          "resposta_api": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"conteudos\": [\n    \"Conceito de algoritmos de ordenação\",\n    \"Simulação física de ordenação de listas\",\n    \"Critérios de comparação de elementos\"\n  ],\n  \"objetivo_geral\": \"Compreender e simular algoritmos clássicos de ordenação de listas por meio de computação desplugada usando quadro e pincel.\",\n  \"objetivos_especificos\": [\n    {\n      \"id\": \"OBJ1\",\n      \"descricao\": \"Explicar oralmente o funcionamento básico de um algoritmo de ordenação clássico.\"\n    },\n    {\n      \"id\": \"OBJ2\",\n      \"descricao\": \"Demonstrar no quadro a ordenação sequencial de uma lista de valores com base em comparações.\"\n    }\n  ]\n}",
+                      "thoughtSignature": "EpYBCpMBAWkUfRM0YV85ALPiL4v697wSXFoulYIPFuP8CCpv6a9cjruQtq8Ab5W/mKezUm8QiNQAurl7xU7P10KzWufX+1q4TwimZ15fucmRo6Xc5AaqSZ86bS+94C+uViKHKP5mLilvlV9G5o/qgnOMlt+ctLEwRaYZ+446eshbySDcbCZbGo8O0NM/0GytdUlPvJPROspJ"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 1291,
+              "candidatesTokenCount": 181,
+              "totalTokenCount": 1472,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 1291
+                }
+              ],
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.5-flash-lite",
+            "responseId": "GzgHa5qeLLy-uMYP1vzQyQE"
+          },
+          "usage": {
+            "promptTokenCount": 1291,
+            "candidatesTokenCount": 181,
+            "totalTokenCount": 1472,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 1291
+              }
+            ],
+            "serviceTier": "standard"
+          },
+          "modelo_respondeu": "gemini-3.5-flash-lite",
+          "finish_reason": "STOP",
+          "conteudo_bruto": "{\n  \"conteudos\": [\n    \"Conceito de algoritmos de ordenação\",\n    \"Simulação física de ordenação de listas\",\n    \"Critérios de comparação de elementos\"\n  ],\n  \"objetivo_geral\": \"Compreender e simular algoritmos clássicos de ordenação de listas por meio de computação desplugada usando quadro e pincel.\",\n  \"objetivos_especificos\": [\n    {\n      \"id\": \"OBJ1\",\n      \"descricao\": \"Explicar oralmente o funcionamento básico de um algoritmo de ordenação clássico.\"\n    },\n    {\n      \"id\": \"OBJ2\",\n      \"descricao\": \"Demonstrar no quadro a ordenação sequencial de uma lista de valores com base em comparações.\"\n    }\n  ]\n}",
+          "latencia_s": 1.518,
+          "saida": {
+            "conteudos": [
+              "Conceito de algoritmos de ordenação",
+              "Simulação física de ordenação de listas",
+              "Critérios de comparação de elementos"
+            ],
+            "objetivo_geral": "Compreender e simular algoritmos clássicos de ordenação de listas por meio de computação desplugada usando quadro e pincel.",
+            "objetivos_especificos": [
+              {
+                "id": "OBJ1",
+                "descricao": "Explicar oralmente o funcionamento básico de um algoritmo de ordenação clássico."
+              },
+              {
+                "id": "OBJ2",
+                "descricao": "Demonstrar no quadro a ordenação sequencial de uma lista de valores com base em comparações."
+              }
+            ]
+          }
+        },
+        {
+          "agente": "avaliacao_preliminar",
+          "tentativa": 1,
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {
+              "objetivos": {
+                "conteudos": [
+                  "Conceito de algoritmos de ordenação",
+                  "Simulação física de ordenação de listas",
+                  "Critérios de comparação de elementos"
+                ],
+                "objetivo_geral": "Compreender e simular algoritmos clássicos de ordenação de listas por meio de computação desplugada usando quadro e pincel.",
+                "objetivos_especificos": [
+                  {
+                    "id": "OBJ1",
+                    "descricao": "Explicar oralmente o funcionamento básico de um algoritmo de ordenação clássico."
+                  },
+                  {
+                    "id": "OBJ2",
+                    "descricao": "Demonstrar no quadro a ordenação sequencial de uma lista de valores com base em comparações."
+                  }
+                ]
+              }
+            }
+          },
+          "estado": "validado",
+          "revisao_pedagogica": {
+            "versao": "revisao-informada-sondagem-0.1",
+            "instrucao": "A versão anterior deste componente foi avaliada por uma IA Juiz. Em revisao_pedagogica estão a sua versão anterior (versao_anterior), as falhas atribuídas a este componente (falhas_deste_componente, com descrição, gravidade, critério e correção sugerida) e as falhas de outros componentes (outras_falhas, só como contexto). Produza uma nova versão que corrija as falhas deste componente, priorizando as de gravidade maior ou crítica. Siga as correções sugeridas apenas quando forem compatíveis com o contexto confirmado (recursos, tipo de aula, duração e habilidade): nunca acrescente recursos, materiais ou dispositivos fora de contexto.recursos. Mantenha o contrato e a coerência com as saídas anteriores recebidas nesta chamada.",
+            "versao_anterior": {
+              "evidencias": [
+                {
+                  "id": "EVI1",
+                  "objetivo_id": "OBJ1",
+                  "criterio": "Clareza na explicação oral sobre a lógica de comparação e troca de elementos.",
+                  "evidencia_esperada": "O aluno explica oralmente, de forma coerente, como o algoritmo organiza os elementos da lista passo a passo."
+                },
+                {
+                  "id": "EVI2",
+                  "objetivo_id": "OBJ2",
+                  "criterio": "Corretude na representação e execução da ordenação sequencial desenhada no quadro.",
+                  "evidencia_esperada": "O aluno demonstra corretamente no quadro a disposição ordenada dos valores após realizar as comparações passo a passo."
+                }
+              ]
+            },
+            "falhas_deste_componente": [
+              {
+                "id": "F3",
+                "componente": "avaliacao_preliminar",
+                "gravidade": "maior",
+                "criterio": "avaliacao_aprendizagem",
+                "descricao": "Os instrumentos INS1 e INS2 mencionam registro mental e avaliação informal, sem rubricas ou critérios mensuráveis, comprometendo a confiabilidade da avaliação.",
+                "correcao_sugerida": "Desenvolver uma rubrica com indicadores claros (ex.: identifica corretamente pares comparados, descreve troca correta) e registrar as observações em planilha."
+              }
+            ],
+            "outras_falhas": [
+              {
+                "id": "F1",
+                "componente": "sequencia",
+                "gravidade": "maior",
+                "criterio": "aderencia_curricular",
+                "descricao": "ET2 limita-se à observação da demonstração, não permitindo que os alunos manipulem a lista, impedindo a prática de \"utilizar\" algoritmos de ordenação.",
+                "correcao_sugerida": "Incluir uma etapa em que os alunos, em grupos, reorganizem fisicamente cartões representando os elementos da lista seguindo o algoritmo escolhido."
+              },
+              {
+                "id": "F2",
+                "componente": "sequencia",
+                "gravidade": "maior",
+                "criterio": "alinhamento_objetivos",
+                "descricao": "OBJ2 afirma que o aluno deve demonstrar a ordenação no quadro, porém a atividade ET2 descreve apenas observação, não proporcionando a oportunidade de demonstração pelo aluno.",
+                "correcao_sugerida": "Alterar a atividade para que cada aluno ou grupos executem a ordenação no quadro, escrevendo as trocas passo a passo."
+              }
+            ]
+          },
+          "versao_esquema_api": "plano-2.0-estrutura-v1",
+          "provedor": "gemini",
+          "modelo_pedido": "gemini-3.5-flash-lite",
+          "versao_contrato": "plano-aula-2.0",
+          "versao_prompt": "especialistas-plano-2.3",
+          "repeticoes_503": 2,
+          "chamadas_http": 1,
+          "http_status": 200,
+          "resposta_api": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\"evidencias\": [{\"id\": \"EVI1\", \"objetivo_id\": \"OBJ1\", \"criterio\": \"Clareza e precisão na explicação oral sobre a lógica de comparação e troca de elementos.\", \"evidencia_esperada\": \"O aluno explica oralmente, utilizando os conceitos corretos, como o algoritmo organiza os elementos da lista passo a passo.\"}, {\"id\": \"EVI2\", \"objetivo_id\": \"OBJ2\", \"criterio\": \"Corretude na execução e representação da ordenação sequencial desenhada e escrita no quadro.\", \"evidencia_esperada\": \"O aluno demonstra corretamente no quadro a disposição ordenada dos valores após realizar as comparações passo a passo.\"}]}",
+                      "thoughtSignature": "EpYBCpMBAWkUfRORD7v4LhXlNz07QYX9n69OXe6ox9mMx3JL2NKrSISK6PeVextloHkdvhzZcav5HaGh4HMn7TrT6ni89zp7t8rHFMp1fO9v7nV5+G09464dCwA6Hr3Uo7TS2411AseUZm2CnK4iiT7ypSBpixYfnBMkps3fXShWHoPLJI+vm5WILBHhpN7Kj7DJp9PjRymw"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 1445,
+              "candidatesTokenCount": 153,
+              "totalTokenCount": 1598,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 1445
+                }
+              ],
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.5-flash-lite",
+            "responseId": "HTgHa-uTDYnjytMP9dCXwQs"
+          },
+          "usage": {
+            "promptTokenCount": 1445,
+            "candidatesTokenCount": 153,
+            "totalTokenCount": 1598,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 1445
+              }
+            ],
+            "serviceTier": "standard"
+          },
+          "modelo_respondeu": "gemini-3.5-flash-lite",
+          "finish_reason": "STOP",
+          "conteudo_bruto": "{\"evidencias\": [{\"id\": \"EVI1\", \"objetivo_id\": \"OBJ1\", \"criterio\": \"Clareza e precisão na explicação oral sobre a lógica de comparação e troca de elementos.\", \"evidencia_esperada\": \"O aluno explica oralmente, utilizando os conceitos corretos, como o algoritmo organiza os elementos da lista passo a passo.\"}, {\"id\": \"EVI2\", \"objetivo_id\": \"OBJ2\", \"criterio\": \"Corretude na execução e representação da ordenação sequencial desenhada e escrita no quadro.\", \"evidencia_esperada\": \"O aluno demonstra corretamente no quadro a disposição ordenada dos valores após realizar as comparações passo a passo.\"}]}",
+          "latencia_s": 7.043,
+          "saida": {
+            "evidencias": [
+              {
+                "id": "EVI1",
+                "objetivo_id": "OBJ1",
+                "criterio": "Clareza e precisão na explicação oral sobre a lógica de comparação e troca de elementos.",
+                "evidencia_esperada": "O aluno explica oralmente, utilizando os conceitos corretos, como o algoritmo organiza os elementos da lista passo a passo."
+              },
+              {
+                "id": "EVI2",
+                "objetivo_id": "OBJ2",
+                "criterio": "Corretude na execução e representação da ordenação sequencial desenhada e escrita no quadro.",
+                "evidencia_esperada": "O aluno demonstra corretamente no quadro a disposição ordenada dos valores após realizar as comparações passo a passo."
+              }
+            ]
+          }
+        },
+        {
+          "agente": "metodologia",
+          "tentativa": 1,
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {
+              "objetivos": {
+                "conteudos": [
+                  "Conceito de algoritmos de ordenação",
+                  "Simulação física de ordenação de listas",
+                  "Critérios de comparação de elementos"
+                ],
+                "objetivo_geral": "Compreender e simular algoritmos clássicos de ordenação de listas por meio de computação desplugada usando quadro e pincel.",
+                "objetivos_especificos": [
+                  {
+                    "id": "OBJ1",
+                    "descricao": "Explicar oralmente o funcionamento básico de um algoritmo de ordenação clássico."
+                  },
+                  {
+                    "id": "OBJ2",
+                    "descricao": "Demonstrar no quadro a ordenação sequencial de uma lista de valores com base em comparações."
+                  }
+                ]
+              },
+              "avaliacao_preliminar": {
+                "evidencias": [
+                  {
+                    "id": "EVI1",
+                    "objetivo_id": "OBJ1",
+                    "criterio": "Clareza e precisão na explicação oral sobre a lógica de comparação e troca de elementos.",
+                    "evidencia_esperada": "O aluno explica oralmente, utilizando os conceitos corretos, como o algoritmo organiza os elementos da lista passo a passo."
+                  },
+                  {
+                    "id": "EVI2",
+                    "objetivo_id": "OBJ2",
+                    "criterio": "Corretude na execução e representação da ordenação sequencial desenhada e escrita no quadro.",
+                    "evidencia_esperada": "O aluno demonstra corretamente no quadro a disposição ordenada dos valores após realizar as comparações passo a passo."
+                  }
+                ]
+              }
+            }
+          },
+          "estado": "validado",
+          "revisao_pedagogica": {
+            "versao": "revisao-informada-sondagem-0.1",
+            "instrucao": "A versão anterior deste componente foi avaliada por uma IA Juiz. Em revisao_pedagogica estão a sua versão anterior (versao_anterior), as falhas atribuídas a este componente (falhas_deste_componente, com descrição, gravidade, critério e correção sugerida) e as falhas de outros componentes (outras_falhas, só como contexto). Produza uma nova versão que corrija as falhas deste componente, priorizando as de gravidade maior ou crítica. Siga as correções sugeridas apenas quando forem compatíveis com o contexto confirmado (recursos, tipo de aula, duração e habilidade): nunca acrescente recursos, materiais ou dispositivos fora de contexto.recursos. Mantenha o contrato e a coerência com as saídas anteriores recebidas nesta chamada.",
+            "versao_anterior": {
+              "metodologia": "A aula será conduzida por meio de explicação oral interativa e demonstração prática no quadro e pincel. O professor introduzirá o conceito de ordenação de listas de forma desplugada, utilizando perguntas e respostas para engajar os alunos sobre a importância de organizar dados. Em seguida, o professor demonstrará passo a passo a execução de um algoritmo clássico de ordenação (como a lógica de comparação e troca) desenhando uma lista desordenada de números no quadro. Os alunos participarão ativamente respondendo a indagações sobre qual elemento deve ser comparado e trocado em cada etapa, enquanto o professor atualiza a representação visual no quadro.",
+              "recursos": "quadro e pincel"
+            },
+            "falhas_deste_componente": [],
+            "outras_falhas": [
+              {
+                "id": "F1",
+                "componente": "sequencia",
+                "gravidade": "maior",
+                "criterio": "aderencia_curricular",
+                "descricao": "ET2 limita-se à observação da demonstração, não permitindo que os alunos manipulem a lista, impedindo a prática de \"utilizar\" algoritmos de ordenação.",
+                "correcao_sugerida": "Incluir uma etapa em que os alunos, em grupos, reorganizem fisicamente cartões representando os elementos da lista seguindo o algoritmo escolhido."
+              },
+              {
+                "id": "F2",
+                "componente": "sequencia",
+                "gravidade": "maior",
+                "criterio": "alinhamento_objetivos",
+                "descricao": "OBJ2 afirma que o aluno deve demonstrar a ordenação no quadro, porém a atividade ET2 descreve apenas observação, não proporcionando a oportunidade de demonstração pelo aluno.",
+                "correcao_sugerida": "Alterar a atividade para que cada aluno ou grupos executem a ordenação no quadro, escrevendo as trocas passo a passo."
+              },
+              {
+                "id": "F3",
+                "componente": "avaliacao_preliminar",
+                "gravidade": "maior",
+                "criterio": "avaliacao_aprendizagem",
+                "descricao": "Os instrumentos INS1 e INS2 mencionam registro mental e avaliação informal, sem rubricas ou critérios mensuráveis, comprometendo a confiabilidade da avaliação.",
+                "correcao_sugerida": "Desenvolver uma rubrica com indicadores claros (ex.: identifica corretamente pares comparados, descreve troca correta) e registrar as observações em planilha."
+              }
+            ]
+          },
+          "versao_esquema_api": "plano-2.0-estrutura-v1",
+          "provedor": "gemini",
+          "modelo_pedido": "gemini-3.5-flash-lite",
+          "versao_contrato": "plano-aula-2.0",
+          "versao_prompt": "especialistas-plano-2.3",
+          "repeticoes_503": 2,
+          "chamadas_http": 2,
+          "falhas_http_transitorias": [
+            {
+              "tentativa_http": 1,
+              "http_status": 503,
+              "erro_corpo": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+              "latencia_s": 8.48,
+              "espera_s": 2.869
+            }
+          ],
+          "http_status": 200,
+          "resposta_api": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"metodologia\": \"A aula será conduzida por meio de explicação oral interativa e demonstração prática no quadro e pincel. O professor introduzirá o conceito de ordenação de listas de forma desplugada, utilizando perguntas e respostas para engajar os alunos sobre a importância de organizar dados. Em seguida, os alunos serão convidados a ir até o quadro para demonstrar e executar a ordenação passo a passo de uma lista de valores, escrevendo as trocas e comparações. Os demais alunos participarão ativamente respondendo a indagações e avaliando cada etapa executada no quadro, enquanto o professor registra as observações.\",\n  \"recursos\": \"quadro e pincel\"\n}",
+                      "thoughtSignature": "EpYBCpMBAWkUfROpFz6WzlLfWjCGgt2kxc1dRgRn+R2Wg5hfdpvwPbYha1ODLc3bIOzJiba8rmvIRocyl4dZ/+Xq6aKGV45VYauxvtg6ag+a6/lhrbwwwGpjDEYymBasd1Ow33bqyMKFp2BhVzvkMSMG2nMz9RsS1H6B+uCSthqhTG12XRA7I57vWxrp0vhv4vXbwjDcJd96"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 1604,
+              "candidatesTokenCount": 151,
+              "totalTokenCount": 1755,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 1604
+                }
+              ],
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.5-flash-lite",
+            "responseId": "LzgHa72LJt7niLMP7tS4iAc"
+          },
+          "usage": {
+            "promptTokenCount": 1604,
+            "candidatesTokenCount": 151,
+            "totalTokenCount": 1755,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 1604
+              }
+            ],
+            "serviceTier": "standard"
+          },
+          "modelo_respondeu": "gemini-3.5-flash-lite",
+          "finish_reason": "STOP",
+          "conteudo_bruto": "{\n  \"metodologia\": \"A aula será conduzida por meio de explicação oral interativa e demonstração prática no quadro e pincel. O professor introduzirá o conceito de ordenação de listas de forma desplugada, utilizando perguntas e respostas para engajar os alunos sobre a importância de organizar dados. Em seguida, os alunos serão convidados a ir até o quadro para demonstrar e executar a ordenação passo a passo de uma lista de valores, escrevendo as trocas e comparações. Os demais alunos participarão ativamente respondendo a indagações e avaliando cada etapa executada no quadro, enquanto o professor registra as observações.\",\n  \"recursos\": \"quadro e pincel\"\n}",
+          "latencia_s": 17.903,
+          "saida": {
+            "metodologia": "A aula será conduzida por meio de explicação oral interativa e demonstração prática no quadro e pincel. O professor introduzirá o conceito de ordenação de listas de forma desplugada, utilizando perguntas e respostas para engajar os alunos sobre a importância de organizar dados. Em seguida, os alunos serão convidados a ir até o quadro para demonstrar e executar a ordenação passo a passo de uma lista de valores, escrevendo as trocas e comparações. Os demais alunos participarão ativamente respondendo a indagações e avaliando cada etapa executada no quadro, enquanto o professor registra as observações.",
+            "recursos": "quadro e pincel"
+          }
+        },
+        {
+          "agente": "sequencia",
+          "tentativa": 1,
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {
+              "objetivos": {
+                "conteudos": [
+                  "Conceito de algoritmos de ordenação",
+                  "Simulação física de ordenação de listas",
+                  "Critérios de comparação de elementos"
+                ],
+                "objetivo_geral": "Compreender e simular algoritmos clássicos de ordenação de listas por meio de computação desplugada usando quadro e pincel.",
+                "objetivos_especificos": [
+                  {
+                    "id": "OBJ1",
+                    "descricao": "Explicar oralmente o funcionamento básico de um algoritmo de ordenação clássico."
+                  },
+                  {
+                    "id": "OBJ2",
+                    "descricao": "Demonstrar no quadro a ordenação sequencial de uma lista de valores com base em comparações."
+                  }
+                ]
+              },
+              "avaliacao_preliminar": {
+                "evidencias": [
+                  {
+                    "id": "EVI1",
+                    "objetivo_id": "OBJ1",
+                    "criterio": "Clareza e precisão na explicação oral sobre a lógica de comparação e troca de elementos.",
+                    "evidencia_esperada": "O aluno explica oralmente, utilizando os conceitos corretos, como o algoritmo organiza os elementos da lista passo a passo."
+                  },
+                  {
+                    "id": "EVI2",
+                    "objetivo_id": "OBJ2",
+                    "criterio": "Corretude na execução e representação da ordenação sequencial desenhada e escrita no quadro.",
+                    "evidencia_esperada": "O aluno demonstra corretamente no quadro a disposição ordenada dos valores após realizar as comparações passo a passo."
+                  }
+                ]
+              },
+              "metodologia": {
+                "metodologia": "A aula será conduzida por meio de explicação oral interativa e demonstração prática no quadro e pincel. O professor introduzirá o conceito de ordenação de listas de forma desplugada, utilizando perguntas e respostas para engajar os alunos sobre a importância de organizar dados. Em seguida, os alunos serão convidados a ir até o quadro para demonstrar e executar a ordenação passo a passo de uma lista de valores, escrevendo as trocas e comparações. Os demais alunos participarão ativamente respondendo a indagações e avaliando cada etapa executada no quadro, enquanto o professor registra as observações.",
+                "recursos": "quadro e pincel"
+              }
+            }
+          },
+          "estado": "validado",
+          "revisao_pedagogica": {
+            "versao": "revisao-informada-sondagem-0.1",
+            "instrucao": "A versão anterior deste componente foi avaliada por uma IA Juiz. Em revisao_pedagogica estão a sua versão anterior (versao_anterior), as falhas atribuídas a este componente (falhas_deste_componente, com descrição, gravidade, critério e correção sugerida) e as falhas de outros componentes (outras_falhas, só como contexto). Produza uma nova versão que corrija as falhas deste componente, priorizando as de gravidade maior ou crítica. Siga as correções sugeridas apenas quando forem compatíveis com o contexto confirmado (recursos, tipo de aula, duração e habilidade): nunca acrescente recursos, materiais ou dispositivos fora de contexto.recursos. Mantenha o contrato e a coerência com as saídas anteriores recebidas nesta chamada.",
+            "versao_anterior": {
+              "etapas": [
+                {
+                  "id": "ET1",
+                  "titulo": "Introdução aos Algoritmos de Ordenação",
+                  "minutos": 15,
+                  "acao_docente": "Explicar oralmente o conceito de algoritmos de ordenação e a importância de organizar dados, utilizando o quadro e pincel para ilustrar uma lista desordenada e fazendo perguntas interativas aos alunos.",
+                  "acao_discente": "Responder oralmente às perguntas do professor, participando da discussão sobre a lógica de comparação de elementos.",
+                  "atividade": "Discussão interativa e explicação oral sobre a lógica de ordenação clássica.",
+                  "objetivos_ids": [
+                    "OBJ1"
+                  ],
+                  "evidencias_ids": [
+                    "EVI1"
+                  ]
+                },
+                {
+                  "id": "ET2",
+                  "titulo": "Demonstração Prática de Ordenação no Quadro",
+                  "minutos": 35,
+                  "acao_docente": "Demonstrar no quadro passo a passo a execução de um algoritmo de ordenação de listas, conduzindo o processo com perguntas orientadas e atualizando a posição dos elementos no quadro com o pincel.",
+                  "acao_discente": "Observar a demonstração no quadro, responder às indagações sobre qual elemento deve ser comparado e trocado em cada etapa, e verificar a disposição ordenada final dos valores.",
+                  "atividade": "Simulação e demonstração prática no quadro da ordenação sequencial de uma lista.",
+                  "objetivos_ids": [
+                    "OBJ2"
+                  ],
+                  "evidencias_ids": [
+                    "EVI2"
+                  ]
+                }
+              ]
+            },
+            "falhas_deste_componente": [
+              {
+                "id": "F1",
+                "componente": "sequencia",
+                "gravidade": "maior",
+                "criterio": "aderencia_curricular",
+                "descricao": "ET2 limita-se à observação da demonstração, não permitindo que os alunos manipulem a lista, impedindo a prática de \"utilizar\" algoritmos de ordenação.",
+                "correcao_sugerida": "Incluir uma etapa em que os alunos, em grupos, reorganizem fisicamente cartões representando os elementos da lista seguindo o algoritmo escolhido."
+              },
+              {
+                "id": "F2",
+                "componente": "sequencia",
+                "gravidade": "maior",
+                "criterio": "alinhamento_objetivos",
+                "descricao": "OBJ2 afirma que o aluno deve demonstrar a ordenação no quadro, porém a atividade ET2 descreve apenas observação, não proporcionando a oportunidade de demonstração pelo aluno.",
+                "correcao_sugerida": "Alterar a atividade para que cada aluno ou grupos executem a ordenação no quadro, escrevendo as trocas passo a passo."
+              }
+            ],
+            "outras_falhas": [
+              {
+                "id": "F3",
+                "componente": "avaliacao_preliminar",
+                "gravidade": "maior",
+                "criterio": "avaliacao_aprendizagem",
+                "descricao": "Os instrumentos INS1 e INS2 mencionam registro mental e avaliação informal, sem rubricas ou critérios mensuráveis, comprometendo a confiabilidade da avaliação.",
+                "correcao_sugerida": "Desenvolver uma rubrica com indicadores claros (ex.: identifica corretamente pares comparados, descreve troca correta) e registrar as observações em planilha."
+              }
+            ]
+          },
+          "versao_esquema_api": "plano-2.0-estrutura-v1",
+          "provedor": "gemini",
+          "modelo_pedido": "gemini-3.5-flash-lite",
+          "versao_contrato": "plano-aula-2.0",
+          "versao_prompt": "especialistas-plano-2.3",
+          "repeticoes_503": 2,
+          "chamadas_http": 1,
+          "http_status": 200,
+          "resposta_api": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"etapas\": [\n    {\n      \"id\": \"ET1\",\n      \"titulo\": \"Introducao aos Algoritmos de Ordenacao\",\n      \"minutos\": 15,\n      \"acao_docente\": \"Explicar oralmente o conceito de algoritmos de ordenacao e a importancia de organizar dados, utilizando o quadro e pincel para ilustrar uma lista desordenada e fazendo perguntas interativas aos alunos.\",\n      \"acao_discente\": \"Responder oralmente as perguntas do professor, participando da discussao sobre a logica de comparacao de elementos.\",\n      \"atividade\": \"Discussao interativa e explicacao oral sobre a logica de ordenacao classica.\",\n      \"objetivos_ids\": [\n        \"OBJ1\"\n      ],\n      \"evidencias_ids\": [\n        \"EVI1\"\n      ]\n    },\n    {\n      \"id\": \"ET2\",\n      \"titulo\": \"Demonstracao Pratica de Ordenacao no Quadro pelos Alunos\",\n      \"minutos\": 35,\n      \"acao_docente\": \"Conduzir a atividade chamando os alunos ate o quadro para demonstrar e executar passo a passo a ordenacao de uma lista de valores, escrevendo as trocas e comparacoes com o pincel, com o auxilio e participacao da turma.\",\n      \"acao_discente\": \"Ir ate o quadro para executar a ordenacao passo a passo, escrevendo as comparacoes e trocas solicitadas, enquanto os demais colegas respondem as indagoes e avaliam cada etapa executada.\",\n      \"atividade\": \"Simulacao e demonstracao pratica no quadro da ordenacao sequencial de uma lista realizada diretamente pelos alunos.\",\n      \"objetivos_ids\": [\n        \"OBJ2\"\n      ],\n      \"evidencias_ids\": [\n        \"EVI2\"\n      ]\n    }\n  ]\n}",
+                      "thoughtSignature": "EpYBCpMBAWkUfROy5H+D7mjn+RJ+DEwK16FCbxQuw+T6mv7M9tndjWjcQ8LgMYS0OqzPNWgECgnniGThoFJnREsFlW2kZGJ3dgyzxsPB8o4kD3U2+YpPRsn5ri0QmqMldPfjBnyDWqbuh90dwGkhhVbLf8jcZd1h7KbRZpCDgaQeIqoBJH72oSKTm0LLOnZakow1ECTAJzIH"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 1957,
+              "candidatesTokenCount": 421,
+              "totalTokenCount": 2378,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 1957
+                }
+              ],
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.5-flash-lite",
+            "responseId": "NjgHa7bTCvuOytMPgKqi8AQ"
+          },
+          "usage": {
+            "promptTokenCount": 1957,
+            "candidatesTokenCount": 421,
+            "totalTokenCount": 2378,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 1957
+              }
+            ],
+            "serviceTier": "standard"
+          },
+          "modelo_respondeu": "gemini-3.5-flash-lite",
+          "finish_reason": "STOP",
+          "conteudo_bruto": "{\n  \"etapas\": [\n    {\n      \"id\": \"ET1\",\n      \"titulo\": \"Introducao aos Algoritmos de Ordenacao\",\n      \"minutos\": 15,\n      \"acao_docente\": \"Explicar oralmente o conceito de algoritmos de ordenacao e a importancia de organizar dados, utilizando o quadro e pincel para ilustrar uma lista desordenada e fazendo perguntas interativas aos alunos.\",\n      \"acao_discente\": \"Responder oralmente as perguntas do professor, participando da discussao sobre a logica de comparacao de elementos.\",\n      \"atividade\": \"Discussao interativa e explicacao oral sobre a logica de ordenacao classica.\",\n      \"objetivos_ids\": [\n        \"OBJ1\"\n      ],\n      \"evidencias_ids\": [\n        \"EVI1\"\n      ]\n    },\n    {\n      \"id\": \"ET2\",\n      \"titulo\": \"Demonstracao Pratica de Ordenacao no Quadro pelos Alunos\",\n      \"minutos\": 35,\n      \"acao_docente\": \"Conduzir a atividade chamando os alunos ate o quadro para demonstrar e executar passo a passo a ordenacao de uma lista de valores, escrevendo as trocas e comparacoes com o pincel, com o auxilio e participacao da turma.\",\n      \"acao_discente\": \"Ir ate o quadro para executar a ordenacao passo a passo, escrevendo as comparacoes e trocas solicitadas, enquanto os demais colegas respondem as indagoes e avaliam cada etapa executada.\",\n      \"atividade\": \"Simulacao e demonstracao pratica no quadro da ordenacao sequencial de uma lista realizada diretamente pelos alunos.\",\n      \"objetivos_ids\": [\n        \"OBJ2\"\n      ],\n      \"evidencias_ids\": [\n        \"EVI2\"\n      ]\n    }\n  ]\n}",
+          "latencia_s": 2.054,
+          "saida": {
+            "etapas": [
+              {
+                "id": "ET1",
+                "titulo": "Introducao aos Algoritmos de Ordenacao",
+                "minutos": 15,
+                "acao_docente": "Explicar oralmente o conceito de algoritmos de ordenacao e a importancia de organizar dados, utilizando o quadro e pincel para ilustrar uma lista desordenada e fazendo perguntas interativas aos alunos.",
+                "acao_discente": "Responder oralmente as perguntas do professor, participando da discussao sobre a logica de comparacao de elementos.",
+                "atividade": "Discussao interativa e explicacao oral sobre a logica de ordenacao classica.",
+                "objetivos_ids": [
+                  "OBJ1"
+                ],
+                "evidencias_ids": [
+                  "EVI1"
+                ]
+              },
+              {
+                "id": "ET2",
+                "titulo": "Demonstracao Pratica de Ordenacao no Quadro pelos Alunos",
+                "minutos": 35,
+                "acao_docente": "Conduzir a atividade chamando os alunos ate o quadro para demonstrar e executar passo a passo a ordenacao de uma lista de valores, escrevendo as trocas e comparacoes com o pincel, com o auxilio e participacao da turma.",
+                "acao_discente": "Ir ate o quadro para executar a ordenacao passo a passo, escrevendo as comparacoes e trocas solicitadas, enquanto os demais colegas respondem as indagoes e avaliam cada etapa executada.",
+                "atividade": "Simulacao e demonstracao pratica no quadro da ordenacao sequencial de uma lista realizada diretamente pelos alunos.",
+                "objetivos_ids": [
+                  "OBJ2"
+                ],
+                "evidencias_ids": [
+                  "EVI2"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "agente": "avaliacao_final",
+          "tentativa": 1,
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {
+              "objetivos": {
+                "conteudos": [
+                  "Conceito de algoritmos de ordenação",
+                  "Simulação física de ordenação de listas",
+                  "Critérios de comparação de elementos"
+                ],
+                "objetivo_geral": "Compreender e simular algoritmos clássicos de ordenação de listas por meio de computação desplugada usando quadro e pincel.",
+                "objetivos_especificos": [
+                  {
+                    "id": "OBJ1",
+                    "descricao": "Explicar oralmente o funcionamento básico de um algoritmo de ordenação clássico."
+                  },
+                  {
+                    "id": "OBJ2",
+                    "descricao": "Demonstrar no quadro a ordenação sequencial de uma lista de valores com base em comparações."
+                  }
+                ]
+              },
+              "avaliacao_preliminar": {
+                "evidencias": [
+                  {
+                    "id": "EVI1",
+                    "objetivo_id": "OBJ1",
+                    "criterio": "Clareza e precisão na explicação oral sobre a lógica de comparação e troca de elementos.",
+                    "evidencia_esperada": "O aluno explica oralmente, utilizando os conceitos corretos, como o algoritmo organiza os elementos da lista passo a passo."
+                  },
+                  {
+                    "id": "EVI2",
+                    "objetivo_id": "OBJ2",
+                    "criterio": "Corretude na execução e representação da ordenação sequencial desenhada e escrita no quadro.",
+                    "evidencia_esperada": "O aluno demonstra corretamente no quadro a disposição ordenada dos valores após realizar as comparações passo a passo."
+                  }
+                ]
+              },
+              "metodologia": {
+                "metodologia": "A aula será conduzida por meio de explicação oral interativa e demonstração prática no quadro e pincel. O professor introduzirá o conceito de ordenação de listas de forma desplugada, utilizando perguntas e respostas para engajar os alunos sobre a importância de organizar dados. Em seguida, os alunos serão convidados a ir até o quadro para demonstrar e executar a ordenação passo a passo de uma lista de valores, escrevendo as trocas e comparações. Os demais alunos participarão ativamente respondendo a indagações e avaliando cada etapa executada no quadro, enquanto o professor registra as observações.",
+                "recursos": "quadro e pincel"
+              },
+              "sequencia": {
+                "etapas": [
+                  {
+                    "id": "ET1",
+                    "titulo": "Introducao aos Algoritmos de Ordenacao",
+                    "minutos": 15,
+                    "acao_docente": "Explicar oralmente o conceito de algoritmos de ordenacao e a importancia de organizar dados, utilizando o quadro e pincel para ilustrar uma lista desordenada e fazendo perguntas interativas aos alunos.",
+                    "acao_discente": "Responder oralmente as perguntas do professor, participando da discussao sobre a logica de comparacao de elementos.",
+                    "atividade": "Discussao interativa e explicacao oral sobre a logica de ordenacao classica.",
+                    "objetivos_ids": [
+                      "OBJ1"
+                    ],
+                    "evidencias_ids": [
+                      "EVI1"
+                    ]
+                  },
+                  {
+                    "id": "ET2",
+                    "titulo": "Demonstracao Pratica de Ordenacao no Quadro pelos Alunos",
+                    "minutos": 35,
+                    "acao_docente": "Conduzir a atividade chamando os alunos ate o quadro para demonstrar e executar passo a passo a ordenacao de uma lista de valores, escrevendo as trocas e comparacoes com o pincel, com o auxilio e participacao da turma.",
+                    "acao_discente": "Ir ate o quadro para executar a ordenacao passo a passo, escrevendo as comparacoes e trocas solicitadas, enquanto os demais colegas respondem as indagoes e avaliam cada etapa executada.",
+                    "atividade": "Simulacao e demonstracao pratica no quadro da ordenacao sequencial de uma lista realizada diretamente pelos alunos.",
+                    "objetivos_ids": [
+                      "OBJ2"
+                    ],
+                    "evidencias_ids": [
+                      "EVI2"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "estado": "validado",
+          "revisao_pedagogica": {
+            "versao": "revisao-informada-sondagem-0.1",
+            "instrucao": "A versão anterior deste componente foi avaliada por uma IA Juiz. Em revisao_pedagogica estão a sua versão anterior (versao_anterior), as falhas atribuídas a este componente (falhas_deste_componente, com descrição, gravidade, critério e correção sugerida) e as falhas de outros componentes (outras_falhas, só como contexto). Produza uma nova versão que corrija as falhas deste componente, priorizando as de gravidade maior ou crítica. Siga as correções sugeridas apenas quando forem compatíveis com o contexto confirmado (recursos, tipo de aula, duração e habilidade): nunca acrescente recursos, materiais ou dispositivos fora de contexto.recursos. Mantenha o contrato e a coerência com as saídas anteriores recebidas nesta chamada.",
+            "versao_anterior": {
+              "instrumentos": [
+                {
+                  "id": "INS1",
+                  "descricao": "Guia de observação oral e perguntas e respostas na introdução",
+                  "etapas_ids": [
+                    "ET1"
+                  ],
+                  "evidencias_ids": [
+                    "EVI1"
+                  ],
+                  "procedimento": "O professor observa a participação oral dos alunos durante a discussão interativa no início da aula, registrando mentalmente e verificando se explicam coherentemente a lógica de comparação e troca de elementos."
+                },
+                {
+                  "id": "INS2",
+                  "descricao": "Registro de verificação da demonstração prática no quadro",
+                  "etapas_ids": [
+                    "ET2"
+                  ],
+                  "evidencias_ids": [
+                    "EVI2"
+                  ],
+                  "procedimento": "O professor acompanha as respostas dos alunos e observa a execução da demonstração no quadro e pincel, avaliando se os passos da ordenação sequencial da lista foram conduzidos e demonstrados corretamente."
+                }
+              ],
+              "uso_resultados": "O professor usará os dados coletados por meio da observação oral e da demonstração prática no quadro para verificar se os alunos compreenderam a lógica dos algoritmos clássicos de ordenação. Com base nas respostas e na participação durante a atividade com quadro e pincel, o professor poderá retomar conceitos essenciais, esclarecer dúvidas e ajustar explicações futuras sobre a manipulação de listas."
+            },
+            "falhas_deste_componente": [],
+            "outras_falhas": [
+              {
+                "id": "F1",
+                "componente": "sequencia",
+                "gravidade": "maior",
+                "criterio": "aderencia_curricular",
+                "descricao": "ET2 limita-se à observação da demonstração, não permitindo que os alunos manipulem a lista, impedindo a prática de \"utilizar\" algoritmos de ordenação.",
+                "correcao_sugerida": "Incluir uma etapa em que os alunos, em grupos, reorganizem fisicamente cartões representando os elementos da lista seguindo o algoritmo escolhido."
+              },
+              {
+                "id": "F2",
+                "componente": "sequencia",
+                "gravidade": "maior",
+                "criterio": "alinhamento_objetivos",
+                "descricao": "OBJ2 afirma que o aluno deve demonstrar a ordenação no quadro, porém a atividade ET2 descreve apenas observação, não proporcionando a oportunidade de demonstração pelo aluno.",
+                "correcao_sugerida": "Alterar a atividade para que cada aluno ou grupos executem a ordenação no quadro, escrevendo as trocas passo a passo."
+              },
+              {
+                "id": "F3",
+                "componente": "avaliacao_preliminar",
+                "gravidade": "maior",
+                "criterio": "avaliacao_aprendizagem",
+                "descricao": "Os instrumentos INS1 e INS2 mencionam registro mental e avaliação informal, sem rubricas ou critérios mensuráveis, comprometendo a confiabilidade da avaliação.",
+                "correcao_sugerida": "Desenvolver uma rubrica com indicadores claros (ex.: identifica corretamente pares comparados, descreve troca correta) e registrar as observações em planilha."
+              }
+            ]
+          },
+          "versao_esquema_api": "plano-2.0-estrutura-v1",
+          "provedor": "gemini",
+          "modelo_pedido": "gemini-3.5-flash-lite",
+          "versao_contrato": "plano-aula-2.0",
+          "versao_prompt": "especialistas-plano-2.3",
+          "repeticoes_503": 2,
+          "chamadas_http": 2,
+          "falhas_http_transitorias": [
+            {
+              "tentativa_http": 1,
+              "http_status": 503,
+              "erro_corpo": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+              "latencia_s": 1.535,
+              "espera_s": 2.415
+            }
+          ],
+          "http_status": 200,
+          "resposta_api": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\n  \"instrumentos\": [\n    {\n      \"id\": \"INS1\",\n      \"descricao\": \"Instrumento de observação oral da explicação e lógica de comparação\",\n      \"etapas_ids\": [\n        \"ET1\"\n      ],\n      \"evidencias_ids\": [\n        \"EVI1\"\n      ],\n      \"procedimento\": \"O professor observa a participação oral dos alunos durante a discussão interativa, avaliando com base na clareza e precisão da explicação oral sobre a lógica de comparação e troca de elementos.\"\n    },\n    {\n      \"id\": \"INS2\",\n      \"descricao\": \"Instrumento de verificação da execução da demonstração prática no quadro\",\n      \"etapas_ids\": [\n        \"ET2\"\n      ],\n      \"evidencias_ids\": [\n        \"EVI2\"\n      ],\n      \"procedimento\": \"O professor acompanha e avalia a demonstração realizada no quadro e pincel, verificando a corretude na execução e representação da ordenação sequencial dos valores.\"\n    }\n  ],\n  \"uso_resultados\": \"O professor usará os dados coletados por meio da observação oral e da demonstração prática no quadro para verificar se os alunos compreenderam a lógica dos algoritmos clássicos de ordenação. Com base nas respostas e na participação durante a atividade com quadro e pincel, o professor poderá retomar conceitos essenciais, esclarecer dúvidas e ajustar explicações futuras sobre a manipulação de listas.\"\n}",
+                      "thoughtSignature": "EpYBCpMBAWkUfRM3Fqd4r0pzhdabZ7P45bPH35Ihq5CiReKQ5axvQZ0Jb6bpfbniupXKeQmOSns62bIxEaR1GEm0uCGNS+iwBnVV2Mwz/Qb93ybLRB96W4weEv3miBya2xFIX0mR6u1IXiWgcZSunq4I9OwFeySolOCnMCKxC7+O5sHcAXScR5lYEkIvsxoiRlSc8ughbhhI"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2276,
+              "candidatesTokenCount": 333,
+              "totalTokenCount": 2609,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2276
+                }
+              ],
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.5-flash-lite",
+            "responseId": "PDgHa4vcC-ao5NoP36WqoAM"
+          },
+          "usage": {
+            "promptTokenCount": 2276,
+            "candidatesTokenCount": 333,
+            "totalTokenCount": 2609,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 2276
+              }
+            ],
+            "serviceTier": "standard"
+          },
+          "modelo_respondeu": "gemini-3.5-flash-lite",
+          "finish_reason": "STOP",
+          "conteudo_bruto": "{\n  \"instrumentos\": [\n    {\n      \"id\": \"INS1\",\n      \"descricao\": \"Instrumento de observação oral da explicação e lógica de comparação\",\n      \"etapas_ids\": [\n        \"ET1\"\n      ],\n      \"evidencias_ids\": [\n        \"EVI1\"\n      ],\n      \"procedimento\": \"O professor observa a participação oral dos alunos durante a discussão interativa, avaliando com base na clareza e precisão da explicação oral sobre a lógica de comparação e troca de elementos.\"\n    },\n    {\n      \"id\": \"INS2\",\n      \"descricao\": \"Instrumento de verificação da execução da demonstração prática no quadro\",\n      \"etapas_ids\": [\n        \"ET2\"\n      ],\n      \"evidencias_ids\": [\n        \"EVI2\"\n      ],\n      \"procedimento\": \"O professor acompanha e avalia a demonstração realizada no quadro e pincel, verificando a corretude na execução e representação da ordenação sequencial dos valores.\"\n    }\n  ],\n  \"uso_resultados\": \"O professor usará os dados coletados por meio da observação oral e da demonstração prática no quadro para verificar se os alunos compreenderam a lógica dos algoritmos clássicos de ordenação. Com base nas respostas e na participação durante a atividade com quadro e pincel, o professor poderá retomar conceitos essenciais, esclarecer dúvidas e ajustar explicações futuras sobre a manipulação de listas.\"\n}",
+          "latencia_s": 7.572,
+          "saida": {
+            "instrumentos": [
+              {
+                "id": "INS1",
+                "descricao": "Instrumento de observação oral da explicação e lógica de comparação",
+                "etapas_ids": [
+                  "ET1"
+                ],
+                "evidencias_ids": [
+                  "EVI1"
+                ],
+                "procedimento": "O professor observa a participação oral dos alunos durante a discussão interativa, avaliando com base na clareza e precisão da explicação oral sobre a lógica de comparação e troca de elementos."
+              },
+              {
+                "id": "INS2",
+                "descricao": "Instrumento de verificação da execução da demonstração prática no quadro",
+                "etapas_ids": [
+                  "ET2"
+                ],
+                "evidencias_ids": [
+                  "EVI2"
+                ],
+                "procedimento": "O professor acompanha e avalia a demonstração realizada no quadro e pincel, verificando a corretude na execução e representação da ordenação sequencial dos valores."
+              }
+            ],
+            "uso_resultados": "O professor usará os dados coletados por meio da observação oral e da demonstração prática no quadro para verificar se os alunos compreenderam a lógica dos algoritmos clássicos de ordenação. Com base nas respostas e na participação durante a atividade com quadro e pincel, o professor poderá retomar conceitos essenciais, esclarecer dúvidas e ajustar explicações futuras sobre a manipulação de listas."
+          }
+        },
+        {
+          "agente": "adaptacao",
+          "tentativa": 1,
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {
+              "objetivos": {
+                "conteudos": [
+                  "Conceito de algoritmos de ordenação",
+                  "Simulação física de ordenação de listas",
+                  "Critérios de comparação de elementos"
+                ],
+                "objetivo_geral": "Compreender e simular algoritmos clássicos de ordenação de listas por meio de computação desplugada usando quadro e pincel.",
+                "objetivos_especificos": [
+                  {
+                    "id": "OBJ1",
+                    "descricao": "Explicar oralmente o funcionamento básico de um algoritmo de ordenação clássico."
+                  },
+                  {
+                    "id": "OBJ2",
+                    "descricao": "Demonstrar no quadro a ordenação sequencial de uma lista de valores com base em comparações."
+                  }
+                ]
+              },
+              "avaliacao_preliminar": {
+                "evidencias": [
+                  {
+                    "id": "EVI1",
+                    "objetivo_id": "OBJ1",
+                    "criterio": "Clareza e precisão na explicação oral sobre a lógica de comparação e troca de elementos.",
+                    "evidencia_esperada": "O aluno explica oralmente, utilizando os conceitos corretos, como o algoritmo organiza os elementos da lista passo a passo."
+                  },
+                  {
+                    "id": "EVI2",
+                    "objetivo_id": "OBJ2",
+                    "criterio": "Corretude na execução e representação da ordenação sequencial desenhada e escrita no quadro.",
+                    "evidencia_esperada": "O aluno demonstra corretamente no quadro a disposição ordenada dos valores após realizar as comparações passo a passo."
+                  }
+                ]
+              },
+              "metodologia": {
+                "metodologia": "A aula será conduzida por meio de explicação oral interativa e demonstração prática no quadro e pincel. O professor introduzirá o conceito de ordenação de listas de forma desplugada, utilizando perguntas e respostas para engajar os alunos sobre a importância de organizar dados. Em seguida, os alunos serão convidados a ir até o quadro para demonstrar e executar a ordenação passo a passo de uma lista de valores, escrevendo as trocas e comparações. Os demais alunos participarão ativamente respondendo a indagações e avaliando cada etapa executada no quadro, enquanto o professor registra as observações.",
+                "recursos": "quadro e pincel"
+              },
+              "sequencia": {
+                "etapas": [
+                  {
+                    "id": "ET1",
+                    "titulo": "Introducao aos Algoritmos de Ordenacao",
+                    "minutos": 15,
+                    "acao_docente": "Explicar oralmente o conceito de algoritmos de ordenacao e a importancia de organizar dados, utilizando o quadro e pincel para ilustrar uma lista desordenada e fazendo perguntas interativas aos alunos.",
+                    "acao_discente": "Responder oralmente as perguntas do professor, participando da discussao sobre a logica de comparacao de elementos.",
+                    "atividade": "Discussao interativa e explicacao oral sobre a logica de ordenacao classica.",
+                    "objetivos_ids": [
+                      "OBJ1"
+                    ],
+                    "evidencias_ids": [
+                      "EVI1"
+                    ]
+                  },
+                  {
+                    "id": "ET2",
+                    "titulo": "Demonstracao Pratica de Ordenacao no Quadro pelos Alunos",
+                    "minutos": 35,
+                    "acao_docente": "Conduzir a atividade chamando os alunos ate o quadro para demonstrar e executar passo a passo a ordenacao de uma lista de valores, escrevendo as trocas e comparacoes com o pincel, com o auxilio e participacao da turma.",
+                    "acao_discente": "Ir ate o quadro para executar a ordenacao passo a passo, escrevendo as comparacoes e trocas solicitadas, enquanto os demais colegas respondem as indagoes e avaliam cada etapa executada.",
+                    "atividade": "Simulacao e demonstracao pratica no quadro da ordenacao sequencial de uma lista realizada diretamente pelos alunos.",
+                    "objetivos_ids": [
+                      "OBJ2"
+                    ],
+                    "evidencias_ids": [
+                      "EVI2"
+                    ]
+                  }
+                ]
+              },
+              "avaliacao_final": {
+                "instrumentos": [
+                  {
+                    "id": "INS1",
+                    "descricao": "Instrumento de observação oral da explicação e lógica de comparação",
+                    "etapas_ids": [
+                      "ET1"
+                    ],
+                    "evidencias_ids": [
+                      "EVI1"
+                    ],
+                    "procedimento": "O professor observa a participação oral dos alunos durante a discussão interativa, avaliando com base na clareza e precisão da explicação oral sobre a lógica de comparação e troca de elementos."
+                  },
+                  {
+                    "id": "INS2",
+                    "descricao": "Instrumento de verificação da execução da demonstração prática no quadro",
+                    "etapas_ids": [
+                      "ET2"
+                    ],
+                    "evidencias_ids": [
+                      "EVI2"
+                    ],
+                    "procedimento": "O professor acompanha e avalia a demonstração realizada no quadro e pincel, verificando a corretude na execução e representação da ordenação sequencial dos valores."
+                  }
+                ],
+                "uso_resultados": "O professor usará os dados coletados por meio da observação oral e da demonstração prática no quadro para verificar se os alunos compreenderam a lógica dos algoritmos clássicos de ordenação. Com base nas respostas e na participação durante a atividade com quadro e pincel, o professor poderá retomar conceitos essenciais, esclarecer dúvidas e ajustar explicações futuras sobre a manipulação de listas."
+              }
+            }
+          },
+          "estado": "validado",
+          "revisao_pedagogica": {
+            "versao": "revisao-informada-sondagem-0.1",
+            "instrucao": "A versão anterior deste componente foi avaliada por uma IA Juiz. Em revisao_pedagogica estão a sua versão anterior (versao_anterior), as falhas atribuídas a este componente (falhas_deste_componente, com descrição, gravidade, critério e correção sugerida) e as falhas de outros componentes (outras_falhas, só como contexto). Produza uma nova versão que corrija as falhas deste componente, priorizando as de gravidade maior ou crítica. Siga as correções sugeridas apenas quando forem compatíveis com o contexto confirmado (recursos, tipo de aula, duração e habilidade): nunca acrescente recursos, materiais ou dispositivos fora de contexto.recursos. Mantenha o contrato e a coerência com as saídas anteriores recebidas nesta chamada.",
+            "versao_anterior": {
+              "adaptacoes": [
+                {
+                  "id": "ADP1",
+                  "descricao": "Simplificar a explanação oral dividindo o conceito em partes menores, com perguntas e respostas mais direcionadas para alunos com dificuldades de compreensão na introdução.",
+                  "objetivos_ids": [
+                    "OBJ1"
+                  ],
+                  "etapas_ids": [
+                    "ET1"
+                  ]
+                },
+                {
+                  "id": "ADP2",
+                  "descricao": "Utilizar uma lista com menos elementos no quadro e demonstração passo a passo redobrada, destacando visualmente as comparações com o pincel.",
+                  "objetivos_ids": [
+                    "OBJ2"
+                  ],
+                  "etapas_ids": [
+                    "ET2"
+                  ]
+                }
+              ]
+            },
+            "falhas_deste_componente": [],
+            "outras_falhas": [
+              {
+                "id": "F1",
+                "componente": "sequencia",
+                "gravidade": "maior",
+                "criterio": "aderencia_curricular",
+                "descricao": "ET2 limita-se à observação da demonstração, não permitindo que os alunos manipulem a lista, impedindo a prática de \"utilizar\" algoritmos de ordenação.",
+                "correcao_sugerida": "Incluir uma etapa em que os alunos, em grupos, reorganizem fisicamente cartões representando os elementos da lista seguindo o algoritmo escolhido."
+              },
+              {
+                "id": "F2",
+                "componente": "sequencia",
+                "gravidade": "maior",
+                "criterio": "alinhamento_objetivos",
+                "descricao": "OBJ2 afirma que o aluno deve demonstrar a ordenação no quadro, porém a atividade ET2 descreve apenas observação, não proporcionando a oportunidade de demonstração pelo aluno.",
+                "correcao_sugerida": "Alterar a atividade para que cada aluno ou grupos executem a ordenação no quadro, escrevendo as trocas passo a passo."
+              },
+              {
+                "id": "F3",
+                "componente": "avaliacao_preliminar",
+                "gravidade": "maior",
+                "criterio": "avaliacao_aprendizagem",
+                "descricao": "Os instrumentos INS1 e INS2 mencionam registro mental e avaliação informal, sem rubricas ou critérios mensuráveis, comprometendo a confiabilidade da avaliação.",
+                "correcao_sugerida": "Desenvolver uma rubrica com indicadores claros (ex.: identifica corretamente pares comparados, descreve troca correta) e registrar as observações em planilha."
+              }
+            ]
+          },
+          "versao_esquema_api": "plano-2.0-estrutura-v1",
+          "provedor": "gemini",
+          "modelo_pedido": "gemini-3.5-flash-lite",
+          "versao_contrato": "plano-aula-2.0",
+          "versao_prompt": "especialistas-plano-2.3",
+          "repeticoes_503": 2,
+          "chamadas_http": 1,
+          "http_status": 200,
+          "resposta_api": {
+            "candidates": [
+              {
+                "content": {
+                  "parts": [
+                    {
+                      "text": "{\"adaptacoes\": [{\"id\": \"ADP1\", \"descricao\": \"Simplificar a explana\\u0026ccedil;\\u0026atilde;o oral dividindo o conceito em partes menores, com perguntas e respostas mais direcionadas para alunos com dificuldades de compreens\\u0026atilde;o na introdu\\u0026ccedil;\\u0026atilde;o.\", \"objetivos_ids\": [\"OBJ1\"], \"etapas_ids\": [\"ET1\"]}, {\"id\": \"ADP2\", \"descricao\": \"Utilizar uma lista com menos elementos no quadro e demonstra\\u0026ccedil;\\u0026atilde;o passo a passo redobrada, destacando visualmente as compara\\u0026ccedil;\\u0026otilde;es com o pincel.\", \"objetivos_ids\": [\"OBJ2\"], \"etapas_ids\": [\"ET2\"]}]}",
+                      "thoughtSignature": "EpYBCpMBAWkUfRN8t96HE7EdQPP5F4BZgXRg0sI1otCql2732XpS4u5U8j59W/MAS+6osmZEh4+FJzQtQm24nmG+x38QfD8bBxWkbgy2S5Xj7brIWPwDdmRAIHxzPgz6moDG2HTlik9/TNH0ZqA65zQ37S5O4qTPPQ8/Td20LGBzrvBEz/HywERTWTOfkGk8RKxeRamMJ7Qw"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "finishReason": "STOP",
+                "index": 0
+              }
+            ],
+            "usageMetadata": {
+              "promptTokenCount": 2361,
+              "candidatesTokenCount": 201,
+              "totalTokenCount": 2562,
+              "promptTokensDetails": [
+                {
+                  "modality": "TEXT",
+                  "tokenCount": 2361
+                }
+              ],
+              "serviceTier": "standard"
+            },
+            "modelVersion": "gemini-3.5-flash-lite",
+            "responseId": "PzgHa439MoeqxdIPrL7O2Qg"
+          },
+          "usage": {
+            "promptTokenCount": 2361,
+            "candidatesTokenCount": 201,
+            "totalTokenCount": 2562,
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 2361
+              }
+            ],
+            "serviceTier": "standard"
+          },
+          "modelo_respondeu": "gemini-3.5-flash-lite",
+          "finish_reason": "STOP",
+          "conteudo_bruto": "{\"adaptacoes\": [{\"id\": \"ADP1\", \"descricao\": \"Simplificar a explana\\u0026ccedil;\\u0026atilde;o oral dividindo o conceito em partes menores, com perguntas e respostas mais direcionadas para alunos com dificuldades de compreens\\u0026atilde;o na introdu\\u0026ccedil;\\u0026atilde;o.\", \"objetivos_ids\": [\"OBJ1\"], \"etapas_ids\": [\"ET1\"]}, {\"id\": \"ADP2\", \"descricao\": \"Utilizar uma lista com menos elementos no quadro e demonstra\\u0026ccedil;\\u0026atilde;o passo a passo redobrada, destacando visualmente as compara\\u0026ccedil;\\u0026otilde;es com o pincel.\", \"objetivos_ids\": [\"OBJ2\"], \"etapas_ids\": [\"ET2\"]}]}",
+          "latencia_s": 1.882,
+          "saida": {
+            "adaptacoes": [
+              {
+                "id": "ADP1",
+                "descricao": "Simplificar a explana&ccedil;&atilde;o oral dividindo o conceito em partes menores, com perguntas e respostas mais direcionadas para alunos com dificuldades de compreens&atilde;o na introdu&ccedil;&atilde;o.",
+                "objetivos_ids": [
+                  "OBJ1"
+                ],
+                "etapas_ids": [
+                  "ET1"
+                ]
+              },
+              {
+                "id": "ADP2",
+                "descricao": "Utilizar uma lista com menos elementos no quadro e demonstra&ccedil;&atilde;o passo a passo redobrada, destacando visualmente as compara&ccedil;&otilde;es com o pincel.",
+                "objetivos_ids": [
+                  "OBJ2"
+                ],
+                "etapas_ids": [
+                  "ET2"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "agente": "integrador",
+          "tipo": "deterministico",
+          "estado": "validado",
+          "entrada": {
+            "contexto": {
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "duracao_min": 50,
+              "recursos": "quadro e pincel",
+              "tipo": "Computação desplugada"
+            },
+            "habilidade": {
+              "codigo": "EF08CO03",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+              "exemplos": [
+                "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+                "Algoritmos de inserção.",
+                "Algoritmos de remoção.",
+                "Algoritmos de busca linear.",
+                "Algoritmos de busca binária."
+              ],
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "saidas_anteriores": {
+              "objetivos": {
+                "conteudos": [
+                  "Conceito de algoritmos de ordenação",
+                  "Simulação física de ordenação de listas",
+                  "Critérios de comparação de elementos"
+                ],
+                "objetivo_geral": "Compreender e simular algoritmos clássicos de ordenação de listas por meio de computação desplugada usando quadro e pincel.",
+                "objetivos_especificos": [
+                  {
+                    "id": "OBJ1",
+                    "descricao": "Explicar oralmente o funcionamento básico de um algoritmo de ordenação clássico."
+                  },
+                  {
+                    "id": "OBJ2",
+                    "descricao": "Demonstrar no quadro a ordenação sequencial de uma lista de valores com base em comparações."
+                  }
+                ]
+              },
+              "avaliacao_preliminar": {
+                "evidencias": [
+                  {
+                    "id": "EVI1",
+                    "objetivo_id": "OBJ1",
+                    "criterio": "Clareza e precisão na explicação oral sobre a lógica de comparação e troca de elementos.",
+                    "evidencia_esperada": "O aluno explica oralmente, utilizando os conceitos corretos, como o algoritmo organiza os elementos da lista passo a passo."
+                  },
+                  {
+                    "id": "EVI2",
+                    "objetivo_id": "OBJ2",
+                    "criterio": "Corretude na execução e representação da ordenação sequencial desenhada e escrita no quadro.",
+                    "evidencia_esperada": "O aluno demonstra corretamente no quadro a disposição ordenada dos valores após realizar as comparações passo a passo."
+                  }
+                ]
+              },
+              "metodologia": {
+                "metodologia": "A aula será conduzida por meio de explicação oral interativa e demonstração prática no quadro e pincel. O professor introduzirá o conceito de ordenação de listas de forma desplugada, utilizando perguntas e respostas para engajar os alunos sobre a importância de organizar dados. Em seguida, os alunos serão convidados a ir até o quadro para demonstrar e executar a ordenação passo a passo de uma lista de valores, escrevendo as trocas e comparações. Os demais alunos participarão ativamente respondendo a indagações e avaliando cada etapa executada no quadro, enquanto o professor registra as observações.",
+                "recursos": "quadro e pincel"
+              },
+              "sequencia": {
+                "etapas": [
+                  {
+                    "id": "ET1",
+                    "titulo": "Introducao aos Algoritmos de Ordenacao",
+                    "minutos": 15,
+                    "acao_docente": "Explicar oralmente o conceito de algoritmos de ordenacao e a importancia de organizar dados, utilizando o quadro e pincel para ilustrar uma lista desordenada e fazendo perguntas interativas aos alunos.",
+                    "acao_discente": "Responder oralmente as perguntas do professor, participando da discussao sobre a logica de comparacao de elementos.",
+                    "atividade": "Discussao interativa e explicacao oral sobre a logica de ordenacao classica.",
+                    "objetivos_ids": [
+                      "OBJ1"
+                    ],
+                    "evidencias_ids": [
+                      "EVI1"
+                    ]
+                  },
+                  {
+                    "id": "ET2",
+                    "titulo": "Demonstracao Pratica de Ordenacao no Quadro pelos Alunos",
+                    "minutos": 35,
+                    "acao_docente": "Conduzir a atividade chamando os alunos ate o quadro para demonstrar e executar passo a passo a ordenacao de uma lista de valores, escrevendo as trocas e comparacoes com o pincel, com o auxilio e participacao da turma.",
+                    "acao_discente": "Ir ate o quadro para executar a ordenacao passo a passo, escrevendo as comparacoes e trocas solicitadas, enquanto os demais colegas respondem as indagoes e avaliam cada etapa executada.",
+                    "atividade": "Simulacao e demonstracao pratica no quadro da ordenacao sequencial de uma lista realizada diretamente pelos alunos.",
+                    "objetivos_ids": [
+                      "OBJ2"
+                    ],
+                    "evidencias_ids": [
+                      "EVI2"
+                    ]
+                  }
+                ]
+              },
+              "avaliacao_final": {
+                "instrumentos": [
+                  {
+                    "id": "INS1",
+                    "descricao": "Instrumento de observação oral da explicação e lógica de comparação",
+                    "etapas_ids": [
+                      "ET1"
+                    ],
+                    "evidencias_ids": [
+                      "EVI1"
+                    ],
+                    "procedimento": "O professor observa a participação oral dos alunos durante a discussão interativa, avaliando com base na clareza e precisão da explicação oral sobre a lógica de comparação e troca de elementos."
+                  },
+                  {
+                    "id": "INS2",
+                    "descricao": "Instrumento de verificação da execução da demonstração prática no quadro",
+                    "etapas_ids": [
+                      "ET2"
+                    ],
+                    "evidencias_ids": [
+                      "EVI2"
+                    ],
+                    "procedimento": "O professor acompanha e avalia a demonstração realizada no quadro e pincel, verificando a corretude na execução e representação da ordenação sequencial dos valores."
+                  }
+                ],
+                "uso_resultados": "O professor usará os dados coletados por meio da observação oral e da demonstração prática no quadro para verificar se os alunos compreenderam a lógica dos algoritmos clássicos de ordenação. Com base nas respostas e na participação durante a atividade com quadro e pincel, o professor poderá retomar conceitos essenciais, esclarecer dúvidas e ajustar explicações futuras sobre a manipulação de listas."
+              },
+              "adaptacao": {
+                "adaptacoes": [
+                  {
+                    "id": "ADP1",
+                    "descricao": "Simplificar a explana&ccedil;&atilde;o oral dividindo o conceito em partes menores, com perguntas e respostas mais direcionadas para alunos com dificuldades de compreens&atilde;o na introdu&ccedil;&atilde;o.",
+                    "objetivos_ids": [
+                      "OBJ1"
+                    ],
+                    "etapas_ids": [
+                      "ET1"
+                    ]
+                  },
+                  {
+                    "id": "ADP2",
+                    "descricao": "Utilizar uma lista com menos elementos no quadro e demonstra&ccedil;&atilde;o passo a passo redobrada, destacando visualmente as compara&ccedil;&otilde;es com o pincel.",
+                    "objetivos_ids": [
+                      "OBJ2"
+                    ],
+                    "etapas_ids": [
+                      "ET2"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "saida": {
+            "identificacao": {
+              "titulo": "Plano de aula — Ordenação",
+              "componente": "Computação",
+              "ano": "8º ano",
+              "tema": "Ordenação",
+              "tipo": "Computação desplugada",
+              "duracao_min": 50
+            },
+            "habilidade_bncc": {
+              "codigo": "EF08CO03",
+              "descricao": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+              "eixo": "Pensamento Computacional",
+              "objeto_conhecimento": "Algoritmos clássicos",
+              "referencia": {
+                "documento": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "pagina_habilidade": 52,
+                "pagina_exemplos": 53,
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            },
+            "conteudos": [
+              "Conceito de algoritmos de ordenação",
+              "Simulação física de ordenação de listas",
+              "Critérios de comparação de elementos"
+            ],
+            "objetivo_geral": "Compreender e simular algoritmos clássicos de ordenação de listas por meio de computação desplugada usando quadro e pincel.",
+            "objetivos_especificos": [
+              {
+                "id": "OBJ1",
+                "descricao": "Explicar oralmente o funcionamento básico de um algoritmo de ordenação clássico."
+              },
+              {
+                "id": "OBJ2",
+                "descricao": "Demonstrar no quadro a ordenação sequencial de uma lista de valores com base em comparações."
+              }
+            ],
+            "metodologia": "A aula será conduzida por meio de explicação oral interativa e demonstração prática no quadro e pincel. O professor introduzirá o conceito de ordenação de listas de forma desplugada, utilizando perguntas e respostas para engajar os alunos sobre a importância de organizar dados. Em seguida, os alunos serão convidados a ir até o quadro para demonstrar e executar a ordenação passo a passo de uma lista de valores, escrevendo as trocas e comparações. Os demais alunos participarão ativamente respondendo a indagações e avaliando cada etapa executada no quadro, enquanto o professor registra as observações.",
+            "recursos": "quadro e pincel",
+            "desenvolvimento": [
+              {
+                "id": "ET1",
+                "titulo": "Introducao aos Algoritmos de Ordenacao",
+                "minutos": 15,
+                "acao_docente": "Explicar oralmente o conceito de algoritmos de ordenacao e a importancia de organizar dados, utilizando o quadro e pincel para ilustrar uma lista desordenada e fazendo perguntas interativas aos alunos.",
+                "acao_discente": "Responder oralmente as perguntas do professor, participando da discussao sobre a logica de comparacao de elementos.",
+                "atividade": "Discussao interativa e explicacao oral sobre a logica de ordenacao classica.",
+                "objetivos_ids": [
+                  "OBJ1"
+                ],
+                "evidencias_ids": [
+                  "EVI1"
+                ]
+              },
+              {
+                "id": "ET2",
+                "titulo": "Demonstracao Pratica de Ordenacao no Quadro pelos Alunos",
+                "minutos": 35,
+                "acao_docente": "Conduzir a atividade chamando os alunos ate o quadro para demonstrar e executar passo a passo a ordenacao de uma lista de valores, escrevendo as trocas e comparacoes com o pincel, com o auxilio e participacao da turma.",
+                "acao_discente": "Ir ate o quadro para executar a ordenacao passo a passo, escrevendo as comparacoes e trocas solicitadas, enquanto os demais colegas respondem as indagoes e avaliam cada etapa executada.",
+                "atividade": "Simulacao e demonstracao pratica no quadro da ordenacao sequencial de uma lista realizada diretamente pelos alunos.",
+                "objetivos_ids": [
+                  "OBJ2"
+                ],
+                "evidencias_ids": [
+                  "EVI2"
+                ]
+              }
+            ],
+            "avaliacao_aprendizagem": {
+              "evidencias": [
+                {
+                  "id": "EVI1",
+                  "objetivo_id": "OBJ1",
+                  "criterio": "Clareza e precisão na explicação oral sobre a lógica de comparação e troca de elementos.",
+                  "evidencia_esperada": "O aluno explica oralmente, utilizando os conceitos corretos, como o algoritmo organiza os elementos da lista passo a passo."
+                },
+                {
+                  "id": "EVI2",
+                  "objetivo_id": "OBJ2",
+                  "criterio": "Corretude na execução e representação da ordenação sequencial desenhada e escrita no quadro.",
+                  "evidencia_esperada": "O aluno demonstra corretamente no quadro a disposição ordenada dos valores após realizar as comparações passo a passo."
+                }
+              ],
+              "instrumentos": [
+                {
+                  "id": "INS1",
+                  "descricao": "Instrumento de observação oral da explicação e lógica de comparação",
+                  "etapas_ids": [
+                    "ET1"
+                  ],
+                  "evidencias_ids": [
+                    "EVI1"
+                  ],
+                  "procedimento": "O professor observa a participação oral dos alunos durante a discussão interativa, avaliando com base na clareza e precisão da explicação oral sobre a lógica de comparação e troca de elementos."
+                },
+                {
+                  "id": "INS2",
+                  "descricao": "Instrumento de verificação da execução da demonstração prática no quadro",
+                  "etapas_ids": [
+                    "ET2"
+                  ],
+                  "evidencias_ids": [
+                    "EVI2"
+                  ],
+                  "procedimento": "O professor acompanha e avalia a demonstração realizada no quadro e pincel, verificando a corretude na execução e representação da ordenação sequencial dos valores."
+                }
+              ],
+              "uso_resultados": "O professor usará os dados coletados por meio da observação oral e da demonstração prática no quadro para verificar se os alunos compreenderam a lógica dos algoritmos clássicos de ordenação. Com base nas respostas e na participação durante a atividade com quadro e pincel, o professor poderá retomar conceitos essenciais, esclarecer dúvidas e ajustar explicações futuras sobre a manipulação de listas."
+            },
+            "adaptacoes": [
+              {
+                "id": "ADP1",
+                "descricao": "Simplificar a explana&ccedil;&atilde;o oral dividindo o conceito em partes menores, com perguntas e respostas mais direcionadas para alunos com dificuldades de compreens&atilde;o na introdu&ccedil;&atilde;o.",
+                "objetivos_ids": [
+                  "OBJ1"
+                ],
+                "etapas_ids": [
+                  "ET1"
+                ]
+              },
+              {
+                "id": "ADP2",
+                "descricao": "Utilizar uma lista com menos elementos no quadro e demonstra&ccedil;&atilde;o passo a passo redobrada, destacando visualmente as compara&ccedil;&otilde;es com o pincel.",
+                "objetivos_ids": [
+                  "OBJ2"
+                ],
+                "etapas_ids": [
+                  "ET2"
+                ]
+              }
+            ],
+            "referencias": [
+              {
+                "id": "BNCC",
+                "titulo": "Computação na Educação Básica – Complemento à BNCC",
+                "arquivo": "BNCCComputacao.pdf",
+                "paginas": [
+                  52,
+                  53
+                ],
+                "versao_catalogo": "bncc-8ano-v1",
+                "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+              }
+            ]
+          }
+        }
+      ],
+      "parecer": {
+        "avaliacoes": [
+          {
+            "criterio": "aderencia_curricular",
+            "nota": 3,
+            "justificativa": "O plano foca em algoritmos de ordenação, que são parte legítima da habilidade EF08CO03 (algoritmos clássicos de manipulação sobre listas) e as atividades exercitam diretamente a aplicação desses algoritmos sem incluir conteúdo periférico."
+          },
+          {
+            "criterio": "alinhamento_objetivos",
+            "nota": 3,
+            "justificativa": "Objetivo geral, objetivos específicos e a habilidade estão coerentes; os objetivos são observáveis (explicação oral e demonstração no quadro) e são atingíveis dentro dos 50 minutos."
+          },
+          {
+            "criterio": "coerencia_metodologica",
+            "nota": 3,
+            "justificativa": "A metodologia descrita (explicação oral interativa + demonstração prática) aparece nas etapas ET1 e ET2, respeitando o tipo desplugado e apresentando sequência lógica de introdução, prática e síntese."
+          },
+          {
+            "criterio": "viabilidade",
+            "nota": 3,
+            "justificativa": "As atividades utilizam apenas quadro e pincel, recursos confirmados; a soma dos tempos (15 + 35 = 50 min) corresponde à duração informada e as etapas são realisticamente executáveis."
+          },
+          {
+            "criterio": "avaliacao_aprendizagem",
+            "nota": 3,
+            "justificativa": "Cada objetivo tem evidência associada (EVI1, EVI2) e instrumento de observação (INS1, INS2) que coletam a evidência de forma direta, permitindo discriminar desempenho adequado."
+          },
+          {
+            "criterio": "inclusao",
+            "nota": 3,
+            "justificativa": "Adaptacoes ADP1 e ADP2 oferecem alternativas concretas para alunos com dificuldade, mantendo os mesmos recursos e objetivos, sem diluir o conteúdo."
+          }
+        ],
+        "falhas": [],
+        "resumo": "O plano de aula está bem alinhado à habilidade EF08CO03, com objetivos claros, metodologia coerente, viabilidade adequada, avaliação observável e adaptações inclusivas. Não foram identificadas falhas que comprometam os critérios avaliados."
+      },
+      "linha": {
+        "caso": 5,
+        "braco": "informado",
+        "erros_geracao": [],
+        "segundos_geracao": 38.0,
+        "erros_juiz": [],
+        "graves": 0,
+        "decisao": "aguardando_decisao",
+        "graves_repetidas": 0,
+        "h1_material_ausente": [],
+        "h2_sem_acentos": [
+          "desenvolvimento[0].acao_docente",
+          "desenvolvimento[0].acao_discente",
+          "desenvolvimento[0].atividade",
+          "desenvolvimento[1].acao_docente",
+          "desenvolvimento[1].acao_discente",
+          "desenvolvimento[1].atividade"
+        ],
+        "contrato_ok": true,
+        "minutos_ok": true,
+        "notas": {
+          "aderencia_curricular": 3,
+          "alinhamento_objetivos": 3,
+          "coerencia_metodologica": 3,
+          "viabilidade": 3,
+          "avaliacao_aprendizagem": 3,
+          "inclusao": 3
+        }
+      }
+    }
+  }
+}

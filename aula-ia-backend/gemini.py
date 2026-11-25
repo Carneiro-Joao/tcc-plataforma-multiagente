@@ -81,11 +81,13 @@ class AgenteGemini:
                 })
                 time.sleep(espera)
 
-    def executar(self, nome, entrada, estado, revisao, *, registro, reparo=None):
+    def executar(self, nome, entrada, estado, revisao, *, registro, reparo=None, revisao_pedagogica=None):
         dados = {"contexto": entrada["contexto"], "habilidade": entrada["habilidade"],
                  "revisao": revisao, "saidas_anteriores": estado}
         if reparo:
             dados["reparo_estrutural"] = reparo
+        if revisao_pedagogica:  # regeneração informada: críticas do Juiz nos DADOS; o prompt de sistema não muda
+            dados["revisao_pedagogica"] = revisao_pedagogica
         corpo = {
             "systemInstruction": {"parts": [{"text": SISTEMA + self.instrucoes[nome]}]},
             "contents": [{"role": "user", "parts": [{"text": json.dumps(dados, ensure_ascii=False)}]}],

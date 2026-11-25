@@ -164,6 +164,9 @@
           <p>${texto(f.descricao)}</p>${f.correcao_sugerida ? `<p class="juiz-sugestao"><b>Sugestão:</b> ${texto(f.correcao_sugerida)}</p>` : ""}</li>`).join("")}</ul>`
       : "<p>Nenhuma crítica registrada.</p>";
     const anteriores = (pedido?.historico || []).filter(h => h.evento === "avaliado" && h.geracao_id !== geracaoId);
+    const informadas = (pedido?.historico || []).filter(h => h.evento === "regenerando" && h.modo === "informada");
+    const regeneracao = informadas.map(h => `<p class="juiz-historico">A ${texto(h.ciclo + 1)}ª versão foi gerada a partir das
+      críticas do Juiz à versão anterior (${texto((h.criticas_usadas || []).join(", "))}), mantendo o contexto confirmado.</p>`).join("");
     const historico = anteriores.map(h => `<p class="juiz-historico">${texto(h.ciclo + 1)}ª versão não aprovada pelo Juiz
       (${texto(h.rotulo)}): ${texto((h.criticas && h.criticas.length ? h.criticas : h.motivos || []).join(" · "))}</p>`).join("");
     const semParecer = avaliacao.status === "indisponivel"
@@ -173,7 +176,7 @@
       <div class="juiz-cabecalho"><h4>Avaliação da IA Juiz</h4><span class="juiz-decisao">${texto(avaliacao.rotulo)}</span></div>
       ${avaliacao.demonstracao ? `<p class="juiz-demo"><b>Demonstração:</b> ${texto(avaliacao.aviso_demonstracao || "parecer gravado")}</p>` : ""}
       ${pedido?.aviso ? `<p class="juiz-aviso-pedido">${texto(pedido.aviso)}</p>` : ""}
-      ${historico}${parecer?.resumo ? `<p class="juiz-resumo">${texto(parecer.resumo)}</p>` : ""}${semParecer}${notas}${criticas}
+      ${historico}${regeneracao}${parecer?.resumo ? `<p class="juiz-resumo">${texto(parecer.resumo)}</p>` : ""}${semParecer}${notas}${criticas}
       <p class="juiz-aviso">${AVISO_JUIZ}</p>
       ${parecer ? soDepuracao(`<details><summary>Ver parecer completo (JSON)</summary><pre>${json(avaliacao)}</pre></details>`) : ""}
     </section>`;
@@ -188,7 +191,9 @@
     const estado = pedido?.estado || "gerando";
     const ciclo = pedido?.ciclo || 0;
     const passos = [["gerando", 0, "Gerando plano…"], ["avaliando", 0, "IA Juiz avaliando…"]];
-    for (let c = 1; c <= ciclo; c++) passos.push(["regenerando", c, "Ajustando: gerando nova versão…"], ["avaliando", c, "IA Juiz avaliando a nova versão…"]);
+    const informada = c => (pedido?.historico || []).some(h => h.evento === "regenerando" && h.ciclo === c && h.modo === "informada");
+    for (let c = 1; c <= ciclo; c++) passos.push(["regenerando", c, informada(c) ? "Ajustando: gerando nova versão com as críticas do Juiz…"
+      : "Ajustando: gerando nova versão…"], ["avaliando", c, "IA Juiz avaliando a nova versão…"]);
     // Esperando a cota do Groq: mesma etapa de avaliação, com o texto da espera.
     const aguardando = estado === "aguardando_juiz";
     const atual = Math.max(0, passos.findIndex(([e, c]) => e === (aguardando ? "avaliando" : estado) && c === ciclo));

@@ -74,6 +74,17 @@ assert.ok(html.includes('<li class="feito">IA Juiz avaliando…</li>') && html.i
 html = context.renderProgresso({estado: 'avaliando', ciclo: 1}, 0);
 assert.ok(html.includes('<li class="feito">Ajustando: gerando nova versão…</li>') && html.includes('<li class="atual">IA Juiz avaliando a nova versão…</li>'));
 assert.ok(context.renderProgresso(null, 0).includes('<li class="atual">Gerando plano…</li>'));
+// PoC 10: regeneração informada pelas críticas do Juiz — texto do progresso e do painel
+const hInf = [{ciclo: 0, evento: 'avaliado', geracao_id: 'g1', rotulo: 'Com ressalvas', criticas: ['x']},
+              {ciclo: 1, evento: 'regenerando', modo: 'informada', criticas_usadas: ['F1', 'F2']}];
+html = context.renderProgresso({estado: 'regenerando', ciclo: 1, historico: hInf}, 0);
+assert.ok(html.includes('<li class="atual">Ajustando: gerando nova versão com as críticas do Juiz…</li>'));
+html = context.renderProgresso({estado: 'regenerando', ciclo: 1, historico: [{ciclo: 1, evento: 'regenerando', modo: 'cega'}]}, 0);
+assert.ok(html.includes('<li class="atual">Ajustando: gerando nova versão…</li>'));
+html = context.renderAvaliacao(av('aguardando_decisao', 'Favorável'), {historico: hInf}, 'g2');
+assert.ok(html.includes('A 2ª versão foi gerada a partir das') && html.includes('críticas do Juiz à versão anterior (F1, F2)'));
+html = context.renderAvaliacao(av('aguardando_decisao', 'Favorável'), {historico: [{ciclo: 1, evento: 'regenerando', modo: 'cega'}]}, 'g2');
+assert.ok(!html.includes('foi gerada a partir das'));
 // Esperando a cota do Groq: a etapa de avaliação mostra o texto da espera (1ª avaliação e avaliação da nova versão)
 html = context.renderProgresso({estado: 'aguardando_juiz', ciclo: 0}, 0);
 assert.ok(html.includes('<li class="feito">Gerando plano…</li>') && html.includes('<li class="atual">Aguardando a cota da IA Juiz…</li>'));
