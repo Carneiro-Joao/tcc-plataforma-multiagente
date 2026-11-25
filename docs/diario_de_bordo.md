@@ -6,6 +6,21 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-25 · Claude Code · PoC 10: regeneração informada + acentuação (`feat/poc10-regeneracao-informada`)
+
+Pedido do João depois da sondagem: implementar a opção C, corrigir a perda de acentuação e registrar tudo para ajustar o texto.
+**Regeneração informada (padrão):** parecer não favorável → plano inteiro gerado de novo; cada especialista recebe `revisao_pedagogica`
+(versão anterior, falhas próprias com correção sugerida, demais falhas como contexto, instrução que proíbe recursos fora do contexto).
+Prompt de sistema, 1ª geração, Juiz, política, ciclos, limites, estados e entrega inalterados. Histórico do pedido ganha o evento
+`regenerando` (modo, versão, críticas usadas); `--regeneracao cega` mantém a PoC 08. **Acentuação:** saída sem acento (campo > 60 car.,
+nenhum acento, palavra-guia) → 1 reescrita; aceita só se validar e melhorar; senão fica a original. Causa: gatilho no Gemini + cascata.
+Testes: 513 (512 OK, 1 ignorado), também com `-S`; front 3/3; mutação 22 mutantes, 1 sobrevivente na 1ª rodada (saída descartada no
+rastreio) → 2 testes novos → 0 vivos. **Sem chamadas reais.** Especificação e diagramas não editados: lista de ajustes em
+`docs/PoC10_Regeneracao_Informada_e_Acentuacao.md` §8. `Estado_Final_Sistema.md`, nota na PoC 08 e `CLAUDE.md` atualizados.
+Pendente: ok do João para 1–2 pedidos reais de verificação, levar à `main`, reiniciar o app.
+
+---
+
 ## 2026-11-25 17:00 · Claude Code · Sondagem PoC 09: regeneração cega × informada (`feat/poc09-sondagem-regeneracao-informada`)
 
 Pedido do João: testar a opção C (regenerar o plano inteiro passando a cada especialista a sua versão anterior e as críticas do Juiz)

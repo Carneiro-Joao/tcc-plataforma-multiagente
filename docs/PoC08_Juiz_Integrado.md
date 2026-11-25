@@ -4,6 +4,11 @@
 ratificação). Branch `feat/poc08-juiz-integrado`. Resultados com LLM são **exploratórios** (n pequeno, um modelo por papel):
 não permitem concluir que "o Juiz acerta". A decisão final é sempre do professor.
 
+> **Atualização 25/11/2026 (PoC 10):** este documento descreve a regeneração **cega** da PoC 08 (o plano inteiro gerado de novo sem as
+> críticas). Desde a PoC 10 o padrão é a regeneração **informada**: o plano inteiro continua sendo gerado de novo, mas cada especialista
+> recebe a sua versão anterior e as críticas do Juiz. O comportamento abaixo continua disponível com `--regeneracao cega`. Detalhes:
+> `docs/PoC10_Regeneracao_Informada_e_Acentuacao.md`. O corpo deste documento ficou como registro histórico.
+
 ## O que foi integrado
 O Juiz deixou de ser só um experimento (`ensaio_juiz.py`) e virou uma **etapa automática** de cada pedido de plano:
 
