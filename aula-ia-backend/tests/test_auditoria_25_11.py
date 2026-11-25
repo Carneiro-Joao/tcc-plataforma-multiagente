@@ -83,3 +83,21 @@ class TestC6SemPadraoDeChaveNosArquivos(TestCase):
         achados = [str(f.relative_to(raiz)) for pasta in ("aula-ia-backend/tests", "aula-ia/tests") for f in (raiz / pasta).rglob("*")
                    if f.suffix in (".py", ".mjs", ".js", ".json") and padrao.search(f.read_text(encoding="utf-8", errors="ignore"))]
         self.assertEqual(achados, [])
+
+
+class TestC7ScriptsHistoricosForaDaPastaPrincipal(TestCase):
+    """C7: scripts de provedores que o sistema não usa mais (OpenAI direto, OpenRouter) ficam em legado/, não ao lado do app."""
+
+    def test_nenhum_script_da_pasta_principal_depende_de_provedor_antigo(self):
+        import re
+        pasta = Path(__file__).resolve().parents[1]
+        antigos = re.compile(r"AgenteOpenAI|OPENROUTER_API_KEY|OPENAI_API_KEY")
+        achados = [f.name for f in pasta.glob("*.py") if antigos.search(f.read_text(encoding="utf-8"))]
+        self.assertEqual(achados, [])
+
+    def test_legado_documentado(self):
+        legado = Path(__file__).resolve().parents[1] / "legado"
+        texto = (legado / "README.md").read_text(encoding="utf-8")
+        for nome in ("teste_api_rapido.py", "teste_openrouter.py"):
+            self.assertTrue((legado / nome).is_file(), nome)
+            self.assertIn(nome, texto)
