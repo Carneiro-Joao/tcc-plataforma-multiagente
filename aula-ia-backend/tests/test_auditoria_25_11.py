@@ -101,3 +101,24 @@ class TestC7ScriptsHistoricosForaDaPastaPrincipal(TestCase):
         for nome in ("teste_api_rapido.py", "teste_openrouter.py"):
             self.assertTrue((legado / nome).is_file(), nome)
             self.assertIn(nome, texto)
+
+
+class TestC8HerancaDocumentadaEmGeracao(TestCase):
+    """C8: o comentário de `geracao.py` afirma que o gerador 2.0 herda da base e substitui o contrato; isto tem de ser verdade."""
+
+    def test_gerador_2_0_herda_da_base_e_substitui_o_contrato(self):
+        import geracao
+        import geracao_v2
+        from contratos import plano_v2
+        filha, base = geracao_v2.GeradorDePlanoCompleto, geracao.GeradorDePlano
+        self.assertTrue(issubclass(filha, base))
+        self.assertEqual(filha.ESPECIALISTAS, plano_v2.ETAPAS)
+        self.assertEqual(filha.DEPENDENCIAS, plano_v2.DEPENDENCIAS)
+        self.assertIsNot(filha.integrar, base.integrar)
+        self.assertIsNot(filha.validar_etapa, base.validar_etapa)
+        # os mecanismos citados no comentário estão na base e não são redefinidos na filha
+        for metodo in ("_reescrever_sem_acento", "gerar"):
+            self.assertIn(metodo, vars(base))
+        self.assertNotIn("_reescrever_sem_acento", vars(filha))
+        self.assertIn("LEGADO 1.0", geracao.__doc__)
+        self.assertIn("geracao_v2.GeradorDePlanoCompleto", geracao.__doc__)

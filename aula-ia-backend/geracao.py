@@ -1,4 +1,12 @@
-"""Cinco especialistas, contratos por etapa e integração determinística."""
+"""Base da geração por especialistas, com o contrato LEGADO 1.0 (auditoria de 25/11, C8).
+
+O sistema usa o contrato PlanoDeAula 2.0, implementado em `geracao_v2.GeradorDePlanoCompleto`, que HERDA de `GeradorDePlano`
+(este módulo) e substitui `ESPECIALISTAS`, `DEPENDENCIAS`, `integrar` e `validar_etapa` pelos do 2.0. Continuam valendo para o 2.0
+os mecanismos da classe-base: laço dos especialistas, reparo de formato, rastreio, reescrita de acentuação (PoC 10) e repasse da
+revisão pedagógica na regeneração informada.
+O contrato 1.0 (`contratos.execucao.VERSAO`, `AgenteDemonstrativo`) só é usado diretamente por ferramentas antigas de terminal
+(`teste_gemini.py --contrato 1.0`, `inspecionar_gemini.py`).
+"""
 from copy import deepcopy
 import time
 import re
