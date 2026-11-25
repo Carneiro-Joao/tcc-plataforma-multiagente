@@ -14,7 +14,7 @@ flowchart TD
     FJ -->|"Sim"| FAV{"Parecer favorável?"}
     FAV -->|"Sim"| EN["Entregar plano com parecer"]
     FAV -->|"Não"| CI{"Ainda há ciclo<br/>de regeneração?"}
-    CI -->|"Sim"| RG["Gerar o plano inteiro de novo"]
+    CI -->|"Sim"| RG["Gerar de novo o plano<br/>com as críticas do Juiz"]
     RG --> RV{"Nova versão válida?"}
     RV -->|"Sim"| J
     RV -->|"Não"| MV

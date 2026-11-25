@@ -98,7 +98,7 @@ sequenceDiagram
     SV->>J: Avaliar plano (rubrica de 6 critérios)
     J-->>SV: Parecer e decisão da política
     opt Parecer não favorável (até 1 vez)
-        SV->>ORQ: Gerar o plano inteiro de novo
+        SV->>ORQ: Gerar de novo com a versão anterior e as críticas do Juiz
         ORQ-->>SV: Nova versão
         SV->>J: Avaliar a nova versão
         J-->>SV: Novo parecer
@@ -132,7 +132,7 @@ flowchart TD
     FJ -->|"Sim"| FAV{"Parecer favorável?"}
     FAV -->|"Sim"| EN["Entregar plano com parecer"]
     FAV -->|"Não"| CI{"Ainda há ciclo<br/>de regeneração?"}
-    CI -->|"Sim"| RG["Gerar o plano inteiro de novo"]
+    CI -->|"Sim"| RG["Gerar de novo o plano<br/>com as críticas do Juiz"]
     RG --> RV{"Nova versão válida?"}
     RV -->|"Sim"| J
     RV -->|"Não"| MV

@@ -29,7 +29,7 @@ sequenceDiagram
     SV->>J: Avaliar plano (rubrica de 6 critérios)
     J-->>SV: Parecer e decisão da política
     opt Parecer não favorável (até 1 vez)
-        SV->>ORQ: Gerar o plano inteiro de novo
+        SV->>ORQ: Gerar de novo com a versão anterior e as críticas do Juiz
         ORQ-->>SV: Nova versão
         SV->>J: Avaliar a nova versão
         J-->>SV: Novo parecer
