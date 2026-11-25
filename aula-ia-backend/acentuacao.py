@@ -29,10 +29,17 @@ def _textos(valor, caminho=""):
             yield from _textos(v, f"{caminho}[{i}]")
 
 
+# Campos que são cópia exata do que o professor digitou: o validador exige igualdade, então reescrevê-los seria sempre descartado
+# (auditoria de 25/11, C2).
+CAMPOS_COPIADOS_DO_CONTEXTO = frozenset({"recursos"})
+
+
 def campos_sem_acentuacao(saida):
-    """Caminhos dos campos que parecem escritos sem acentuação."""
+    """Caminhos dos campos que parecem escritos sem acentuação (ignora os copiados do contexto)."""
     achados = []
     for caminho, texto in _textos(saida):
+        if caminho in CAMPOS_COPIADOS_DO_CONTEXTO:
+            continue
         minusculo = texto.lower()
         if len(texto) > MINIMO_CARACTERES and not (set(minusculo) & ACENTOS) and PALAVRA_QUE_LEVA_ACENTO.search(minusculo):
             achados.append(caminho)
