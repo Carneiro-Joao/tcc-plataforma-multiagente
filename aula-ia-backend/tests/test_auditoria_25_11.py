@@ -71,3 +71,15 @@ class TestC3MensagemDoLimiteDeRequisicoes(TestCase):
         texto = self._iniciar(["--gerador", "ia", "--reparos", "0", "--repeticoes-503", "0"])
         self.assertIn("até 12 com reparos e reescritas de acentuação", texto)
         self.assertIn("12 requisições", texto)
+
+
+class TestC6SemPadraoDeChaveNosArquivos(TestCase):
+    """C6: nenhum arquivo de teste contém o padrão literal de uma chave (as falsas são montadas em tempo de execução)."""
+
+    def test_testes_sem_padrao_literal_de_chave(self):
+        import re
+        padrao = re.compile("AI" + r"za[0-9A-Za-z_-]{20,}|" + "gs" + r"k_[0-9A-Za-z_-]{10,}")
+        raiz = Path(__file__).resolve().parents[2]
+        achados = [str(f.relative_to(raiz)) for pasta in ("aula-ia-backend/tests", "aula-ia/tests") for f in (raiz / pasta).rglob("*")
+                   if f.suffix in (".py", ".mjs", ".js", ".json") and padrao.search(f.read_text(encoding="utf-8", errors="ignore"))]
+        self.assertEqual(achados, [])

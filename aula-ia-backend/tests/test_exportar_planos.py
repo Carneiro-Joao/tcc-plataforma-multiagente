@@ -12,6 +12,11 @@ import os
 from casos_juiz import carregar_caso
 from exportar_planos import _slug, exportar_todos, listar_geracoes, main
 
+# Chaves FALSAS montadas em tempo de execução: o arquivo não contém o padrão literal de uma chave, que dispararia scanners de
+# segredo e a busca com findstr da regra 5 do CLAUDE.md (auditoria de 25/11, C6).
+CHAVE_GEMINI_FALSA = "AIza" + "SyA1234567890abcdefghijklmnopqrstuv"
+CHAVE_GROQ_FALSA = "gsk" + "_abcdefghij1234567890"
+
 FIXTURE = json.loads((Path(__file__).parent / "dados" / "plano_v2" / "fixture_ordenacao.json").read_text(encoding="utf-8"))
 
 
@@ -68,7 +73,7 @@ class TestExportarPlanos(TestCase):
 
     def test_credencial_no_caso_impede_exportar(self):
         plano = json.loads(json.dumps(FIXTURE["plano_esperado"]))
-        plano["metodologia"] = "use a chave AIzaSyA1234567890abcdefghijklmnopqrstuv no passo 1"
+        plano["metodologia"] = f"use a chave {CHAVE_GEMINI_FALSA} no passo 1"
         self.inserir("aaaaaaaa-1", "c1", "Ordenação", plano=plano)
         exportados, pulados = exportar_todos(self.banco, self.raiz / "saida")
         self.assertEqual(exportados, [])
@@ -76,7 +81,7 @@ class TestExportarPlanos(TestCase):
         self.assertFalse((self.raiz / "saida").exists() and list((self.raiz / "saida").iterdir()))
 
     def test_chave_gemini_ou_groq_no_texto_impede_exportar(self):
-        for i, segredo in enumerate(("AIzaSyA1234567890abcdefghijklmnopqrstuv", "gsk_abcdefghij1234567890")):
+        for i, segredo in enumerate((CHAVE_GEMINI_FALSA, CHAVE_GROQ_FALSA)):
             plano = json.loads(json.dumps(FIXTURE["plano_esperado"]))
             plano["metodologia"] = f"texto {segredo} texto"
             self.inserir(f"seg{i}", f"cs{i}", "Ordenação", plano=plano)
@@ -86,7 +91,7 @@ class TestExportarPlanos(TestCase):
 
     def test_regex_propria_pega_chave_mesmo_sem_o_sanitizar_do_juiz(self):
         # Segunda camada: se o sanitizar() do Juiz mudar, a regex do exportador continua barrando as chaves.
-        for i, segredo in enumerate(("AIzaSyA1234567890abcdefghijklmnopqrstuv", "gsk_abcdefghij1234567890")):
+        for i, segredo in enumerate((CHAVE_GEMINI_FALSA, CHAVE_GROQ_FALSA)):
             plano = json.loads(json.dumps(FIXTURE["plano_esperado"]))
             plano["metodologia"] = f"texto {segredo} texto"
             self.inserir(f"sem{i}", f"cz{i}", "Ordenação", plano=plano)

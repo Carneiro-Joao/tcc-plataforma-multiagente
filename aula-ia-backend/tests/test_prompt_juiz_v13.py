@@ -19,7 +19,7 @@ from juiz import avaliar_plano
 RAIZ = Path(__file__).resolve().parents[2]
 REAL = RAIZ / "experimentos" / "juiz" / "casos" / "ordenacao_real_994c4cd5.json"
 PARECERES = Path(__file__).parent / "dados" / "juiz_v1" / "pareceres.json"
-CHAVE = "gsk_chave_sintetica_teste"
+CHAVE = "gsk" + "_chave_sintetica_teste"  # montada: sem padrão literal de chave no arquivo
 SHA_V12 = "f93058ca002d0718955d7ff391c77d3343030cd41005c8cf6732dd7f251280b5"
 
 

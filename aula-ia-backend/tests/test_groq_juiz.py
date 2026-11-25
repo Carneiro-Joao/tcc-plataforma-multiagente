@@ -16,7 +16,7 @@ from juiz import avaliar_plano, criar_agente_groq_juiz
 DADOS = Path(__file__).parent / "dados"
 FIXTURE = json.loads((DADOS / "plano_v2/fixture_ordenacao.json").read_text(encoding="utf-8"))
 PARECERES = json.loads((DADOS / "juiz_v1/pareceres.json").read_text(encoding="utf-8"))
-CHAVE = "gsk_segredo_apenas_de_teste"
+CHAVE = "gsk" + "_segredo_apenas_de_teste"  # montada: sem padrão literal de chave no arquivo
 
 
 def envelope(parecer=None, **ajustes):
