@@ -1,6 +1,15 @@
 # AulaIA — Gemini, PlanoDeAula 2.0 e IA Juiz via Groq
 
-Plataforma local para planejar aulas de Computação do **8º ano**, com seleção explícita da habilidade BNCC, cinco especialistas, integração em Python e aprovação docente. O modo de IA agora usa a **API nativa do Gemini**. Os testes descartáveis anteriores com OpenAI/OpenRouter deixam de ser o caminho de execução.
+Plataforma local para planejar aulas de Computação do **8º ano**, com seleção explícita da habilidade BNCC, cinco especialistas, integração em Python, **IA Juiz automática** e aprovação docente.
+
+> **Estado em 25/11/2026 (`main` `4558b4a`, depois da PoC 10).** Fluxo atual: o professor informa o contexto → o sistema extrai o
+> tema e busca a habilidade → o professor confirma → 5 especialistas (Gemini, 6 chamadas) geram o plano, com uma reescrita de saída
+> escrita sem acentuação → integrador e validador → a IA Juiz (Groq) avalia → parecer não favorável regenera o plano inteiro uma vez,
+> **informado pelas críticas do Juiz** → o professor recebe o plano com o parecer, aprova e baixa o PDF ou gera novamente (do zero).
+> Requisitos e regras: [`docs/especificacao/AulaIA_Especificacao_v2.3.md`](docs/especificacao/AulaIA_Especificacao_v2.3.md);
+> números, versões e como rodar: [`docs/Estado_Final_Sistema.md`](docs/Estado_Final_Sistema.md); diagramas:
+> [`docs/diagramas/diagramas-finais.md`](docs/diagramas/diagramas-finais.md). As seções abaixo que citam datas de 16–17/11 são
+> registro histórico dos incrementos. O modo de IA agora usa a **API nativa do Gemini**. Os testes descartáveis anteriores com OpenAI/OpenRouter deixam de ser o caminho de execução.
 
 Esta entrega incorpora o **PlanoDeAula 2.0 com 11 seções**, avaliação em duas passagens e vínculos entre objetivos, etapas e evidências. Uma execução real no protótipo concluiu as seis etapas e a integração, com recuperação de dois HTTP 503. Consulte a [evidência da geração real](docs/Prototipo_Local_2026-11-16.md), o [contrato](docs/Contrato_PlanoDeAula_2_0.md) e o [alinhamento com a R2](docs/Alinhamento_PoC04A.md). A branch `feat/poc05-juiz-contrato` acrescenta a base da **IA Juiz**, verificada offline: rubrica, parecer estruturado e política de decisão. A conexão ao site e a execução dos ciclos de correção ainda estão pendentes; veja a [revisão de compatibilidade de 17/11/2026](docs/Revisao_PoC05_2026-11-17.md).
 
@@ -87,12 +96,34 @@ python app.py --modo lexical --gerador ia --ipv4 --pedir-chave --abrir
 
 A chave fica somente na memória desse processo. Mantenha o terminal aberto enquanto usa o protótipo; pressione `Ctrl+C` nele para encerrar. `--abrir` inicia o navegador e `--ipv4` aplica ao site o mesmo transporte usado no teste de terminal.
 
-No site, HTTP **503** recebe até **duas novas tentativas na mesma etapa**, com esperas de 2–3 e 4–5 segundos. As etapas anteriores não são refeitas. Se o serviço continuar indisponível, a geração termina em falha. O rastreio mantém `chamadas_http` e `falhas_http_transitorias`, incluindo erros e esperas. O limite é de 18 requisições sem reparos ou 36 com um reparo estrutural em cada etapa. `--repeticoes-503 0` desativa esse comportamento; `teste_gemini.py` continua sem repetir erros HTTP. Cota (429), autenticação, rede e outros erros não são repetidos automaticamente. A estratégia segue a [orientação do Google para falhas transitórias](https://ai.google.dev/gemini-api/docs/troubleshooting#retry-strategy).
+No site, HTTP **503** recebe até **duas novas tentativas na mesma etapa**, com esperas de 2–3 e 4–5 segundos. As etapas anteriores não são refeitas. Se o serviço continuar indisponível, a geração termina em falha. O rastreio mantém `chamadas_http` e `falhas_http_transitorias`, incluindo erros e esperas. Por versão do plano são 6 chamadas normais e até 18 com reparos e reescritas de acentuação; com as repetições em 503, até 54 requisições (a mensagem de partida do `app.py` mostra os valores da configuração em uso). `--repeticoes-503 0` desativa esse comportamento; `teste_gemini.py` continua sem repetir erros HTTP. Cota (429), autenticação, rede e outros erros não são repetidos automaticamente. A estratégia segue a [orientação do Google para falhas transitórias](https://ai.google.dev/gemini-api/docs/troubleshooting#retry-strategy).
+
+### IA Juiz e regeneração
+
+Com `GROQ_API_KEY` definida no mesmo terminal, a IA Juiz entra automaticamente depois de cada geração (sem a chave, fica desligada):
+
+```bat
+python app.py --modo lexical --gerador ia --ipv4 --abrir
+python app.py --modo lexical --gerador ia --ipv4 --juiz groq --ciclos-juiz 1 --regeneracao informada --abrir
+```
+
+| Opção | Padrão | Efeito |
+|---|---|---|
+| `--juiz groq\|demonstracao\|desligado` | `groq` se houver `GROQ_API_KEY`, senão `desligado` | `demonstracao` usa um parecer real **gravado de outro plano**, sem rede |
+| `--ciclos-juiz N` | 1 | Regenerações automáticas quando o parecer não é favorável (0 = não regenera) |
+| `--regeneracao informada\|cega` | `informada` | `informada`: cada especialista recebe a sua versão anterior e as críticas do Juiz (`revisao-informada-1.0`); `cega`: gera de novo sem as críticas (PoC 08) |
+| `--limite-diario N` | 8 | Gerações com IA por dia, contando falhas |
+| `--limite-diario-juiz N` | 8 | Avaliações reais do Juiz por dia, contando falhas |
+
+Sem versão favorável, o professor recebe a versão com menos falhas graves, com aviso. Falha técnica do Juiz entrega o plano com
+"avaliação indisponível" e nunca conta como parecer. O Juiz não vê as críticas nem a versão anterior. O parecer é consultivo: só o
+professor aprova. Detalhes: [`docs/PoC08_Juiz_Integrado.md`](docs/PoC08_Juiz_Integrado.md) e
+[`docs/PoC10_Regeneracao_Informada_e_Acentuacao.md`](docs/PoC10_Regeneracao_Informada_e_Acentuacao.md).
 
 Para demonstrar sem chave e sem rede:
 
 ```bat
-python app.py --modo lexical --gerador demonstracao
+python app.py --modo lexical --gerador demonstracao --juiz demonstracao
 ```
 
 Roteiro: informe **quero ensinar ordenação**, **50 minutos**, **papel e cartões**, **Computação desplugada**; consulte e confirme **EF08CO03**; gere o plano; confira cada seção e o rastreio. Uma saída válida estruturalmente continua sendo um **rascunho**. A aprovação é feita pelo professor. O botão de impressão permite salvar PDF pelo navegador.
@@ -125,7 +156,9 @@ Há no máximo um reparo por especialista na mesma execução, mantendo as depen
 
 O contrato operacional é `plano-aula-2.0`. Todos os objetivos, etapas, evidências e instrumentos têm identificadores; o validador verifica cobertura e referências. A fonte curricular inclui versão e hash do catálogo JSON, não do PDF. Planos antigos continuam legíveis sem conversão; para reproduzir a sondagem antiga, use `--contrato v0.1`. Consultas antigas sem metadados de versão exigem nova consulta antes de gerar 2.0.
 
-A **IA Juiz existe como módulo isolado** (`juiz.py`), com [rubrica preliminar e contrato ParecerJuiz 1.0](docs/Rubrica_e_Contrato_IA_Juiz.md). Antes de chamar o agente, o módulo valida o plano 2.0, o contexto confirmado e a política. O parecer pode indicar `aguardando_decisao`, `em_correcao` ou `revisao_necessaria`; ele nunca aprova o plano. Esses estados ainda não estão conectados ao SQLite ou à interface: o site continua com a geração e aprovação humana existentes. As verificações offline não demonstram qualidade pedagógica nem eficácia de um Juiz real.
+A **IA Juiz** (`juiz.py`, `juiz_servico.py`, `groq_juiz.py`) usa a [rubrica preliminar e o contrato ParecerJuiz 1.0](docs/Rubrica_e_Contrato_IA_Juiz.md). Antes de chamar o agente, valida o plano 2.0, o contexto confirmado e a política. O parecer indica `aguardando_decisao`, `em_correcao` ou `revisao_necessaria`; ele nunca aprova o plano. Desde a PoC 08 o Juiz é uma etapa automática do pedido, com pareceres gravados na tabela `pareceres` do SQLite e exibidos na interface (ver "IA Juiz e regeneração" acima). Os testes offline não demonstram qualidade pedagógica nem eficácia de um Juiz real.
+
+### Histórico: Juiz isolado e ensaios (PoC 05)
 
 Para testar somente a base do Juiz, sem chave nem chamadas de API, execute na pasta `aula-ia-backend`:
 
@@ -156,7 +189,22 @@ python inspecionar_gemini.py "local/teste_gemini/NOME_DO_ARQUIVO.json"
 
 Para conferir a execução real, compartilhe o JSON desse diretório. Não compartilhe a chave. O inspetor informa o modo declarado e não autentica a origem de arquivos editáveis.
 
-## 6. Arquivos e validação
+## 6. Ferramentas de pesquisa e scripts históricos
+
+Fora do fluxo do site, na pasta `aula-ia-backend` (nenhum faz chamada real sem a chave e sem o pedido explícito do João):
+
+| Script | Para quê |
+|---|---|
+| `ensaio_juiz.py`, `variantes_juiz.py`, `casos_juiz.py`, `analisar_serie.py` | Ensaios pré-registrados do Juiz (V01–V06) sobre casos congelados (`--somente-validar` testa sem rede) |
+| `adjudicacao.py`, `adjudicacao_web.py`, `concordancia.py` | Adjudicação humana dos pareceres e concordância entre avaliadores |
+| `gerar_lote.py`, `medir_planos.py` | Lote e medição pré-registrados da geração (PoC07B; `--somente-validar`) |
+| `sondagem_regeneracao_informada.py` | Sondagem cega × informada da PoC 09 (registro exploratório, n = 5) |
+| `exportar_planos.py` | Exporta os planos reais do SQLite para `local/planos_ia/` (recusa arquivo com credencial) |
+| `teste_gemini.py`, `inspecionar_gemini.py` | Sondagem do Gemini pelo terminal e inspeção de registros salvos |
+| `relatorio_testes.py` | Roda os testes e gera relatório HTML (`--sem-abrir`, `--filtro`) |
+| `legado/` | Scripts das sondagens OpenAI/OpenRouter da PoC 03, já quebrados e fora do fluxo ([`legado/README.md`](aula-ia-backend/legado/README.md)) |
+
+## 7. Arquivos e validação
 
 | Arquivo | Responsabilidade |
 |---|---|
@@ -169,7 +217,11 @@ Para conferir a execução real, compartilhe o JSON desse diretório. Não compa
 | `aula-ia-backend/contratos/plano_v2.py` | Validação estrutural, vínculos e integração 2.0 |
 | `aula-ia-backend/contratos/plano_v2.schema.json` | Esquemas completos versionados |
 | `aula-ia-backend/contratos/esquema_gemini.py` | Projeção estrutural do esquema para a API |
-| `aula-ia-backend/juiz.py` | Avaliação isolada do plano 2.0 e rastreio; sem persistência ou correções automáticas |
+| `aula-ia-backend/servico.py` | Consulta, pedido (geração + Juiz + regeneração), aprovação, limites e SQLite |
+| `aula-ia-backend/revisao_informada.py` | Versão anterior + críticas do Juiz para cada especialista na regeneração (`revisao-informada-1.0`) |
+| `aula-ia-backend/acentuacao.py` | Detecção de saída sem acentuação e instrução da reescrita |
+| `aula-ia-backend/juiz.py` | Avaliação do plano 2.0 pelo Juiz e rastreio |
+| `aula-ia-backend/juiz_servico.py`, `groq_juiz.py` | Juiz no pedido (modos groq/demonstração), pausas de cota e adaptador Groq |
 | `aula-ia-backend/contratos/juiz_v1.py` | Validação do parecer, configuração da política e decisão determinística |
 | `aula-ia-backend/contratos/juiz_v1.schema.json` | Contrato fechado ParecerJuiz 1.0 |
 | `aula-ia-backend/contratos/rubrica_juiz.py` | Seis critérios, indicadores e âncoras preliminares usados no prompt |
@@ -181,6 +233,8 @@ Para conferir a execução real, compartilhe o JSON desse diretório. Não compa
 | `aula-ia-backend/tests/` | Contratos, transporte simulado, fluxo, concorrência e HTTP |
 | `aula-ia/public/geracao-ui.js` | Exibição do plano, falha e aprovação; espelhado em `dist/` |
 | `docs/PoC04A_Gemini.md` | Decisões, achados, evidências e limites deste incremento |
+
+Validação atual (25/11/2026): **521 testes Python (520 passam, 1 ignorado)**, também com `python -S`, e os 3 scripts de interface (`aula-ia/tests/`). O parágrafo a seguir é o registro de 17/11.
 
 Validação em 17/11/2026: **168 testes aprovados e 1 teste opcional ignorado**, também com `python -S`, incluindo os 27 casos estruturais como subtestes, HTTP local, inicializadores, IPv4, recuperação limitada de HTTP 503 e 54 testes do Juiz. O teste de renderização JavaScript confere 11 seções, escape de HTML, planos legados e igualdade entre `public` e `dist`; funciona com quebras de linha Windows ou Unix. Uma geração real anterior, registrada no SQLite local, concluiu o contrato 2.0 em **38,281 s**, com **8 requisições HTTP**, duas recuperações de 503 e **7.831 tokens conhecidos** em seis respostas com uso informado. Essa execução não incluiu IA Juiz. O plano permanece rascunho; a validação mecânica não equivale à aprovação pedagógica. Consulte a [evidência e seus limites](docs/Prototipo_Local_2026-11-16.md).
 
