@@ -6,6 +6,9 @@ flowchart TB
     SV --> RAG["Busca curricular<br/>rag/search.py"]
     RAG --> CAT[("Catálogo BNCC 8º ano<br/>+ PDF oficial")]
     SV --> ORQ["Orquestrador da geração<br/>geracao_v2.py"]
+    SV -->|"regeneração:<br/>versão anterior + críticas do Juiz"| REV["Revisão informada<br/>revisao_informada.py"]
+    REV --> ORQ
+    ORQ --> ACE["Verificação de acentuação<br/>acentuacao.py (1 reescrita)"]
     subgraph ESP["Agentes especialistas (LLM) — 6 chamadas encadeadas"]
         direction LR
         A1["Objetivos"] --> A2["Avaliação<br/>(preliminar)"] --> A3["Metodologia<br/>e Recursos"] --> A4["Sequência<br/>Didática"] --> A5["Avaliação<br/>(final)"] --> A6["Adaptação"]

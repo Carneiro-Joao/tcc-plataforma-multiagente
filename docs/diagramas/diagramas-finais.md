@@ -1,7 +1,9 @@
 # AulaIA — Diagramas finais (conforme implementado)
 
-**Data:** 23/11/2026 · **Situação:** versão final, aprovada pelo João; refletem o sistema congelado na `main` (`694c07c`).
-Especificação correspondente: [`../especificacao/AulaIA_Especificacao_v2.2_final.md`](../especificacao/AulaIA_Especificacao_v2.2_final.md).
+**Data:** 25/11/2026 · **Situação:** versão de trabalho, conferida contra a `main` (`4558b4a`), depois da PoC 10 (versão de 23/11
+aprovada pelo João; nesta revisão mudaram componentes e as imagens SVG de atividades e sequência, e entraram versões Mermaid das figuras
+que não tinham).
+Especificação correspondente: [`../especificacao/AulaIA_Especificacao_v2.3.md`](../especificacao/AulaIA_Especificacao_v2.3.md).
 Substituem os diagramas v2.1-R2 (D1–D6, branch `docs/diagramas-rascunho`, commit `33e8025`), que descreviam a arquitetura-**alvo**.
 
 **Arquivos:** fontes e imagens em [`final/`](final/) (`.mmd` Mermaid, `.puml` PlantUML, `.png` para o texto, `.svg` para ampliar).
@@ -36,6 +38,9 @@ flowchart TB
     SV --> RAG["Busca curricular<br/>rag/search.py"]
     RAG --> CAT[("Catálogo BNCC 8º ano<br/>+ PDF oficial")]
     SV --> ORQ["Orquestrador da geração<br/>geracao_v2.py"]
+    SV -->|"regeneração:<br/>versão anterior + críticas do Juiz"| REV["Revisão informada<br/>revisao_informada.py"]
+    REV --> ORQ
+    ORQ --> ACE["Verificação de acentuação<br/>acentuacao.py (1 reescrita)"]
     subgraph ESP["Agentes especialistas (LLM) — 6 chamadas encadeadas"]
         direction LR
         A1["Objetivos"] --> A2["Avaliação<br/>(preliminar)"] --> A3["Metodologia<br/>e Recursos"] --> A4["Sequência<br/>Didática"] --> A5["Avaliação<br/>(final)"] --> A6["Adaptação"]
@@ -54,12 +59,17 @@ flowchart TB
 
 Linhas tracejadas: chamadas a serviços externos, sempre por um adaptador. Integrador, validador, extração de tema e política são
 determinísticos (sem LLM). Os seis blocos dos especialistas são **cinco agentes em seis chamadas** (a Avaliação tem duas passagens).
+Desde a PoC 10: na regeneração, o serviço passa pela **Revisão informada** (`revisao_informada.py`), que entrega a cada especialista a
+sua versão anterior e as críticas do Juiz; o orquestrador usa a **Verificação de acentuação** (`acentuacao.py`) para pedir uma reescrita
+de saída escrita sem acentos (determinística na detecção; a reescrita é uma chamada a mais ao Gemini).
 
 ## 2. Casos de uso
 
 ![Casos de uso](final/casos-de-uso.png)
 
-Fonte PlantUML: [`final/casos-de-uso.puml`](final/casos-de-uso.puml). `<<include>>`: partes obrigatórias de UC01. `<<extend>>`:
+Fonte PlantUML: [`final/casos-de-uso.puml`](final/casos-de-uso.puml) (fonte UML oficial). Versão Mermaid para editar no mermaid.live:
+[`final/casos-de-uso.mmd`](final/casos-de-uso.mmd) (fluxograma; Mermaid não tem diagrama de casos de uso, então atores e elipses são
+aproximados e `<<include>>`/`<<extend>>` viram setas tracejadas rotuladas). `<<include>>`: partes obrigatórias de UC01. `<<extend>>`:
 comportamentos opcionais (catálogo, documento-fonte, gerar novamente). Inspecionar especialistas é depuração, não caso de uso.
 
 ## 3. Sequência
@@ -233,7 +243,8 @@ O plano e o rastreio ficam em JSON em `geracoes.resultado`; o parecer, em `parec
 
 ![Visão geral](final/visao-geral.png)
 
-Para leitores sem formação técnica: cinco passos, com a separação entre pessoa, regras fixas e IA. Fonte: [`final/visao-geral.html`](final/visao-geral.html).
+Para leitores sem formação técnica: cinco passos, com a separação entre pessoa, regras fixas e IA. Fonte: [`final/visao-geral.html`](final/visao-geral.html). Versão Mermaid (simplificada, sem ícones e sem o layout em
+cartões): [`final/visao-geral.mmd`](final/visao-geral.mmd).
 
 ## 8. Estrutura do plano de aula
 
@@ -242,7 +253,11 @@ Para leitores sem formação técnica: cinco passos, com a separação entre pes
 As 11 seções do PlanoDeAula 2.0, quem preenche cada uma e a corrente objetivo → etapa → evidência → instrumento, com trechos
 **literais** do plano aprovado na execução de 23/11/2026 pela interface (Gemini + Groq; Ordenação, aula prática, 50 min, projetor e
 computadores; revisão 1, parecer "Com ressalvas"), a mesma usada nas telas do Cap. 4 do TCC. O texto da etapa ET1 é resumido; os demais
-estão entre aspas. Fonte: [`final/estrutura-plano.html`](final/estrutura-plano.html).
+estão entre aspas. Fonte: [`final/estrutura-plano.html`](final/estrutura-plano.html). Versão Mermaid (simplificada):
+[`final/estrutura-plano.mmd`](final/estrutura-plano.mmd).
+
+**Pendente:** o exemplo de 23/11 foi gerado antes da PoC 10 e não tem o plano bruto versionado no repositório. A figura fica como está
+até a nova execução do João; depois, trocar os trechos literais (HTML e `.mmd`) pelos do novo plano e regenerar a imagem.
 
 ## Manutenção
 
