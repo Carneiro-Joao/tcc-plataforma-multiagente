@@ -1,10 +1,9 @@
 """Diagrama de casos de uso do AulaIA em SVG desenhado à mão (notação UML: bonecos, elipses, «include»/«extend» tracejados).
 
 Mesmo conteúdo de ../casos-de-uso.puml, com layout fixo (sem posicionamento automático). Só biblioteca padrão.
-Duas variantes, para o João escolher (25/11):
-  tres-atores  professor (ator principal) + dois serviços de LLM como atores secundários externos;
-  um-ator      só o professor; as APIs de LLM ficam no diagrama de componentes.
-Uso: python casos_de_uso_uml.py  → escreve ../casos-de-uso-uml-tres-atores.svg e ../casos-de-uso-uml-um-ator.svg
+Variante oficial (escolha do João, 25/11): um-ator, só o professor; as APIs de LLM ficam no diagrama de componentes.
+A variante tres-atores (APIs como atores secundários) foi considerada e descartada; o código continua em svg("tres-atores").
+Uso: python casos_de_uso_uml.py  → escreve ../casos-de-uso-uml.svg
 (o PNG sai pelo render.js, escala 2).
 """
 from math import hypot, sqrt
@@ -135,7 +134,8 @@ def svg(variante):
     return "\n".join(partes)
 
 if __name__ == "__main__":
-    for variante in ("tres-atores", "um-ator"):
-        destino = Path(__file__).resolve().parent.parent / f"casos-de-uso-uml-{variante}.svg"
-        destino.write_text(svg(variante), encoding="utf-8")
-        print(destino)
+    # Decisão do João (25/11): só o professor como ator; as APIs de LLM ficam no diagrama de componentes.
+    # A variante "tres-atores" continua disponível em svg("tres-atores"), mas não é gerada.
+    destino = Path(__file__).resolve().parent.parent / "casos-de-uso-uml.svg"
+    destino.write_text(svg("um-ator"), encoding="utf-8")
+    print(destino)

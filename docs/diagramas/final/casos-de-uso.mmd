@@ -1,6 +1,7 @@
 %% Versão Mermaid do diagrama de casos de uso (equivalente a casos-de-uso.puml, que continua sendo a fonte UML).
 %% Mermaid não tem diagrama de casos de uso: atores são nós com forma de pessoa, casos de uso são elipses (estádio),
 %% <<include>> e <<extend>> são setas tracejadas rotuladas.
+%% Único ator: o professor. As APIs de LLM (Gemini e Groq) ficam no diagrama de componentes (decisão do João, 25/11).
 flowchart LR
     P(["👤 Professor"])
     subgraph SIS["AulaIA"]
@@ -15,8 +16,6 @@ flowchart LR
         UC03(["UC03<br/>Aprovar plano"])
         UC04(["UC04<br/>Baixar plano em PDF"])
     end
-    GEM(["👤 Serviço Gemini<br/>(geração)"])
-    GROQ(["👤 Serviço Groq<br/>(IA Juiz)"])
     P --- UC01
     P --- UC02
     P --- UC03
@@ -26,11 +25,9 @@ flowchart LR
     CAT -.->|"«extend»"| UC01
     FONTE -.->|"«extend»"| UC01
     NOVA -.->|"«extend»"| UC01
-    UC01 --- GEM
-    UC01 --- GROQ
     classDef ator fill:#fbeee2,stroke:#a2561b,color:#16242b
     classDef uc fill:#ffffff,stroke:#16242b,color:#16242b
     classDef ext fill:#f2f5f6,stroke:#5a6a72,color:#16242b
-    class P,GEM,GROQ ator
+    class P ator
     class UC01,UC02,UC03,UC04 uc
     class CTX,CONF,CAT,FONTE,NOVA ext
