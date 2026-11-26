@@ -81,6 +81,7 @@ Campos opcionais da R2 (conhecimentos prévios, características da turma, obser
 | Validador | Contrato e invariantes | `contratos/plano_v2.py`, `contratos/validacao.py` |
 | IA Juiz | Parecer por rubrica (6 critérios, nota 0–3), falhas com componente e gravidade | `juiz.py`, `contratos/juiz_v1.py`, `contratos/rubrica_juiz.py` |
 | Adaptador Groq | Chamada ao `openai/gpt-oss-120b`; pausas por cota | `groq_juiz.py`, `juiz_servico.py` |
+| Serviços externos de LLM | API Gemini (geração) e API Groq (IA Juiz), fora do sistema, acessadas só pelos adaptadores por HTTPS | — |
 | Política de decisão | Próximo estado a partir do parecer (determinística) | `contratos/juiz_v1.py` (`decidir`) |
 | Persistência | SQLite: `consultas`, `pedidos`, `geracoes`, `pareceres` | `servico.py` |
 
@@ -115,8 +116,7 @@ contrato `parecer-juiz-1.0`; catálogo `bncc-8ano-v1`. Parâmetros: `docs/Estado
 
 ## 7. Casos de uso
 
-**Ator primário:** Professor (usuário planejador; não é participante de pesquisa). **Atores secundários:** serviço Gemini (geração) e
-serviço Groq (IA Juiz).
+**Ator:** Professor (usuário planejador; não é participante de pesquisa), único ator do diagrama. O diagrama de casos de uso representa apenas o professor, único usuário do sistema. Os serviços de LLM (API Gemini, usada na geração, e API Groq, usada pela IA Juiz) chegaram a ser considerados como atores secundários, por serem sistemas externos. Optou-se por não representá-los como atores porque não têm objetivos próprios em relação ao sistema: são tecnologias acessadas pelos adaptadores para cumprir o UC01 e podem ser trocadas sem mudar o que o professor faz (RNF06). Por isso aparecem no diagrama de componentes, como serviços externos, onde a dependência fica explícita.
 
 | UC | Nome | Requisitos |
 |---|---|---|

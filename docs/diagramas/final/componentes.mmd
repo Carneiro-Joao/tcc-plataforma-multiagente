@@ -13,13 +13,18 @@ flowchart TB
         direction LR
         A1["Objetivos"] --> A2["Avaliação<br/>(preliminar)"] --> A3["Metodologia<br/>e Recursos"] --> A4["Sequência<br/>Didática"] --> A5["Avaliação<br/>(final)"] --> A6["Adaptação"]
     end
+    subgraph EXT["Serviços externos de LLM: fora do AulaIA, acessados pelos adaptadores (não são atores)"]
+        GAPI(("API Gemini<br/>gemini-3.5-flash-lite<br/>geração"))
+        GRAPI(("API Groq<br/>gpt-oss-120b<br/>IA Juiz"))
+    end
     ORQ --> ESP
     ESP -.-> GEM["Adaptador Gemini<br/>gemini.py"]
-    GEM -.-> GAPI(("API Gemini<br/>gemini-3.5-flash-lite"))
+    GEM -.->|"HTTPS"| GAPI
     ORQ --> INT["Integrador<br/>(Python, sem LLM)"]
     INT --> VAL["Validador<br/>contrato plano-aula-2.0"]
     SV --> JUIZ["IA Juiz<br/>juiz_servico.py / juiz.py"]
     JUIZ -.-> GROQ["Adaptador Groq<br/>groq_juiz.py"]
-    GROQ -.-> GRAPI(("API Groq<br/>gpt-oss-120b"))
+    GROQ -.->|"HTTPS"| GRAPI
     JUIZ --> POL["Política de decisão<br/>(determinística)"]
     SV <--> DB[("SQLite<br/>consultas · pedidos<br/>geracoes · pareceres")]
+    style EXT fill:#fbfcfd,stroke:#5a6a72,stroke-width:2px,stroke-dasharray:6 4

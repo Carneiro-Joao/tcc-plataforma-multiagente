@@ -45,49 +45,47 @@ flowchart TB
         direction LR
         A1["Objetivos"] --> A2["Avaliação<br/>(preliminar)"] --> A3["Metodologia<br/>e Recursos"] --> A4["Sequência<br/>Didática"] --> A5["Avaliação<br/>(final)"] --> A6["Adaptação"]
     end
+    subgraph EXT["Serviços externos de LLM: fora do AulaIA, acessados pelos adaptadores (não são atores)"]
+        GAPI(("API Gemini<br/>gemini-3.5-flash-lite<br/>geração"))
+        GRAPI(("API Groq<br/>gpt-oss-120b<br/>IA Juiz"))
+    end
     ORQ --> ESP
     ESP -.-> GEM["Adaptador Gemini<br/>gemini.py"]
-    GEM -.-> GAPI(("API Gemini<br/>gemini-3.5-flash-lite"))
+    GEM -.->|"HTTPS"| GAPI
     ORQ --> INT["Integrador<br/>(Python, sem LLM)"]
     INT --> VAL["Validador<br/>contrato plano-aula-2.0"]
     SV --> JUIZ["IA Juiz<br/>juiz_servico.py / juiz.py"]
     JUIZ -.-> GROQ["Adaptador Groq<br/>groq_juiz.py"]
-    GROQ -.-> GRAPI(("API Groq<br/>gpt-oss-120b"))
+    GROQ -.->|"HTTPS"| GRAPI
     JUIZ --> POL["Política de decisão<br/>(determinística)"]
     SV <--> DB[("SQLite<br/>consultas · pedidos<br/>geracoes · pareceres")]
+    style EXT fill:#fbfcfd,stroke:#5a6a72,stroke-width:2px,stroke-dasharray:6 4
 ```
 
 Linhas tracejadas: chamadas a serviços externos, sempre por um adaptador. Integrador, validador, extração de tema e política são
 determinísticos (sem LLM). Os seis blocos dos especialistas são **cinco agentes em seis chamadas** (a Avaliação tem duas passagens).
+As APIs de LLM (Gemini e Groq) ficam no bloco tracejado **Serviços externos**: estão fora do AulaIA e são acessadas só pelos
+adaptadores, por HTTPS. É aqui, e não no diagrama de casos de uso, que elas aparecem (ver §2).
 Desde a PoC 10: na regeneração, o serviço passa pela **Revisão informada** (`revisao_informada.py`), que entrega a cada especialista a
 sua versão anterior e as críticas do Juiz; o orquestrador usa a **Verificação de acentuação** (`acentuacao.py`) para pedir uma reescrita
 de saída escrita sem acentos (determinística na detecção; a reescrita é uma chamada a mais ao Gemini).
 
 ## 2. Casos de uso
 
-![Casos de uso](final/casos-de-uso.png)
+![Casos de uso](final/casos-de-uso-uml.png)
 
-Fonte PlantUML: [`final/casos-de-uso.puml`](final/casos-de-uso.puml) (fonte UML oficial). Versão Mermaid para editar no mermaid.live:
-[`final/casos-de-uso.mmd`](final/casos-de-uso.mmd) (fluxograma; Mermaid não tem diagrama de casos de uso, então atores e elipses são
-aproximados e `<<include>>`/`<<extend>>` viram setas tracejadas rotuladas). `<<include>>`: partes obrigatórias de UC01. `<<extend>>`:
-comportamentos opcionais (catálogo, documento-fonte, gerar novamente). Inspecionar especialistas é depuração, não caso de uso.
+Decisão do João (25/11): **só o professor como ator**. Justificativa para o texto:
 
-**Versão desenhada em SVG (25/11, recomendada para o texto):** notação UML completa (bonecos, elipses, `«include»`/`«extend»` com seta
-aberta tracejada), layout fixo, mesmo conteúdo do `.puml`.
+> O diagrama de casos de uso representa apenas o professor, único usuário do sistema. Os serviços de LLM (API Gemini, usada na geração, e API Groq, usada pela IA Juiz) chegaram a ser considerados como atores secundários, por serem sistemas externos. Optou-se por não representá-los como atores porque não têm objetivos próprios em relação ao sistema: são tecnologias acessadas pelos adaptadores para cumprir o UC01 e podem ser trocadas sem mudar o que o professor faz (RNF06). Por isso aparecem no diagrama de componentes, como serviços externos, onde a dependência fica explícita.
 
-Duas variantes, **a escolher pelo João** (pendente):
+`«include»`: partes obrigatórias de UC01. `«extend»`: comportamentos opcionais (catálogo, documento-fonte, gerar novamente).
+Inspecionar especialistas é depuração, não caso de uso.
 
-- **Três atores:** professor como ator principal e dois serviços de LLM (API Gemini na geração, API Groq na avaliação) como atores
-  secundários externos. Os agentes e a IA Juiz ficam dentro do sistema; fora fica só o modelo hospedado.
-
-  ![Casos de uso com três atores](final/casos-de-uso-uml-tres-atores.png)
-
-- **Um ator:** só o professor; as APIs de LLM aparecem no diagrama de componentes.
-
-  ![Casos de uso com um ator](final/casos-de-uso-uml-um-ator.png)
-
-Fonte das duas: [`final/ilustradas/casos_de_uso_uml.py`](final/ilustradas/casos_de_uso_uml.py) → `final/casos-de-uso-uml-tres-atores.*` e
-`final/casos-de-uso-uml-um-ator.*` (`.svg` e `.png`).
+Fonte da figura: [`final/ilustradas/casos_de_uso_uml.py`](final/ilustradas/casos_de_uso_uml.py) → `final/casos-de-uso-uml.svg` e `.png`
+(SVG desenhado com notação UML completa e layout fixo). Fontes alternativas com o mesmo conteúdo: PlantUML
+[`final/casos-de-uso.puml`](final/casos-de-uso.puml) (→ `casos-de-uso.png`/`.svg`) e Mermaid [`final/casos-de-uso.mmd`](final/casos-de-uso.mmd)
+(fluxograma; atores e elipses aproximados). A variante com as APIs como atores secundários foi considerada e descartada; o código
+continua no script (`svg("tres-atores")`).
 
 ## 3. Sequência
 
