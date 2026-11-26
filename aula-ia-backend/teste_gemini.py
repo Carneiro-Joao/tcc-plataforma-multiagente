@@ -75,9 +75,10 @@ def main(argv=None):
         parser.error("Duração máxima: 1440 minutos.")
     try:
         agente = None
-        if args.ipv4 and not args.simular:
+        if not args.simular:
+            # A sondagem de terminal não repete HTTP 503 (a classe repete por padrão, como o site).
             ClasseAgente = AgenteGeminiCompleto if args.contrato == "2.0" else AgenteGemini
-            agente = ClasseAgente(args.modelo, transporte=transporte_ipv4())
+            agente = ClasseAgente(args.modelo, transporte=transporte_ipv4() if args.ipv4 else None, repeticoes_503=0)
         gerador = GeradorDePlano("demonstracao" if args.simular else "ia", args.modelo,
                                 agente=agente, reparos=args.reparos)
     except ErroGeracao as e:

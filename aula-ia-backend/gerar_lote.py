@@ -21,7 +21,7 @@ from tempfile import TemporaryDirectory
 import time
 
 from erros import ErroGeracao
-from gemini import MODELO_PADRAO
+from gemini import MODELO_PADRAO, REPETICOES_503_PADRAO
 from geracao_v2 import AgenteGeminiCompleto, GeradorDePlanoCompleto
 from rag.search import BASE, BuscaCurricular
 from rede import transporte_ipv4
@@ -138,7 +138,7 @@ def main(argv=None, dormir=time.sleep):
     p.add_argument("--limite-diario", type=int, default=8, help="Mesmo limite do app (padrão 8). Não há opção para desligar.")
     p.add_argument("--modelo", default=MODELO_PADRAO)
     p.add_argument("--sem-ipv4", action="store_true", help="Não força IPv4 (o app do protocolo usa --ipv4).")
-    p.add_argument("--repeticoes-503", type=int, choices=(0, 1, 2), default=2)
+    p.add_argument("--repeticoes-503", type=int, choices=(0, 1, 2), default=REPETICOES_503_PADRAO)
     p.add_argument("--reparos", type=int, choices=(0, 1), default=1)
     p.add_argument("--somente-validar", action="store_true",
                    help="Gerador de demonstração, banco temporário, sem rede e sem pausas.")

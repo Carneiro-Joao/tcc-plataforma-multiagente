@@ -10,6 +10,9 @@ from erros import ErroGeracao, ErroContrato
 
 MODELO_PADRAO = "gemini-3.5-flash-lite"
 LIMITE_RESPOSTA = 1_000_000
+# Novas tentativas em HTTP 503 por chamada: o mesmo padrão do site (app.py) e do lote (gerar_lote.py). Auditoria 25/11, C9:
+# antes a classe usava 0 e só o app usava 2, então quem instanciava a classe direto ficava sem repetição sem perceber.
+REPETICOES_503_PADRAO = 2
 INSTRUCOES = {
     "objetivos": "Produza entre 2 e 4 objetivos observáveis, alinhados à habilidade oficial e viáveis na duração informada.",
     "metodologia": "Produza metodologia como texto e recursos como cópia EXATA de contexto.recursos. Descreva a estratégia coerente com os objetivos. Não distribua minutos aqui: os tempos pertencem exclusivamente à sequência.",
@@ -29,7 +32,7 @@ SISTEMA = (
 class AgenteGemini:
     def __init__(self, modelo=MODELO_PADRAO, chave=None, transporte=None, timeout=90, *,
                  esquema_saida=esquema, instrucoes=None, versao_contrato="poc04a-0.1", versao_prompt="especialistas-v1",
-                 repeticoes_503=0):
+                 repeticoes_503=REPETICOES_503_PADRAO):
         self.esquema_saida = esquema_saida
         self.instrucoes = instrucoes if instrucoes is not None else INSTRUCOES
         self.versao_contrato, self.versao_prompt = versao_contrato, versao_prompt

@@ -14,7 +14,7 @@ import webbrowser
 from rag.search import BASE, BuscaCurricular
 from erros import ErroGeracao
 from geracao_v2 import AgenteGeminiCompleto, GeradorDePlanoCompleto as GeradorDePlano
-from gemini import MODELO_PADRAO
+from gemini import MODELO_PADRAO, REPETICOES_503_PADRAO
 from rede import transporte_ipv4
 from servico import ErroConsulta, ServicoCurricular
 from juiz_servico import criar_juiz
@@ -121,7 +121,7 @@ def main(argv=None):
     parser.add_argument("--banco", type=Path, default=BASE / "local" / "consultas.sqlite3", help="SQLite local para rastreabilidade técnica.")
     parser.add_argument("--temporario", action="store_true", help="Descartar dados ao encerrar; somente para demonstração descartável.")
     parser.add_argument("--reparos", type=int, choices=(0, 1), default=1, help="Reparos de contrato por especialista (não repete erros HTTP).")
-    parser.add_argument("--repeticoes-503", type=int, choices=(0, 1, 2), default=2,
+    parser.add_argument("--repeticoes-503", type=int, choices=(0, 1, 2), default=REPETICOES_503_PADRAO,
                         help="Novas tentativas com espera somente para HTTP 503, por chamada (padrão: 2).")
     parser.add_argument("--limite-diario", type=int, default=8,
                         help="Máximo de planos com IA por dia, contando falhas (padrão: 8; 0 = sem limite).")
