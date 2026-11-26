@@ -9,6 +9,7 @@ em português leva acento (ex.: "avaliacao", "nao", "sera", "pratica"). A palavr
 têm acento.
 """
 import re
+import unicodedata
 
 ACENTOS = set("áàâãéêíóôõúç")
 MINIMO_CARACTERES = 60
@@ -51,3 +52,27 @@ INSTRUCAO_REESCRITA = (
     "acentuação e cedilha corretas (por exemplo: avaliação, explicação, será, não, prática, sequência). Não mude o sentido, "
     "os IDs, os minutos, os vínculos nem a estrutura."
 )
+
+
+def _sem_acento(texto):
+    return unicodedata.normalize("NFD", texto).encode("ascii", "ignore").decode("ascii")
+
+
+def esqueleto(valor):
+    """A saída sem os textos corridos: chaves, tamanhos de listas, IDs, números e valores curtos (sem acento).
+
+    Auditoria 25/11, C1: a reescrita de acentuação só pode mexer nos textos. Strings com espaço são texto corrido e viram um marcador;
+    strings sem espaço (IDs como "OBJ1", rótulos curtos) entram sem acentos, para que "Introducao" → "Introdução" não conte como mudança.
+    """
+    if isinstance(valor, dict):
+        return {k: esqueleto(v) for k, v in valor.items()}
+    if isinstance(valor, list):
+        return [esqueleto(v) for v in valor]
+    if isinstance(valor, str):
+        return "<texto>" if any(c.isspace() for c in valor.strip()) else _sem_acento(valor)
+    return valor
+
+
+def mesma_estrutura(original, reescrita):
+    """True se a reescrita só mudou textos corridos (ou acentos), mantendo IDs, minutos, vínculos e estrutura."""
+    return esqueleto(original) == esqueleto(reescrita)

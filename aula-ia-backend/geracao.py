@@ -13,7 +13,7 @@ import re
 from contratos.execucao import VERSAO, validar, integrar
 from erros import ErroGeracao, ErroContrato
 from gemini import AgenteGemini, MODELO_PADRAO
-from acentuacao import campos_sem_acentuacao, INSTRUCAO_REESCRITA
+from acentuacao import campos_sem_acentuacao, mesma_estrutura, INSTRUCAO_REESCRITA
 
 
 def validar_saida(plano, entrada):
@@ -150,6 +150,9 @@ class GeradorDePlano:
             self.validar_etapa(nome, nova, entrada, dependencias)
         except (ErroContrato, ErroGeracao) as erro:
             reg.update(estado="descartado", erro=str(erro), motivo="reescrita de acentuação falhou; mantida a saída original")
+            return saida
+        if not mesma_estrutura(saida, nova):  # auditoria 25/11, C1: só os textos podem mudar
+            reg.update(estado="descartado", motivo="reescrita mudou IDs, números, vínculos ou estrutura; mantida a saída original")
             return saida
         restantes = campos_sem_acentuacao(nova)
         if len(restantes) >= len(campos):
