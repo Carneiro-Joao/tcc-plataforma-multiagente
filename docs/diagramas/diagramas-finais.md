@@ -192,7 +192,7 @@ stateDiagram-v2
     [*] --> andamento: professor pede o plano
     andamento --> pronto: plano entregue (com parecer, sem parecer ou melhor versão)
     andamento --> falha: a primeira geração falhou
-    andamento --> interrompido: parado mais de 15 min
+    andamento --> interrompido: sem sinal por mais de 15 min (app parado)
     pronto --> [*]
     falha --> [*]
     interrompido --> [*]
