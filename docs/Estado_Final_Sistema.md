@@ -1,13 +1,17 @@
-# Estado do sistema AulaIA (atualizado em 25/11/2026, depois da PoC 10)
+# Estado do sistema AulaIA (congelado em 26/11/2026, código `c1ef4f8`)
 
-Inventário técnico para a escrita do TCC. Só fatos verificáveis; cada número indica de onde vem. Referência: a branch `fix/auditoria-25-11-c1-c4-c5-c9` (base `main` `4558b4a` + correções da auditoria de 25/11; ainda não levada à `main`). O congelamento de 19/11 foi reaberto em 25/11 para a PoC 10; um novo congelamento
-fica para depois dos testes finais (decisão do João).
+Inventário técnico para a escrita do TCC. Só fatos verificáveis; cada número indica de onde vem. Referência: **`main` com a tag `tcc-congelado-26-11`**, cujo código é o do commit `c1ef4f8` (branch `fix/acento-misto-e-textos-interface`),
+usado na execução do caso-base de 26/11 (pedido `3bf9f2c6`, `experimentos/geracao/caso_base_26-11/`). Congelamento decidido pelo João
+em 26/11; o de 19/11 tinha sido reaberto em 25/11 para as PoCs 10 e 11.
 **25/11/2026 (PoC 10, autorizada pelo João):** a regeneração passou a usar as críticas do Juiz e a geração ganhou verificação de
 acentuação. O que mudou e a lista de ajustes no texto: `docs/PoC10_Regeneracao_Informada_e_Acentuacao.md`.
-**25/11/2026 (PoC 11, branch `feat/poc11-acento-curto-e-recomendacao`, ainda não na `main`):** acento verificado também em campos
+**25/11/2026 (PoC 11):** acento verificado também em campos
 curtos (títulos) e recomendação ao professor junto do plano quando a habilidade pede programação sem computador ou em aula teórica.
 Lista de ajustes no texto: `docs/PoC11_Acento_Curto_e_Recomendacao.md` §6.
-Requisitos, regras e diagramas finais: `docs/especificacao/AulaIA_Especificacao_v2.3.md` (a v2.2 de 23/11 é histórico) e `docs/diagramas/diagramas-finais.md`.
+**26/11/2026 (ajuste antes do congelamento, `c1ef4f8`):** `deteccao-acentuacao-1.2` (campo misto: palavra inequívoca sem acento num campo
+que tem outros acentos), texto "Nª versão sem parecer favorável" no lugar de "não aprovada pelo Juiz", selo "Versão de demonstração"
+removido do cabeçalho.
+Requisitos, regras e diagramas finais: `docs/especificacao/AulaIA_Especificacao_v2.4.md` (v2.3 e v2.2 são histórico) e `docs/diagramas/diagramas-finais.md`.
 Auditoria de 25/11 (documentação × código): `docs/Auditoria_Documentacao_e_Codigo_25-11.md`.
 
 ## 1. Instalar e rodar (Windows)
@@ -84,12 +88,12 @@ Detalhes e testes: `docs/PoC08_Juiz_Integrado.md`.
 | Parâmetros do Juiz | temperature 0, max_completion_tokens 8192, reasoning_effort medium, seed 42, timeout 90 s, reparos 1 | `juiz_servico.py` (`PARAMETROS_EXPERIMENTOS`, `REPAROS`) |
 | Catálogo | `bncc-8ano-v1` | `servico.py` (`VERSAO_CATALOGO`) |
 | Regeneração | `revisao-informada-1.0` (padrão; texto idêntico ao da sondagem PoC 09) | `revisao_informada.py` (`VERSAO`, `INSTRUCAO`) |
-| Acentuação | `deteccao-acentuacao-1.1` (PoC 11): campo sem nenhum acento e com palavra-guia (> 60 caracteres: qualquer; curto: só inequívoca) → 1 reescrita (só modo IA) | `acentuacao.py` (`VERSAO`) |
+| Acentuação | `deteccao-acentuacao-1.2` (26/11): campo sem nenhum acento e com palavra-guia (> 60 caracteres: qualquer; curto: só inequívoca) ou campo misto com palavra inequívoca sem acento → 1 reescrita (só modo IA) | `acentuacao.py` (`VERSAO`) |
 
 ## 5. Números atuais (25/11/2026)
 | Número | Valor | Como conferir |
 |---|---|---|
-| Testes Python | 539 (538 passam, 1 ignorado) na `feat/poc11-acento-curto-e-recomendacao` (+7 da PoC 11). Antes: 532 (531 passam, 1 ignorado), também com `python -S` — conferido em 25/11 na `fix/auditoria-25-11-c1-c4-c5-c9` (513 na `main` `4558b4a`, +19 da auditoria; eram 493 em 23/11) | `python relatorio_testes.py --sem-abrir`; arquivos em `aula-ia-backend/tests/` (38 `.py`) |
+| Testes Python | **545 (544 passam, 1 ignorado: `test_fluxo.TestRankingOriginal.test_modelo_e_embeddings_anexados`, só com `TESTAR_HIBRIDO=1`) no código congelado `c1ef4f8`**, também com `python -S`. Antes: 539 na `feat/poc11-acento-curto-e-recomendacao`; 532 (531 passam, 1 ignorado), também com `python -S` — conferido em 25/11 na `fix/auditoria-25-11-c1-c4-c5-c9` (513 na `main` `4558b4a`, +19 da auditoria; eram 493 em 23/11) | `python relatorio_testes.py --sem-abrir`; arquivos em `aula-ia-backend/tests/` (38 `.py`) |
 | Testes de interface | 3 scripts | `aula-ia/tests/test-plano-render.mjs`, `test-formulario.mjs`, `test-juiz-render.mjs` |
 | Habilidades no catálogo | 11 (EF08CO01–EF08CO11) | `aula-ia-backend/data/bncc_8ano.json` |
 | Especialistas | 5 (6 chamadas; a avaliação tem duas passagens) + integrador em Python | `geracao_v2.py`, `contratos/plano_v2.py` (`ETAPAS`) |
@@ -97,6 +101,7 @@ Detalhes e testes: `docs/PoC08_Juiz_Integrado.md`.
 | Mutação manual (PoC 08) | 46 + 11 mutantes, 0 sobreviventes | `docs/diario_de_bordo.md` (entrada de 19/11) |
 | Mutação manual (PoC 10) | 22 mutantes, 0 sobreviventes (1 sobrevivente na 1ª rodada, morto com 2 testes novos) | `docs/PoC10_Regeneracao_Informada_e_Acentuacao.md` §7 |
 | Mutação manual (PoC 11) | 17 mutantes (12 backend, 5 front), 0 sobreviventes | `docs/PoC11_Acento_Curto_e_Recomendacao.md` §5 |
+| Mutação manual (código congelado `c1ef4f8`) | 15 mutantes no backend (os 12 da PoC 11 + 3 do campo misto) e 6 no front (os 5 da PoC 11 + 1 do texto "sem parecer favorável"), 0 sobreviventes | `docs/diario_de_bordo.md` (entrada de 26/11) |
 
 ## 6. Experimentos e resultados (onde estão)
 | O quê | Onde |
@@ -119,7 +124,8 @@ Detalhes e testes: `docs/PoC08_Juiz_Integrado.md`.
 - A política do Juiz é preliminar. A regeneração usa as críticas do Juiz, mas refaz o plano inteiro (também os componentes sem
   crítica); o ganho foi visto só numa sondagem exploratória (n = 5) medida pelo próprio Juiz (circularidade).
 - A verificação de acentuação é heurística (sem palavra-guia escapa; desde a PoC 11, campos curtos contam só com palavra inequívoca);
-  a PoC 11 ainda não foi verificada com chamadas reais; PoC 10 verificada com chamadas reais em um único
+  a regra 1.2 rodou com chamadas reais no caso-base de 26/11 (3 reescritas aceitas, registradas com `deteccao-acentuacao-1.2`); a
+  recomendação ao professor foi conferida na interface só em modo demonstração (não conferida em execução real); PoC 10 verificada com chamadas reais em um único
   pedido (25/11: 3 reescritas aceitas; regeneração informada resolveu a crítica, mas o Juiz levantou outra — 1 grave → 1 grave).
 - Timeout de 90 s por chamada ao Gemini: em 19/11, 4 de 8 gerações terminaram em timeout (`docs/PoC08_Juiz_Integrado.md`).
 - Só o 8º ano; busca lexical por padrão; tema por regras (falso positivo conhecido: "lista de compras" → "Lista", `docs/PoC06_Tema_Curto.md`).

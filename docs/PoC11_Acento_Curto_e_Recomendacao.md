@@ -97,6 +97,9 @@ dispara os dois.
 
 ## 6. Adaptações na escrita (lista detalhada)
 
+> **Aplicada (26/11).** Esta lista foi aplicada na especificação v2.4 (`docs/especificacao/AulaIA_Especificacao_v2.4.md`),
+> junto com o ajuste de 26/11 (`deteccao-acentuacao-1.2`, "sem parecer favorável", selo removido). A v2.3 citada abaixo é histórico.
+
 ### 6.1 `docs/especificacao/AulaIA_Especificacao_v2.3.md`
 | Onde | Hoje | Sugestão |
 |---|---|---|

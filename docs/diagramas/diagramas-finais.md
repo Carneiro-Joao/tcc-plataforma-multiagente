@@ -3,7 +3,9 @@
 **Data:** 25/11/2026 · **Situação:** versão de trabalho, conferida contra a branch `fix/auditoria-25-11-c1-c4-c5-c9` (base `main` `4558b4a` + correções da auditoria de 25/11; ainda não levada à `main`), depois da PoC 10 (versão de 23/11
 aprovada pelo João; nesta revisão mudaram componentes e as imagens SVG de atividades e sequência, e entraram versões Mermaid das figuras
 que não tinham).
-Especificação correspondente: [`../especificacao/AulaIA_Especificacao_v2.3.md`](../especificacao/AulaIA_Especificacao_v2.3.md).
+Especificação correspondente: [`../especificacao/AulaIA_Especificacao_v2.4.md`](../especificacao/AulaIA_Especificacao_v2.4.md)
+(versão congelada, 26/11, código `c1ef4f8`). A PoC 11 e o ajuste de 26/11 não mudaram componentes, estados nem fluxos desenhados; só a
+figura 6 foi atualizada para o caso-base de 26/11.
 Substituem os diagramas v2.1-R2 (D1–D6, branch `docs/diagramas-rascunho`, commit `33e8025`), que descreviam a arquitetura-**alvo**.
 
 **Arquivos:** fontes e imagens em [`final/`](final/) (`.mmd` Mermaid, `.puml` PlantUML, `.png` para o texto, `.svg` para ampliar).
@@ -273,14 +275,15 @@ Fonte: [`final/ilustradas/visao_geral_ilustrada.py`](final/ilustradas/visao_gera
 ![Estrutura do plano](final/estrutura-plano.png)
 
 As 11 seções do PlanoDeAula 2.0, quem preenche cada uma e a corrente objetivo → etapa → evidência → instrumento, com trechos
-**literais** do plano aprovado na execução de 23/11/2026 pela interface (Gemini + Groq; Ordenação, aula prática, 50 min, projetor e
-computadores; revisão 1, parecer "Com ressalvas"), a mesma usada nas telas do Cap. 4 do TCC. O texto da etapa ET1 é resumido; os demais
-estão entre aspas. Fonte: [`final/estrutura-plano.html`](final/estrutura-plano.html). Versão Mermaid (simplificada):
-[`final/estrutura-plano.mmd`](final/estrutura-plano.mmd).
+**literais** do plano do **caso-base de 26/11/2026** (pedido `3bf9f2c6`, pela interface, Gemini + Groq; Ordenação, aula teórica,
+50 min, quadro e pincel; **revisão 6**, 2ª versão do pedido, parecer "Favorável", aprovada pelo professor), o mesmo usado nas telas do
+Cap. 4 do TCC (`experimentos/geracao/caso_base_26-11/`). Plano bruto versionado em
+`experimentos/geracao/caso_base_26-11/pedido_3bf9f2c6_CASO_BASE.json`. Fonte: [`final/estrutura-plano.html`](final/estrutura-plano.html)
+(atualizada no commit `c7b427d`).
 
-**Pendente:** o exemplo de 23/11 foi gerado antes da PoC 10 e não tem o plano bruto versionado no repositório. A figura fica como está
-até a nova execução do João; depois, trocar os trechos literais (HTML, `.mmd` e o dicionário `EXEMPLO` do script ilustrado) pelos do
-novo plano e regenerar as imagens.
+**Ainda com o exemplo de 23/11 (não regeneradas):** a versão Mermaid simplificada
+([`final/estrutura-plano.mmd`](final/estrutura-plano.mmd)) e a versão ilustrada abaixo (dicionário `EXEMPLO` do script). Para o texto,
+use `final/estrutura-plano.png`.
 
 **Versão ilustrada (25/11):** o plano como uma folha com as 11 seções e, ao lado, a corrente OBJ → ET → EVI → INS. A versão HTML acima
 continua guardada.

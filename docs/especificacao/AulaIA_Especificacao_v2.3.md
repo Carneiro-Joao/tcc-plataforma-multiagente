@@ -1,5 +1,8 @@
 # AulaIA — Especificação v2.3 (conforme implementado)
 
+> **Histórico.** Substituída pela [v2.4](AulaIA_Especificacao_v2.4.md) em 26/11/2026 (congelamento, commit `c1ef4f8`: PoC 11 e ajuste
+> de 26/11). Mantida sem alterações abaixo desta nota.
+
 **Data:** 25/11/2026 · **Situação:** versão de trabalho, conferida contra a branch `fix/auditoria-25-11-c1-c4-c5-c9` (base `main` `4558b4a` + correções da auditoria de 25/11; ainda não levada à `main`), depois da PoC 10;
 pendente de ratificação do orientador. Auditoria item a item: `docs/Auditoria_Documentacao_e_Codigo_25-11.md`.
 **Base:** Especificação v2.2 (23/11/2026, aprovada pelo João; mantida como histórico em

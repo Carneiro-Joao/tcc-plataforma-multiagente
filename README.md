@@ -8,12 +8,12 @@ seis chamadas encadeadas, e um integrador e um validador determinísticos confer
 o plano por uma rubrica de seis critérios. Se o parecer não for favorável, o plano é gerado de novo uma vez, **informado pelas
 críticas do Juiz**. A decisão final é sempre do professor: ele aprova e baixa o PDF, ou gera novamente.
 
-> **Estado em 25/11/2026.** Sistema em versão de trabalho (o congelamento de 19/11 foi reaberto para a PoC 10; novo congelamento
-> depois dos testes finais). Referência: `main` `4558b4a` + branches da auditoria de 25/11 (ainda não levadas à `main`).
+> **Congelado em 26/11/2026** (tag `tcc-congelado-26-11`): código do commit `c1ef4f8`, o mesmo da execução do caso-base de 26/11
+> (pedido `3bf9f2c6`). Especificação v2.4.
 
 | Para saber | Leia |
 |---|---|
-| Requisitos, regras de negócio e casos de uso | [`docs/especificacao/AulaIA_Especificacao_v2.3.md`](docs/especificacao/AulaIA_Especificacao_v2.3.md) |
+| Requisitos, regras de negócio e casos de uso | [`docs/especificacao/AulaIA_Especificacao_v2.4.md`](docs/especificacao/AulaIA_Especificacao_v2.4.md) |
 | Números, versões, limites e como rodar em detalhe | [`docs/Estado_Final_Sistema.md`](docs/Estado_Final_Sistema.md) |
 | Diagramas e figuras | [`docs/diagramas/diagramas-finais.md`](docs/diagramas/diagramas-finais.md) |
 | Formato do plano (11 seções) | [`docs/Contrato_PlanoDeAula_2_0.md`](docs/Contrato_PlanoDeAula_2_0.md) |
@@ -122,7 +122,7 @@ node aula-ia/tests/test-formulario.mjs
 node aula-ia/tests/test-juiz-render.mjs
 ```
 
-Em 25/11/2026: 532 testes Python (531 passam, 1 ignorado), também com `python -S`, e os 3 scripts da interface. Os testes não usam
+No código congelado (26/11/2026): 545 testes Python (544 passam, 1 ignorado: busca híbrida opcional, só com `TESTAR_HIBRIDO=1`), também com `python -S`, e os 3 roteiros da interface. Os testes não usam
 rede. Mudou o front? `cd aula-ia && npm run build` e versione `dist/`.
 
 ## Ferramentas de pesquisa
