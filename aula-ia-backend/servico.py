@@ -4,6 +4,7 @@ import json
 from hashlib import sha256
 from pathlib import Path
 import sqlite3
+import threading
 from uuid import uuid4
 from erros import ErroGeracao
 from juiz_servico import ROTULOS, NAO_FAVORAVEL, falhas_graves
@@ -35,6 +36,10 @@ TIPOS = ("Computação desplugada", "Aula prática", "Aula teórica", "Projeto")
 PEDIDO_ABANDONADO_S = 15 * 60
 ESTADOS_EM_ANDAMENTO = ("gerando", "avaliando", "aguardando_juiz", "regenerando")
 AVISO_PROVISORIO = "Avaliação automática e provisória; a decisão final é do professor."
+MOTIVO_CEGA_DEMONSTRACAO = "parecer de demonstração, gravado de outro plano: a regeneração não usa as suas críticas"
+# Enquanto um pedido roda, uma linha de fundo renova `atualizado_em` neste intervalo (auditoria 25/11, C4). Assim "interrompido"
+# significa de fato que o app parou (fechado no meio), e não que a geração está lenta (timeouts, reparos, reescritas, cota do Groq).
+BATIMENTO_S = 60
 
 
 class ErroConsulta(Exception):
@@ -322,7 +327,32 @@ class ServicoCurricular:
                                         "também contam). Volte amanhã ou reinicie o app com --limite-diario maior.")
             id_pedido = uuid4().hex
             db.execute("INSERT INTO pedidos (id, consulta_id, estado) VALUES (?, ?, 'gerando')", (id_pedido, id_consulta))
+        with self._batimento(id_pedido):
+            return self._executar_pedido(id_consulta, entrada, id_pedido)
 
+    @contextmanager
+    def _batimento(self, id_pedido):
+        """Renova `atualizado_em` do pedido a cada BATIMENTO_S enquanto ele roda neste processo (auditoria 25/11, C4)."""
+        parar = threading.Event()
+
+        def bater():
+            while not parar.wait(BATIMENTO_S):
+                try:
+                    with abrir_banco(self.banco) as db:
+                        db.execute("UPDATE pedidos SET atualizado_em = CURRENT_TIMESTAMP WHERE id = ? AND estado IN "
+                                   f"({', '.join('?' * len(ESTADOS_EM_ANDAMENTO))})", (id_pedido, *ESTADOS_EM_ANDAMENTO))
+                except sqlite3.Error:  # banco ocupado: tenta de novo no próximo batimento
+                    pass
+
+        linha = threading.Thread(target=bater, name=f"batimento-{id_pedido[:8]}", daemon=True)
+        linha.start()
+        try:
+            yield
+        finally:
+            parar.set()
+            linha.join()
+
+    def _executar_pedido(self, id_consulta, entrada, id_pedido):
         candidatos, historico, aviso = [], [], None
         anterior = None  # (resultado, parecer) da última versão avaliada: base da regeneração informada
         ciclos = self.ciclos_juiz if self.juiz else 0
@@ -334,12 +364,17 @@ class ServicoCurricular:
                     aviso = "Limite diário de gerações atingido antes da nova versão; entregue a melhor versão já avaliada."
                     historico.append(dict(ciclo=ciclo, evento="limite_geracao"))
                     break
-                revisoes = None
+                revisoes, motivo_cega = None, None
                 if self.regeneracao == "informada" and anterior is not None:
-                    revisoes = revisao_informada.montar_revisoes(anterior[0].get("rastreio"), anterior[1])
+                    if anterior[2]:
+                        # Auditoria 25/11, C5: o parecer de demonstração é gravado de OUTRO plano; suas críticas não servem a este.
+                        motivo_cega = MOTIVO_CEGA_DEMONSTRACAO
+                    else:
+                        revisoes = revisao_informada.montar_revisoes(anterior[0].get("rastreio"), anterior[1])
                 historico.append(dict(ciclo=ciclo, evento="regenerando", modo="informada" if revisoes else "cega",
                                       versao_revisao=revisao_informada.VERSAO if revisoes else None,
-                                      criticas_usadas=[f["id"] for f in anterior[1]["falhas"]] if revisoes else []))
+                                      criticas_usadas=[f["id"] for f in anterior[1]["falhas"]] if revisoes else [],
+                                      **({"motivo": motivo_cega} if motivo_cega else {})))
                 self._atualizar_pedido(id_pedido, estado="regenerando", ciclo=ciclo, historico=historico)
             else:
                 revisoes = None
@@ -374,7 +409,7 @@ class ServicoCurricular:
                 break
             decisao = avaliado["decisao"]
             item.update(avaliado=True, proximo_estado=decisao["proximo_estado"], graves=falhas_graves(avaliado["parecer"]))
-            anterior = (resultado, avaliado["parecer"])
+            anterior = (resultado, avaliado["parecer"], bool(avaliado.get("demonstracao")))
             historico.append(dict(ciclo=ciclo, geracao_id=gid, revisao=revisao, evento="avaliado",
                                   proximo_estado=decisao["proximo_estado"], rotulo=ROTULOS[decisao["proximo_estado"]],
                                   motivos=decisao["motivos"], falhas_graves=item["graves"],
