@@ -1,0 +1,120 @@
+{
+ "descricao": "Execuções manuais do João em 26/11/2026",
+ "consulta": {
+  "id": "daa7cda32eba41a3b600ba3384d4e53a",
+  "contexto": {
+   "ano": "8º ano",
+   "tema": "Ordenação",
+   "duracao_min": 50,
+   "recursos": "quadro e pincel",
+   "tipo": "Aula teórica"
+  },
+  "pedido_original": "Ordenação",
+  "origem_tema": "catalogo"
+ },
+ "pedido": {
+  "id": "528f5197af684dbf9357387d76abed26",
+  "consulta_id": "daa7cda32eba41a3b600ba3384d4e53a",
+  "estado": "falha",
+  "ciclo": 0,
+  "geracao_entregue": null,
+  "aviso": "Gemini HTTP 503: Modelo Gemini sobrecarregado por alta demanda. Tente novamente mais tarde. Foram feitas 3 tentativas nesta etapa.",
+  "historico": [
+   {
+    "ciclo": 0,
+    "evento": "falha_geracao",
+    "erro": "Gemini HTTP 503: Modelo Gemini sobrecarregado por alta demanda. Tente novamente mais tarde. Foram feitas 3 tentativas nesta etapa."
+   }
+  ],
+  "criado_em": "2026-11-26 04:38:35",
+  "atualizado_em": "2026-11-26 04:39:43"
+ },
+ "geracoes": [
+  {
+   "id": "b819d341b9e84faab7cd029fbb5952d2",
+   "consulta_id": "daa7cda32eba41a3b600ba3384d4e53a",
+   "revisao": 2,
+   "estado": "falha",
+   "resultado": {
+    "erro": "Gemini HTTP 503: Modelo Gemini sobrecarregado por alta demanda. Tente novamente mais tarde. Foram feitas 3 tentativas nesta etapa.",
+    "tipo_erro": "http",
+    "rastreio": [
+     {
+      "agente": "objetivos",
+      "tentativa": 1,
+      "entrada": {
+       "contexto": {
+        "ano": "8º ano",
+        "tema": "Ordenação",
+        "duracao_min": 50,
+        "recursos": "quadro e pincel",
+        "tipo": "Aula teórica"
+       },
+       "habilidade": {
+        "codigo": "EF08CO03",
+        "eixo": "Pensamento Computacional",
+        "objeto_conhecimento": "Algoritmos clássicos",
+        "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+        "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+        "exemplos": [
+         "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+         "Algoritmos de inserção.",
+         "Algoritmos de remoção.",
+         "Algoritmos de busca linear.",
+         "Algoritmos de busca binária."
+        ],
+        "referencia": {
+         "documento": "Computação na Educação Básica – Complemento à BNCC",
+         "arquivo": "BNCCComputacao.pdf",
+         "pagina_habilidade": 52,
+         "pagina_exemplos": 53,
+         "versao_catalogo": "bncc-8ano-v1",
+         "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+        }
+       },
+       "saidas_anteriores": {}
+      },
+      "estado": "falha",
+      "versao_esquema_api": "plano-2.0-estrutura-v1",
+      "provedor": "gemini",
+      "modelo_pedido": "gemini-3.5-flash-lite",
+      "versao_contrato": "plano-aula-2.0",
+      "versao_prompt": "especialistas-plano-2.3",
+      "repeticoes_503": 2,
+      "chamadas_http": 3,
+      "falhas_http_transitorias": [
+       {
+        "tentativa_http": 1,
+        "http_status": 503,
+        "erro_corpo": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+        "latencia_s": 7.201,
+        "espera_s": 2.905
+       },
+       {
+        "tentativa_http": 2,
+        "http_status": 503,
+        "erro_corpo": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+        "latencia_s": 27.072,
+        "espera_s": 4.315
+       }
+      ],
+      "http_status": 503,
+      "erro_corpo": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+      "latencia_s": 67.722,
+      "erro": "Gemini HTTP 503: Modelo Gemini sobrecarregado por alta demanda. Tente novamente mais tarde. Foram feitas 3 tentativas nesta etapa.",
+      "tipo_erro": "http"
+     }
+    ],
+    "revisao": 2,
+    "contrato": "plano-aula-2.0",
+    "modo": "ia",
+    "modelo": "gemini-3.5-flash-lite"
+   },
+   "criado_em": "2026-11-26 04:38:35",
+   "pedido_id": "528f5197af684dbf9357387d76abed26",
+   "ciclo": 0,
+   "entregue": 1,
+   "pareceres": []
+  }
+ ]
+}
