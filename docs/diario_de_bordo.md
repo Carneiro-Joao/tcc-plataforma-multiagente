@@ -6,6 +6,18 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-26 · Claude Code · CONGELAMENTO do sistema para o TCC (`main`, tag `tcc-congelado-26-11`)
+
+Decisão do João: congelar no código do commit `c1ef4f8` (branch `fix/acento-misto-e-textos-interface`), o mesmo da execução do
+caso-base de 26/11 (pedido `3bf9f2c6`). Especificação v2.4 (`docs/especificacao/AulaIA_Especificacao_v2.4.md`; v2.3 vira histórico;
+nenhum ID novo; RF08, RF09, RF13, RN05, RNF03, RNF09 reescritos). Figura 6 (estrutura do plano) com o caso-base, legenda atualizada;
+`.mmd` e versão ilustrada da figura 6 continuam com o exemplo de 23/11. Mescladas na `main`: auditoria → PoC 11 → ajuste de 26/11
+(linear), `data/lote-25-11`, `data/caso-base-26-11`, `docs/prints-caso-base-26-11`. Nenhum arquivo de código difere de `c1ef4f8`.
+Testes no código congelado: 545 Python (544 OK, 1 ignorado), também com `-S`; 3/3 roteiros de interface; mutação 15 + 6, 0 vivos.
+Daqui em diante: só documentação, sem mudar código.
+
+---
+
 ## 2026-11-25 23:00 · Claude Code · PoC 11: acento em campos curtos + recomendação ao professor (`feat/poc11-acento-curto-e-recomendacao`)
 
 Pedido do João depois do lote real de 25/11 (entrada e artefatos na branch `data/lote-25-11`). (1) `deteccao-acentuacao-1.1`: campo

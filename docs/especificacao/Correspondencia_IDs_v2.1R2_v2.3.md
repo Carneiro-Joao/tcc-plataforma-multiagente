@@ -1,5 +1,8 @@
 # Correspondência de identificadores: v2.1-R2 → v2.3
 
+> **Vale também para a [v2.4](AulaIA_Especificacao_v2.4.md)** (26/11/2026, congelamento): nenhum ID foi criado, removido ou
+> renumerado. Na v2.4 mudou só o texto de RF08, RF09, RF13, RN05, RNF03 e RNF09 (PoC 11 e ajuste de 26/11).
+
 Decisão do João (23/11/2026): renumerar a partir de RF01 no texto do TCC e guardar aqui a correspondência, para rastrear decisões
 antigas, commits e documentos de PoC que citam os IDs da R2. Especificação final:
 [`AulaIA_Especificacao_v2.3.md`](AulaIA_Especificacao_v2.3.md) (25/11/2026).

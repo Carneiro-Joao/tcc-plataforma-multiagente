@@ -49,6 +49,16 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 8. Resultado de LLM é evidência provisória: a classificação mecânica não substitui adjudicação humana. Não afirmar "estável",
    "validado" ou "o Juiz acerta" sem evidência (n pequeno, um plano, temperatura 0 não é determinístico).
 
+## Estado em 26/11/2026 — CONGELADO (tag `tcc-congelado-26-11`)
+- **Código congelado = commit `c1ef4f8`** (branch `fix/acento-misto-e-textos-interface`), usado na execução do caso-base de 26/11
+  (pedido `3bf9f2c6`, `experimentos/geracao/caso_base_26-11/`). A partir daqui **não alterar código** (Python, JS/JSX, prompts, contratos,
+  testes) sem o João reabrir o congelamento. Só documentação.
+- Especificação vigente: `docs/especificacao/AulaIA_Especificacao_v2.4.md` (v2.3 e v2.2 são histórico; IDs iguais aos da v2.3).
+- Ajuste de 26/11 (antes do congelamento): `deteccao-acentuacao-1.2` (campo misto), "Nª versão sem parecer favorável" no lugar de "não
+  aprovada pelo Juiz", selo "Versão de demonstração" removido do cabeçalho. 545 testes (1 ignorado: busca híbrida, `TESTAR_HIBRIDO=1`);
+  mutação 15 backend + 6 front, 0 vivos.
+- Na `main`: cadeia auditoria → PoC 11 → ajuste de 26/11, dados do lote de 25/11, caso-base e prints de 26/11, figura 6 atualizada.
+
 ## Estado em 25/11/2026 (fim da noite) — lote real e PoC 11 (NÃO congelado; nada na `main`)
 - **Lote de 5 pedidos reais** (`data/lote-25-11`, base `0f5b8df`): 5/5 válidos, 0 falhas técnicas; nas 4 regenerações o Juiz apontou
   menos graves (9 → 3; 2 viraram favoráveis). Resumo e artefatos (telas, PDFs de rascunho) em `experimentos/geracao/lote_25-11/`.
