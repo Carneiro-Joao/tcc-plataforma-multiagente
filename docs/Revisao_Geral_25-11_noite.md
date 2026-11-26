@@ -64,6 +64,12 @@ SVG de casos de uso estão coerentes com o sistema. As cópias Mermaid dentro de
 
 Conferido na cópia do Projeto de 24/11. Se a versão mais nova do texto já corrigiu algum item, ignore.
 
+> **Correção (25/11, 21h40).** O documento de continuidade do Projeto (`claude/continuidade-tcc.md`, 25/11 18h55) diz que a versão
+> principal do Cap. 4 está no Google Docs e que `claude/cap4-texto.md` está desatualizado. Pelo registro de lá, já foram aplicados no
+> Docs: RF12, RN11, a 4.3.3 com a regeneração informada (item 6), o Orquestrador com a acentuação (parte do item 8) e a 4.2.4 ("sem as
+> críticas do pedido anterior"). Continuam pendentes, segundo o próprio registro: exemplo e prints novos (item 9), contagem de testes
+> (item 2) e ratificação. A lista abaixo serve só para conferência; o chat de escrita decide.
+
 1. **Introdução e 4.3:** "sistema congelado em 19 de novembro" → o desenvolvimento foi reaberto em 25/11 (PoC 10). Novo congelamento
    depois dos testes finais.
 2. **4.1:** "versão 2.2, de 23 de novembro" → v2.3, de 25/11. "493 testes" → 532.
