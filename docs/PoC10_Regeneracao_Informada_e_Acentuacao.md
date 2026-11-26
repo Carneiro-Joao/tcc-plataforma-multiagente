@@ -197,6 +197,11 @@ desplugada." → "Compreender e simular algoritmos clássicos de ordenação de 
 
 ## 8. Adaptações na escrita (lista detalhada)
 
+> **Aplicada (25/11, noite).** Esta lista foi aplicada na especificação v2.3 (`docs/especificacao/AulaIA_Especificacao_v2.3.md`), na
+> correspondência v2.3, nos diagramas e nos documentos de estado (auditoria de 25/11, branch `docs/auditoria-25-11`). Fica como
+> registro do que mudou; não é mais lista de pendências. Os números desta PoC (513 testes) são os da época; o total atual está em
+> `docs/Estado_Final_Sistema.md`.
+
 Linhas conferidas em 25/11 na `main`/branch atual. "Sugestão" é texto pronto para colar; ajuste o estilo à vontade.
 
 ### 8.1 `docs/especificacao/AulaIA_Especificacao_v2.2_final.md`

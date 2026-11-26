@@ -6,6 +6,14 @@
 > **Testes conferidos agora:** 513 Python (512 passam, 1 ignorado), também com `python -S`; 3 scripts do front OK.
 >
 > Legenda: ✅ de acordo · ⚠️ desatualizado · ❌ errado ou contraditório · ➕ faltando.
+>
+> **Adendo (25/11, noite): o que foi feito depois deste relatório.** Etapa 2 aprovada pelo João e aplicada na branch
+> `docs/auditoria-25-11`: especificação v2.3, nova correspondência, diagramas e documentos atualizados; correções C2 (`fe85fa7`),
+> C3 (`85d592b`), C6 (`90b95ea`), C7 (`3606936`) e C8 (`5f02230`). Depois, a pedido do João, os achados que este relatório marcava como
+> "só documentar" também foram corrigidos na branch `fix/auditoria-25-11-c1-c4-c5-c9`: **C1** reescrita de acento só é aceita com
+> IDs, números, vínculos e estrutura iguais (`f3b9989`); **C4** batimento de 60 s renova o pedido em andamento (`3b7bbc4`); **C5** Juiz
+> de demonstração → regeneração cega (`3b7bbc4`); **C9** `REPETICOES_503_PADRAO = 2` na classe (`6f8feed`); testes em `b943870`
+> (11 mutantes, 0 vivos). Total: 532 testes. Revisão seguinte: `docs/Revisao_Geral_25-11_noite.md`. O texto abaixo fica como estava.
 > Impacto: **pontual** (muda só o próprio arquivo) ou **cascata** (obriga a mudar outros documentos ou figuras).
 
 ## Resumo
