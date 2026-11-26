@@ -6,6 +6,18 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-25 23:00 · Claude Code · PoC 11: acento em campos curtos + recomendação ao professor (`feat/poc11-acento-curto-e-recomendacao`)
+
+Pedido do João depois do lote real de 25/11 (entrada e artefatos na branch `data/lote-25-11`). (1) `deteccao-acentuacao-1.1`: campo
+curto sem acento com palavra inequívoca (-cao/-sao, "nao", "sera"…) também dispara a reescrita única (lote: títulos "Introducao…" no
+cenário 3); palavras ambíguas ("pratica", "analise") só contam em campo longo; rastreio registra a versão da regra. (2) `alertas_recursos`:
+nova regra EF08CO01/02 em aula teórica; cada alerta ganha `recomendacao`, mostrada em "Recomendação ao professor" junto do plano entregue
+(fora da impressão); não bloqueia. 539 testes (1 ignorado), também com `-S`; front 3/3; 17 mutantes, 0 vivos; conferido na interface em
+modo demonstração. Sem chamadas reais. Ajustes na escrita: `docs/PoC11_Acento_Curto_e_Recomendacao.md` §6. De molho: "só Bubble sort";
+tema do cenário 5 não será corrigido.
+
+---
+
 ## 2026-11-25 21:55 · Claude do chat · casos de uso só com o professor (`fix/auditoria-25-11-c1-c4-c5-c9`)
 
 Decisão do João: único ator = professor; as APIs de LLM ficam no diagrama de componentes (novo bloco tracejado "Serviços externos de

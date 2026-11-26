@@ -49,6 +49,16 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 8. Resultado de LLM é evidência provisória: a classificação mecânica não substitui adjudicação humana. Não afirmar "estável",
    "validado" ou "o Juiz acerta" sem evidência (n pequeno, um plano, temperatura 0 não é determinístico).
 
+## Estado em 25/11/2026 (fim da noite) — lote real e PoC 11 (NÃO congelado; nada na `main`)
+- **Lote de 5 pedidos reais** (`data/lote-25-11`, base `0f5b8df`): 5/5 válidos, 0 falhas técnicas; nas 4 regenerações o Juiz apontou
+  menos graves (9 → 3; 2 viraram favoráveis). Resumo e artefatos (telas, PDFs de rascunho) em `experimentos/geracao/lote_25-11/`.
+- **PoC 11** (`feat/poc11-acento-curto-e-recomendacao`, a partir da `fix/auditoria-25-11-c1-c4-c5-c9`): `deteccao-acentuacao-1.1`
+  (campos curtos com palavra inequívoca também pedem reescrita) e recomendação ao professor junto do plano quando EF08CO01/02 vêm sem
+  computador ou em aula teórica (`alertas_recursos`, não bloqueia). 539 testes; 17 mutantes, 0 vivos; sem chamadas reais.
+  Ajustes na escrita: `docs/PoC11_Acento_Curto_e_Recomendacao.md` §6.
+- **De molho (decisão do João):** "só Bubble sort" (inconsistência do Juiz, observação para adjudicação); tema "Segurança e privacidade e
+  internet" (extração por regras) não será corrigido.
+
 ## Estado em 25/11/2026 (noite) — auditoria documentação × código (`docs/auditoria-25-11`, NÃO congelado)
 - Relatório: `docs/Auditoria_Documentacao_e_Codigo_25-11.md`. **O sistema não está congelado**: o congelamento de 19/11 foi reaberto
   em 25/11 para a PoC 10; novo congelamento só depois dos testes finais, quando o João pedir.
