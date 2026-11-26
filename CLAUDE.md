@@ -63,6 +63,8 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
   aceita com IDs/números/vínculos/estrutura iguais; C4 batimento de 60 s renova o pedido em andamento; C5 Juiz de demonstração →
   regeneração cega; C9 `REPETICOES_503_PADRAO = 2` na classe (só `teste_gemini.py` usa 0). 532 testes (1 ignorado); 11 mutantes, 0 vivos.
   Figuras novas: casos de uso em SVG UML e versões ilustradas da visão geral e da estrutura do plano (`docs/diagramas/final/ilustradas/`).
+  **Decisão do João (25/11): casos de uso só com o professor como ator**; as APIs de LLM ficam no diagrama de componentes (bloco
+  "Serviços externos de LLM"). Figura oficial `casos-de-uso-uml.png`; justificativa em `diagramas-finais.md` §2 e na especificação §7.
   Nada levado à `main`.
 
 ## Estado em 25/11/2026 — PoC 09 e PoC 10 (mudança de código autorizada pelo João depois do congelamento)

@@ -91,6 +91,10 @@ Conferido na cópia do Projeto de 24/11. Se a versão mais nova do texto já cor
 
 ## 5. Plano de ação
 
+> **Atualização (25/11, 21h50).** A2 e A3 resolvidos: o João escolheu só o professor como ator; justificativa na especificação §7 e em
+> `diagramas-finais.md` §2; APIs de LLM no diagrama de componentes como serviços externos. A4, A6, A7, A8, A9, A10 e A12 feitos a pedido
+> do João. Em espera: A1 (cabeçalhos), A5 (execução nova), merge e congelamento.
+
 Ordem sugerida. Itens marcados **(João)** dependem de decisão ou ação sua; os outros eu faço com o seu ok.
 
 | Etapa | Ação | Itens | Depende de |

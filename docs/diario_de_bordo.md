@@ -6,6 +6,13 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-25 21:55 · Claude do chat · casos de uso só com o professor (`fix/auditoria-25-11-c1-c4-c5-c9`)
+
+Decisão do João: único ator = professor; as APIs de LLM ficam no diagrama de componentes (novo bloco tracejado "Serviços externos de
+LLM", ligado aos adaptadores por HTTPS). Figura oficial `casos-de-uso-uml.png` (SVG); `.puml` e `.mmd` alinhados; variantes de três e
+de um ator retiradas. Justificativa (texto pronto) na especificação v2.3 §7 e em `diagramas-finais.md` §2; especificação também ganhou a
+linha "Serviços externos de LLM" na §5. Projeto do claude.ai atualizado.
+
 ## 2026-11-25 21:45 · Claude do chat · ajustes pedidos pelo João após a revisão geral (`fix/auditoria-25-11-c1-c4-c5-c9`)
 
 Diagrama de estados: `interrompido` = "sem sinal por mais de 15 min (app parado)". Adendo na auditoria (C1–C9 corrigidos) e nota no §8
