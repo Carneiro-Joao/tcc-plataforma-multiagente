@@ -6,6 +6,13 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-25 21:45 · Claude do chat · ajustes pedidos pelo João após a revisão geral (`fix/auditoria-25-11-c1-c4-c5-c9`)
+
+Diagrama de estados: `interrompido` = "sem sinal por mais de 15 min (app parado)". Adendo na auditoria (C1–C9 corrigidos) e nota no §8
+da PoC 10 (lista aplicada). README enxuto; o antigo em `docs/historico/README_ate_2026-11-25.md`. Retirados os 3 `*-mermaid.png`.
+Projeto do claude.ai: `claude/especificacao-v2.3.md` (nova), v2.2 marcada como histórico, `claude/repositorio-estado-25-11-noite.md`.
+Plano de ação da revisão em espera (variante de casos de uso e oks do João). 532 testes ok; 3 de interface ok.
+
 ## 2026-11-25 22:00 · Claude do chat · achados C1, C4, C5, C9 e figuras novas (`fix/auditoria-25-11-c1-c4-c5-c9`, a partir de `docs/auditoria-25-11`)
 
 A pedido do João: C1 a reescrita de acentuação só é aceita se IDs, números, vínculos e estrutura ficarem iguais (`acentuacao.mesma_estrutura`);
