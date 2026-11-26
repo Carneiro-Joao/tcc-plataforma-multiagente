@@ -1,6 +1,6 @@
 # AulaIA — Diagramas finais (conforme implementado)
 
-**Data:** 25/11/2026 · **Situação:** versão de trabalho, conferida contra a `main` (`4558b4a`), depois da PoC 10 (versão de 23/11
+**Data:** 25/11/2026 · **Situação:** versão de trabalho, conferida contra a branch `fix/auditoria-25-11-c1-c4-c5-c9` (base `main` `4558b4a` + correções da auditoria de 25/11; ainda não levada à `main`), depois da PoC 10 (versão de 23/11
 aprovada pelo João; nesta revisão mudaram componentes e as imagens SVG de atividades e sequência, e entraram versões Mermaid das figuras
 que não tinham).
 Especificação correspondente: [`../especificacao/AulaIA_Especificacao_v2.3.md`](../especificacao/AulaIA_Especificacao_v2.3.md).

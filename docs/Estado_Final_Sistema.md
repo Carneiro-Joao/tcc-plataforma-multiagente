@@ -1,6 +1,6 @@
 # Estado do sistema AulaIA (atualizado em 25/11/2026, depois da PoC 10)
 
-Inventário técnico para a escrita do TCC. Só fatos verificáveis; cada número indica de onde vem. Referência: `main` (`4558b4a`, 25/11/2026). O congelamento de 19/11 foi reaberto em 25/11 para a PoC 10; um novo congelamento
+Inventário técnico para a escrita do TCC. Só fatos verificáveis; cada número indica de onde vem. Referência: a branch `fix/auditoria-25-11-c1-c4-c5-c9` (base `main` `4558b4a` + correções da auditoria de 25/11; ainda não levada à `main`). O congelamento de 19/11 foi reaberto em 25/11 para a PoC 10; um novo congelamento
 fica para depois dos testes finais (decisão do João).
 **25/11/2026 (PoC 10, autorizada pelo João):** a regeneração passou a usar as críticas do Juiz e a geração ganhou verificação de
 acentuação. O que mudou e a lista de ajustes no texto: `docs/PoC10_Regeneracao_Informada_e_Acentuacao.md`.

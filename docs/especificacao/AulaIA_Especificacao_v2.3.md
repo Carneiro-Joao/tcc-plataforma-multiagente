@@ -1,6 +1,6 @@
 # AulaIA — Especificação v2.3 (conforme implementado)
 
-**Data:** 25/11/2026 · **Situação:** versão de trabalho, conferida contra a `main` (`4558b4a`, 25/11/2026), depois da PoC 10;
+**Data:** 25/11/2026 · **Situação:** versão de trabalho, conferida contra a branch `fix/auditoria-25-11-c1-c4-c5-c9` (base `main` `4558b4a` + correções da auditoria de 25/11; ainda não levada à `main`), depois da PoC 10;
 pendente de ratificação do orientador. Auditoria item a item: `docs/Auditoria_Documentacao_e_Codigo_25-11.md`.
 **Base:** Especificação v2.2 (23/11/2026, aprovada pelo João; mantida como histórico em
 [`AulaIA_Especificacao_v2.2_final.md`](AulaIA_Especificacao_v2.2_final.md)), que por sua vez revisou a v2.1-R2 (10/11/2026).
@@ -228,4 +228,4 @@ calibração da política; estudo com professores ou estudantes.
 | v2.0 | 05/11/2026 | Documento de Visão e Especificação Técnica |
 | v2.1-R2 | 10/11/2026 | Sem validação em campo; RF25/UC10; integrador determinístico |
 | v2.2 final | 23/11/2026 | Conforme implementado: Juiz automático com regeneração, extração de tema, alerta de recursos, limites de uso; IDs renumerados |
-| **v2.3** | 25/11/2026 | Regeneração informada pelas críticas da IA Juiz (PoC 10) e verificação de acentuação; RN16 e RN17; conferida contra `main` `4558b4a` |
+| **v2.3** | 25/11/2026 | Regeneração informada pelas críticas da IA Juiz (PoC 10) e verificação de acentuação; RN16 e RN17; conferida contra `fix/auditoria-25-11-c1-c4-c5-c9` (base `main` `4558b4a`); casos de uso com um único ator |
