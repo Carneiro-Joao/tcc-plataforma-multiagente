@@ -75,9 +75,19 @@ comportamentos opcionais (catálogo, documento-fonte, gerar novamente). Inspecio
 **Versão desenhada em SVG (25/11, recomendada para o texto):** notação UML completa (bonecos, elipses, `«include»`/`«extend»` com seta
 aberta tracejada), layout fixo, mesmo conteúdo do `.puml`.
 
-![Casos de uso (SVG)](final/casos-de-uso-uml.png)
+Duas variantes, **a escolher pelo João** (pendente):
 
-Fonte: [`final/ilustradas/casos_de_uso_uml.py`](final/ilustradas/casos_de_uso_uml.py) → `final/casos-de-uso-uml.svg` e `.png`.
+- **Três atores:** professor como ator principal e dois serviços de LLM (API Gemini na geração, API Groq na avaliação) como atores
+  secundários externos. Os agentes e a IA Juiz ficam dentro do sistema; fora fica só o modelo hospedado.
+
+  ![Casos de uso com três atores](final/casos-de-uso-uml-tres-atores.png)
+
+- **Um ator:** só o professor; as APIs de LLM aparecem no diagrama de componentes.
+
+  ![Casos de uso com um ator](final/casos-de-uso-uml-um-ator.png)
+
+Fonte das duas: [`final/ilustradas/casos_de_uso_uml.py`](final/ilustradas/casos_de_uso_uml.py) → `final/casos-de-uso-uml-tres-atores.*` e
+`final/casos-de-uso-uml-um-ator.*` (`.svg` e `.png`).
 
 ## 3. Sequência
 

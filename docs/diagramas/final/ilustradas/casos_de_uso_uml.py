@@ -1,7 +1,11 @@
 """Diagrama de casos de uso do AulaIA em SVG desenhado à mão (notação UML: bonecos, elipses, «include»/«extend» tracejados).
 
 Mesmo conteúdo de ../casos-de-uso.puml, com layout fixo (sem posicionamento automático). Só biblioteca padrão.
-Uso: python casos_de_uso_uml.py  → escreve casos-de-uso-uml.svg nesta pasta (o PNG sai pelo render.js, escala 2).
+Duas variantes, para o João escolher (25/11):
+  tres-atores  professor (ator principal) + dois serviços de LLM como atores secundários externos;
+  um-ator      só o professor; as APIs de LLM ficam no diagrama de componentes.
+Uso: python casos_de_uso_uml.py  → escreve ../casos-de-uso-uml-tres-atores.svg e ../casos-de-uso-uml-um-ator.svg
+(o PNG sai pelo render.js, escala 2).
 """
 from math import hypot, sqrt
 from pathlib import Path
@@ -21,8 +25,8 @@ UCS = {
     "FONTE": (890, 845, 140, 46, ["Abrir documento-fonte", "da BNCC"], "aux"),
     "NOVA": (1150, 790, 110, 40, ["Gerar novamente"], "aux"),
 }
-ATORES = {"P": (150, 500, ["Professor"]), "GEM": (1560, 360, ["Serviço Gemini", "(geração)"]),
-          "GROQ": (1560, 640, ["Serviço Groq", "(IA Juiz)"])}
+ATORES = {"P": (150, 500, ["Professor"]), "GEM": (1560, 340, ["Serviço de LLM", "de geração", "(API Gemini)"]),
+          "GROQ": (1560, 660, ["Serviço de LLM", "de avaliação", "(API Groq)"])}
 ASSOC = [("P", "UC01"), ("P", "UC02"), ("P", "UC03"), ("P", "UC04"), ("UC01", "GEM"), ("UC01", "GROQ")]
 INCLUDE = [("UC01", "CTX"), ("UC01", "CONF")]
 EXTEND = [("CAT", "UC01"), ("FONTE", "UC01"), ("NOVA", "UC01")]
@@ -93,16 +97,20 @@ def elipse(id_):
             + texto(x, y, linhas, tam, peso))
 
 
-def svg():
-    partes = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
+def svg(variante):
+    tres = variante == "tres-atores"
+    largura = W if tres else 1460
+    atores = ATORES if tres else {"P": ATORES["P"]}
+    assoc = ASSOC if tres else [a for a in ASSOC if "GEM" not in a and "GROQ" not in a]
+    partes = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{largura}" height="{H}" viewBox="0 0 {largura} {H}" '
               f'font-family="Inter, \'DejaVu Sans\', sans-serif">',
-              f'<rect width="{W}" height="{H}" fill="#ffffff"/>',
+              f'<rect width="{largura}" height="{H}" fill="#ffffff"/>',
               '<rect x="330" y="80" width="1060" height="880" rx="22" fill="#fbfcfd" stroke="#5a6a72" stroke-width="2.4"/>',
               '<rect x="330" y="80" width="1060" height="56" rx="22" fill="#eef3f5"/>'
               '<rect x="330" y="114" width="1060" height="22" fill="#eef3f5"/>',
               '<line x1="330" y1="136" x2="1390" y2="136" stroke="#cfd9de" stroke-width="1.5"/>',
               texto(860, 108, ["Sistema AulaIA"], 24, 700)]
-    for a, b in ASSOC:
+    for a, b in assoc:
         (x1, y1), (x2, y2) = ponta(a, b), ponta(b, a)
         partes.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{TINTA}" stroke-width="2.4"/>')
     for a, b in INCLUDE:
@@ -110,15 +118,24 @@ def svg():
     for a, b in EXTEND:
         partes.append(seta(a, b, "«extend»", LARANJA))
     partes += [elipse(i) for i in UCS]
-    partes += [boneco(*v) for v in ATORES.values()]
-    partes.append(texto(860, 985, ["Caso de uso principal em azul; casos incluídos e extensões em cinza. "
-                                   "«include»: sempre acontece dentro do UC01; «extend»: acontece só quando o professor escolhe."],
-                        15, 500, CINZA))
+    partes += [boneco(*v) for v in atores.values()]
+    if tres:
+        partes.append(texto(150, 628, ["ator principal"], 15, 500, CINZA, 'font-style="italic"'))
+        for k in ("GEM", "GROQ"):
+            x, y, ls = ATORES[k]
+            partes.append(texto(x, y + 96 + 12 * (len(ls) - 1) + 14 * len(ls) + 4, ["ator secundário (externo)"], 15, 500, CINZA,
+                                'font-style="italic"'))
+        nota = ("O professor inicia os casos de uso; os serviços de LLM são sistemas externos chamados no UC01. "
+                "Os agentes especialistas e a IA Juiz (prompts, rubrica, validação) ficam dentro do AulaIA.")
+    else:
+        nota = ("O professor é o único ator. As APIs de LLM usadas no UC01 (Gemini na geração, Groq na avaliação) "
+                "aparecem no diagrama de componentes.")
+    partes.append(texto(largura / 2, 985, [nota], 15, 500, CINZA))
     partes.append("</svg>")
     return "\n".join(partes)
 
-
 if __name__ == "__main__":
-    destino = Path(__file__).resolve().parent.parent / "casos-de-uso-uml.svg"
-    destino.write_text(svg(), encoding="utf-8")
-    print(destino)
+    for variante in ("tres-atores", "um-ator"):
+        destino = Path(__file__).resolve().parent.parent / f"casos-de-uso-uml-{variante}.svg"
+        destino.write_text(svg(variante), encoding="utf-8")
+        print(destino)
