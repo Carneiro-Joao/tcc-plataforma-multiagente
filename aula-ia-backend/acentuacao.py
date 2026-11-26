@@ -4,16 +4,19 @@ Causa observada: quando um especialista responde sem acentos, os seguintes receb
 (efeito cascata; no plano de 25/11 16:01, 16 de 19 campos longos ficaram sem acento). O gerador detecta o problema logo na saída
 de cada especialista e pede UMA reescrita com acentuação correta antes de passar ao próximo, interrompendo a cascata.
 
-Critério (determinístico, `deteccao-acentuacao-1.1`): campo de texto SEM nenhum caractere acentuado e com uma palavra-guia.
-- Campo com mais de 60 caracteres: qualquer palavra que em português leva acento (ex.: "avaliacao", "nao", "sera", "pratica").
-- Campo curto (PoC 11, achado do lote de 25/11): só palavras inequívocas (-cao/-coes/-sao/-soes, "nao", "sera", "tambem"…), porque
-  um título curto pode não ter acento nenhum e "pratica"/"analise" existem sem acento como verbo.
+Critério (determinístico, `deteccao-acentuacao-1.2`):
+- Campo SEM nenhum caractere acentuado, com mais de 60 caracteres: qualquer palavra que em português leva acento (ex.: "avaliacao",
+  "nao", "sera", "pratica").
+- Campo SEM nenhum caractere acentuado, curto (PoC 11, achado do lote de 25/11): só palavras inequívocas (-cao/-coes/-sao/-soes,
+  "nao", "sera", "tambem"…), porque um título curto pode não ter acento nenhum e "pratica"/"analise" existem sem acento como verbo.
+- Campo MISTO, de qualquer tamanho (1.2, execução real de 26/11: "metodologia" com "sera"/"demonstracao" sem acento e
+  "ordenação"/"computação" com acento): palavra inequívoca sem acento, mesmo havendo outros acentos. A lista ampla não vale aqui.
 A palavra-guia evita acusar frases que naturalmente não têm acento.
 """
 import re
 import unicodedata
 
-VERSAO = "deteccao-acentuacao-1.1"  # 1.0 (PoC 10): só campos > 60 caracteres; 1.1 (PoC 11): também campos curtos
+VERSAO = "deteccao-acentuacao-1.2"  # 1.0 (PoC 10): só campos > 60; 1.1 (PoC 11): campos curtos; 1.2: campos mistos
 ACENTOS = set("áàâãéêíóôõúç")
 MINIMO_CARACTERES = 60
 PALAVRA_QUE_LEVA_ACENTO = re.compile(
@@ -45,13 +48,17 @@ CAMPOS_COPIADOS_DO_CONTEXTO = frozenset({"recursos"})
 def campos_sem_acentuacao(saida):
     """Caminhos dos campos que parecem escritos sem acentuação (ignora os copiados do contexto).
 
-    Campo longo (> 60 caracteres): nenhum acento + qualquer palavra-guia. Campo curto: nenhum acento + palavra inequívoca."""
+    Campo longo (> 60 caracteres): nenhum acento + qualquer palavra-guia. Campo curto: nenhum acento + palavra inequívoca.
+    Campo misto (qualquer tamanho, com algum acento): palavra inequívoca sem acento."""
     achados = []
     for caminho, texto in _textos(saida):
         if caminho in CAMPOS_COPIADOS_DO_CONTEXTO:
             continue
         minusculo = texto.lower()
         if set(minusculo) & ACENTOS:
+            # 1.2: campo misto (tem acento em alguma palavra, mas "sera"/"demonstracao" sem) — só palavra inequívoca
+            if PALAVRA_INEQUIVOCA.search(minusculo):
+                achados.append(caminho)
             continue
         guia = PALAVRA_QUE_LEVA_ACENTO if len(texto) > MINIMO_CARACTERES else PALAVRA_INEQUIVOCA
         if guia.search(minusculo):

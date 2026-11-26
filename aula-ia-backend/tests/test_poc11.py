@@ -33,7 +33,7 @@ class TestAcentoEmCampoCurto(TestCase):
         self.assertEqual(acentuacao.campos_sem_acentuacao({"t": longo.replace("comparacao", "troca")}), ["t"])  # só "logica"
         self.assertEqual(acentuacao.campos_sem_acentuacao({"t": "O aluno pratica"}), [])  # curto: "pratica" não basta
         self.assertEqual(acentuacao.campos_sem_acentuacao({"recursos": "Introducao"}), [])  # copiado do contexto (C2)
-        self.assertEqual(acentuacao.VERSAO, "deteccao-acentuacao-1.1")
+        self.assertEqual(acentuacao.VERSAO, "deteccao-acentuacao-1.2")
 
     def test_titulo_sem_acento_recebe_reescrita_no_gerador(self):
         depois = [envelope(SAIDAS["avaliacao_final"]), envelope(SAIDAS["adaptacao"])]
@@ -42,7 +42,7 @@ class TestAcentoEmCampoCurto(TestCase):
         self.assertEqual(dados(t.pedidos[4])["reparo_estrutural"]["diagnosticos"], [{"caminho": "etapas[1].titulo", "regra": "sem_acentuacao"}])
         self.assertEqual(resultado["plano"]["desenvolvimento"][1]["titulo"], "Demonstração")
         reg = [r for r in resultado["rastreio"] if r.get("tentativa") == "acentuacao"]
-        self.assertEqual([(r["agente"], r["estado"], r["regra"]) for r in reg], [("sequencia", "validado", "deteccao-acentuacao-1.1")])
+        self.assertEqual([(r["agente"], r["estado"], r["regra"]) for r in reg], [("sequencia", "validado", "deteccao-acentuacao-1.2")])
 
 
 class TestRecomendacaoAoProfessor(TestCase):

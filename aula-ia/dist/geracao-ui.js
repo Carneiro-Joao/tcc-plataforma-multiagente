@@ -175,7 +175,7 @@
     const informadas = (pedido?.historico || []).filter(h => h.evento === "regenerando" && h.modo === "informada");
     const regeneracao = informadas.map(h => `<p class="juiz-historico">A ${texto(h.ciclo + 1)}ª versão foi gerada a partir das
       críticas do Juiz à versão anterior (${texto((h.criticas_usadas || []).join(", "))}), mantendo o contexto confirmado.</p>`).join("");
-    const historico = anteriores.map(h => `<p class="juiz-historico">${texto(h.ciclo + 1)}ª versão não aprovada pelo Juiz
+    const historico = anteriores.map(h => `<p class="juiz-historico">${texto(h.ciclo + 1)}ª versão sem parecer favorável
       (${texto(h.rotulo)}): ${texto((h.criticas && h.criticas.length ? h.criticas : h.motivos || []).join(" · "))}</p>`).join("");
     const semParecer = avaliacao.status === "indisponivel"
       ? "<p>A IA Juiz não conseguiu avaliar este plano (falha técnica). Isso não é um parecer.</p>"

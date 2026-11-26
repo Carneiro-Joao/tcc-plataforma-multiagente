@@ -248,7 +248,6 @@ export default function App() {
     <div className="area-principal">
       <header className="topo">
         <div className="trilha"><Icon nome="home" tamanho={18}/><span aria-hidden="true">›</span><span>Planejamento</span><span aria-hidden="true">›</span><strong>Computação</strong></div>
-        <span className="topo-etiqueta">Versão de demonstração</span>
       </header>
       <main id="planejamento">
         <div className="cabecalho"><span className="cabecalho-icone"><Icon nome="code" tamanho={35}/></span><div>

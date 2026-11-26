@@ -68,8 +68,12 @@ class TestDeteccaoAcentuacao(TestCase):
                 self.assertEqual(acentuacao.campos_sem_acentuacao({"x": [{"y": frase}]}), ["x[0].y"])
 
     def test_texto_com_qualquer_acento_nao_conta(self):
+        # 1.2 (campo misto): palavra inequívoca sem acento passou a contar mesmo com outros acentos (até a 1.1 este caso dava []).
         self.assertEqual(acentuacao.campos_sem_acentuacao(
-            {"a": "A explicacao do professor ocorre durante a atividade de comparação dos grupos."}), [])
+            {"a": "A explicacao do professor ocorre durante a atividade de comparação dos grupos."}), ["a"])
+        # palavra só da lista ampla ("pratica") em campo com acento continua não contando
+        self.assertEqual(acentuacao.campos_sem_acentuacao(
+            {"a": "A pratica do professor ocorre durante a atividade de comparação dos grupos."}), [])
 
 
 class TestReescritaDeAcentuacaoNoGerador(TestCase):

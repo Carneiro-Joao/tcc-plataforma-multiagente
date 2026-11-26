@@ -44,13 +44,14 @@ html = context.renderAvaliacao({status: 'nao_realizada', rotulo: 'Avaliação n�
 assert.ok(html.includes('não foi realizada') && !html.includes('Críticas do Juiz'));
 assert.equal(context.renderAvaliacao(null, null, 'g1'), '');
 
-// Histórico: versão anterior não aprovada aparece com o motivo; a própria versão entregue não
+// Histórico: versão anterior sem parecer favorável aparece com o motivo; a própria versão entregue não
 const pedido = {aviso: 'A IA Juiz não deu parecer favorável a nenhuma das 2 versões.', historico: [
   {ciclo: 0, geracao_id: 'g1', evento: 'avaliado', rotulo: 'Com ressalvas', criticas: ['ET2 simula <uma> passagem só'], motivos: ['x']},
   {ciclo: 1, geracao_id: 'g2', evento: 'avaliado', rotulo: 'Favorável', criticas: [], motivos: ['nenhuma']}]};
 html = context.renderAvaliacao(av('aguardando_decisao', 'Favorável'), pedido, 'g2');
-assert.ok(html.includes('1ª versão não aprovada pelo Juiz') && html.includes('ET2 simula &lt;uma&gt; passagem só'));
-assert.ok(!html.includes('2ª versão não aprovada'));
+assert.ok(html.includes('1ª versão sem parecer favorável') && html.includes('ET2 simula &lt;uma&gt; passagem só'));
+assert.ok(!html.includes('2ª versão sem parecer favorável'));
+assert.ok(!html.includes('aprovada pelo Juiz'), 'o Juiz não aprova: quem aprova é o professor');
 assert.ok(html.includes('<p class="juiz-aviso-pedido">A IA Juiz não deu parecer favorável a nenhuma das 2 versões.</p>'));
 
 // Demonstração: marcada como tal
