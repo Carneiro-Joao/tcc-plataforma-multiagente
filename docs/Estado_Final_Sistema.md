@@ -86,7 +86,7 @@ Detalhes e testes: `docs/PoC08_Juiz_Integrado.md`.
 ## 5. Números atuais (25/11/2026)
 | Número | Valor | Como conferir |
 |---|---|---|
-| Testes Python | 521 (520 passam, 1 ignorado), também com `python -S` — conferido em 25/11 na `docs/auditoria-25-11` (513 na `main` `4558b4a`, +8 da auditoria; eram 493 em 23/11) | `python relatorio_testes.py --sem-abrir`; arquivos em `aula-ia-backend/tests/` (37 `.py`) |
+| Testes Python | 532 (531 passam, 1 ignorado), também com `python -S` — conferido em 25/11 na `fix/auditoria-25-11-c1-c4-c5-c9` (513 na `main` `4558b4a`, +19 da auditoria; eram 493 em 23/11) | `python relatorio_testes.py --sem-abrir`; arquivos em `aula-ia-backend/tests/` (38 `.py`) |
 | Testes de interface | 3 scripts | `aula-ia/tests/test-plano-render.mjs`, `test-formulario.mjs`, `test-juiz-render.mjs` |
 | Habilidades no catálogo | 11 (EF08CO01–EF08CO11) | `aula-ia-backend/data/bncc_8ano.json` |
 | Especialistas | 5 (6 chamadas; a avaliação tem duas passagens) + integrador em Python | `geracao_v2.py`, `contratos/plano_v2.py` (`ETAPAS`) |
@@ -118,11 +118,14 @@ Detalhes e testes: `docs/PoC08_Juiz_Integrado.md`.
   pedido (25/11: 3 reescritas aceitas; regeneração informada resolveu a crítica, mas o Juiz levantou outra — 1 grave → 1 grave).
 - Timeout de 90 s por chamada ao Gemini: em 19/11, 4 de 8 gerações terminaram em timeout (`docs/PoC08_Juiz_Integrado.md`).
 - Só o 8º ano; busca lexical por padrão; tema por regras (falso positivo conhecido: "lista de compras" → "Lista", `docs/PoC06_Tema_Curto.md`).
-- Gerador de demonstração é por regras e não representa a qualidade do Gemini. Misturar `--gerador ia` com `--juiz demonstracao`
-  faz a regeneração informada receber as críticas do parecer gravado de outro plano (combinação só para teste).
-- A reescrita de acentuação é aceita se o contrato continuar válido e o número de campos sem acento cair; não há comparação explícita
-  de IDs, minutos e vínculos com a versão original além do que o validador já exige.
-- Pedido em andamento parado mais de 15 min aparece como `interrompido` (por exemplo, servidor fechado no meio da geração).
+- Gerador de demonstração é por regras e não representa a qualidade do Gemini. Com `--juiz demonstracao` (parecer gravado de outro
+  plano), a regeneração é sempre cega e o histórico registra o motivo (auditoria C5).
+- A reescrita de acentuação é heurística na detecção; só é aceita se o contrato continuar válido, IDs, números, vínculos e estrutura
+  ficarem iguais aos da original e o número de campos sem acento cair (auditoria C1).
+- Enquanto o pedido roda, o serviço renova `atualizado_em` a cada 60 s; sem sinal por mais de 15 min, o pedido aparece como
+  `interrompido` (app fechado no meio da geração). Antes, uma geração só lenta podia aparecer assim (auditoria C4).
+- HTTP 503: a classe `AgenteGemini` e o site repetem até 2 vezes por padrão (`REPETICOES_503_PADRAO`); só a sondagem de terminal
+  (`teste_gemini.py`) desliga de propósito (auditoria C9).
 - Execução local (sem deploy); sem contas de usuário; impressão "página em branco no fim" (PA-2) não reproduzida, correção preventiva.
 
 ## 8. Trabalho futuro

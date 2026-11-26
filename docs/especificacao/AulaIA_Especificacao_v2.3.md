@@ -35,7 +35,7 @@ capítulo de experimento com participantes).
 ## 2. Metodologia e evidências
 
 Desenvolvimento incremental com provas de conceito (PoC 01 a PoC 10), cada uma registrada em `docs/` e no `docs/diario_de_bordo.md`.
-PoC é instrumento de engenharia, não estudo experimental com participantes. Evidências: histórico Git, testes automatizados (521 Python,
+PoC é instrumento de engenharia, não estudo experimental com participantes. Evidências: histórico Git, testes automatizados (532 Python,
 1 ignorado, também com `python -S`; 3 scripts de interface), teste de mutação manual, execuções reais registradas com versão e hash,
 protocolos pré-registrados para os ensaios da IA Juiz (V01–V06), da geração (PoC07B) e da sondagem da regeneração informada (PoC 09,
 `docs/PoC09_Sondagem_Regeneracao_Informada.md`). A sondagem da PoC 09 é registro exploratório (n = 5, medido pelo próprio Juiz), não
@@ -75,7 +75,7 @@ Campos opcionais da R2 (conhecimentos prévios, características da turma, obser
 | Busca curricular | Lexical (padrão) ou híbrida opcional sobre o catálogo do 8º ano | `rag/search.py`, `rag/termos.py` |
 | Orquestrador da geração | 5 especialistas em 6 chamadas encadeadas, validação a cada etapa, verificação de acentuação com uma reescrita, integrador | `geracao_v2.py` |
 | Revisão informada | Monta, para cada especialista, a versão anterior e as críticas do Juiz usadas na regeneração (`revisao-informada-1.0`) | `revisao_informada.py` |
-| Verificação de acentuação | Detecta campo longo escrito sem acentos e pede uma reescrita, aceita só se válida e melhor | `acentuacao.py` |
+| Verificação de acentuação | Detecta campo longo escrito sem acentos e pede uma reescrita, aceita só se válida, com os mesmos IDs, números e vínculos, e melhor | `acentuacao.py` |
 | Adaptador Gemini | Chamada ao `gemini-3.5-flash-lite`, reparo de formato, novas tentativas em 503 | `gemini.py`, `rede.py` |
 | Integrador | Composição determinística das 11 seções (sem LLM) | `geracao_v2.py` |
 | Validador | Contrato e invariantes | `contratos/plano_v2.py`, `contratos/validacao.py` |
@@ -94,7 +94,7 @@ contrato `parecer-juiz-1.0`; catálogo `bncc-8ano-v1`. Parâmetros: `docs/Estado
 
 1. O professor confirma a habilidade e pede o plano; o sistema cria um **pedido**.
 2. Os especialistas geram o plano; o integrador compõe e o validador confere. Saída de especialista com texto sem acentuação recebe
-   uma reescrita, aceita só se continuar válida e melhorar; senão fica a original (nunca derruba a geração). Falha técnica → pedido em
+   uma reescrita, aceita só se continuar válida, mantiver IDs, números, vínculos e estrutura e melhorar; senão fica a original (nunca derruba a geração). Falha técnica → pedido em
    `falha`, sem plano fictício.
 3. A IA Juiz avalia automaticamente; a política calcula o próximo estado: `aguardando_decisao` (favorável), `em_correcao` ou
    `revisao_necessaria` (não favoráveis).
@@ -109,7 +109,7 @@ contrato `parecer-juiz-1.0`; catálogo `bncc-8ano-v1`. Parâmetros: `docs/Estado
 
 | Entidade | Estados |
 |---|---|
-| Pedido | `gerando`, `avaliando`, `aguardando_juiz` (espera da cota do Groq), `regenerando`, `pronto`, `falha`; `interrompido` quando um pedido em andamento fica parado mais de 15 min |
+| Pedido | `gerando`, `avaliando`, `aguardando_juiz` (espera da cota do Groq), `regenerando`, `pronto`, `falha`; `interrompido` quando um pedido em andamento fica mais de 15 min sem sinal de vida (enquanto roda, o serviço renova o pedido a cada 60 s; o estado indica que o app parou no meio) |
 | Geração (versão do plano) | `processando`, `rascunho`, `aprovado`, `falha` |
 | Parecer | `ok` ou `falha`; com `proximo_estado` da política |
 
@@ -208,7 +208,8 @@ a versão da revisão e os IDs das críticas usadas. Diagrama ER em `docs/diagra
 **Limitações:** só o 8º ano; execução local, sem contas e sem deploy; evidências com LLM provisórias (n pequeno, um modelo por papel,
 temperatura 0 não garante repetição); política do Juiz preliminar e sem adjudicação humana; a regeneração informada refaz o plano inteiro (não só os componentes criticados)
 e seu ganho só foi observado numa sondagem exploratória (n = 5) medida pelo próprio Juiz, com risco de "ensinar para a prova"; a
-verificação de acentuação é heurística (palavras-guia) e não confere se a reescrita manteve IDs, minutos e vínculos além do contrato;
+verificação de acentuação é heurística (palavras-guia), embora a reescrita só seja aceita com IDs, números, vínculos e estrutura iguais aos da
+original;
 dependência de APIs externas no plano gratuito (em 19/11, 6 de 12 gerações com falha técnica do Gemini); extração de tema por regras
 (falso positivo conhecido: "lista de compras" → "Lista"); acessibilidade não auditada.
 

@@ -109,7 +109,7 @@ python app.py --modo lexical --gerador ia --ipv4 --juiz groq --ciclos-juiz 1 --r
 
 | Opção | Padrão | Efeito |
 |---|---|---|
-| `--juiz groq\|demonstracao\|desligado` | `groq` se houver `GROQ_API_KEY`, senão `desligado` | `demonstracao` usa um parecer real **gravado de outro plano**, sem rede |
+| `--juiz groq\|demonstracao\|desligado` | `groq` se houver `GROQ_API_KEY`, senão `desligado` | `demonstracao` usa um parecer real **gravado de outro plano**, sem rede; por isso a regeneração fica cega |
 | `--ciclos-juiz N` | 1 | Regenerações automáticas quando o parecer não é favorável (0 = não regenera) |
 | `--regeneracao informada\|cega` | `informada` | `informada`: cada especialista recebe a sua versão anterior e as críticas do Juiz (`revisao-informada-1.0`); `cega`: gera de novo sem as críticas (PoC 08) |
 | `--limite-diario N` | 8 | Gerações com IA por dia, contando falhas |
@@ -234,7 +234,7 @@ Fora do fluxo do site, na pasta `aula-ia-backend` (nenhum faz chamada real sem a
 | `aula-ia/public/geracao-ui.js` | Exibição do plano, falha e aprovação; espelhado em `dist/` |
 | `docs/PoC04A_Gemini.md` | Decisões, achados, evidências e limites deste incremento |
 
-Validação atual (25/11/2026): **521 testes Python (520 passam, 1 ignorado)**, também com `python -S`, e os 3 scripts de interface (`aula-ia/tests/`). O parágrafo a seguir é o registro de 17/11.
+Validação atual (25/11/2026): **532 testes Python (531 passam, 1 ignorado)**, também com `python -S`, e os 3 scripts de interface (`aula-ia/tests/`). O parágrafo a seguir é o registro de 17/11.
 
 Validação em 17/11/2026: **168 testes aprovados e 1 teste opcional ignorado**, também com `python -S`, incluindo os 27 casos estruturais como subtestes, HTTP local, inicializadores, IPv4, recuperação limitada de HTTP 503 e 54 testes do Juiz. O teste de renderização JavaScript confere 11 seções, escape de HTML, planos legados e igualdade entre `public` e `dist`; funciona com quebras de linha Windows ou Unix. Uma geração real anterior, registrada no SQLite local, concluiu o contrato 2.0 em **38,281 s**, com **8 requisições HTTP**, duas recuperações de 503 e **7.831 tokens conhecidos** em seis respostas com uso informado. Essa execução não incluiu IA Juiz. O plano permanece rascunho; a validação mecânica não equivale à aprovação pedagógica. Consulte a [evidência e seus limites](docs/Prototipo_Local_2026-11-16.md).
 

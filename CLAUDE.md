@@ -22,8 +22,8 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 - Testes simples: `python -m unittest discover -s tests -v`.
 - App: `python app.py --modo lexical --gerador ia --ipv4 --abrir` (demo sem API: `--gerador demonstracao --juiz demonstracao`).
   Juiz: `--juiz groq|demonstracao|desligado` (padrão groq se houver `GROQ_API_KEY`), `--ciclos-juiz 1`,
-  `--regeneracao informada|cega` (padrão informada), `--limite-diario-juiz 8`. Não misture `--gerador ia` com `--juiz demonstracao`
-  fora de teste: a regeneração recebe críticas do parecer gravado de outro plano.
+  `--regeneracao informada|cega` (padrão informada), `--limite-diario-juiz 8`. Com `--juiz demonstracao` (parecer gravado de outro
+  plano) a regeneração é sempre cega (C5).
 - Planos reais (Gemini): `python app.py --modo lexical --gerador ia --ipv4 --pedir-chave --abrir` e depois `python exportar_planos.py`
   (exporta os planos reais do SQLite para `local/planos_ia/`; guia em `docs/PoC07_Gerar_e_Exportar_Planos.md`).
   Limite padrão: 8 gerações com IA por dia (decisão do João, 18/11), contando falhas (`--limite-diario N`). **Não aumente nem desligue sem o João pedir.**
@@ -59,7 +59,11 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
   `estrutura-plano` (exemplo de 23/11) espera a nova execução do João.
 - Código (aprovado item a item): C2 recursos não disparam reescrita de acento; C3 mensagem de limite (18 chamadas/54 requisições);
   C6 chaves falsas montadas em tempo de execução; C7 scripts OpenAI/OpenRouter → `legado/`; C8 docstring da herança em `geracao.py`.
-  Só registrados: C1, C4, C5, C9. 521 testes (1 ignorado). Nada levado à `main`.
+  Depois, a pedido do João (`fix/auditoria-25-11-c1-c4-c5-c9`, a partir de `docs/auditoria-25-11`): C1 reescrita de acento só é
+  aceita com IDs/números/vínculos/estrutura iguais; C4 batimento de 60 s renova o pedido em andamento; C5 Juiz de demonstração →
+  regeneração cega; C9 `REPETICOES_503_PADRAO = 2` na classe (só `teste_gemini.py` usa 0). 532 testes (1 ignorado); 11 mutantes, 0 vivos.
+  Figuras novas: casos de uso em SVG UML e versões ilustradas da visão geral e da estrutura do plano (`docs/diagramas/final/ilustradas/`).
+  Nada levado à `main`.
 
 ## Estado em 25/11/2026 — PoC 09 e PoC 10 (mudança de código autorizada pelo João depois do congelamento)
 - **PoC 09** (`feat/poc09-sondagem-regeneracao-informada`): sondagem pré-registrada cega × informada, n = 5 → informada 5 graves e 2/5
@@ -123,7 +127,7 @@ Quem decide o escopo é o João; o orientador está viajando, então toda decis�
 3. Adjudicação humana do Juiz (V03–V06): ferramenta pronta (`poc05h-adjudicacao`); falta o 2º avaliador e as Fases A e B.
 4. Registro de decisões + e-mail ao orientador (pendente de ratificação). Perguntar a data final do TCC.
 5. Nova execução real do João para trocar o exemplo da figura `estrutura-plano` (e telas do Cap. 4, se ele quiser).
-6. Achados registrados na auditoria e não corrigidos: C1 (reescrita de acento não compara IDs/minutos com a original além do
-   validador), C4 (`interrompido` após 15 min), C5 (`--gerador ia` + `--juiz demonstracao`), C9 (503 padrão 0 na classe, 2 no app).
-7. Levar `docs/auditoria-25-11` à `main` quando o João pedir. Feitos e retirados da lista: Juiz no pipeline (PoC 08), regeneração com
+6. Achados de código da auditoria: todos corrigidos (C2, C3, C6, C7, C8 em `docs/auditoria-25-11`; C1, C4, C5, C9 em
+   `fix/auditoria-25-11-c1-c4-c5-c9`).
+7. Levar `docs/auditoria-25-11` e `fix/auditoria-25-11-c1-c4-c5-c9` à `main` quando o João pedir. Feitos e retirados da lista: Juiz no pipeline (PoC 08), regeneração com
    as críticas (PoC 10), merge da cadeia na `main` (19/11 e 25/11).

@@ -6,6 +6,16 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-25 22:00 · Claude do chat · achados C1, C4, C5, C9 e figuras novas (`fix/auditoria-25-11-c1-c4-c5-c9`, a partir de `docs/auditoria-25-11`)
+
+A pedido do João: C1 a reescrita de acentuação só é aceita se IDs, números, vínculos e estrutura ficarem iguais (`acentuacao.mesma_estrutura`);
+C4 batimento de 60 s renova `atualizado_em` enquanto o pedido roda (`interrompido` passa a significar app parado); C5 com Juiz de demonstração
+a regeneração é cega e o histórico registra o motivo; C9 `REPETICOES_503_PADRAO = 2` na classe `AgenteGemini` (app e lote usam a constante;
+`teste_gemini.py` passa 0 de propósito). Testes em `tests/test_auditoria_25_11_achados.py`; 11 mutantes, 0 vivos (sem bytecode).
+532 testes (1 ignorado), com e sem `-S`; 3 scripts de interface ok. Figuras: casos de uso em SVG UML desenhado à mão, visão geral e
+estrutura do plano ilustradas (`docs/diagramas/final/ilustradas/`; HTML e PlantUML mantidos); nó G das atividades cita a reescrita de
+acentuação. Sem chamadas de API. Nada na `main`.
+
 ## 2026-11-25 20:00 · Claude do chat · auditoria documentação × código (`docs/auditoria-25-11`, a partir de `fed4a81`; código em `main` `4558b4a`)
 
 Relatório: `docs/Auditoria_Documentacao_e_Codigo_25-11.md`. Com aprovação do João: especificação **v2.3** (regeneração informada pelas
