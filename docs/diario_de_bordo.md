@@ -6,6 +6,18 @@ depois o que foi feito, números e pendências. Sem interpretação pedagógica 
 
 ---
 
+## 2026-11-25 22:20 · Claude Code · Lote real de 5 pedidos com a IA Juiz (`data/lote-25-11`, base `0f5b8df`)
+
+Autorizado pelo João. Pré-registro commitado antes das chamadas (`637a0db`). App com banco real, `--ciclos-juiz 1 --regeneracao informada`,
+limites só desta execução 17/14 (uso antes 7/4, depois 16/13). Interface real via Playwright, 21:58–22:10; 5/5 pedidos válidos, 0 falhas
+técnicas, nenhum aprovado. Juiz: #2 favorável na 1ª; #3 e #5 favoráveis depois da regeneração informada; #1 (só BubbleSort) e #4
+(EF08CO02 em aula teórica sem computador — conflito de entrada, alerta RF08 exibido) entregues com aviso. Graves das 4 primeiras versões
+não favoráveis: 9 → 3 (medido pelo próprio Juiz). 16 reescritas de acento, todas aceitas; 0 campos longos sem acento, mas títulos curtos
+de etapa sem acento no #3 (detector só olha > 60 caracteres). Minutos 9/9, recursos 9/9, 0 entidades HTML. Artefatos (pedidos, métricas,
+telas, PDFs de rascunho, planos exportados) e `resumo.md` em `experimentos/geracao/lote_25-11/`. n = 5, provisório.
+
+---
+
 ## 2026-11-25 21:55 · Claude do chat · casos de uso só com o professor (`fix/auditoria-25-11-c1-c4-c5-c9`)
 
 Decisão do João: único ator = professor; as APIs de LLM ficam no diagrama de componentes (novo bloco tracejado "Serviços externos de

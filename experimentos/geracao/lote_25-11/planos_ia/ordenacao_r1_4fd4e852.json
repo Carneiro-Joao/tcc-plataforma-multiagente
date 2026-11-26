@@ -1,0 +1,205 @@
+{
+  "plano": {
+    "identificacao": {
+      "titulo": "Plano de aula — Ordenação",
+      "componente": "Computação",
+      "ano": "8º ano",
+      "tema": "Ordenação",
+      "tipo": "Aula prática",
+      "duracao_min": 50
+    },
+    "habilidade_bncc": {
+      "codigo": "EF08CO03",
+      "descricao": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    },
+    "conteudos": [
+      "Algoritmos de ordenação",
+      "BubbleSort",
+      "Manipulação de listas em computadores"
+    ],
+    "objetivo_geral": "Utilizar algoritmos clássicos de manipulação sobre listas por meio de computadores e projetor.",
+    "objetivos_especificos": [
+      {
+        "id": "OBJ1",
+        "descricao": "Identificar o funcionamento de algoritmos de ordenação utilizando o projetor."
+      },
+      {
+        "id": "OBJ2",
+        "descricao": "Executar operações de ordenação em listas usando os computadores."
+      }
+    ],
+    "metodologia": "A aula prática inicia com a explicação oral utilizando o projetor para demonstrar a lógica do algoritmo BubbleSort, ilustrando como os elementos adjacentes são comparados e trocados em uma lista. Em seguida, os alunos utilizam os computadores para executar e testar operações de ordenação de listas na prática, aplicando o algoritmo estudado. A estratégia envolve a demonstração visual inicial seguida da experimentação prática individual ou em duplas, finalizando com perguntas e respostas para verificar a compreensão dos conceitos.",
+    "recursos": "projetor, computadores",
+    "desenvolvimento": [
+      {
+        "id": "ET1",
+        "titulo": "Demonstração do BubbleSort",
+        "minutos": 20,
+        "acao_docente": "Explicar oralmente o funcionamento do BubbleSort e demonstrar a lógica no projetor.",
+        "acao_discente": "Observar a demonstração no projetor e responder oralmente às perguntas sobre a troca de elementos adjacentes.",
+        "atividade": "Explicação oral e perguntas e respostas sobre a lógica de ordenação exibida no projetor.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "evidencias_ids": [
+          "EVI1"
+        ]
+      },
+      {
+        "id": "ET2",
+        "titulo": "Prática de Ordenação em Computadores",
+        "minutos": 30,
+        "acao_docente": "Orientar os alunos no uso dos computadores para executar a manipulação e ordenação de listas.",
+        "acao_discente": "Utilizar os computadores para realizar a operação prática de ordenação de listas aplicando o algoritmo estudado.",
+        "atividade": "Execução prática de ordenação de listas nos computadores.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI2"
+        ]
+      }
+    ],
+    "avaliacao_aprendizagem": {
+      "evidencias": [
+        {
+          "id": "EVI1",
+          "objetivo_id": "OBJ1",
+          "criterio": "Explicar corretamente a lógica do BubbleSort exibida no projetor",
+          "evidencia_esperada": "Resposta oral correta dos alunos sobre a troca de elementos adjacentes demonstrada na tela"
+        },
+        {
+          "id": "EVI2",
+          "objetivo_id": "OBJ2",
+          "criterio": "Manipular e ordenar listas nos computadores utilizando o algoritmo estudado",
+          "evidencia_esperada": "Demonstração prática na tela do computador com a lista ordenada corretamente"
+        }
+      ],
+      "instrumentos": [
+        {
+          "id": "INS1",
+          "descricao": "Arguição oral e observação da participação na demonstração",
+          "etapas_ids": [
+            "ET1"
+          ],
+          "evidencias_ids": [
+            "EVI1"
+          ],
+          "procedimento": "O professor fará perguntas oralmente aos alunos durante a exibição no projetor para verificar a compreensão da lógica do BubbleSort, avaliando as respostas verbais sobre a troca de elementos adjacentes."
+        },
+        {
+          "id": "INS2",
+          "descricao": "Observação direta da execução prática nos computadores",
+          "etapas_ids": [
+            "ET2"
+          ],
+          "evidencias_ids": [
+            "EVI2"
+          ],
+          "procedimento": "O professor circulará pela sala observando diretamente nas telas dos computadores a realização da manipulação e ordenação das listas pelos alunos, verificando a aplicação correta do algoritmo."
+        }
+      ],
+      "uso_resultados": "O professor utilizará os resultados obtidos por meio da arguição oral e da observação direta para identificar eventuais dificuldades dos alunos na compreensão do algoritmo BubbleSort e na manipulação de listas nos computadores. Com base nessa verificação, o professor poderá retomar explicações oralmente, esclarecer dúvidas pontuais durante a aula prática e orientar os alunos na correção de procedimentos de ordenação."
+    },
+    "adaptacoes": [
+      {
+        "id": "ADP1",
+        "descricao": "Adição de perguntas e respostas adicionais durante a demonstração no projetor para garantir o engajamento e a compreensão da lógica do BubbleSort antes da prática.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "etapas_ids": [
+          "ET1"
+        ]
+      },
+      {
+        "id": "ADP2",
+        "descricao": "Acompanhamento individualizado durante a execução prática nos computadores para auxiliar na manipulação de listas e aplicação do algoritmo estudado.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "etapas_ids": [
+          "ET2"
+        ]
+      }
+    ],
+    "referencias": [
+      {
+        "id": "BNCC",
+        "titulo": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "paginas": [
+          52,
+          53
+        ],
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    ]
+  },
+  "entrada": {
+    "versao": "1.0",
+    "consulta_id": "4f9725ab7b57435486a40e3ffd9e7e56",
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "Ordenação",
+      "duracao_min": 50,
+      "recursos": "projetor, computadores",
+      "tipo": "Aula prática"
+    },
+    "habilidade": {
+      "codigo": "EF08CO03",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+      "exemplos": [
+        "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+        "Algoritmos de inserção.",
+        "Algoritmos de remoção.",
+        "Algoritmos de busca linear.",
+        "Algoritmos de busca binária."
+      ],
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    }
+  },
+  "modelo_gerador": "gemini-3.5-flash-lite",
+  "revisao": 1,
+  "origem": {
+    "tipo": "sqlite_real",
+    "geracao_id": "4fd4e852084b4f8f8562fa35e60d79c7",
+    "consulta_id": "4f9725ab7b57435486a40e3ffd9e7e56",
+    "estado_original": "rascunho",
+    "criado_em_sqlite_utc": "2026-11-26 00:58:25",
+    "resultado_sqlite_sha256": "86b5d46b54c6eafd532ec1c0a3f071d442a825b9da6ec5628d35a056d591cb92",
+    "consulta_sqlite_sha256": "49ae57cd610175af3d6a2b0a5572c289ec0ce98fc821b2270973b58f8a110a21",
+    "plano_sha256": "80118cb3ee5342da53b36722358246fba34526643bf7dc6c5c28bf27f203b6d2",
+    "entrada_sha256": "324189c807c839905bfaf3d7427b9e579e102313a69e46eca6e1cb9b6a8995de",
+    "contrato_gerador": "plano-aula-2.0",
+    "provedor_gerador": "gemini",
+    "prompts_gerador": [
+      "especialistas-plano-2.3"
+    ],
+    "modelos_respondidos": [
+      "gemini-3.5-flash-lite"
+    ],
+    "tempo_geracao_s": 10.763
+  }
+}

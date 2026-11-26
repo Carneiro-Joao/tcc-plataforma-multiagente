@@ -1,0 +1,46 @@
+{
+ "cenario": "5",
+ "contexto_formulario": {
+  "tema": "segurança e privacidade na internet",
+  "tipo": "Projeto",
+  "duracao": "100",
+  "recursos": [
+   "computadores",
+   "internet"
+  ]
+ },
+ "consulta_id": "b91a1c3d31724b4d86c405499c461584",
+ "habilidade_confirmada": "EF08CO10",
+ "pedido_id": "5145086d2c39476ebbe70bf88cfd402f",
+ "estado_pedido": "pronto",
+ "segundos_na_interface": 127,
+ "etapas_vistas": [
+  {
+   "etapa": "Gerando plano…",
+   "s": 2
+  },
+  {
+   "etapa": "Aguardando a cota da IA Juiz…",
+   "s": 14
+  },
+  {
+   "etapa": "IA Juiz avaliando…",
+   "s": 49
+  },
+  {
+   "etapa": "Ajustando: gerando nova versão com as críticas do Juiz…",
+   "s": 55
+  },
+  {
+   "etapa": "Aguardando a cota da IA Juiz…",
+   "s": 70
+  },
+  {
+   "etapa": "IA Juiz avaliando a nova versão…",
+   "s": 122
+  }
+ ],
+ "pdf_rascunho": true,
+ "aprovado": false,
+ "erro_tela": null
+}

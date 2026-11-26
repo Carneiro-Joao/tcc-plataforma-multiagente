@@ -1,0 +1,202 @@
+{
+  "plano": {
+    "identificacao": {
+      "titulo": "Plano de aula — Segurança e privacidade e internet",
+      "componente": "Computação",
+      "ano": "8º ano",
+      "tema": "Segurança e privacidade e internet",
+      "tipo": "Projeto",
+      "duracao_min": 100
+    },
+    "habilidade_bncc": {
+      "codigo": "EF08CO10",
+      "descricao": "Discutir questões sobre segurança e privacidade relacionadas ao uso dos ambientes virtuais.",
+      "eixo": "Cultura Digital",
+      "objeto_conhecimento": "Segurança em ambientes virtuais",
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 54,
+        "pagina_exemplos": 55,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    },
+    "conteudos": [
+      "Configurações de privacidade em redes sociais e jogos online",
+      "Riscos do compartilhamento de informações pessoais na internet",
+      "Medidas de proteção contra sites inseguros e golpes virtuais"
+    ],
+    "objetivo_geral": "Discutir criticamente questões de segurança e privacidade no uso de ambientes virtuais, identificando riscos e medidas de proteção adequadas.",
+    "objetivos_especificos": [
+      {
+        "id": "OBJ1",
+        "descricao": "Analisar as configurações-padrão de privacidade em plataformas digitais usando os computadores."
+      },
+      {
+        "id": "OBJ2",
+        "descricao": "Identificar práticas seguras para o compartilhamento de informações pessoais na internet."
+      }
+    ],
+    "metodologia": "A estratégia pedagógica baseia-se na realização de um projeto prático e investigativo sobre segurança e privacidade em ambientes virtuais. Utilizando os computadores e a internet, os estudantes realizam uma pesquisa guiada por perguntas e respostas para explorar configurações de privacidade em plataformas digitais e jogos online. A condução é feita por meio de explicações orais e demonstrações práticas, promovendo um debate coletivo onde os alunos discutem riscos e medidas de proteção. A avaliação ocorre de forma contínua por meio da verificação da participação na análise das telas de configuração e das respostas apresentadas no debate oral.",
+    "recursos": "computadores, internet",
+    "desenvolvimento": [
+      {
+        "id": "ET1",
+        "titulo": "Exploração das configurações de privacidade",
+        "minutos": 50,
+        "acao_docente": "Orientar o acesso aos computadores e guiar a navegação na internet para analisar as configurações-padrão de privacidade.",
+        "acao_discente": "Utilizar os computadores e a internet para examinar as telas de configuração de privacidade.",
+        "atividade": "Pesquisa guiada nos computadores sobre configurações de privacidade em plataformas digitais.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "evidencias_ids": [
+          "EVI1"
+        ]
+      },
+      {
+        "id": "ET2",
+        "titulo": "Debate sobre segurança e compartilhamento",
+        "minutos": 50,
+        "acao_docente": "Conduzir explicação oral e perguntas e respostas sobre os riscos do compartilhamento de informações na internet.",
+        "acao_discente": "Participar do debate oral respondendo as questões e apontando atitudes seguras no ambiente virtual.",
+        "atividade": "Discussão coletiva e perguntas e respostas sobre práticas seguras na rede.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI2"
+        ]
+      }
+    ],
+    "avaliacao_aprendizagem": {
+      "evidencias": [
+        {
+          "id": "EVI1",
+          "objetivo_id": "OBJ1",
+          "criterio": "Verificar se os alunos conseguem acessar e examinar as configurasões de privacidade nos computadores conectados à internet.",
+          "evidencia_esperada": "Explicação oral dos alunos sobre os ajustes encontrados nas telas de configuração."
+        },
+        {
+          "id": "EVI2",
+          "objetivo_id": "OBJ2",
+          "criterio": "Avaliar a capacidade dos estudantes em apontar atitudes seguras no ambiente virtual.",
+          "evidencia_esperada": "Respostas dadas pelos alunos durante o debate oral sobre riscos e proteção."
+        }
+      ],
+      "instrumentos": [
+        {
+          "id": "INS1",
+          "descricao": "Guia de observação da exploração de configurações nos computadores",
+          "etapas_ids": [
+            "ET1"
+          ],
+          "evidencias_ids": [
+            "EVI1"
+          ],
+          "procedimento": "O professor observa a navegação dos alunos nos computadores e coleta a explicação oral sobre os ajustes encontrados nas telas de configuração de privacidade."
+        },
+        {
+          "id": "INS2",
+          "descricao": "Registro de perguntas e respostas do debate oral",
+          "etapas_ids": [
+            "ET2"
+          ],
+          "evidencias_ids": [
+            "EVI2"
+          ],
+          "procedimento": "O professor conduz perguntas e respostas e anota as respostas dadas pelos alunos durante o debate oral sobre riscos e proteção."
+        }
+      ],
+      "uso_resultados": "O professor utilizará as evidências coletadas por meio da observação da exploração nos computadores e do debate oral para verificar se os alunos compreenderam as questões de segurança e privacidade, ajustando futuras explicações orais e demonstrações práticas conforme as necessidades identificadas na turma."
+    },
+    "adaptacoes": [
+      {
+        "id": "ADP1",
+        "descricao": "Adequar o ritmo da pesquisa guiada nos computadores, oferecendo apoio individualizado na explicação oral para os alunos que demonstrarem dificuldades no acesso inicial à internet.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "etapas_ids": [
+          "ET1"
+        ]
+      },
+      {
+        "id": "ADP2",
+        "descricao": "Dividir o grupo em duplas nos computadores e estruturar o debate oral com perguntas direcionadas para facilitar a participação de todos na discussão sobre segurança.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "etapas_ids": [
+          "ET2"
+        ]
+      }
+    ],
+    "referencias": [
+      {
+        "id": "BNCC",
+        "titulo": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "paginas": [
+          54,
+          55
+        ],
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    ]
+  },
+  "entrada": {
+    "versao": "1.0",
+    "consulta_id": "b91a1c3d31724b4d86c405499c461584",
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "Segurança e privacidade e internet",
+      "duracao_min": 100,
+      "recursos": "computadores, internet",
+      "tipo": "Projeto"
+    },
+    "habilidade": {
+      "codigo": "EF08CO10",
+      "eixo": "Cultura Digital",
+      "objeto_conhecimento": "Segurança em ambientes virtuais",
+      "habilidade": "Discutir questões sobre segurança e privacidade relacionadas ao uso dos ambientes virtuais.",
+      "explicacao": "Refletir sobre aspectos de segurança e privacidade em ambientes virtuais, como jogos online, compras online, salas de conversa e redes sociais, considerando compartilhamento de informações e acesso a sites desconhecidos ou inseguros.",
+      "exemplos": [
+        "Analisar configurações-padrão de privacidade.",
+        "Verificar medidas de proteção e filtros utilizados na escola e em casa."
+      ],
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 54,
+        "pagina_exemplos": 55,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    }
+  },
+  "modelo_gerador": "gemini-3.5-flash-lite",
+  "revisao": 1,
+  "origem": {
+    "tipo": "sqlite_real",
+    "geracao_id": "12e67dbc7c5f4bb8b18821b93385e97b",
+    "consulta_id": "b91a1c3d31724b4d86c405499c461584",
+    "estado_original": "rascunho",
+    "criado_em_sqlite_utc": "2026-11-26 01:07:40",
+    "resultado_sqlite_sha256": "3e29802728a59f2516495806d670dd6e87cca992d553c8051d06d807f1907db8",
+    "consulta_sqlite_sha256": "39b736e3c52e8f7306b086f6b0f6f4bf1b4812aeefe4d7b9fe44b01e4c0bb98e",
+    "plano_sha256": "b3bca23b63d46ce6550996ba6678f5171c7ee422da754b720d0a55d824770d2a",
+    "entrada_sha256": "72f5a5f0611c1243bf8c2fefde0b2ae99f5050e3552c37b0c23d8d65d8b5782c",
+    "contrato_gerador": "plano-aula-2.0",
+    "provedor_gerador": "gemini",
+    "prompts_gerador": [
+      "especialistas-plano-2.3"
+    ],
+    "modelos_respondidos": [
+      "gemini-3.5-flash-lite"
+    ],
+    "tempo_geracao_s": 13.579
+  }
+}

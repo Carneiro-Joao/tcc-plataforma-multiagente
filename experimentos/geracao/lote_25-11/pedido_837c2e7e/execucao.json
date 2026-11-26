@@ -1,0 +1,33 @@
+{
+ "cenario": "2",
+ "contexto_formulario": {
+  "tema": "quero ensinar ordenação",
+  "tipo": "Computação desplugada",
+  "duracao": "50",
+  "recursos": [
+   "quadro e pincel"
+  ]
+ },
+ "consulta_id": "d5c2c2a844d6419a98ca22c9dde070ae",
+ "habilidade_confirmada": "EF08CO03",
+ "pedido_id": "837c2e7e03ec4f83a84cae0465e90375",
+ "estado_pedido": "pronto",
+ "segundos_na_interface": 49,
+ "etapas_vistas": [
+  {
+   "etapa": "Gerando plano…",
+   "s": 2
+  },
+  {
+   "etapa": "Aguardando a cota da IA Juiz…",
+   "s": 14
+  },
+  {
+   "etapa": "IA Juiz avaliando…",
+   "s": 47
+  }
+ ],
+ "pdf_rascunho": true,
+ "aprovado": false,
+ "erro_tela": null
+}

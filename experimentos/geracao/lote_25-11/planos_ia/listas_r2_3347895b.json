@@ -1,0 +1,205 @@
+{
+  "plano": {
+    "identificacao": {
+      "titulo": "Plano de aula — Listas",
+      "componente": "Computação",
+      "ano": "8º ano",
+      "tema": "Listas",
+      "tipo": "Aula teórica",
+      "duracao_min": 50
+    },
+    "habilidade_bncc": {
+      "codigo": "EF08CO02",
+      "descricao": "Criar soluções de problemas para os quais seja adequado o uso de listas para descrever suas informações e automatizá-las usando uma linguagem de programação, empregando ou não a recursão como uma técnica de resolver o problema.",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Programação com listas e recursão",
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    },
+    "conteudos": [
+      "Conceito de listas em programação",
+      "Organização e estruturação de dados em sequência",
+      "Automatização de tarefas utilizando coleções de elementos",
+      "Uso de recursão para resolver problemas computacionais"
+    ],
+    "objetivo_geral": "Criar soluções de problemas utilizando listas para descrever informações e automatizá-las por meio de algoritmos, empregando ou não a recursão.",
+    "objetivos_especificos": [
+      {
+        "id": "OBJ1",
+        "descricao": "Desenvolver um algoritmo simples que utilize listas para resolver um problema proposto."
+      },
+      {
+        "id": "OBJ2",
+        "descricao": "Implementar a solução de um problema utilizando listas e aplicando o conceito de recursão quando adequado."
+      }
+    ],
+    "metodologia": "A aula será desenvolvida por meio de exposição dialogada, demonstração prática e resolução guiada de problemas, utilizando exclusivamente quadro e pincel e projetor. O professor iniciará apresentando o conceito de listas como uma estrutura de dados sequencial e o conceito de recursão, anotando esquemas visuais no quadro. Em seguida, utilizando o projetor, serão exibidos exemplos de algoritmos que utilizam listas e recursão, destacando o caso base e as chamadas recursivas. Os alunos participarão ativamente respondendo a perguntas e propondo soluções oralmente para resolver problemas práticos apresentados pelo professor. Como atividade prática alinhada à habilidade EF08CO02, os alunos estruturarão coletivamente no quadro a lógica e o passo a passo de um algoritmo que utiliza listas e recursão para automatizar a solução de um problema proposto, sem a utilização de materiais de escrita individuais.",
+    "recursos": "quadro e pincel, projetor",
+    "desenvolvimento": [
+      {
+        "id": "ET1",
+        "titulo": "Introdução às Listas e Estruturação de Dados",
+        "minutos": 15,
+        "acao_docente": "O professor apresenta o conceito de listas no quadro e pincel, explicando como agrupar elementos sequenciais e demonstrando um exemplo de problema que utiliza essa estrutura.",
+        "acao_discente": "Os alunos acompanham a explicação no quadro e respondem oralmente às perguntas sobre a organização e estruturação de dados.",
+        "atividade": "Exposição dialogada com perguntas e respostas sobre o conceito de listas.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "evidencias_ids": [
+          "EVI1"
+        ]
+      },
+      {
+        "id": "ET2",
+        "titulo": "Desenvolvimento do Algoritmo com Listas e Recursão",
+        "minutos": 35,
+        "acao_docente": "O professor exibe no projetor um modelo de código resolvido e conduz a turma na criação guiada de um algoritmo que utiliza listas e o conceito de recursão, destacando o caso base e as chamadas recursivas.",
+        "acao_discente": "Os alunos participam ativamente propondo passos lógicos, discutindo a solução exibida no projetor e explicando oralmente como construir o algoritmo e aplicar a recursão.",
+        "atividade": "Resolução guiada de problemas com análise coletiva de código no projetor.",
+        "objetivos_ids": [
+          "OBJ1",
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI1",
+          "EVI2"
+        ]
+      }
+    ],
+    "avaliacao_aprendizagem": {
+      "evidencias": [
+        {
+          "id": "EVI1",
+          "objetivo_id": "OBJ1",
+          "criterio": "Nível 1: resposta incompleta ou incorreta sobre a estruturação da lista no quadro. Nível 2: resposta correta com explicação parcial sobre a criação do algoritmo com listas. Nível 3: resposta completa e correta descrevendo a lógica completa do algoritmo utilizando listas.",
+          "evidencia_esperada": "O aluno explica oralmente como os elementos são organizados e processados em formato de lista no quadro de forma correta e estruturada."
+        },
+        {
+          "id": "EVI2",
+          "objetivo_id": "OBJ2",
+          "criterio": "Nível 1: não identifica o caso base ou a chamada recursiva. Nível 2: identifica parcialmente a lógica de recursão ou o caso base. Nível 3: explica com precisão o caso base, a chamada recursiva e a convergência do programa.",
+          "evidencia_esperada": "O aluno responde às perguntas do professor detalhando a aplicação do conceito de recursão e o caso base para resolver o problema utilizando listas."
+        }
+      ],
+      "instrumentos": [
+        {
+          "id": "INS1",
+          "descricao": "Avaliação oral da estruturação de listas no quadro",
+          "etapas_ids": [
+            "ET1",
+            "ET2"
+          ],
+          "evidencias_ids": [
+            "EVI1"
+          ],
+          "procedimento": "O professor faz perguntas direcionadas aos alunos durante a exposição e a estruturação coletiva no quadro, observando e avalizando as respostas orais de acordo com os critérios definidos para a organização e o processamento de dados em formato de lista."
+        },
+        {
+          "id": "INS2",
+          "descricao": "Arguição oral sobre o caso base e a recursão no algoritmo",
+          "etapas_ids": [
+            "ET2"
+          ],
+          "evidencias_ids": [
+            "EVI2"
+          ],
+          "procedimento": "O professor conduz perguntas e respostas coletivas enquanto analisa os códigos no projetor, avaliando as explicações orais dos alunos sobre a aplicação da recursão, o caso base e a convergência do programa."
+        }
+      ],
+      "uso_resultados": "O professor utilizará os resultados das perguntas e respostas orais e das explicações observadas em aula para verificar o nível de compreensão dos alunos sobre o uso de listas e recursão. Com base no desempenho coletivo e individual nas interações orais, o professor ajustará a abordagem pedagógica em tempo real, reforçando os conceitos de caso base e estruturação sequencial caso sejam identificadas dúvidas."
+    },
+    "adaptacoes": [
+      {
+        "id": "ADP1",
+        "descricao": "Adaptar a exposição visual no quadro e pincel utilizando analogias adicionais com objetos cotidianos para facilitar a identificação da utilidade das listas.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "etapas_ids": [
+          "ET1"
+        ]
+      },
+      {
+        "id": "ADP2",
+        "descricao": "Destacar no projetor os trechos principais dos códigos de programação com listas, dividindo a explicação em partes menores e realizando pausas para perguntas e respostas.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "etapas_ids": [
+          "ET2"
+        ]
+      }
+    ],
+    "referencias": [
+      {
+        "id": "BNCC",
+        "titulo": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "paginas": [
+          52,
+          53
+        ],
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    ]
+  },
+  "entrada": {
+    "versao": "1.0",
+    "consulta_id": "943261adb7614bc484239eeb6b7ab833",
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "Listas",
+      "duracao_min": 50,
+      "recursos": "quadro e pincel, projetor",
+      "tipo": "Aula teórica"
+    },
+    "habilidade": {
+      "codigo": "EF08CO02",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Programação com listas e recursão",
+      "habilidade": "Criar soluções de problemas para os quais seja adequado o uso de listas para descrever suas informações e automatizá-las usando uma linguagem de programação, empregando ou não a recursão como uma técnica de resolver o problema.",
+      "explicacao": "Fazer projetos e construir soluções usando listas e recursão. É importante realizar análise crítica de programas recursivos, identificando a existência de um caso base e de chamadas recursivas que façam o programa convergir para o fim.",
+      "exemplos": [
+        "Fazer um programa que junte duas pilhas de cartas ordenadas de forma que o baralho todo continue ordenado."
+      ],
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    }
+  },
+  "modelo_gerador": "gemini-3.5-flash-lite",
+  "revisao": 2,
+  "origem": {
+    "tipo": "sqlite_real",
+    "geracao_id": "3347895bb759450481324e271885ac98",
+    "consulta_id": "943261adb7614bc484239eeb6b7ab833",
+    "estado_original": "rascunho",
+    "criado_em_sqlite_utc": "2026-11-26 01:06:02",
+    "resultado_sqlite_sha256": "91833a3a69fcd81ab2f1aa444360189c22b1c6470e4dda51556242ba4d8f2133",
+    "consulta_sqlite_sha256": "9db8ce9e95d62b036f30a374296d605542a51bfc619e4dd6f1d72d1edba8512d",
+    "plano_sha256": "12801cec18b1f1a73ce873cc6cf71a0fcb237ebcf05f7dad22db92df808c0fbc",
+    "entrada_sha256": "7404f9c2b549e5cc762340da3b3351b815404c6800657e84efb527eb280b02d1",
+    "contrato_gerador": "plano-aula-2.0",
+    "provedor_gerador": "gemini",
+    "prompts_gerador": [
+      "especialistas-plano-2.3"
+    ],
+    "modelos_respondidos": [
+      "gemini-3.5-flash-lite"
+    ],
+    "tempo_geracao_s": 15.429
+  }
+}

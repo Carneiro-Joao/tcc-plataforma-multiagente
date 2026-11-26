@@ -1,0 +1,205 @@
+{
+  "plano": {
+    "identificacao": {
+      "titulo": "Plano de aula — Busca binária",
+      "componente": "Computação",
+      "ano": "8º ano",
+      "tema": "Busca binária",
+      "tipo": "Computação desplugada",
+      "duracao_min": 50
+    },
+    "habilidade_bncc": {
+      "codigo": "EF08CO03",
+      "descricao": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    },
+    "conteudos": [
+      "Conceito de busca binária",
+      "Listas ordenadas e divisão sucessiva",
+      "Simulação prática do algoritmo de busca binária"
+    ],
+    "objetivo_geral": "Compreender e aplicar o algoritmo de busca binária em listas ordenadas por meio de atividade desplugada utilizando quadro e material impresso.",
+    "objetivos_especificos": [
+      {
+        "id": "OBJ1",
+        "descricao": "Identificar o elemento central de uma lista ordenada impressa para iniciar o processo de busca binária."
+      },
+      {
+        "id": "OBJ2",
+        "descricao": "Descartar metades de uma lista ordenada com base na comparação explicada oralmente no quadro."
+      }
+    ],
+    "metodologia": "A estratégia consiste em utilizar o quadro e pincel junto com material impresso para realizar uma atividade de computação desplugada sobre busca binária. Inicialmente, o professor apresenta o conceito de busca binária explicando a necessidade de a lista estar ordenada. Utilizando o quadro e pincel, o professor demonstra como encontrar o elemento central e realizar divisões sucessivas. Em seguida, os alunos recebem o material impresso contendo listas ordenadas e participam de demonstrações práticas. Por meio de explicação oral, perguntas e respostas, os alunos identificam o elemento central e determinam qual metade da lista deve ser descartada a cada passo. A avaliação ocorre de forma contínua, observando a participação oral dos alunos ao apontarem o elemento central no material impresso e ao responderem às perguntas sobre o descarte das metades.",
+    "recursos": "quadro e pincel, material impresso",
+    "desenvolvimento": [
+      {
+        "id": "ET1",
+        "titulo": "Introducao ao Conceito e Identificacao do Elemento Central",
+        "minutos": 25,
+        "acao_docente": "Explicar no quadro e pincel o conceito de busca binária e como identificar o elemento central de uma lista ordenada presente no material impresso.",
+        "acao_discente": "Acompanhar a explicação oral e apontar oralmente o elemento central da lista ordenada apresentada no material impresso.",
+        "atividade": "Simulação coletiva com material impresso e demonstração no quadro e pincel para identificar o elemento central.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "evidencias_ids": [
+          "EVI1"
+        ]
+      },
+      {
+        "id": "ET2",
+        "titulo": "Simulacao de Divisao Sucessiva e Descarte de Metades",
+        "minutos": 25,
+        "acao_docente": "Conduzir perguntas e respostas utilizando o quadro e pincel para orientar os alunos sobre qual metade da lista descartar após a comparação no material impresso.",
+        "acao_discente": "Responder oralmente às perguntas sobre qual parte da lista descartar após a demonstração no quadro e análise do material impresso.",
+        "atividade": "Resolução de perguntas e respostas com demonstração prática utilizando o quadro e pincel e o material impresso.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI2"
+        ]
+      }
+    ],
+    "avaliacao_aprendizagem": {
+      "evidencias": [
+        {
+          "id": "EVI1",
+          "objetivo_id": "OBJ1",
+          "criterio": "O aluno identifica corretamente o elemento central do material impresso.",
+          "evidencia_esperada": "Apontar oralmente o elemento central da lista ordenada apresentada no material impresso."
+        },
+        {
+          "id": "EVI2",
+          "objetivo_id": "OBJ2",
+          "criterio": "O aluno explica qual metade da lista deve ser descartada com base na comparação.",
+          "evidencia_esperada": "Responder oralmente às perguntas sobre qual parte da lista descartar após a demonstração no quadro."
+        }
+      ],
+      "instrumentos": [
+        {
+          "id": "INS1",
+          "descricao": "Observação da identificação oral do elemento central",
+          "etapas_ids": [
+            "ET1"
+          ],
+          "evidencias_ids": [
+            "EVI1"
+          ],
+          "procedimento": "O professor observa a participação oral dos alunos ao apontarem o elemento central da lista ordenada apresentada no material impresso durante a explicação no quadro e pincel."
+        },
+        {
+          "id": "INS2",
+          "descricao": "Registro oral de respostas sobre o descarte de metades",
+          "etapas_ids": [
+            "ET2"
+          ],
+          "evidencias_ids": [
+            "EVI2"
+          ],
+          "procedimento": "O professor conduz perguntas e respostas ouvindo as explicações orais dos alunos sobre qual metade da lista deve ser descartada após a demonstração no quadro."
+        }
+      ],
+      "uso_resultados": "O professor coletará as evidências por meio de observação da participação oral, perguntas e respostas e demonstração com o quadro e pincel e o material impresso. Os resultados serão usados para verificar a compreensão do algoritmo de busca binária, identificar dúvidas na divisão sucessiva de listas ordenadas e ajustar a explicação oral conforme necessário durante a aula."
+    },
+    "adaptacoes": [
+      {
+        "id": "ADP1",
+        "descricao": "Adaptação para alunos com dificuldades de concentração ou atenção visual, utilizando o quadro e pincel para destacar o elemento central do material impresso com cores diferentes e reforçando a explicação oral passo a passo.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "etapas_ids": [
+          "ET1"
+        ]
+      },
+      {
+        "id": "ADP2",
+        "descricao": "Adaptação para alunos com dificuldades na interpretação de divisão sucessiva, dividindo a demonstração no quadro e pincel em etapas menores e utilizando perguntas direcionadas oralmente com o auxílio do material impresso.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "etapas_ids": [
+          "ET2"
+        ]
+      }
+    ],
+    "referencias": [
+      {
+        "id": "BNCC",
+        "titulo": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "paginas": [
+          52,
+          53
+        ],
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    ]
+  },
+  "entrada": {
+    "versao": "1.0",
+    "consulta_id": "a664ba58c0ce489bbe0d9c1be76458bf",
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "Busca binária",
+      "duracao_min": 50,
+      "recursos": "quadro e pincel, material impresso",
+      "tipo": "Computação desplugada"
+    },
+    "habilidade": {
+      "codigo": "EF08CO03",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+      "exemplos": [
+        "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+        "Algoritmos de inserção.",
+        "Algoritmos de remoção.",
+        "Algoritmos de busca linear.",
+        "Algoritmos de busca binária."
+      ],
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    }
+  },
+  "modelo_gerador": "gemini-3.5-flash-lite",
+  "revisao": 1,
+  "origem": {
+    "tipo": "sqlite_real",
+    "geracao_id": "4ac6de972e2646b9992e3da8d60140b2",
+    "consulta_id": "a664ba58c0ce489bbe0d9c1be76458bf",
+    "estado_original": "rascunho",
+    "criado_em_sqlite_utc": "2026-11-26 01:02:32",
+    "resultado_sqlite_sha256": "b95106e1a2f2f5da61b9a97d18cf71b49d6c5ba980af8bfd4a25676bea9a0910",
+    "consulta_sqlite_sha256": "abd48eedc90e5d230f50ea3934a73b3d4e7afd3c385122dc033a4f797eca9f96",
+    "plano_sha256": "d20170bac5e08bba72574723de648709943b8d4541fcb18ba5682e802264feb6",
+    "entrada_sha256": "c2c9788909bda8b53f5bfbeaa5939ee552bd3fd59affc097ce551cc20517fef1",
+    "contrato_gerador": "plano-aula-2.0",
+    "provedor_gerador": "gemini",
+    "prompts_gerador": [
+      "especialistas-plano-2.3"
+    ],
+    "modelos_respondidos": [
+      "gemini-3.5-flash-lite"
+    ],
+    "tempo_geracao_s": 12.08
+  }
+}

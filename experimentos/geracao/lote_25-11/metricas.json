@@ -1,0 +1,1489 @@
+{
+ "lote": "25-11",
+ "pedidos": [
+  {
+   "cenario": "5",
+   "pedido_id": "5145086d2c39476ebbe70bf88cfd402f",
+   "consulta_id": "b91a1c3d31724b4d86c405499c461584",
+   "contexto": {
+    "ano": "8º ano",
+    "tema": "Segurança e privacidade e internet",
+    "duracao_min": 100,
+    "recursos": "computadores, internet",
+    "tipo": "Projeto"
+   },
+   "pedido_original": "segurança e privacidade na internet",
+   "habilidade_confirmada": "EF08CO10",
+   "estado_pedido": "pronto",
+   "aviso": null,
+   "geracao_entregue": "bbdbbda64a1442568efea15cbc83c23a",
+   "segundos_na_interface": 127,
+   "etapas_vistas": [
+    {
+     "etapa": "Gerando plano…",
+     "s": 2
+    },
+    {
+     "etapa": "Aguardando a cota da IA Juiz…",
+     "s": 14
+    },
+    {
+     "etapa": "IA Juiz avaliando…",
+     "s": 49
+    },
+    {
+     "etapa": "Ajustando: gerando nova versão com as críticas do Juiz…",
+     "s": 55
+    },
+    {
+     "etapa": "Aguardando a cota da IA Juiz…",
+     "s": 70
+    },
+    {
+     "etapa": "IA Juiz avaliando a nova versão…",
+     "s": 122
+    }
+   ],
+   "pdf_rascunho": true,
+   "historico": [
+    {
+     "ciclo": 0,
+     "evento": "avaliado",
+     "rotulo": "Com ressalvas",
+     "falhas_graves": 1
+    },
+    {
+     "ciclo": 1,
+     "evento": "regenerando",
+     "modo": "informada",
+     "versao_revisao": "revisao-informada-1.0",
+     "criticas_usadas": [
+      "F1",
+      "F2"
+     ]
+    },
+    {
+     "ciclo": 1,
+     "evento": "avaliado",
+     "rotulo": "Favorável",
+     "falhas_graves": 0
+    }
+   ],
+   "regeneracao": [
+    {
+     "ciclo": 1,
+     "evento": "regenerando",
+     "modo": "informada",
+     "versao_revisao": "revisao-informada-1.0",
+     "criticas_usadas": [
+      "F1",
+      "F2"
+     ]
+    }
+   ],
+   "versoes": [
+    {
+     "geracao_id": "12e67dbc7c5f4bb8b18821b93385e97b",
+     "ciclo": 0,
+     "revisao": 1,
+     "estado": "rascunho",
+     "entregue": false,
+     "tempo_total_s": 13.579,
+     "registros_gemini": 8,
+     "chamadas_http_gemini": 8,
+     "tokens_gemini": 10301,
+     "reparos_de_contrato": 0,
+     "registros_nao_validados": [],
+     "com_revisao_pedagogica": 0,
+     "reescritas_acentuacao": [
+      {
+       "agente": "objetivos",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 4,
+       "campos_depois": 0
+      },
+      {
+       "agente": "sequencia",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 5,
+       "campos_depois": 0
+      }
+     ],
+     "campos_sem_acento": [],
+     "entidades_html": [],
+     "soma_minutos": 100,
+     "soma_confere": true,
+     "recursos_plano": "computadores, internet",
+     "recursos_iguais": true,
+     "etapas": [
+      [
+       "ET1",
+       50
+      ],
+      [
+       "ET2",
+       50
+      ]
+     ],
+     "pareceres": [
+      {
+       "estado": "ok",
+       "proximo_estado": "em_correcao",
+       "notas": {
+        "aderencia_curricular": 3,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 2,
+        "inclusao": 3
+       },
+       "falhas_por_gravidade": {
+        "critica": 0,
+        "maior": 1,
+        "menor": 1
+       },
+       "falhas": [
+        {
+         "id": "F1",
+         "gravidade": "maior",
+         "componente": "avaliacao_preliminar",
+         "criterio": "avaliacao_aprendizagem",
+         "descricao": "Os critérios de avaliação (criterio) são genéricos e não especificam níveis de desempenho, dificultando a distinção entre desempenho adequado e inadequado.",
+         "correcao_sugerida": "Definir rubricas com descritores claros para desempenho adequado, parcial e insuficiente para cada evidência, vinculando-os ao instrumento de observação."
+        },
+        {
+         "id": "F2",
+         "gravidade": "menor",
+         "componente": "sequencia",
+         "criterio": "viabilidade",
+         "descricao": "A alocação de 50 minutos para a exploração das configurações de privacidade pode ser insuficiente para que todos os alunos analisem diferentes plataformas, comprometendo a execução completa da atividade.",
+         "correcao_sugerida": "Reavaliar a distribuição de tempo, talvez dividir a exploração em duas partes ou reduzir o número de plataformas a serem analisadas."
+        }
+       ],
+       "motivos_politica": [
+        "falhas que exigem correção: F1"
+       ],
+       "chamadas_http_juiz": 1,
+       "tentativas_juiz": 1,
+       "tokens_juiz": 7162,
+       "erro": null
+      }
+     ]
+    },
+    {
+     "geracao_id": "bbdbbda64a1442568efea15cbc83c23a",
+     "ciclo": 1,
+     "revisao": 2,
+     "estado": "rascunho",
+     "entregue": true,
+     "tempo_total_s": 13.534,
+     "registros_gemini": 7,
+     "chamadas_http_gemini": 7,
+     "tokens_gemini": 14014,
+     "reparos_de_contrato": 0,
+     "registros_nao_validados": [],
+     "com_revisao_pedagogica": 6,
+     "reescritas_acentuacao": [
+      {
+       "agente": "avaliacao_preliminar",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 4,
+       "campos_depois": 0
+      }
+     ],
+     "campos_sem_acento": [],
+     "entidades_html": [],
+     "soma_minutos": 100,
+     "soma_confere": true,
+     "recursos_plano": "computadores, internet",
+     "recursos_iguais": true,
+     "etapas": [
+      [
+       "ET1",
+       25
+      ],
+      [
+       "ET2",
+       25
+      ],
+      [
+       "ET3",
+       25
+      ],
+      [
+       "ET4",
+       25
+      ]
+     ],
+     "pareceres": [
+      {
+       "estado": "ok",
+       "proximo_estado": "aguardando_decisao",
+       "notas": {
+        "aderencia_curricular": 3,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 3,
+        "inclusao": 3
+       },
+       "falhas_por_gravidade": {
+        "critica": 0,
+        "maior": 0,
+        "menor": 0
+       },
+       "falhas": [],
+       "motivos_politica": [
+        "nenhuma falha exige correção pela política vigente"
+       ],
+       "chamadas_http_juiz": 1,
+       "tentativas_juiz": 1,
+       "tokens_juiz": 6237,
+       "erro": null
+      }
+     ]
+    }
+   ],
+   "diferencas_v1_v2": {
+    "desenvolvimento": {
+     "mudou": true,
+     "etapas_antes": [
+      [
+       "ET1",
+       50,
+       "Exploração das configurações de privacidade"
+      ],
+      [
+       "ET2",
+       50,
+       "Debate sobre segurança e compartilhamento"
+      ]
+     ],
+     "etapas_depois": [
+      [
+       "ET1",
+       25,
+       "Exploração inicial e pesquisa guiada"
+      ],
+      [
+       "ET2",
+       25,
+       "Aprofundamento na análise de ajustes"
+      ],
+      [
+       "ET3",
+       25,
+       "Discussão sobre riscos e compartilhamento"
+      ],
+      [
+       "ET4",
+       25,
+       "Síntese e verificação de medidas de proteção"
+      ]
+     ]
+    },
+    "avaliacao_aprendizagem": {
+     "mudou": true,
+     "evidencias_ids_antes": [
+      "EVI1",
+      "EVI2"
+     ],
+     "evidencias_ids_depois": [
+      "EVI1",
+      "EVI2"
+     ],
+     "instrumentos_ids_antes": [
+      "INS1",
+      "INS2"
+     ],
+     "instrumentos_ids_depois": [
+      "INS1",
+      "INS2"
+     ]
+    },
+    "adaptacoes": {
+     "mudou": true,
+     "ids_antes": [
+      "ADP1",
+      "ADP2"
+     ],
+     "ids_depois": [
+      "ADP1",
+      "ADP2"
+     ]
+    }
+   }
+  },
+  {
+   "cenario": "1",
+   "pedido_id": "607295efaa11470685bb6d162f133aa0",
+   "consulta_id": "4f9725ab7b57435486a40e3ffd9e7e56",
+   "contexto": {
+    "ano": "8º ano",
+    "tema": "Ordenação",
+    "duracao_min": 50,
+    "recursos": "projetor, computadores",
+    "tipo": "Aula prática"
+   },
+   "pedido_original": "quero ensinar ordenação",
+   "habilidade_confirmada": "EF08CO03",
+   "estado_pedido": "pronto",
+   "aviso": "A IA Juiz não deu parecer favorável a nenhuma das 2 versões; foi entregue a com menos falhas graves (revisão 2). Revise antes de aprovar.",
+   "geracao_entregue": "20a374f47ea744088408af1f88529e39",
+   "segundos_na_interface": 157,
+   "etapas_vistas": [
+    {
+     "etapa": "Gerando plano…",
+     "s": 2
+    },
+    {
+     "etapa": "IA Juiz avaliando…",
+     "s": 12
+    },
+    {
+     "etapa": "Ajustando: gerando nova versão com as críticas do Juiz…",
+     "s": 18
+    },
+    {
+     "etapa": "Aguardando a cota da IA Juiz…",
+     "s": 30
+    },
+    {
+     "etapa": "IA Juiz avaliando a nova versão…",
+     "s": 88
+    }
+   ],
+   "pdf_rascunho": true,
+   "historico": [
+    {
+     "ciclo": 0,
+     "evento": "avaliado",
+     "rotulo": "Com ressalvas",
+     "falhas_graves": 3
+    },
+    {
+     "ciclo": 1,
+     "evento": "regenerando",
+     "modo": "informada",
+     "versao_revisao": "revisao-informada-1.0",
+     "criticas_usadas": [
+      "F1",
+      "F2",
+      "F3"
+     ]
+    },
+    {
+     "ciclo": 1,
+     "evento": "avaliado",
+     "rotulo": "Com ressalvas",
+     "falhas_graves": 2
+    }
+   ],
+   "regeneracao": [
+    {
+     "ciclo": 1,
+     "evento": "regenerando",
+     "modo": "informada",
+     "versao_revisao": "revisao-informada-1.0",
+     "criticas_usadas": [
+      "F1",
+      "F2",
+      "F3"
+     ]
+    }
+   ],
+   "versoes": [
+    {
+     "geracao_id": "4fd4e852084b4f8f8562fa35e60d79c7",
+     "ciclo": 0,
+     "revisao": 1,
+     "estado": "rascunho",
+     "entregue": false,
+     "tempo_total_s": 10.763,
+     "registros_gemini": 8,
+     "chamadas_http_gemini": 8,
+     "tokens_gemini": 9949,
+     "reparos_de_contrato": 0,
+     "registros_nao_validados": [],
+     "com_revisao_pedagogica": 0,
+     "reescritas_acentuacao": [
+      {
+       "agente": "objetivos",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 3,
+       "campos_depois": 0
+      },
+      {
+       "agente": "adaptacao",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 2,
+       "campos_depois": 0
+      }
+     ],
+     "campos_sem_acento": [],
+     "entidades_html": [],
+     "soma_minutos": 50,
+     "soma_confere": true,
+     "recursos_plano": "projetor, computadores",
+     "recursos_iguais": true,
+     "etapas": [
+      [
+       "ET1",
+       20
+      ],
+      [
+       "ET2",
+       30
+      ]
+     ],
+     "pareceres": [
+      {
+       "estado": "ok",
+       "proximo_estado": "em_correcao",
+       "notas": {
+        "aderencia_curricular": 2,
+        "alinhamento_objetivos": 2,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 2,
+        "inclusao": 3
+       },
+       "falhas_por_gravidade": {
+        "critica": 0,
+        "maior": 3,
+        "menor": 0
+       },
+       "falhas": [
+        {
+         "id": "F1",
+         "gravidade": "maior",
+         "componente": "objetivos",
+         "criterio": "aderencia_curricular",
+         "descricao": "Conteúdos e objetivos limitam-se ao BubbleSort, omitindo outros algoritmos clássicos de manipulação de listas previstos na habilidade EF08CO03.",
+         "correcao_sugerida": "Ampliar os conteúdos e incluir objetivos específicos que abordem, ao menos de forma breve, algoritmos de inserção, remoção e busca, ou explicitar que a aula trata apenas de ordenação como parte da habilidade."
+        },
+        {
+         "id": "F2",
+         "gravidade": "maior",
+         "componente": "objetivos",
+         "criterio": "alinhamento_objetivos",
+         "descricao": "Objetivo geral menciona \"algoritmos clássicos de manipulação sobre listas\", mas os objetivos específicos tratam exclusivamente de ordenação, gerando desalinhamento.",
+         "correcao_sugerida": "Reformular o objetivo geral para refletir o foco exclusivo em ordenação ou acrescentar objetivos específicos que cubram outras manipulações de listas."
+        },
+        {
+         "id": "F3",
+         "gravidade": "maior",
+         "componente": "avaliacao_preliminar",
+         "criterio": "avaliacao_aprendizagem",
+         "descricao": "Os critérios de avaliação (\"explicar corretamente\", \"manipular e ordenar corretamente\") são vagos e não apresentam rubricas ou indicadores claros para diferenciar desempenho adequado de inadequado.",
+         "correcao_sugerida": "Definir rubricas detalhadas com indicadores observáveis (ex.: identificar corretamente a troca de elementos, ordenar lista em até X passos) para cada evidência."
+        }
+       ],
+       "motivos_politica": [
+        "falhas que exigem correção: F1, F2, F3"
+       ],
+       "chamadas_http_juiz": 1,
+       "tentativas_juiz": 1,
+       "tokens_juiz": 7186,
+       "erro": null
+      }
+     ]
+    },
+    {
+     "geracao_id": "20a374f47ea744088408af1f88529e39",
+     "ciclo": 1,
+     "revisao": 2,
+     "estado": "rascunho",
+     "entregue": true,
+     "tempo_total_s": 10.311,
+     "registros_gemini": 8,
+     "chamadas_http_gemini": 8,
+     "tokens_gemini": 15773,
+     "reparos_de_contrato": 0,
+     "registros_nao_validados": [],
+     "com_revisao_pedagogica": 6,
+     "reescritas_acentuacao": [
+      {
+       "agente": "sequencia",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 5,
+       "campos_depois": 0
+      },
+      {
+       "agente": "adaptacao",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 2,
+       "campos_depois": 0
+      }
+     ],
+     "campos_sem_acento": [],
+     "entidades_html": [],
+     "soma_minutos": 50,
+     "soma_confere": true,
+     "recursos_plano": "projetor, computadores",
+     "recursos_iguais": true,
+     "etapas": [
+      [
+       "ET1",
+       20
+      ],
+      [
+       "ET2",
+       30
+      ]
+     ],
+     "pareceres": [
+      {
+       "estado": "ok",
+       "proximo_estado": "em_correcao",
+       "notas": {
+        "aderencia_curricular": 2,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 2,
+        "inclusao": 3
+       },
+       "falhas_por_gravidade": {
+        "critica": 0,
+        "maior": 2,
+        "menor": 1
+       },
+       "falhas": [
+        {
+         "id": "F1",
+         "gravidade": "maior",
+         "componente": "objetivos",
+         "criterio": "aderencia_curricular",
+         "descricao": "O plano foca exclusivamente no BubbleSort, deixando de abordar outros algoritmos clássicos de manipulação de listas (inserção, remoção, busca) previstos na habilidade EF08CO03.",
+         "correcao_sugerida": "Incluir, ao menos, uma atividade breve que trabalhe outro algoritmo clássico de manipulação (por exemplo, inserção ou busca) ou reformular a habilidade para restringir o foco ao algoritmo de ordenação."
+        },
+        {
+         "id": "F2",
+         "gravidade": "maior",
+         "componente": "avaliacao_preliminar",
+         "criterio": "avaliacao_aprendizagem",
+         "descricao": "O critério de EVI2 ('em até cinco passos lógicos') é impreciso e pode não capturar a correta execução completa do BubbleSort, comprometendo a validade da avaliação.",
+         "correcao_sugerida": "Definir critérios claros, como a produção de lista totalmente ordenada e a sequência correta de comparações/trocas, acompanhados de um rubrica detalhado."
+        },
+        {
+         "id": "F3",
+         "gravidade": "menor",
+         "componente": "avaliacao_final",
+         "criterio": "avaliacao_aprendizagem",
+         "descricao": "O instrumento INS2 depende apenas da observação informal de 'até cinco passos lógicos', sem rubrica ou indicadores específicos.",
+         "correcao_sugerida": "Elaborar um instrumento de observação com checklist ou rubrica que detalhe cada passo esperado (comparação, troca, iteração) para tornar a avaliação mais discriminativa."
+        }
+       ],
+       "motivos_politica": [
+        "falhas que exigem correção: F1, F2"
+       ],
+       "chamadas_http_juiz": 2,
+       "tentativas_juiz": 2,
+       "tokens_juiz": 7370,
+       "erro": null
+      }
+     ]
+    }
+   ],
+   "diferencas_v1_v2": {
+    "conteudos": {
+     "mudou": true,
+     "antes": [
+      "Algoritmos de ordenação",
+      "BubbleSort",
+      "Manipulação de listas em computadores"
+     ],
+     "depois": [
+      "Algoritmos de ordenação",
+      "BubbleSort",
+      "Simulação e execução de algoritmos de ordenação em listas"
+     ]
+    },
+    "objetivo_geral": {
+     "mudou": true
+    },
+    "objetivos_especificos": {
+     "mudou": true,
+     "ids_antes": [
+      "OBJ1",
+      "OBJ2"
+     ],
+     "ids_depois": [
+      "OBJ1",
+      "OBJ2"
+     ]
+    },
+    "metodologia": {
+     "mudou": true
+    },
+    "desenvolvimento": {
+     "mudou": true,
+     "etapas_antes": [
+      [
+       "ET1",
+       20,
+       "Demonstração do BubbleSort"
+      ],
+      [
+       "ET2",
+       30,
+       "Prática de Ordenação em Computadores"
+      ]
+     ],
+     "etapas_depois": [
+      [
+       "ET1",
+       20,
+       "Demonstração do Algoritmo BubbleSort"
+      ],
+      [
+       "ET2",
+       30,
+       "Prática de Ordenação em Computadores"
+      ]
+     ]
+    },
+    "avaliacao_aprendizagem": {
+     "mudou": true,
+     "evidencias_ids_antes": [
+      "EVI1",
+      "EVI2"
+     ],
+     "evidencias_ids_depois": [
+      "EVI1",
+      "EVI2"
+     ],
+     "instrumentos_ids_antes": [
+      "INS1",
+      "INS2"
+     ],
+     "instrumentos_ids_depois": [
+      "INS1",
+      "INS2"
+     ]
+    }
+   }
+  },
+  {
+   "cenario": "2",
+   "pedido_id": "837c2e7e03ec4f83a84cae0465e90375",
+   "consulta_id": "d5c2c2a844d6419a98ca22c9dde070ae",
+   "contexto": {
+    "ano": "8º ano",
+    "tema": "Ordenação",
+    "duracao_min": 50,
+    "recursos": "quadro e pincel",
+    "tipo": "Computação desplugada"
+   },
+   "pedido_original": "quero ensinar ordenação",
+   "habilidade_confirmada": "EF08CO03",
+   "estado_pedido": "pronto",
+   "aviso": null,
+   "geracao_entregue": "fd572b595607484c8de32d49be9c0998",
+   "segundos_na_interface": 49,
+   "etapas_vistas": [
+    {
+     "etapa": "Gerando plano…",
+     "s": 2
+    },
+    {
+     "etapa": "Aguardando a cota da IA Juiz…",
+     "s": 14
+    },
+    {
+     "etapa": "IA Juiz avaliando…",
+     "s": 47
+    }
+   ],
+   "pdf_rascunho": true,
+   "historico": [
+    {
+     "ciclo": 0,
+     "evento": "avaliado",
+     "rotulo": "Favorável",
+     "falhas_graves": 0
+    }
+   ],
+   "regeneracao": [],
+   "versoes": [
+    {
+     "geracao_id": "fd572b595607484c8de32d49be9c0998",
+     "ciclo": 0,
+     "revisao": 1,
+     "estado": "rascunho",
+     "entregue": true,
+     "tempo_total_s": 12.165,
+     "registros_gemini": 9,
+     "chamadas_http_gemini": 9,
+     "tokens_gemini": 12457,
+     "reparos_de_contrato": 0,
+     "registros_nao_validados": [],
+     "com_revisao_pedagogica": 0,
+     "reescritas_acentuacao": [
+      {
+       "agente": "objetivos",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 2,
+       "campos_depois": 0
+      },
+      {
+       "agente": "sequencia",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 5,
+       "campos_depois": 0
+      },
+      {
+       "agente": "adaptacao",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 2,
+       "campos_depois": 0
+      }
+     ],
+     "campos_sem_acento": [],
+     "entidades_html": [],
+     "soma_minutos": 50,
+     "soma_confere": true,
+     "recursos_plano": "quadro e pincel",
+     "recursos_iguais": true,
+     "etapas": [
+      [
+       "ET1",
+       20
+      ],
+      [
+       "ET2",
+       30
+      ]
+     ],
+     "pareceres": [
+      {
+       "estado": "ok",
+       "proximo_estado": "aguardando_decisao",
+       "notas": {
+        "aderencia_curricular": 3,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 3,
+        "inclusao": 3
+       },
+       "falhas_por_gravidade": {
+        "critica": 0,
+        "maior": 0,
+        "menor": 0
+       },
+       "falhas": [],
+       "motivos_politica": [
+        "nenhuma falha exige correção pela política vigente"
+       ],
+       "chamadas_http_juiz": 1,
+       "tentativas_juiz": 1,
+       "tokens_juiz": 5884,
+       "erro": null
+      }
+     ]
+    }
+   ],
+   "diferencas_v1_v2": null
+  },
+  {
+   "cenario": "3",
+   "pedido_id": "b67c685ae0344d50b5a1ab739960d1cd",
+   "consulta_id": "a664ba58c0ce489bbe0d9c1be76458bf",
+   "contexto": {
+    "ano": "8º ano",
+    "tema": "Busca binária",
+    "duracao_min": 50,
+    "recursos": "quadro e pincel, material impresso",
+    "tipo": "Computação desplugada"
+   },
+   "pedido_original": "busca binária",
+   "habilidade_confirmada": "EF08CO03",
+   "estado_pedido": "pronto",
+   "aviso": null,
+   "geracao_entregue": "c088c7d4c7e64f71a6078701314d66f3",
+   "segundos_na_interface": 135,
+   "etapas_vistas": [
+    {
+     "etapa": "Gerando plano…",
+     "s": 2
+    },
+    {
+     "etapa": "Aguardando a cota da IA Juiz…",
+     "s": 14
+    },
+    {
+     "etapa": "IA Juiz avaliando…",
+     "s": 57
+    },
+    {
+     "etapa": "Ajustando: gerando nova versão com as críticas do Juiz…",
+     "s": 63
+    },
+    {
+     "etapa": "Aguardando a cota da IA Juiz…",
+     "s": 84
+    },
+    {
+     "etapa": "IA Juiz avaliando a nova versão…",
+     "s": 132
+    }
+   ],
+   "pdf_rascunho": true,
+   "historico": [
+    {
+     "ciclo": 0,
+     "evento": "avaliado",
+     "rotulo": "Com ressalvas",
+     "falhas_graves": 2
+    },
+    {
+     "ciclo": 1,
+     "evento": "regenerando",
+     "modo": "informada",
+     "versao_revisao": "revisao-informada-1.0",
+     "criticas_usadas": [
+      "F1",
+      "F2",
+      "F3"
+     ]
+    },
+    {
+     "ciclo": 1,
+     "evento": "avaliado",
+     "rotulo": "Favorável",
+     "falhas_graves": 0
+    }
+   ],
+   "regeneracao": [
+    {
+     "ciclo": 1,
+     "evento": "regenerando",
+     "modo": "informada",
+     "versao_revisao": "revisao-informada-1.0",
+     "criticas_usadas": [
+      "F1",
+      "F2",
+      "F3"
+     ]
+    }
+   ],
+   "versoes": [
+    {
+     "geracao_id": "4ac6de972e2646b9992e3da8d60140b2",
+     "ciclo": 0,
+     "revisao": 1,
+     "estado": "rascunho",
+     "entregue": false,
+     "tempo_total_s": 12.08,
+     "registros_gemini": 9,
+     "chamadas_http_gemini": 9,
+     "tokens_gemini": 13193,
+     "reparos_de_contrato": 0,
+     "registros_nao_validados": [],
+     "com_revisao_pedagogica": 0,
+     "reescritas_acentuacao": [
+      {
+       "agente": "objetivos",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 1,
+       "campos_depois": 0
+      },
+      {
+       "agente": "avaliacao_final",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 3,
+       "campos_depois": 0
+      },
+      {
+       "agente": "adaptacao",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 2,
+       "campos_depois": 0
+      }
+     ],
+     "campos_sem_acento": [],
+     "entidades_html": [],
+     "soma_minutos": 50,
+     "soma_confere": true,
+     "recursos_plano": "quadro e pincel, material impresso",
+     "recursos_iguais": true,
+     "etapas": [
+      [
+       "ET1",
+       25
+      ],
+      [
+       "ET2",
+       25
+      ]
+     ],
+     "pareceres": [
+      {
+       "estado": "ok",
+       "proximo_estado": "em_correcao",
+       "notas": {
+        "aderencia_curricular": 2,
+        "alinhamento_objetivos": 2,
+        "coerencia_metodologica": 2,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 3,
+        "inclusao": 3
+       },
+       "falhas_por_gravidade": {
+        "critica": 0,
+        "maior": 2,
+        "menor": 1
+       },
+       "falhas": [
+        {
+         "id": "F1",
+         "gravidade": "maior",
+         "componente": "objetivos",
+         "criterio": "aderencia_curricular",
+         "descricao": "O plano foca apenas na identificação do elemento central e no descarte de metades, não contempla a execução completa do algoritmo de busca binária (iterações até encontrar o elemento ou concluir ausência).",
+         "correcao_sugerida": "Ampliar os conteúdos e objetivos para incluir a sequência completa de comparações e atualizações de limites, garantindo que os alunos pratiquem todo o algoritmo."
+        },
+        {
+         "id": "F2",
+         "gravidade": "maior",
+         "componente": "objetivos",
+         "criterio": "alinhamento_objetivos",
+         "descricao": "O objetivo geral menciona 'aplicar o algoritmo de busca binária', porém os objetivos específicos (OBJ1, OBJ2) cobrem apenas partes iniciais, não refletindo a aplicação completa esperada.",
+         "correcao_sugerida": "Reformular ou acrescentar objetivos específicos que incluam a execução completa do algoritmo, como 'executar o algoritmo até localizar o elemento alvo ou concluir que não está presente'."
+        },
+        {
+         "id": "F3",
+         "gravidade": "menor",
+         "componente": "sequencia",
+         "criterio": "coerencia_metodologica",
+         "descricao": "A sequência de desenvolvimento termina após ET2, sem atividade de síntese ou fechamento que consolide o aprendizado.",
+         "correcao_sugerida": "Inserir uma etapa final de 5-10 minutos para revisão dos passos do algoritmo e discussão de aplicações, reforçando a compreensão."
+        }
+       ],
+       "motivos_politica": [
+        "falhas que exigem correção: F1, F2"
+       ],
+       "chamadas_http_juiz": 1,
+       "tentativas_juiz": 1,
+       "tokens_juiz": 7568,
+       "erro": null
+      }
+     ]
+    },
+    {
+     "geracao_id": "c088c7d4c7e64f71a6078701314d66f3",
+     "ciclo": 1,
+     "revisao": 2,
+     "estado": "rascunho",
+     "entregue": true,
+     "tempo_total_s": 18.044,
+     "registros_gemini": 7,
+     "chamadas_http_gemini": 7,
+     "tokens_gemini": 16849,
+     "reparos_de_contrato": 0,
+     "registros_nao_validados": [],
+     "com_revisao_pedagogica": 6,
+     "reescritas_acentuacao": [
+      {
+       "agente": "avaliacao_final",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 4,
+       "campos_depois": 0
+      }
+     ],
+     "campos_sem_acento": [],
+     "entidades_html": [],
+     "soma_minutos": 50,
+     "soma_confere": true,
+     "recursos_plano": "quadro e pincel, material impresso",
+     "recursos_iguais": true,
+     "etapas": [
+      [
+       "ET1",
+       15
+      ],
+      [
+       "ET2",
+       20
+      ],
+      [
+       "ET3",
+       15
+      ]
+     ],
+     "pareceres": [
+      {
+       "estado": "ok",
+       "proximo_estado": "aguardando_decisao",
+       "notas": {
+        "aderencia_curricular": 3,
+        "alinhamento_objetivos": 3,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 3,
+        "inclusao": 3
+       },
+       "falhas_por_gravidade": {
+        "critica": 0,
+        "maior": 0,
+        "menor": 0
+       },
+       "falhas": [],
+       "motivos_politica": [
+        "nenhuma falha exige correção pela política vigente"
+       ],
+       "chamadas_http_juiz": 1,
+       "tentativas_juiz": 1,
+       "tokens_juiz": 6420,
+       "erro": null
+      }
+     ]
+    }
+   ],
+   "diferencas_v1_v2": {
+    "conteudos": {
+     "mudou": true,
+     "antes": [
+      "Conceito de busca binária",
+      "Listas ordenadas e divisão sucessiva",
+      "Simulação prática do algoritmo de busca binária"
+     ],
+     "depois": [
+      "Conceito de busca binária",
+      "Listas ordenadas e divisão sucessiva",
+      "Execução completa de iterações do algoritmo de busca binária",
+      "Verificação de presença ou ausência do elemento alvo"
+     ]
+    },
+    "objetivo_geral": {
+     "mudou": true
+    },
+    "objetivos_especificos": {
+     "mudou": true,
+     "ids_antes": [
+      "OBJ1",
+      "OBJ2"
+     ],
+     "ids_depois": [
+      "OBJ1",
+      "OBJ2",
+      "OBJ3"
+     ]
+    },
+    "metodologia": {
+     "mudou": true
+    },
+    "desenvolvimento": {
+     "mudou": true,
+     "etapas_antes": [
+      [
+       "ET1",
+       25,
+       "Introducao ao Conceito e Identificacao do Elemento Central"
+      ],
+      [
+       "ET2",
+       25,
+       "Simulacao de Divisao Sucessiva e Descarte de Metades"
+      ]
+     ],
+     "etapas_depois": [
+      [
+       "ET1",
+       15,
+       "Introducao ao Conceito e Elemento Central"
+      ],
+      [
+       "ET2",
+       20,
+       "Simulacao de Descarte de Metades e Comparacoes"
+      ],
+      [
+       "ET3",
+       15,
+       "Execucao Completa e Fechamento da Busca Binaria"
+      ]
+     ]
+    },
+    "avaliacao_aprendizagem": {
+     "mudou": true,
+     "evidencias_ids_antes": [
+      "EVI1",
+      "EVI2"
+     ],
+     "evidencias_ids_depois": [
+      "EVI1",
+      "EVI2",
+      "EVI3"
+     ],
+     "instrumentos_ids_antes": [
+      "INS1",
+      "INS2"
+     ],
+     "instrumentos_ids_depois": [
+      "INS1",
+      "INS2",
+      "INS3"
+     ]
+    },
+    "adaptacoes": {
+     "mudou": true,
+     "ids_antes": [
+      "ADP1",
+      "ADP2"
+     ],
+     "ids_depois": [
+      "ADP1",
+      "ADP2"
+     ]
+    }
+   }
+  },
+  {
+   "cenario": "4",
+   "pedido_id": "f388bdd80ac14b9dab0aa28c58e627ad",
+   "consulta_id": "943261adb7614bc484239eeb6b7ab833",
+   "contexto": {
+    "ano": "8º ano",
+    "tema": "Listas",
+    "duracao_min": 50,
+    "recursos": "quadro e pincel, projetor",
+    "tipo": "Aula teórica"
+   },
+   "pedido_original": "listas",
+   "habilidade_confirmada": "EF08CO02",
+   "estado_pedido": "pronto",
+   "aviso": "A IA Juiz não deu parecer favorável a nenhuma das 2 versões; foi entregue a com menos falhas graves (revisão 2). Revise antes de aprovar.",
+   "geracao_entregue": "3347895bb759450481324e271885ac98",
+   "segundos_na_interface": 141,
+   "etapas_vistas": [
+    {
+     "etapa": "Gerando plano…",
+     "s": 2
+    },
+    {
+     "etapa": "Aguardando a cota da IA Juiz…",
+     "s": 12
+    },
+    {
+     "etapa": "IA Juiz avaliando…",
+     "s": 61
+    },
+    {
+     "etapa": "Ajustando: gerando nova versão com as críticas do Juiz…",
+     "s": 65
+    },
+    {
+     "etapa": "Aguardando a cota da IA Juiz…",
+     "s": 82
+    },
+    {
+     "etapa": "IA Juiz avaliando a nova versão…",
+     "s": 134
+    }
+   ],
+   "pdf_rascunho": true,
+   "historico": [
+    {
+     "ciclo": 0,
+     "evento": "avaliado",
+     "rotulo": "Revisão recomendada",
+     "falhas_graves": 3
+    },
+    {
+     "ciclo": 1,
+     "evento": "regenerando",
+     "modo": "informada",
+     "versao_revisao": "revisao-informada-1.0",
+     "criticas_usadas": [
+      "F1",
+      "F2",
+      "F3"
+     ]
+    },
+    {
+     "ciclo": 1,
+     "evento": "avaliado",
+     "rotulo": "Com ressalvas",
+     "falhas_graves": 1
+    }
+   ],
+   "regeneracao": [
+    {
+     "ciclo": 1,
+     "evento": "regenerando",
+     "modo": "informada",
+     "versao_revisao": "revisao-informada-1.0",
+     "criticas_usadas": [
+      "F1",
+      "F2",
+      "F3"
+     ]
+    }
+   ],
+   "versoes": [
+    {
+     "geracao_id": "a96a4b1551c64f38bf1d6ee10442c82b",
+     "ciclo": 0,
+     "revisao": 1,
+     "estado": "rascunho",
+     "entregue": false,
+     "tempo_total_s": 11.7,
+     "registros_gemini": 7,
+     "chamadas_http_gemini": 7,
+     "tokens_gemini": 9759,
+     "reparos_de_contrato": 0,
+     "registros_nao_validados": [],
+     "com_revisao_pedagogica": 0,
+     "reescritas_acentuacao": [
+      {
+       "agente": "sequencia",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 5,
+       "campos_depois": 0
+      }
+     ],
+     "campos_sem_acento": [],
+     "entidades_html": [],
+     "soma_minutos": 50,
+     "soma_confere": true,
+     "recursos_plano": "quadro e pincel, projetor",
+     "recursos_iguais": true,
+     "etapas": [
+      [
+       "ET1",
+       25
+      ],
+      [
+       "ET2",
+       25
+      ]
+     ],
+     "pareceres": [
+      {
+       "estado": "ok",
+       "proximo_estado": "revisao_necessaria",
+       "notas": {
+        "aderencia_curricular": 1,
+        "alinhamento_objetivos": 2,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 2,
+        "inclusao": 3
+       },
+       "falhas_por_gravidade": {
+        "critica": 1,
+        "maior": 2,
+        "menor": 0
+       },
+       "falhas": [
+        {
+         "id": "F1",
+         "gravidade": "critica",
+         "componente": "sequencia",
+         "criterio": "aderencia_curricular",
+         "descricao": "Nenhuma atividade exige que os alunos criem ou programem uma solução usando listas ou recursão, contrariando a exigência da habilidade EF08CO02.",
+         "correcao_sugerida": "Inserir uma etapa prática em que os alunos, individualmente ou em pares, desenvolvam um pequeno algoritmo que utilize listas (ex.: somar elementos de uma lista) e, opcionalmente, implementem recursão para o caso base."
+        },
+        {
+         "id": "F2",
+         "gravidade": "maior",
+         "componente": "objetivos",
+         "criterio": "alinhamento_objetivos",
+         "descricao": "Os objetivos OBJ1 e OBJ2 não contemplam a criação de soluções programáticas, limitando-se a identificação e explicação.",
+         "correcao_sugerida": "Reformular os objetivos para incluir, por exemplo: \"Desenvolver um algoritmo simples que utilize listas para resolver um problema proposto\" e \"Implementar, com ou sem recursão, a solução em linguagem de programação\"."
+        },
+        {
+         "id": "F3",
+         "gravidade": "maior",
+         "componente": "avaliacao_preliminar",
+         "criterio": "avaliacao_aprendizagem",
+         "descricao": "Os critérios de avaliação (participar, demonstrar compreensão) são genéricos e não especificam indicadores de desempenho nem níveis de proficiência.",
+         "correcao_sugerida": "Definir rubricas com descritores claros (ex.: nível 1 – resposta incompleta; nível 2 – resposta correta com explicação parcial; nível 3 – resposta completa e correta) para as evidências EVI1 e EVI2."
+        }
+       ],
+       "motivos_politica": [
+        "caso crítico: F1"
+       ],
+       "chamadas_http_juiz": 1,
+       "tentativas_juiz": 1,
+       "tokens_juiz": 6864,
+       "erro": null
+      }
+     ]
+    },
+    {
+     "geracao_id": "3347895bb759450481324e271885ac98",
+     "ciclo": 1,
+     "revisao": 2,
+     "estado": "rascunho",
+     "entregue": true,
+     "tempo_total_s": 15.429,
+     "registros_gemini": 7,
+     "chamadas_http_gemini": 7,
+     "tokens_gemini": 15661,
+     "reparos_de_contrato": 0,
+     "registros_nao_validados": [],
+     "com_revisao_pedagogica": 6,
+     "reescritas_acentuacao": [
+      {
+       "agente": "sequencia",
+       "estado": "validado",
+       "motivo": null,
+       "campos_antes": 5,
+       "campos_depois": 0
+      }
+     ],
+     "campos_sem_acento": [],
+     "entidades_html": [],
+     "soma_minutos": 50,
+     "soma_confere": true,
+     "recursos_plano": "quadro e pincel, projetor",
+     "recursos_iguais": true,
+     "etapas": [
+      [
+       "ET1",
+       15
+      ],
+      [
+       "ET2",
+       35
+      ]
+     ],
+     "pareceres": [
+      {
+       "estado": "ok",
+       "proximo_estado": "em_correcao",
+       "notas": {
+        "aderencia_curricular": 3,
+        "alinhamento_objetivos": 2,
+        "coerencia_metodologica": 3,
+        "viabilidade": 3,
+        "avaliacao_aprendizagem": 3,
+        "inclusao": 3
+       },
+       "falhas_por_gravidade": {
+        "critica": 0,
+        "maior": 1,
+        "menor": 0
+       },
+       "falhas": [
+        {
+         "id": "F1",
+         "gravidade": "maior",
+         "componente": "objetivos",
+         "criterio": "alinhamento_objetivos",
+         "descricao": "Objetivos específicos OBJ1 e OBJ2 utilizam verbos 'Desenvolver' e 'Implementar' que sugerem produção de artefato (algoritmo codificado), porém a aula prevê apenas explicação oral e construção coletiva no quadro, sem produção concreta, tornando-os pouco observáveis e ambiciosos para a duração de 50 min.",
+         "correcao_sugerida": "Reformular os objetivos para verbos observáveis compatíveis com a prática oral, como 'Explicar' ou 'Descrever' a lógica de um algoritmo com listas e, para o segundo objetivo, 'Identificar e explicar o caso base e a chamada recursiva em um algoritmo com listas', garantindo que a evidência oral possa ser avaliada dentro do tempo disponível."
+        }
+       ],
+       "motivos_politica": [
+        "falhas que exigem correção: F1"
+       ],
+       "chamadas_http_juiz": 1,
+       "tentativas_juiz": 1,
+       "tokens_juiz": 7523,
+       "erro": null
+      }
+     ]
+    }
+   ],
+   "diferencas_v1_v2": {
+    "conteudos": {
+     "mudou": true,
+     "antes": [
+      "Conceito de listas em programação",
+      "Organização e estruturação de dados em sequência",
+      "Automatização de tarefas utilizando coleções de elementos"
+     ],
+     "depois": [
+      "Conceito de listas em programação",
+      "Organização e estruturação de dados em sequência",
+      "Automatização de tarefas utilizando coleções de elementos",
+      "Uso de recursão para resolver problemas computacionais"
+     ]
+    },
+    "objetivo_geral": {
+     "mudou": true
+    },
+    "objetivos_especificos": {
+     "mudou": true,
+     "ids_antes": [
+      "OBJ1",
+      "OBJ2"
+     ],
+     "ids_depois": [
+      "OBJ1",
+      "OBJ2"
+     ]
+    },
+    "metodologia": {
+     "mudou": true
+    },
+    "desenvolvimento": {
+     "mudou": true,
+     "etapas_antes": [
+      [
+       "ET1",
+       25,
+       "Introdução às Listas"
+      ],
+      [
+       "ET2",
+       25,
+       "Automação e Manipulação com Listas"
+      ]
+     ],
+     "etapas_depois": [
+      [
+       "ET1",
+       15,
+       "Introdução às Listas e Estruturação de Dados"
+      ],
+      [
+       "ET2",
+       35,
+       "Desenvolvimento do Algoritmo com Listas e Recursão"
+      ]
+     ]
+    },
+    "avaliacao_aprendizagem": {
+     "mudou": true,
+     "evidencias_ids_antes": [
+      "EVI1",
+      "EVI2"
+     ],
+     "evidencias_ids_depois": [
+      "EVI1",
+      "EVI2"
+     ],
+     "instrumentos_ids_antes": [
+      "INS1",
+      "INS2"
+     ],
+     "instrumentos_ids_depois": [
+      "INS1",
+      "INS2"
+     ]
+    }
+   }
+  }
+ ]
+}
