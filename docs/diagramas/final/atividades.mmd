@@ -5,7 +5,7 @@ flowchart TD
     V -->|"Sim"| T["Extrair tema e buscar habilidades"]
     T --> H["Escolher habilidade<br/>(candidatas ou catálogo)"]
     H --> CF["Confirmar habilidade"]
-    CF --> G["Especialistas geram o plano<br/>(6 chamadas, validação a cada etapa)"]
+    CF --> G["Especialistas geram o plano<br/>(6 chamadas, validação a cada etapa;<br/>texto sem acento é reescrito uma vez)"]
     G --> OK{"Geração concluída?"}
     OK -->|"Não"| FG["Registrar falha e avisar"]
     OK -->|"Sim"| J["IA Juiz avalia"]

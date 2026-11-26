@@ -72,6 +72,13 @@ Fonte PlantUML: [`final/casos-de-uso.puml`](final/casos-de-uso.puml) (fonte UML 
 aproximados e `<<include>>`/`<<extend>>` viram setas tracejadas rotuladas). `<<include>>`: partes obrigatórias de UC01. `<<extend>>`:
 comportamentos opcionais (catálogo, documento-fonte, gerar novamente). Inspecionar especialistas é depuração, não caso de uso.
 
+**Versão desenhada em SVG (25/11, recomendada para o texto):** notação UML completa (bonecos, elipses, `«include»`/`«extend»` com seta
+aberta tracejada), layout fixo, mesmo conteúdo do `.puml`.
+
+![Casos de uso (SVG)](final/casos-de-uso-uml.png)
+
+Fonte: [`final/ilustradas/casos_de_uso_uml.py`](final/ilustradas/casos_de_uso_uml.py) → `final/casos-de-uso-uml.svg` e `.png`.
+
 ## 3. Sequência
 
 ![Sequência](final/sequencia.png)
@@ -133,7 +140,7 @@ flowchart TD
     V -->|"Sim"| T["Extrair tema e buscar habilidades"]
     T --> H["Escolher habilidade<br/>(candidatas ou catálogo)"]
     H --> CF["Confirmar habilidade"]
-    CF --> G["Especialistas geram o plano<br/>(6 chamadas, validação a cada etapa)"]
+    CF --> G["Especialistas geram o plano<br/>(6 chamadas, validação a cada etapa;<br/>texto sem acento é reescrito uma vez)"]
     G --> OK{"Geração concluída?"}
     OK -->|"Não"| FG["Registrar falha e avisar"]
     OK -->|"Sim"| J["IA Juiz avalia"]
@@ -246,6 +253,13 @@ O plano e o rastreio ficam em JSON em `geracoes.resultado`; o parecer, em `parec
 Para leitores sem formação técnica: cinco passos, com a separação entre pessoa, regras fixas e IA. Fonte: [`final/visao-geral.html`](final/visao-geral.html). Versão Mermaid (simplificada, sem ícones e sem o layout em
 cartões): [`final/visao-geral.mmd`](final/visao-geral.mmd).
 
+**Versão ilustrada (25/11):** mesmo conteúdo, em estilo de infográfico (estações com desenhos, laço da regeneração por cima).
+A versão HTML acima continua guardada.
+
+![Visão geral ilustrada](final/visao-geral-ilustrada.png)
+
+Fonte: [`final/ilustradas/visao_geral_ilustrada.py`](final/ilustradas/visao_geral_ilustrada.py) → `final/visao-geral-ilustrada.svg` e `.png`.
+
 ## 8. Estrutura do plano de aula
 
 ![Estrutura do plano](final/estrutura-plano.png)
@@ -257,8 +271,19 @@ estão entre aspas. Fonte: [`final/estrutura-plano.html`](final/estrutura-plano.
 [`final/estrutura-plano.mmd`](final/estrutura-plano.mmd).
 
 **Pendente:** o exemplo de 23/11 foi gerado antes da PoC 10 e não tem o plano bruto versionado no repositório. A figura fica como está
-até a nova execução do João; depois, trocar os trechos literais (HTML e `.mmd`) pelos do novo plano e regenerar a imagem.
+até a nova execução do João; depois, trocar os trechos literais (HTML, `.mmd` e o dicionário `EXEMPLO` do script ilustrado) pelos do
+novo plano e regenerar as imagens.
+
+**Versão ilustrada (25/11):** o plano como uma folha com as 11 seções e, ao lado, a corrente OBJ → ET → EVI → INS. A versão HTML acima
+continua guardada.
+
+![Estrutura do plano ilustrada](final/estrutura-plano-ilustrada.png)
+
+Fonte: [`final/ilustradas/estrutura_plano_ilustrada.py`](final/ilustradas/estrutura_plano_ilustrada.py) → `final/estrutura-plano-ilustrada.svg` e `.png`.
 
 ## Manutenção
+
+Figuras em SVG desenhadas à mão (`final/ilustradas/`, só biblioteca padrão do Python): `python <script>.py` escreve o SVG em `final/`;
+o PNG sai com `NODE_PATH=$(npm root -g) node final/ilustradas/render.js final/<nome>.svg final/<nome>.png 2` (Playwright + fonte Inter).
 
 Mudou contrato, dependência, estado ou responsabilidade no código? Atualizar a fonte em `final/`, regenerar a imagem e citar o commit.
