@@ -8,7 +8,8 @@ assert.equal(source, ler('../dist/geracao-ui.js'));
 const context = {document:{getElementById:()=>null}, MutationObserver:class {observe(){}}, queueMicrotask:()=>{}, URLSearchParams};
 vm.createContext(context);
 vm.runInContext(source.replace(/\r\n/g, '\n').replace('  agendar();\n})();',
-  '  globalThis.renderAvaliacao = avaliacaoHtml; globalThis.renderProgresso = progressoHtml;\n})();'), context);
+  '  globalThis.renderAvaliacao = avaliacaoHtml; globalThis.renderProgresso = progressoHtml;\n' +
+  '  globalThis.renderRecomendacoes = recomendacoesHtml;\n})();'), context);
 const gravado = JSON.parse(ler('../../experimentos/juiz/demonstracao/parecer_controle_v13.json'));
 const parecer = gravado.parecer;
 const AVISO = 'Avaliação automática e provisória; a decisão final é do professor.';
@@ -92,4 +93,18 @@ assert.ok(!html.includes('IA Juiz avaliando…'));
 html = context.renderProgresso({estado: 'aguardando_juiz', ciclo: 1}, 0);
 assert.ok(html.includes('<li class="feito">Ajustando: gerando nova versão…</li>') && html.includes('<li class="atual">Aguardando a cota da IA Juiz…</li>'));
 assert.ok(html.includes('<li class="feito">IA Juiz avaliando…</li>'));
+// PoC 11: recomendação ao professor (conflito habilidade × recursos/tipo), junto do plano entregue e fora da impressão
+const alertas = [{codigo: 'habilidade_sem_computador', mensagem: 'A habilidade EF08CO02 pede <programar>.', recomendacao: 'Marque computadores.'},
+                 {codigo: 'habilidade_aula_teorica', mensagem: 'Aula teórica.', recomendacao: 'Considere aula prática.'}];
+html = context.renderRecomendacoes(alertas);
+assert.ok(html.includes('<h4>Recomendação ao professor</h4>') && html.includes('class="geracao-recomendacao"'));
+assert.equal((html.match(/<p>/g) || []).length, 2);
+assert.ok(html.includes('A habilidade EF08CO02 pede &lt;programar&gt;. Marque computadores.') && !html.includes('<programar>'));
+assert.equal(context.renderRecomendacoes([]), '');
+assert.equal(context.renderRecomendacoes(undefined), '');
+assert.equal(context.renderRecomendacoes([{codigo: 'x', mensagem: 'só antes de gerar'}]), '');
+assert.ok(source.includes('recomendacoesHtml(dadosAtuais.alertas) + avaliacaoHtml('), 'recomendação no painel do plano entregue');
+const css = ler('../public/geracao-ui.css');
+assert.equal(css, ler('../dist/geracao-ui.css'));
+assert.ok(css.includes('@media print{.geracao-recomendacao{display:none!important}}'));
 console.log('Juiz OK: rótulos, 6 notas, críticas, histórico, indisponível, demonstração, escape, progresso e public/dist iguais.');

@@ -84,17 +84,34 @@ HABILIDADES_COM_COMPUTADOR = ("EF08CO01", "EF08CO02")
 
 
 def alertas_recursos(consulta):
-    """Avisos determinísticos (não bloqueiam): habilidade confirmada que pede computador sem computador nos recursos."""
+    """Avisos determinísticos (não bloqueiam) sobre conflitos da própria entrada: habilidade que pede programação em computador
+    sem computador nos recursos, ou em aula teórica (PoC 11, lote de 25/11, cenário 4).
+
+    `mensagem` aparece antes de gerar (resumo da confirmação); `recomendacao` aparece junto do plano entregue, como recomendação ao
+    professor. Nenhum dos dois impede a geração: o plano sai do jeito que o professor pediu."""
     entrada = consulta.get("entrada_geracao")
     if not entrada:
         return []
     codigo = entrada["habilidade"]["codigo"]
-    recursos = entrada["contexto"]["recursos"].lower()
-    if codigo in HABILIDADES_COM_COMPUTADOR and "computador" not in recursos:
-        return [dict(codigo="habilidade_sem_computador",
-                     mensagem=f"A habilidade {codigo} pede automatizar soluções com uma linguagem de programação, mas "
-                              "“computadores” não está nos recursos marcados. O plano tende a ficar só no papel.")]
-    return []
+    if codigo not in HABILIDADES_COM_COMPUTADOR:
+        return []
+    contexto = entrada["contexto"]
+    alertas = []
+    if "computador" not in contexto["recursos"].lower():
+        alertas.append(dict(
+            codigo="habilidade_sem_computador",
+            mensagem=f"A habilidade {codigo} pede automatizar soluções com uma linguagem de programação, mas "
+                     "“computadores” não está nos recursos marcados. O plano tende a ficar só no papel.",
+            recomendacao=f"Para trabalhar a {codigo} por inteiro, os estudantes precisam programar: marque “computadores” "
+                         "nos recursos e gere de novo, ou confirme outra habilidade."))
+    if contexto.get("tipo") == "Aula teórica":
+        alertas.append(dict(
+            codigo="habilidade_aula_teorica",
+            mensagem=f"A habilidade {codigo} pede que os estudantes criem soluções com uma linguagem de programação, mas a aula "
+                     "está marcada como teórica. O plano tende a só explicar, sem os estudantes programarem.",
+            recomendacao=f"Para trabalhar a {codigo} por inteiro, considere uma aula prática com computadores e gere de novo, "
+                         "ou confirme outra habilidade."))
+    return alertas
 
 
 def visao(registro):

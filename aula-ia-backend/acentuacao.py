@@ -4,19 +4,26 @@ Causa observada: quando um especialista responde sem acentos, os seguintes receb
 (efeito cascata; no plano de 25/11 16:01, 16 de 19 campos longos ficaram sem acento). O gerador detecta o problema logo na saída
 de cada especialista e pede UMA reescrita com acentuação correta antes de passar ao próximo, interrompendo a cascata.
 
-Critério (determinístico): campo de texto com mais de 60 caracteres, SEM nenhum caractere acentuado e com ao menos uma palavra que
-em português leva acento (ex.: "avaliacao", "nao", "sera", "pratica"). A palavra-guia evita acusar frases que naturalmente não
-têm acento.
+Critério (determinístico, `deteccao-acentuacao-1.1`): campo de texto SEM nenhum caractere acentuado e com uma palavra-guia.
+- Campo com mais de 60 caracteres: qualquer palavra que em português leva acento (ex.: "avaliacao", "nao", "sera", "pratica").
+- Campo curto (PoC 11, achado do lote de 25/11): só palavras inequívocas (-cao/-coes/-sao/-soes, "nao", "sera", "tambem"…), porque
+  um título curto pode não ter acento nenhum e "pratica"/"analise" existem sem acento como verbo.
+A palavra-guia evita acusar frases que naturalmente não têm acento.
 """
 import re
 import unicodedata
 
+VERSAO = "deteccao-acentuacao-1.1"  # 1.0 (PoC 10): só campos > 60 caracteres; 1.1 (PoC 11): também campos curtos
 ACENTOS = set("áàâãéêíóôõúç")
 MINIMO_CARACTERES = 60
 PALAVRA_QUE_LEVA_ACENTO = re.compile(
     r"\b(?:[a-z]+(?:cao|coes|sao|soes)|nao|sera|serao|ate|apos|tambem|voce|voces|entao|estao|sao|ja|numero|numeros|"
     r"pratica|praticas|teorica|teoricas|logica|codigo|codigos|conteudo|conteudos|sequencia|metodo|didatica|analise|"
     r"basico|basica|especifico|especificos|especifica|especificas)\b")
+# Campos curtos (títulos de etapa, itens de conteúdo — achado do lote de 25/11, cenário 3: "Introducao ao Conceito…"): só palavras
+# que NUNCA se escrevem sem acento. Ficam de fora as que existem sem acento como verbo ou nome ("pratica", "analise", "especifica",
+# "sequencia", "ate", "sao", "ja"), para não pedir reescrita de título correto.
+PALAVRA_INEQUIVOCA = re.compile(r"\b(?:[a-z]+(?:cao|coes|sao|soes)|nao|sera|serao|tambem|voce|voces|entao|estao)\b")
 
 
 def _textos(valor, caminho=""):
@@ -36,13 +43,18 @@ CAMPOS_COPIADOS_DO_CONTEXTO = frozenset({"recursos"})
 
 
 def campos_sem_acentuacao(saida):
-    """Caminhos dos campos que parecem escritos sem acentuação (ignora os copiados do contexto)."""
+    """Caminhos dos campos que parecem escritos sem acentuação (ignora os copiados do contexto).
+
+    Campo longo (> 60 caracteres): nenhum acento + qualquer palavra-guia. Campo curto: nenhum acento + palavra inequívoca."""
     achados = []
     for caminho, texto in _textos(saida):
         if caminho in CAMPOS_COPIADOS_DO_CONTEXTO:
             continue
         minusculo = texto.lower()
-        if len(texto) > MINIMO_CARACTERES and not (set(minusculo) & ACENTOS) and PALAVRA_QUE_LEVA_ACENTO.search(minusculo):
+        if set(minusculo) & ACENTOS:
+            continue
+        guia = PALAVRA_QUE_LEVA_ACENTO if len(texto) > MINIMO_CARACTERES else PALAVRA_INEQUIVOCA
+        if guia.search(minusculo):
             achados.append(caminho)
     return achados
 

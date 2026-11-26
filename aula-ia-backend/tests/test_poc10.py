@@ -56,7 +56,9 @@ class TestDeteccaoAcentuacao(TestCase):
     def test_detecta_texto_longo_sem_acento_com_palavra_guia(self):
         self.assertEqual(acentuacao.campos_sem_acentuacao(ADAPTACAO_SEM_ACENTO), ["adaptacoes[0].descricao", "adaptacoes[1].descricao"])
         self.assertEqual(acentuacao.campos_sem_acentuacao(SAIDAS["adaptacao"]), [])
-        self.assertEqual(acentuacao.campos_sem_acentuacao({"a": "A avaliacao sera feita em duplas."}), [])  # curto (≤ 60)
+        # PoC 11 (deteccao-acentuacao-1.1): campo curto com palavra inequívoca passou a contar (na 1.0 este caso dava []).
+        self.assertEqual(acentuacao.campos_sem_acentuacao({"a": "A avaliacao sera feita em duplas."}), ["a"])
+        self.assertEqual(acentuacao.campos_sem_acentuacao({"a": "O aluno pratica a analise especifica."}), [])  # curto, só ambíguas
         self.assertEqual(acentuacao.campos_sem_acentuacao(
             {"a": "Os estudantes trabalham em duplas e depois apresentam as listas para toda a turma."}), [])  # sem palavra-guia
         for frase in ("A explicacao do professor ocorre durante a atividade de comparacao dos grupos.",

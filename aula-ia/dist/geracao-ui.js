@@ -150,6 +150,14 @@
   const GRAVIDADES = { critica: "Crítica", maior: "Maior", menor: "Menor" };
   const CLASSES = { aguardando_decisao: "favoravel", em_correcao: "ressalvas", revisao_necessaria: "revisao" };
 
+  // PoC 11: conflito da própria entrada (habilidade × recursos/tipo de aula) vira recomendação junto do plano entregue. Não bloqueia.
+  function recomendacoesHtml(alertas) {
+    const itens = (alertas || []).filter(a => a.recomendacao);
+    if (!itens.length) return "";
+    return `<section class="geracao-recomendacao" role="note"><h4>Recomendação ao professor</h4>
+      ${itens.map(a => `<p>${texto(a.mensagem)} ${texto(a.recomendacao)}</p>`).join("")}</section>`;
+  }
+
   function avaliacaoHtml(avaliacao, pedido, geracaoId) {
     if (!avaliacao) return "";
     const parecer = avaliacao.parecer;
@@ -249,7 +257,7 @@
         ? "<b>Demonstração por regras:</b> o plano é gerado automaticamente, mas não por um modelo de linguagem. Revise a adequação pedagógica antes de aprovar."
         : resultado ? `<b>Geração com IA:</b> cinco especialistas usam ${texto(resultado.modelo)}. O plano passou pelo validador de contrato e pela IA Juiz e deve ser revisado pedagogicamente.` : "O plano será gerado, avaliado pela IA Juiz e apresentado para sua revisão. Isso pode levar até 4 minutos."}</div>`}
       ${falha && !emAndamento ? soDepuracao(`<details><summary>Detalhes da tentativa que falhou</summary><pre>${json(falha)}</pre></details>`) : ""}
-      ${emAndamento ? "" : resultado ? avaliacaoHtml(geracao.avaliacao, pedido, geracao.id) + planoHtml(resultado.plano, resultado, geracao)
+      ${emAndamento ? "" : resultado ? recomendacoesHtml(dadosAtuais.alertas) + avaliacaoHtml(geracao.avaliacao, pedido, geracao.id) + planoHtml(resultado.plano, resultado, geracao)
         : `<p class="geracao-vazio">Nenhum plano gerado ainda. A habilidade ${texto(dadosAtuais.entrada_geracao.habilidade.codigo)} está confirmada e pronta para iniciar o processo.</p>`}
       <div class="geracao-botoes">
         ${emAndamento ? `<button type="button" class="primario" disabled>Gerando e avaliando…</button>` : ""}

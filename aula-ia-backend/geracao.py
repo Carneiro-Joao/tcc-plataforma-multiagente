@@ -13,7 +13,7 @@ import re
 from contratos.execucao import VERSAO, validar, integrar
 from erros import ErroGeracao, ErroContrato
 from gemini import AgenteGemini, MODELO_PADRAO
-from acentuacao import campos_sem_acentuacao, mesma_estrutura, INSTRUCAO_REESCRITA
+from acentuacao import campos_sem_acentuacao, mesma_estrutura, INSTRUCAO_REESCRITA, VERSAO as VERSAO_ACENTUACAO
 
 
 def validar_saida(plano, entrada):
@@ -137,7 +137,7 @@ class GeradorDePlano:
             return saida
         reparo = {"erro": "Texto sem acentuação.", "diagnosticos": [{"caminho": c, "regra": "sem_acentuacao"} for c in campos],
                   "resposta_anterior": deepcopy(saida), "instrucao": INSTRUCAO_REESCRITA}
-        reg = {"agente": nome, "tentativa": "acentuacao", "estado": "processando", "reparo": deepcopy(reparo),
+        reg = {"agente": nome, "tentativa": "acentuacao", "regra": VERSAO_ACENTUACAO, "estado": "processando", "reparo": deepcopy(reparo),
                "entrada": {"contexto": deepcopy(entrada["contexto"]), "habilidade": deepcopy(entrada["habilidade"]),
                            "saidas_anteriores": deepcopy(dependencias)}}
         rastreio.append(reg)
