@@ -1,0 +1,42 @@
+{
+ "cenario": "1",
+ "contexto_formulario": {
+  "tema": "quero ensinar ordenação",
+  "tipo": "Aula prática",
+  "duracao": "50",
+  "recursos": [
+   "projetor",
+   "computadores"
+  ]
+ },
+ "consulta_id": "4f9725ab7b57435486a40e3ffd9e7e56",
+ "habilidade_confirmada": "EF08CO03",
+ "pedido_id": "607295efaa11470685bb6d162f133aa0",
+ "estado_pedido": "pronto",
+ "segundos_na_interface": 157,
+ "etapas_vistas": [
+  {
+   "etapa": "Gerando plano…",
+   "s": 2
+  },
+  {
+   "etapa": "IA Juiz avaliando…",
+   "s": 12
+  },
+  {
+   "etapa": "Ajustando: gerando nova versão com as críticas do Juiz…",
+   "s": 18
+  },
+  {
+   "etapa": "Aguardando a cota da IA Juiz…",
+   "s": 30
+  },
+  {
+   "etapa": "IA Juiz avaliando a nova versão…",
+   "s": 88
+  }
+ ],
+ "pdf_rascunho": true,
+ "aprovado": false,
+ "erro_tela": null
+}

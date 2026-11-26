@@ -1,0 +1,46 @@
+{
+ "cenario": "4",
+ "contexto_formulario": {
+  "tema": "listas",
+  "tipo": "Aula teórica",
+  "duracao": "50",
+  "recursos": [
+   "quadro e pincel",
+   "projetor"
+  ]
+ },
+ "consulta_id": "943261adb7614bc484239eeb6b7ab833",
+ "habilidade_confirmada": "EF08CO02",
+ "pedido_id": "f388bdd80ac14b9dab0aa28c58e627ad",
+ "estado_pedido": "pronto",
+ "segundos_na_interface": 141,
+ "etapas_vistas": [
+  {
+   "etapa": "Gerando plano…",
+   "s": 2
+  },
+  {
+   "etapa": "Aguardando a cota da IA Juiz…",
+   "s": 12
+  },
+  {
+   "etapa": "IA Juiz avaliando…",
+   "s": 61
+  },
+  {
+   "etapa": "Ajustando: gerando nova versão com as críticas do Juiz…",
+   "s": 65
+  },
+  {
+   "etapa": "Aguardando a cota da IA Juiz…",
+   "s": 82
+  },
+  {
+   "etapa": "IA Juiz avaliando a nova versão…",
+   "s": 134
+  }
+ ],
+ "pdf_rascunho": true,
+ "aprovado": false,
+ "erro_tela": null
+}

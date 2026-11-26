@@ -1,0 +1,201 @@
+{
+  "plano": {
+    "identificacao": {
+      "titulo": "Plano de aula — Listas",
+      "componente": "Computação",
+      "ano": "8º ano",
+      "tema": "Listas",
+      "tipo": "Aula teórica",
+      "duracao_min": 50
+    },
+    "habilidade_bncc": {
+      "codigo": "EF08CO02",
+      "descricao": "Criar soluções de problemas para os quais seja adequado o uso de listas para descrever suas informações e automatizá-las usando uma linguagem de programação, empregando ou não a recursão como uma técnica de resolver o problema.",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Programação com listas e recursão",
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    },
+    "conteudos": [
+      "Conceito de listas em programação",
+      "Organização e estruturação de dados em sequência",
+      "Automatização de tarefas utilizando coleções de elementos"
+    ],
+    "objetivo_geral": "Compreender o uso de listas para descrever informações e automatizar a solução de problemas computacionais através de explicação oral e demonstração visual.",
+    "objetivos_especificos": [
+      {
+        "id": "OBJ1",
+        "descricao": "Identificar a utilidade das listas na organização de dados estruturados por meio de exemplos no quadro."
+      },
+      {
+        "id": "OBJ2",
+        "descricao": "Explicar oralmente como automatizar a manipulação de dados sequenciais usando conceitos de programação."
+      }
+    ],
+    "metodologia": "A aula será desenvolvida por meio de exposição dialogada e demonstração prática no quadro e pincel. O professor iniciará apresentando o conceito de listas como uma estrutura de dados sequencial, utilizando analogias do cotidiano e anotando esquemas visuais no quadro. Em seguida, utilizando o projetor, serão exibidos exemplos de código e problemas práticos que exigem o uso de listas, conforme a habilidade EF08CO02. Durante a explanação, o professor fará perguntas direcionadas aos alunos para verificar a compreensão sobre a organização e a automação de dados. Os alunos participarão respondendo oralmente aos questionamentos e discutindo colectivamente as soluções propostas para os problemas apresentados no projetor, sem a necessidade de registros escritos.",
+    "recursos": "quadro e pincel, projetor",
+    "desenvolvimento": [
+      {
+        "id": "ET1",
+        "titulo": "Introdução às Listas",
+        "minutos": 25,
+        "acao_docente": "O professor apresenta o conceito de listas usando o quadro e o pincel para desenhar esquemas visuais e analogias cotidianas.",
+        "acao_discente": "Os alunos acompanham a explicação visual e respondem oralmente aos questionamentos do professor sobre organização de dados.",
+        "atividade": "Exposição dialogada com perguntas e respostas sobre a utilidade das listas.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "evidencias_ids": [
+          "EVI1"
+        ]
+      },
+      {
+        "id": "ET2",
+        "titulo": "Automação e Manipulação com Listas",
+        "minutos": 25,
+        "acao_docente": "O professor utiliza o projetor para exibir exemplos de códigos com listas e conduz uma discussão coletiva sobre a resolução de problemas.",
+        "acao_discente": "Os alunos observam os exemplos no projetor e explicam oralmente os passos para automatizar a manipulação de dados sequenciais.",
+        "atividade": "Demonstração visual no projetor e debate oral sobre a resolução automatizada de problemas.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI2"
+        ]
+      }
+    ],
+    "avaliacao_aprendizagem": {
+      "evidencias": [
+        {
+          "id": "EVI1",
+          "objetivo_id": "OBJ1",
+          "criterio": "Participar da demonstração oral respondendo perguntas sobre a organização de elementos no quadro.",
+          "evidencia_esperada": "O aluno responde corretamente aos questionamentos do professor sobre a aplicação de listas nos exemplos apresentados visualmente."
+        },
+        {
+          "id": "EVI2",
+          "objetivo_id": "OBJ2",
+          "criterio": "Demonstrar compreensão explicando para a turma como automatizar sequêcias de dados utilizando a lógica de listas.",
+          "evidencia_esperada": "O aluno descreve oralmente os passos necessários para a manipulação automatizada de dados em formato de lista."
+        }
+      ],
+      "instrumentos": [
+        {
+          "id": "INS1",
+          "descricao": "Avaliação oral da participação na demonstração visual sobre listas",
+          "etapas_ids": [
+            "ET1"
+          ],
+          "evidencias_ids": [
+            "EVI1"
+          ],
+          "procedimento": "O professor faz perguntas orais aos alunos sobre a aplicação de listas nos exemplos apresentados no quadro e valida se as respostas demonstram compreensão da organização de elementos."
+        },
+        {
+          "id": "INS2",
+          "descricao": "Arguição oral sobre a automação e manipulação de dados sequenciais",
+          "etapas_ids": [
+            "ET2"
+          ],
+          "evidencias_ids": [
+            "EVI2"
+          ],
+          "procedimento": "O professor convida os alunos a explicarem oralmente os passos observados no projetor para automatizar a manipulação de dados em formato de lista."
+        }
+      ],
+      "uso_resultados": "O professor utilizará os resultados das arguições e respostas orais durante a aula para verificar se os alunos compreenderam o conceito de listas e a automação de dados, ajustando a explicação imediatamente caso identifique dúvidas na compreensão dos exemplos exibidos no quadro e no projetor."
+    },
+    "adaptacoes": [
+      {
+        "id": "ADP1",
+        "descricao": "Adaptar a exposição visual no quadro e pincel utilizando analogias adicionais com objetos cotidianos para facilitar a identificação da utilidade das listas.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "etapas_ids": [
+          "ET1"
+        ]
+      },
+      {
+        "id": "ADP2",
+        "descricao": "Destacar no projetor os trechos principais dos códigos de programação com listas, dividindo a explicação em partes menores e realizando pausas para perguntas e respostas.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "etapas_ids": [
+          "ET2"
+        ]
+      }
+    ],
+    "referencias": [
+      {
+        "id": "BNCC",
+        "titulo": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "paginas": [
+          52,
+          53
+        ],
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    ]
+  },
+  "entrada": {
+    "versao": "1.0",
+    "consulta_id": "943261adb7614bc484239eeb6b7ab833",
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "Listas",
+      "duracao_min": 50,
+      "recursos": "quadro e pincel, projetor",
+      "tipo": "Aula teórica"
+    },
+    "habilidade": {
+      "codigo": "EF08CO02",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Programação com listas e recursão",
+      "habilidade": "Criar soluções de problemas para os quais seja adequado o uso de listas para descrever suas informações e automatizá-las usando uma linguagem de programação, empregando ou não a recursão como uma técnica de resolver o problema.",
+      "explicacao": "Fazer projetos e construir soluções usando listas e recursão. É importante realizar análise crítica de programas recursivos, identificando a existência de um caso base e de chamadas recursivas que façam o programa convergir para o fim.",
+      "exemplos": [
+        "Fazer um programa que junte duas pilhas de cartas ordenadas de forma que o baralho todo continue ordenado."
+      ],
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    }
+  },
+  "modelo_gerador": "gemini-3.5-flash-lite",
+  "revisao": 1,
+  "origem": {
+    "tipo": "sqlite_real",
+    "geracao_id": "a96a4b1551c64f38bf1d6ee10442c82b",
+    "consulta_id": "943261adb7614bc484239eeb6b7ab833",
+    "estado_original": "rascunho",
+    "criado_em_sqlite_utc": "2026-11-26 01:04:59",
+    "resultado_sqlite_sha256": "527dee57ba72ff97d618213bdc566b8414c4d66859ead1d373671cc99cf8519a",
+    "consulta_sqlite_sha256": "9db8ce9e95d62b036f30a374296d605542a51bfc619e4dd6f1d72d1edba8512d",
+    "plano_sha256": "a56c5b1c6ebd8beb85f037c48448cec71d70c9cb842b022d6e86cdca6420cfe3",
+    "entrada_sha256": "7404f9c2b549e5cc762340da3b3351b815404c6800657e84efb527eb280b02d1",
+    "contrato_gerador": "plano-aula-2.0",
+    "provedor_gerador": "gemini",
+    "prompts_gerador": [
+      "especialistas-plano-2.3"
+    ],
+    "modelos_respondidos": [
+      "gemini-3.5-flash-lite"
+    ],
+    "tempo_geracao_s": 11.7
+  }
+}

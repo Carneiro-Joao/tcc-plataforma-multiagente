@@ -1,0 +1,205 @@
+{
+  "plano": {
+    "identificacao": {
+      "titulo": "Plano de aula — Ordenação",
+      "componente": "Computação",
+      "ano": "8º ano",
+      "tema": "Ordenação",
+      "tipo": "Computação desplugada",
+      "duracao_min": 50
+    },
+    "habilidade_bncc": {
+      "codigo": "EF08CO03",
+      "descricao": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    },
+    "conteudos": [
+      "Conceito de algoritmos de ordenação",
+      "Simulação do algoritmo Bubblesort",
+      "Comparação de elementos em listas"
+    ],
+    "objetivo_geral": "Utilizar algoritmos clássicos de manipulação sobre listas por meio de simulação desplugada.",
+    "objetivos_especificos": [
+      {
+        "id": "OBJ1",
+        "descricao": "Explicar o funcionamento do algoritmo Bubblesort utilizando o quadro."
+      },
+      {
+        "id": "OBJ2",
+        "descricao": "Simular passos de ordenação de elementos dispostos em sequência."
+      }
+    ],
+    "metodologia": "A aula inicia com uma explicação oral utilizando o quadro e pincel para introduzir o conceito de algoritmos de ordenação e a lógica do Bubblesort. O professor demonstra no quadro como comparar pares de elementos adjacentes e realizar trocas quando necessário. Em seguida, ocorre uma atividade prática em que os alunos participam por meio de perguntas e respostas, simulando os passos de ordenação diretamente no quadro. A estratégia baseia-se na demonstração visual e na explicação oral para garantir a compreensão da manipulação de listas sem o uso de dispositivos eletrônicos.",
+    "recursos": "quadro e pincel",
+    "desenvolvimento": [
+      {
+        "id": "ET1",
+        "titulo": "Introdução ao Bubblesort",
+        "minutos": 20,
+        "acao_docente": "Explicar oralmente no quadro o conceito de algoritmos de ordenação e demonstrar a lógica do Bubblesort utilizando quadro e pincel.",
+        "acao_discente": "Ouvir a explicação oral, responder às perguntas do professor e observar a demonstração visual no quadro.",
+        "atividade": "Explicação dialogada sobre a comparação de elementos adjacentes.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "evidencias_ids": [
+          "EVI1"
+        ]
+      },
+      {
+        "id": "ET2",
+        "titulo": "Simulação prática de ordenação",
+        "minutos": 30,
+        "acao_docente": "Conduzir a atividade de perguntas e respostas guiando os alunos na simulação dos passos de ordenação de uma sequência diretamente no quadro.",
+        "acao_discente": "Participar respondendo às perguntas e indicando oralmente como reorganizar e comparar os elementos sequenciais no quadro.",
+        "atividade": "Simulação desplugada passo a passo de ordenação de itens utilizando o quadro e pincel.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "evidencias_ids": [
+          "EVI2"
+        ]
+      }
+    ],
+    "avaliacao_aprendizagem": {
+      "evidencias": [
+        {
+          "id": "EVI1",
+          "objetivo_id": "OBJ1",
+          "criterio": "Capacidade de explicar oralmente a lógica de troca de posições adjacentes do Bubblesort.",
+          "evidencia_esperada": "O aluno explica verbalmente como os elementos são comparados e trocados usando o quadro."
+        },
+        {
+          "id": "EVI2",
+          "objetivo_id": "OBJ2",
+          "criterio": "Participação correta na simulação prática da ordenação de uma sequência no quadro.",
+          "evidencia_esperada": "O estudante executa corretamente os passos sucessivos de comparação e reordenação dos itens propostos."
+        }
+      ],
+      "instrumentos": [
+        {
+          "id": "INS1",
+          "descricao": "Observação da explicação oral sobre a lógica de troca de posições adjacentes do Bubblesort no quadro.",
+          "etapas_ids": [
+            "ET1"
+          ],
+          "evidencias_ids": [
+            "EVI1"
+          ],
+          "procedimento": "O professor observa a participação dos alunos durante a explicação dialogada e a demonstração visual no quadro e pincel, ouvindo as explicações verbais dos estudantes sobre a lógica de comparação e troca de elementos."
+        },
+        {
+          "id": "INS2",
+          "descricao": "Acompanhamento da simulação prática de ordenação de uma sequência no quadro por meio de perguntas e respostas.",
+          "etapas_ids": [
+            "ET2"
+          ],
+          "evidencias_ids": [
+            "EVI2"
+          ],
+          "procedimento": "O professor conduz a atividade de perguntas e respostas guiando os alunos na simulação passo a passo, avaliando oralmente se indicam corretamente a reordenação e a comparação dos elementos sequenciais apresentados no quadro."
+        }
+      ],
+      "uso_resultados": "O professor utilizará as evidências coletadas por meio da observação da explicação oral e da participação na simulação para verificar se os alunos compreenderam o funcionamento do algoritmo Bubblesort e a manipulação de listas. A partir das respostas obtidas com o uso do quadro e pincel, o docente poderá retomar conceitos que geraram dúvidas, esclarecer a lógica de comparação de elementos adjacentes e ajustar a condução de futuras atividades desplugadas de pensamento computacional."
+    },
+    "adaptacoes": [
+      {
+        "id": "ADP1",
+        "descricao": "Adequação da explicação oral no quadro para uso exclusivo de perguntas e respostas curtas, garantindo que alunos com dificuldades de acompanhamento visual consigam verbalizar o entendimento passo a passo da lógica do Bubblesort.",
+        "objetivos_ids": [
+          "OBJ1"
+        ],
+        "etapas_ids": [
+          "ET1"
+        ]
+      },
+      {
+        "id": "ADP2",
+        "descricao": "Adaptação da simulação prática no quadro dividindo a sequência de números em partes menores, facilitando a participação oral dos estudantes através de perguntas direcionadas sobre a comparação de elementos adjacentes.",
+        "objetivos_ids": [
+          "OBJ2"
+        ],
+        "etapas_ids": [
+          "ET2"
+        ]
+      }
+    ],
+    "referencias": [
+      {
+        "id": "BNCC",
+        "titulo": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "paginas": [
+          52,
+          53
+        ],
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    ]
+  },
+  "entrada": {
+    "versao": "1.0",
+    "consulta_id": "d5c2c2a844d6419a98ca22c9dde070ae",
+    "contexto": {
+      "ano": "8º ano",
+      "tema": "Ordenação",
+      "duracao_min": 50,
+      "recursos": "quadro e pincel",
+      "tipo": "Computação desplugada"
+    },
+    "habilidade": {
+      "codigo": "EF08CO03",
+      "eixo": "Pensamento Computacional",
+      "objeto_conhecimento": "Algoritmos clássicos",
+      "habilidade": "Utilizar algoritmos clássicos de manipulação sobre listas.",
+      "explicacao": "Compreender algoritmos de manipulação de listas, podendo os alunos simular os algoritmos ou implementá-los.",
+      "exemplos": [
+        "Algoritmos de ordenação: Bubblesort, Mergesort e Quicksort.",
+        "Algoritmos de inserção.",
+        "Algoritmos de remoção.",
+        "Algoritmos de busca linear.",
+        "Algoritmos de busca binária."
+      ],
+      "referencia": {
+        "documento": "Computação na Educação Básica – Complemento à BNCC",
+        "arquivo": "BNCCComputacao.pdf",
+        "pagina_habilidade": 52,
+        "pagina_exemplos": 53,
+        "versao_catalogo": "bncc-8ano-v1",
+        "sha256_catalogo": "3c0cfbfae7c29f25991b2130851f375679751c0ac6a84fec51559abc17abaec6"
+      }
+    }
+  },
+  "modelo_gerador": "gemini-3.5-flash-lite",
+  "revisao": 1,
+  "origem": {
+    "tipo": "sqlite_real",
+    "geracao_id": "fd572b595607484c8de32d49be9c0998",
+    "consulta_id": "d5c2c2a844d6419a98ca22c9dde070ae",
+    "estado_original": "rascunho",
+    "criado_em_sqlite_utc": "2026-11-26 01:01:27",
+    "resultado_sqlite_sha256": "f79bba1d85fe84351e1bbf777fb3e3f9fc334d9dfc38ed5fce22cc1c824a0d97",
+    "consulta_sqlite_sha256": "9784836f56a0ab8d058cbf82154ba022be0c3fe431c2ef64827dd0c45755dc42",
+    "plano_sha256": "24211e22a464887e47f285a37cc6ececfdd02ca7dd9e5cd267c526126ba13951",
+    "entrada_sha256": "9a4f69030dc6f07dcc63a31cc48af4e6706bf73db43a60cafea26b2a384cfc8f",
+    "contrato_gerador": "plano-aula-2.0",
+    "provedor_gerador": "gemini",
+    "prompts_gerador": [
+      "especialistas-plano-2.3"
+    ],
+    "modelos_respondidos": [
+      "gemini-3.5-flash-lite"
+    ],
+    "tempo_geracao_s": 12.165
+  }
+}

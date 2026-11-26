@@ -1,0 +1,46 @@
+{
+ "cenario": "3",
+ "contexto_formulario": {
+  "tema": "busca binária",
+  "tipo": "Computação desplugada",
+  "duracao": "50",
+  "recursos": [
+   "quadro e pincel",
+   "material impresso"
+  ]
+ },
+ "consulta_id": "a664ba58c0ce489bbe0d9c1be76458bf",
+ "habilidade_confirmada": "EF08CO03",
+ "pedido_id": "b67c685ae0344d50b5a1ab739960d1cd",
+ "estado_pedido": "pronto",
+ "segundos_na_interface": 135,
+ "etapas_vistas": [
+  {
+   "etapa": "Gerando plano…",
+   "s": 2
+  },
+  {
+   "etapa": "Aguardando a cota da IA Juiz…",
+   "s": 14
+  },
+  {
+   "etapa": "IA Juiz avaliando…",
+   "s": 57
+  },
+  {
+   "etapa": "Ajustando: gerando nova versão com as críticas do Juiz…",
+   "s": 63
+  },
+  {
+   "etapa": "Aguardando a cota da IA Juiz…",
+   "s": 84
+  },
+  {
+   "etapa": "IA Juiz avaliando a nova versão…",
+   "s": 132
+  }
+ ],
+ "pdf_rascunho": true,
+ "aprovado": false,
+ "erro_tela": null
+}
