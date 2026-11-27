@@ -20,7 +20,7 @@ UCS = {
     "UC04": (520, 650, 135, 50, ["UC04", "Baixar plano em PDF"], "uc"),
     "CTX": (830, 260, 125, 46, ["Informar contexto", "da aula"], "aux"),
     "CONF": (1130, 300, 125, 46, ["Confirmar", "habilidade BNCC"], "aux"),
-    "CAT": (620, 815, 130, 46, ["Escolher habilidade", "no catálogo"], "aux"),
+    "CAT": (1150, 470, 130, 46, ["Escolher habilidade", "no catálogo"], "aux"),
     "FONTE": (890, 845, 140, 46, ["Abrir documento-fonte", "da BNCC"], "aux"),
     "NOVA": (1150, 790, 110, 40, ["Gerar novamente"], "aux"),
 }
@@ -28,7 +28,7 @@ ATORES = {"P": (150, 500, ["Professor"]), "GEM": (1560, 340, ["Serviço de LLM",
           "GROQ": (1560, 660, ["Serviço de LLM", "de avaliação", "(API Groq)"])}
 ASSOC = [("P", "UC01"), ("P", "UC02"), ("P", "UC03"), ("P", "UC04"), ("UC01", "GEM"), ("UC01", "GROQ")]
 INCLUDE = [("UC01", "CTX"), ("UC01", "CONF")]
-EXTEND = [("CAT", "UC01"), ("FONTE", "UC01"), ("NOVA", "UC01")]
+EXTEND = [("CAT", "CONF"), ("FONTE", "UC01"), ("NOVA", "UC01")]
 
 
 def borda_elipse(id_, alvo):

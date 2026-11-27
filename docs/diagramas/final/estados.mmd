@@ -3,7 +3,7 @@ stateDiagram-v2
     state "Em andamento" as andamento {
         [*] --> gerando
         gerando --> avaliando: plano válido
-        avaliando --> aguardando_juiz: espera a cota do Groq
+        avaliando --> aguardando_juiz: espera a cota da Groq
         aguardando_juiz --> avaliando
         avaliando --> regenerando: não favorável e há ciclo
         regenerando --> avaliando: nova versão válida
