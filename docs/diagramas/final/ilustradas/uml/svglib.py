@@ -4,14 +4,15 @@ INK="#1f2937"; MUTED="#64748b"
 class S:
     def __init__(s,w,h): s.w,s.h,s.o=w,h,[]
     def add(s,x): s.o.append(x)
-    def text(s,x,y,lines,size=16,anchor="middle",weight=400,fill=INK,style="normal"):
+    def text(s,x,y,lines,size=16,anchor="middle",weight=400,fill=INK,style="normal",halo=False):
         if isinstance(lines,str): lines=[lines]
         lh=size*1.22; y0=y-(len(lines)-1)*lh/2
         for i,l in enumerate(lines):
             w=weight; st=style; sz=size
             if isinstance(l,tuple): l,opt=l; w=opt.get('w',w); st=opt.get('st',st); sz=opt.get('sz',sz)
+            hl=' stroke="#fff" stroke-width="5" paint-order="stroke" stroke-linejoin="round"' if halo else ''
             l=l.replace('&','&amp;').replace('<','&lt;').replace('>','&gt;')
-            s.add(f'<text x="{x}" y="{y0+i*lh+sz*0.35:.1f}" font-family="{F}" font-size="{sz}" font-weight="{w}" font-style="{st}" text-anchor="{anchor}" fill="{fill}">{l}</text>')
+            s.add(f'<text x="{x}" y="{y0+i*lh+sz*0.35:.1f}" font-family="{F}" font-size="{sz}" font-weight="{w}" font-style="{st}" text-anchor="{anchor}" fill="{fill}"{hl}>{l}</text>')
     def rect(s,x,y,w,h,rx=0,fill="#fff",stroke=INK,sw=1.4,dash=None):
         d=f' stroke-dasharray="{dash}"' if dash else ''
         s.add(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{rx}" fill="{fill}" stroke="{stroke}" stroke-width="{sw}"{d}/>')
