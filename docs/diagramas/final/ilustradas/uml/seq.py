@@ -8,7 +8,7 @@ m('P','I',"Informar contexto"); m('I','S',"POST /consultas"); m('S','T',["Extrai
 m('T','S',["Candidatas","e fonte"],True); m('S','DB',"Registrar consulta"); m('S','I',"Tema e candidatas",True)
 m('P','I',"Confirmar habilidade"); m('I','S',"POST /confirmar"); m('S','DB',"Gravar confirmação")
 m('P','I',"Gerar plano"); m('I','S',"POST /gerar"); m('S','DB',"Criar pedido"); m('S','O',"Gerar plano")
-frag('loop','loop',True); m('O','E',["Próxima etapa com as","saídas anteriores"]); m('E','O',["Saída JSON","validada"],True); frag('loop','',False)
+frag('loop','loop',True); m('O','E',["Próxima etapa com as","saídas anteriores"]); m('E','O',"Saída em JSON",True); m('O','O',"Validar a saída"); frag('loop','',False)
 m('O','O',["Integrar 11 seções","e validar contrato"]); m('O','S',"Plano válido (rascunho)",True)
 m('S','J',"Avaliar plano (rubrica de 6 critérios)"); m('J','S',"Parecer e decisão da política",True)
 frag('opt','opt',True); m('S','O',["Gerar de novo com a versão","anterior e as críticas"]); m('O','S',"Nova versão",True); m('S','J',"Avaliar a nova versão"); m('J','S',"Novo parecer",True); frag('opt','',False)
